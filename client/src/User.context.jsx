@@ -9,19 +9,21 @@ export function UserContextProvider({ children }) {
   const [username, setUsername] = useState(null);
   const [id, setId] = useState(null);
   const [name, setName] = useState(null);
-  const [apellidos, setApellidos] = useState(null);
+  const [lastName, setLastName] = useState(null);
 
   useEffect(() => {
     axios.get('/profile').then(response => {
+      console.log('desde useEfecto Profile' + response);
+
       setId(response.data.id)
       setUsername(response.data.username)
       setName(response.data.nombres)
-      setApellidos(response.data.apellidos)
+      setLastName(response.data.apellidos)
     })
   }, [])
 
   return (
-    <UserContext.Provider value={{ username, setUsername, id, setId, name, setName, apellidos, setApellidos }}>
+    <UserContext.Provider value={{ username, setUsername, id, setId, name, setName, lastName, setLastName }}>
       {children}
     </UserContext.Provider>
   )

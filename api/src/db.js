@@ -3,8 +3,8 @@ import oracledb from 'oracledb'
 
 oracledb.initOracleClient({ libDir: 'C:/instantclient_11_2' });
 
-// TODO: Creando la conecxión dataUsers
-export const connection = createPool({
+// TODO: Creando la conecxión Mysql
+export const connectMysql = createPool({
   host: 'localhost',
   user: 'root',
   password: '123456',
@@ -13,7 +13,7 @@ export const connection = createPool({
 })
 
 // TODO: Creando la conecxión a bd Clientes
-export const conecOracDB = await oracledb.getConnection({
+export const connectOraDb = await oracledb.getConnection({
   user: "INSERTACLIENTES",
   password: '01e8dc3934',  // contains the hr schema password
   connectString: "172.20.1.174:1521/demopb"

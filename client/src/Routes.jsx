@@ -8,7 +8,7 @@ export default function Routes() {
   const { username, name, id, apellidos } = useContext(UserContext)
 
   if (username) {
-    return (<Dashboard nombre={name} id={id} apellidos={apellidos} />)
+    return (<Dashboard />)
   }
 
   return (

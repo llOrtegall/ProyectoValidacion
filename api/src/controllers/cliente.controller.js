@@ -1,14 +1,14 @@
-import { connection } from '../db.js'
+import { connectMysql } from '../db.js'
 
 export const getClientes = async (req, res) => {
-  const [result] = await connection.query('SELECT * FROM personayumbo')
+  const [result] = await connectMysql.query('SELECT * FROM personayumbo')
   res.status(202).json(result)
 }
 
 export const getClient = async (req, res) => {
   const { documento } = req.body
 
-  const [result] = await connection.query(`SELECT * FROM personayumbo where cedula=${documento}`)
+  const [result] = await connectMysql.query(`SELECT * FROM personayumbo where cedula=${documento}`)
   res.status(200).json(result)
 }
 

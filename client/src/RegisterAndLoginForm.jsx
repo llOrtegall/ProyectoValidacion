@@ -4,38 +4,42 @@ import { UserContext } from './User.context';
 
 export const RegisterAndLoginForm = () => {
 
-  function Refresh() {
-    setTimeout(() => location.reload(), 600)
-  }
+  // * username, setUsername, id, setId, name, setName, lastName, setLastName
+  const { setUsername: setLoggedInUsername, setId } = useContext(UserContext)
 
   // TODO: Para Registro
-  const [name, setName] = useState('');
-  const [apellidos, setApellidos] = useState('');
-  const [cedula, setCedula] = useState('');
+  const [names, setNames] = useState('');
+  const [lastNames, setLastNames] = useState('');
+  const [document, setDocument] = useState('');
 
   // TODO: Para Logín
-  const [username, setUsername] = useState('');
+  const [user, setUser] = useState('');
   const [password, setPassword] = useState('');
+
+  // TODO: Para controlar el formulario
   const [isLoginOrRegister, setIsLoginOrRegister] = useState('Iniciar Session')
 
-  const { setUsername: setLoggedInUsername, setId } = useContext(UserContext)
 
 
   async function iniciarSession(ev) {
     ev.preventDefault()
-    // TODO: Aqui la respuesta data
-    const { data } = await axios.post('/login', { username, password })
-    setLoggedInUsername(username);
+    const { data } = await axios.post('/login', { user, password })
+    setLoggedInUsername(user);
     setId(data.id)
     setName(data.nombres)
   }
 
   async function Registrarse(ev) {
     ev.preventDefault()
-    const { data } = await axios.post('/register', { name, cedula, apellidos })
-    setLoggedInUsername(username);
-    setId(data.id)
-    setName(data.nombres)
+
+    console.log(ev.target.value);
+
+    const data = await axios.post('/register', { names, document, lastNames })
+    console.log(data);
+
+    // setLoggedInUsername(username);
+    // setId(data.id)
+    // setNames(data.nombres)
   }
 
   return (
@@ -45,11 +49,11 @@ export const RegisterAndLoginForm = () => {
           <div>
             <form className="w-72" onSubmit={iniciarSession}>
               <h1 className='text-center font-semibold pb-4 text-xl'>Iniciar Session</h1>
-              <input value={username} onChange={ev => setUsername(ev.target.value)} type="text" placeholder="Usuario"
+              <input value={user} onChange={ev => setUser(ev.target.value)} type="text" placeholder="Usuario"
                 className="block w-full rounded-md  border p-2 mb-2" />
               <input value={password} onChange={ev => setPassword(ev.target.value)} type="password" placeholder="Contraseña"
                 className="block w-full rounded-md border p-2 mb-2" />
-              <button onClick={Refresh} className="bg-blue-500 text-white block w-full rounded-md p-2 font-semibold shadow-lg">
+              <button className="bg-blue-500 text-white block w-full rounded-md p-2 font-semibold shadow-lg">
                 Iniciar Session
               </button>
             </form>
@@ -67,13 +71,13 @@ export const RegisterAndLoginForm = () => {
           <div>
             <form className="w-72" onSubmit={Registrarse}>
               <h1 className='text-center font-semibold pb-4 text-xl'>Ingresa Tus Datos De Registro</h1>
-              <input value={name} onChange={ev => setName(ev.target.value)} type="text" placeholder="Nombres"
+              <input value={names} onChange={ev => setNames(ev.target.value)} type="text" placeholder="Nombres"
                 className="block w-full rounded-md  border p-2 mb-2" />
-              <input value={apellidos} onChange={ev => setApellidos(ev.target.value)} type="text" placeholder="Apellidos"
+              <input value={lastNames} onChange={ev => setLastNames(ev.target.value)} type="text" placeholder="Apellidos"
                 className="block w-full rounded-md border p-2 mb-2" />
-              <input value={cedula} onChange={ev => setCedula(ev.target.value)} type="text" placeholder="Número De Cédula / ID"
+              <input value={document} onChange={ev => setDocument(ev.target.value)} type="text" placeholder="Número De Cédula / ID"
                 className="block w-full rounded-md border p-2 mb-2" />
-              <button onClick={Refresh} className="bg-blue-500 text-white block w-full rounded-md p-2 font-semibold shadow-lg">
+              <button className="bg-blue-500 text-white block w-full rounded-md p-2 font-semibold shadow-lg">
                 Registrarse
               </button>
             </form>

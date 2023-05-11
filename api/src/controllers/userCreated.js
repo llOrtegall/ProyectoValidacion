@@ -1,4 +1,4 @@
-import { conecOracDB } from '../db.js'
+import { connectOraDb } from '../db.js'
 
 export const userCreated = async (req, res) => {
 
@@ -7,7 +7,7 @@ export const userCreated = async (req, res) => {
   const results = [];
 
   for (const cedula of cedulas) {
-    const result = await conecOracDB.execute(`SELECT * FROM gamble.clientes WHERE documento = '${cedula}'`);
+    const result = await connectOraDb.execute(`SELECT * FROM gamble.clientes WHERE documento = '${cedula}'`);
     results.push(result);
   }
 
