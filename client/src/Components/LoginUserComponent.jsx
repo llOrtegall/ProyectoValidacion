@@ -1,6 +1,7 @@
 import { CloseSession, UserIcon } from "./IconsSvg";
 
 export function LoginUserComponent({ info }) {
+
   const { id, lastName, name, username } = info
 
   return (

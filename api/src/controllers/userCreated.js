@@ -2,21 +2,10 @@ import { connectOraDb } from '../db.js'
 
 export const userCreated = async (req, res) => {
 
-  const cedulas = req.body;
+  const result = await connectOraDb.execute(`SELECT * FROM gamble.clientes WHERE documento = '${cedula}'`);
 
-  const results = [];
 
-  for (const cedula of cedulas) {
-    const result = await connectOraDb.execute(`SELECT * FROM gamble.clientes WHERE documento = '${cedula}'`);
-    results.push(result);
-  }
 
-  const response = cedulas.map((cedula, index) => ({
-    cedula,
-    userCreated: results[index].rows?.length > 0
-  }));
-
-  res.status(200).json(response);
 }
 
 export const CreateUserclient = async (req, res) => {

@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { getData } from "../services/getDataUser.js";
-
+import { RegistradoClienteFiel } from "./RegistradoClienteFiel.jsx";
 export function RenderUsuarios() {
+
   const [user, setUser] = useState([])
 
   useEffect(() => {
@@ -24,10 +25,11 @@ export function RenderUsuarios() {
             <th>Telefono</th>
             <th>Correo</th>
             <th>N° Registro</th>
+            <th>RCF</th>
           </tr>
         </thead>
         <tbody className="text-center">
-          {console.log(user)}
+
           {user.map(item => {
             return (
               <tr key={item.cedula}>
@@ -36,6 +38,7 @@ export function RenderUsuarios() {
                 <td>{item.telefono}</td>
                 <td>{item.correo}</td>
                 <td>{item.telwhats}</td>
+                <RegistradoClienteFiel cc={item.cedula} />
               </tr>
             )
           })}
