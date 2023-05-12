@@ -5,7 +5,7 @@ import { UserContext } from './User.context';
 export const RegisterAndLoginForm = () => {
 
   // * username, setUsername, id, setId, name, setName, lastName, setLastName
-  const { setUsername: setLoggedInUsername, setId } = useContext(UserContext)
+  const { setUsername, setId, setName, lastName } = useContext(UserContext)
 
   // TODO: Para Registro
   const [names, setNames] = useState('');
@@ -20,7 +20,6 @@ export const RegisterAndLoginForm = () => {
   const [isLoginOrRegister, setIsLoginOrRegister] = useState('Iniciar Session')
 
 
-
   async function iniciarSession(ev) {
     ev.preventDefault()
     const { data } = await axios.post('/login', { user, password })
@@ -31,15 +30,9 @@ export const RegisterAndLoginForm = () => {
 
   async function Registrarse(ev) {
     ev.preventDefault()
-
-    console.log(ev.target.value);
-
-    const data = await axios.post('/register', { names, document, lastNames })
-    console.log(data);
-
-    // setLoggedInUsername(username);
-    // setId(data.id)
-    // setNames(data.nombres)
+    const { data } = await axios.post('/register', { names, document, lastNames })
+    const { apellidos, id, nombres, username } = data;
+    setUsername(username); setId(id); setName(nombres); lastName(apellidos);
   }
 
   return (

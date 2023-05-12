@@ -5,10 +5,10 @@ import { Dashboard } from "./Components/Dashboard";
 
 export default function Routes() {
 
-  const { username, name, id, apellidos } = useContext(UserContext)
+  const { username, id, name, lastName } = useContext(UserContext)
 
   if (username) {
-    return (<Dashboard />)
+    return (<Dashboard inf={{ username, id, name, lastName }} />)
   }
 
   return (
