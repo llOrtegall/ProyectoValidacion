@@ -1,12 +1,12 @@
 import { LoginUserComponent } from "../Components/LoginUserComponent.jsx";
-import { RenderUsuarios } from "./RenderUsuarios.jsx";
+// import { RenderUsuarios } from "./RenderUsuarios.jsx";
 
-export function Dashboard() {
+export function Dashboard({ infoUser }) {
 
   return (
     <>
-      <LoginUserComponent />
-      <RenderUsuarios />
+      <LoginUserComponent info={infoUser} />
+      {/* <RenderUsuarios /> */}
     </>
 
   )

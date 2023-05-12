@@ -10,14 +10,14 @@ export function UserContextProvider({ children }) {
   const [name, setName] = useState(null);
   const [lastName, setLastName] = useState(null);
 
+  // TODO: Si existe un TOKEN RECUPERA LA INFO EVITA QUE SE CIERRE SESION UNA VEZ INICIADA O AL RECARGAR
   useEffect(() => {
     axios.get('/profile').then(response => {
-      console.log(response);
-
-      setId(response.data.id)
-      setUsername(response.data.username)
-      setName(response.data.nombres)
-      setLastName(response.data.apellidos)
+      const { apellidos, id, nombres, username } = response.data;
+      setId(id)
+      setUsername(username)
+      setName(nombres)
+      setLastName(apellidos)
     })
   }, [])
 
