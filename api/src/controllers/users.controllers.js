@@ -24,23 +24,25 @@ export const getUsers = async (req, res) => {
 // TODO: /login
 export const getLogin = async (req, res) => {
 
-  const { username, password } = req.body
+  const { user, password } = req.body
+  const [result] = await connectMysql.query(`SELECT BIN_TO_UUID(id) id, username, password, nombres, apellidos FROM login WHERE username = '${user}'`)
 
-  const [result] = await connectMysql.query(`SELECT BIN_TO_UUID(id) id, username, password, nombres, apellidos FROM login WHERE username = '${username}'`)
-
-  if (username) {
+  if (result.length > 0) {
     const userData = result.find((i) => i)
     const { username, password: passDb, id, nombres, apellidos } = userData
-
     const passOk = bcrypt.compareSync(password, passDb)
     if (passOk) {
       jwt.sign({ id, username, nombres, apellidos }, JWT_SECRET, { expiresIn: '5h' }, (err, token) => {
         if (err) throw err
-        res.cookie('token', token, { sameSite: 'none', secure: 'true' }).status(201).json({
+        res.cookie('token', token, { sameSite: 'none', secure: 'true' }).status(202).json({
           id, username, nombres, apellidos
         })
       })
+    } else {
+      res.status(401).json('Contraseña Incorrecta')
     }
+  } else {
+    res.status(400).json('Usuario No Encontrado')
   }
 }
 

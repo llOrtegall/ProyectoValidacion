@@ -23,9 +23,8 @@ export const RegisterAndLoginForm = () => {
   async function iniciarSession(ev) {
     ev.preventDefault()
     const { data } = await axios.post('/login', { user, password })
-    setLoggedInUsername(user);
-    setId(data.id)
-    setName(data.nombres)
+    const { apellidos, id, nombres, username } = data;
+    setUsername(username); setId(id); setName(nombres); lastName(apellidos);
   }
 
   async function Registrarse(ev) {
