@@ -1,11 +1,14 @@
 import { connectOraDb } from '../db.js'
 
 export const userCreated = async (req, res) => {
+  const { cc } = req.body
+  const result = await connectOraDb.execute(`SELECT * FROM gamble.clientes WHERE documento = '${cc}'`);
 
-  const result = await connectOraDb.execute(`SELECT * FROM gamble.clientes WHERE documento = '${cedula}'`);
-
-
-
+  if (result.rows.length > 0) {
+    res.status(200).json('Si Existe')
+  } else {
+    res.status(200).json('No Existe')
+  }
 }
 
 export const CreateUserclient = async (req, res) => {
