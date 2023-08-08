@@ -13,20 +13,9 @@ export function RegistradoClienteFiel({ cc }) {
 
   }, [])
 
-  const ValidaUsuario = () => {
-    console.log(valida.data);
-
-    return (
-      valida.data === 'Si Existe'
-        ? <td className="bg-green-400">Si</td>
-        : <td className="bg-red-400">No</td>
-    )
-  }
-
-
-
-
   return (
-    <ValidaUsuario />
+    valida.data === 'Si Existe'
+      ? <td className="bg-green-400">Si</td>
+      : <td className="bg-red-400">No</td>
   )
 }

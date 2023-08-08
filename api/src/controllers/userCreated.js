@@ -1,5 +1,9 @@
 import { connectOraDb } from '../db.js'
 
+export const validarDian = async (req, res) => {
+
+}
+
 export const userCreated = async (req, res) => {
   const { cc } = req.body
   const result = await connectOraDb.execute(`SELECT * FROM gamble.clientes WHERE documento = '${cc}'`);
