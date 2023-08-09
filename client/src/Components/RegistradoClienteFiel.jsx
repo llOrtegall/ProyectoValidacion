@@ -13,9 +13,19 @@ export function RegistradoClienteFiel({ cc }) {
 
   }, [])
 
+
   return (
-    valida.data === 'Si Existe'
-      ? <td className="bg-green-400">Si</td>
-      : <td className="bg-red-400">No</td>
+    <>
+      {
+        valida.data === 'Si Existe'
+          ? <td className="bg-green-400">Si</td>
+          : <td className="bg-red-400">No</td>
+      }
+      {
+        valida.data === 'No Existe'
+          ? <button className="bg-yellow-300">Agregar</button>
+          : <td className="bg-green-400">Ok</td>
+      }
+    </>
   )
 }

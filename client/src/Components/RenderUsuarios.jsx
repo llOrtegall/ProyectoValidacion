@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { getData } from "../services/getDataUser.js";
 import { RegistradoClienteFiel } from "./RegistradoClienteFiel.jsx";
+
 export function RenderUsuarios() {
 
   const [user, setUser] = useState([])
@@ -26,6 +27,7 @@ export function RenderUsuarios() {
             <th>Correo</th>
             <th>N° Registro</th>
             <th>RCF</th>
+            <th>Opciones</th>
           </tr>
         </thead>
         <tbody className="text-center">
