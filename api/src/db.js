@@ -1,4 +1,4 @@
-import { createPool } from 'mysql2'
+import { createPool } from 'mysql2/promise'
 
 // TODO: Creando la conecxión
 export const connection = createPool({
