@@ -1,12 +1,9 @@
 import { Router } from 'express'
-import { connection } from '../db.js'
+import { ping } from '../controllers/index.controlller.js'
 
 const router = Router()
 
 // TODO: Trae todos los datos en la base de datos en un objeto JSON
-router.get('/ping', async (req, res) => {
-  const [result] = await connection.query('SELECT * FROM personayumbo')
-  res.json(result)
-})
+router.get('/ping', ping)
 
 export default router
