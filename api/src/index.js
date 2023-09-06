@@ -7,7 +7,7 @@ const PORT = 3000
 
 // TODO: routerUser para consultar la bd chatboot
 app.use(routerUser)
-// TODO: routerUser para consultar la bd Produccion
+// TODO: routerCliente para consultar la bd Produccion
 app.use(routerCliente)
 
 app.listen(PORT, () => {

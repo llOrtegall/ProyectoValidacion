@@ -6,13 +6,13 @@ export const getUsers = async (req, res) => {
 }
 
 export const createUser = (req, res) => {
-  res.send('obteniendo los usuarios')
+  res.send('Creando los usuarios')
 }
 
 export const updateUser = (req, res) => {
-  res.send('obteniendo los usuarios')
+  res.send('Actualizando los usuarios')
 }
 
 export const deleteUser = (req, res) => {
-  res.send('obteniendo los usuarios')
+  res.send('Borrando los usuarios')
 }
