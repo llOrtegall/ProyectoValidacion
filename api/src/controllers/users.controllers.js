@@ -1,5 +1,8 @@
-export const getUsers = (req, res) => {
-  res.send('obteniendo los usuarios')
+import { connection } from '../db.js'
+
+export const getUsers = async (req, res) => {
+  const [result] = await connection.query('SELECT * FROM personayumbo')
+  res.json(result)
 }
 
 export const createUser = (req, res) => {

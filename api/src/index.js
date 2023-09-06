@@ -1,11 +1,11 @@
 import express from 'express'
-import usersRoutes from './routes/users.routes.js'
-import indexRoutes from './routes/index.routes.js'
+import { routerUser } from './routes/users.routes.js'
+import { routerCliente } from './routes/cliente.routes.js'
 
 const app = express()
 const PORT = 3000
 
-app.use(usersRoutes)
-app.use(indexRoutes)
+app.use(routerUser)
+app.use(routerCliente)
 
 app.listen(PORT)
