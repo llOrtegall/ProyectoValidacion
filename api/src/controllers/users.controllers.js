@@ -16,3 +16,14 @@ export const updateUser = (req, res) => {
 export const deleteUser = (req, res) => {
   res.send('Borrando los usuarios')
 }
+
+export const getLogin = async (req, res) => {
+  const { username } = req.body
+
+  const [result] = await connection.query(`SELECT username, password FROM login WHERE username = '${username}'`)
+  const user = result.find((i) => i.username)
+  if (user.username === username) {
+    console.log('TODO VA BIEN')
+    res.send('TODO VA BIEN')
+  }
+}

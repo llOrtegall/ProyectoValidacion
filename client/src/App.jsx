@@ -1,9 +1,16 @@
+import axios from 'axios'
+import { UserContextProvider } from './User.context';
+import Routes from './Routes';
+
 function App() {
 
+  axios.defaults.baseURL = 'http://localhost:3000'
+  axios.defaults.withCredentials = true;
+
   return (
-    <div className="bg-red-400">
-      <h1>Hello World</h1>
-    </div>
+    <UserContextProvider>
+      <Routes />
+    </UserContextProvider>
   )
 }
 
