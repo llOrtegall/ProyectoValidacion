@@ -23,14 +23,23 @@ export const deleteUser = (req, res) => {
 export const getLogin = async (req, res) => {
   const { username, password } = req.body
 
-  const [result] = await connection.query(`SELECT username, password FROM login WHERE username = '${username}'`)
-  const user = result.find((i) => i.username)
+  const [result] = await connection.query(`SELECT BIN_TO_UUID(id) id, username, password FROM login WHERE username = '${username}'`)
 
-  if (user.username === username && user.password === password) {
-    // TODO: Creamos el JsonWebToken
-    jwt.sign({ username, password }, JWT_SECRET, {}, (err, token) => {
-      if (err) throw err
-      res.cookie('token', token).status(201).json('ok')
-    })
+  if (result.length > 0) {
+    const UserLogin = result.find((i) => i.username)
+    if (UserLogin.password === password) {
+      const id = UserLogin.id
+      // TODO: Creamos el JsonWebToken
+      jwt.sign({ username, password }, JWT_SECRET, {}, (err, token) => {
+        if (err) throw err
+        res.cookie('token', token).status(202).json({
+          id
+        })
+      })
+    } else {
+      res.status(401).json('Contraseña No Valida')
+    }
+  } else {
+    res.status(401).json('Error Al Iniciar Sesion Usuario No Encontrado')
   }
 }
