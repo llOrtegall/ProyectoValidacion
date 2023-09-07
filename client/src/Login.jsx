@@ -1,16 +1,20 @@
 import axios from 'axios';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { UserContext } from './User.context';
 
 export const Login = () => {
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
+  const { setUsername: setLoggedInUsername, setId } = useContext(UserContext)
+
   async function LoginUser(ev) {
     ev.preventDefault()
     // TODO: Aqui la respuesta data
     const { data } = await axios.post('/login', { username, password })
-    console.log(data)
+    setLoggedInUsername(username);
+    setId(data.id)
   }
 
   return (
