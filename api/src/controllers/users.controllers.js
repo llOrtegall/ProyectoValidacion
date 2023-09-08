@@ -31,7 +31,8 @@ export const createUser = async (req, res) => {
   const passWord = `CP${cedula.slice(-3)}`
 
   const UserCreado = await connection.query(`INSERT INTO login (username, password, nombres, apellidos) VALUES ('${userName}', '${passWord}', '${name}', '${apellidos}')`)
-  res.json(UserCreado)
+
+  res.status(202).json(UserCreado)
 }
 
 // TODO: /login
