@@ -8,6 +8,7 @@ export const getTest = async (req, res) => {
   res.status(200).json('Test Ok ¡¡¡')
 }
 
+// TODO: /profile
 export const getUsers = async (req, res) => {
   const token = req.cookies?.token
   if (token) {
@@ -20,6 +21,20 @@ export const getUsers = async (req, res) => {
   }
 }
 
+// TODO: /register
+export const createUser = async (req, res) => {
+  const { cedula, name, apellidos } = req.body
+
+  console.log(cedula, name, apellidos)
+
+  const userName = `CP${cedula}`
+  const passWord = `CP${cedula.slice(-3)}`
+
+  const UserCreado = await connection.query(`INSERT INTO login (username, password, nombres, apellidos) VALUES ('${userName}', '${passWord}', '${name}', '${apellidos}')`)
+  res.json(UserCreado)
+}
+
+// TODO: /login
 export const getLogin = async (req, res) => {
   const { username, password } = req.body
 
@@ -45,10 +60,6 @@ export const getLogin = async (req, res) => {
   } else {
     res.status(401).json('Error Al Iniciar Sesion Usuario No Encontrado')
   }
-}
-
-export const createUser = (req, res) => {
-  res.send('Creando los usuarios')
 }
 
 export const updateUser = (req, res) => {
