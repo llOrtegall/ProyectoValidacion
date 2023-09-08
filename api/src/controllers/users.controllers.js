@@ -1,4 +1,7 @@
 import { connection } from '../db.js'
+import jwt from 'jsonwebtoken'
+
+const JWT_SECRET = 'hjduytqorpkcmvnfhagqwtvquritoyklasdwqweru'
 
 export const getUsers = async (req, res) => {
   const [result] = await connection.query('SELECT * FROM personayumbo')
@@ -24,8 +27,10 @@ export const getLogin = async (req, res) => {
   const user = result.find((i) => i.username)
 
   if (user.username === username && user.password === password) {
-    res.status(201).json('Login Ok')
-  } else {
-    res.status(401).json({ message: 'Usuario o Contraseña No valida' })
+    // TODO: Creamos el JsonWebToken
+    jwt.sign({ username, password }, JWT_SECRET, {}, (err, token) => {
+      if (err) throw err
+      res.cookie('token', token).status(201).json('ok')
+    })
   }
 }
