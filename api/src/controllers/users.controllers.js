@@ -18,7 +18,7 @@ export const getUsers = async (req, res) => {
       res.json(userData)
     })
   } else {
-    res.status(401).json('No Token Sorry')
+    res.status(401).json('No Token')
   }
 }
 
@@ -28,44 +28,48 @@ export const createUser = async (req, res) => {
 
   const userName = `CP${cedula}`
   const passWord = `CP${cedula.slice(-3)}`
-
   const hashedPassword = bcrypt.hashSync(passWord, bcryptSalt)
 
-  const UserCreado = await connection.query(`INSERT INTO login (username, password, nombres, apellidos) VALUES ('${userName}', '${hashedPassword}', '${name} ', '${apellidos} ')`)
+  const [result] = await connection.query(`SELECT BIN_TO_UUID(id) id, username, password, nombres, apellidos FROM login WHERE username = '${userName}'`)
 
-  res.status(202).json(UserCreado)
+  if (!result.length > 0) {
+    const [UserCreado] = await connection.query(`INSERT INTO login (username, password, nombres, apellidos) VALUES ('${userName}', '${hashedPassword}', '${name} ', '${apellidos} ')`)
+
+    if (UserCreado.affectedRows === 1) {
+      const [result] = await connection.query(`SELECT BIN_TO_UUID(id) id, username, password, nombres, apellidos FROM login WHERE username = '${userName}'`)
+
+      // eslint-disable-next-line no-useless-catch
+      try {
+        const userData = result.find((i) => i)
+        const { id, username, nombres } = userData
+
+        jwt.sign({ id, username, nombres }, JWT_SECRET, {}, (err, token) => {
+          if (err) throw err
+          res.cookie('token', token, { sameSite: 'none', secure: 'true' }).status(201).json({
+            id, username, nombres
+          })
+        })
+      } catch (error) {
+        throw error
+      }
+    } else {
+      res.status(401).json('Error Al Generar El Token')
+    }
+  } else {
+    res.status(401).json('Error Al Iniciar Sesion Usuario Ya Existe')
+  }
 }
 
 // TODO: /login
 export const getLogin = async (req, res) => {
-  const { username, password } = req.body
-
-  const [result] = await connection.query(`SELECT BIN_TO_UUID(id) id, username, password, nombres, apellidos FROM login WHERE username = '${username}'`)
-
-  const UserLogin = result.find((i) => i.username)
-  console.log(UserLogin)
-
-  if (result.length > 0) {
-    const passOk = bcrypt.compareSync(password, UserLogin.password)
-
-    console.log(passOk)
-
-    if (passOk) {
-      const id = UserLogin.id
-      const name = UserLogin.nombres
-
-      // TODO: Creamos el JsonWebToken
-      jwt.sign({ id, name, username }, JWT_SECRET, {}, (err, token) => {
-        if (err) throw err
-        res.cookie('token', token, { sameSite: 'none', secure: 'true' }).status(202).json({
-          id
-        })
-      })
-    } else {
-      res.status(401).json('Contraseña No Valida')
-    }
+  const token = req.cookies?.token
+  if (token) {
+    jwt.verify(token, JWT_SECRET, {}, (err, userData) => {
+      if (err) throw err
+      res.json(userData)
+    })
   } else {
-    res.status(401).json('Error Al Iniciar Sesion Usuario No Encontrado')
+    res.status(401).json('No Token Sorry')
   }
 }
 

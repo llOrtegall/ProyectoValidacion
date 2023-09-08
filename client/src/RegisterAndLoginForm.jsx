@@ -16,27 +16,21 @@ export const RegisterAndLoginForm = () => {
 
   const { setUsername: setLoggedInUsername, setId } = useContext(UserContext)
 
-
-  async function iniciarSession(ev) {
+  async function Registrarse(ev) {
     ev.preventDefault()
     // TODO: Aqui la respuesta data
-    const { data } = await axios.post('/login', { username, password })
+    const { data } = await axios.post('/register', { username, password, name, apellidos, cedula })
     setLoggedInUsername(username);
     setId(data.id)
   }
 
-  async function Registrarse(ev) {
-    ev.preventDefault()
-    await axios.post('/register', { name, cedula, apellidos })
-  }
-
-
   return (
     <section className="bg-blue-200 h-screen flex flex-col items-center justify-center pb-16 text-center">
-      {
-        isLoginOrRegister === 'Iniciar Session' && (
-          <div>
-            <form className="w-72" onSubmit={iniciarSession}>
+      <form className="w-72" onSubmit={Registrarse}>
+        {
+          isLoginOrRegister === 'Iniciar Session' && (
+            <div>
+
               <h1 className='text-center font-semibold pb-4 text-xl'>Iniciar Session</h1>
               <input value={username} onChange={ev => setUsername(ev.target.value)} type="text" placeholder="Usuario"
                 className="block w-full rounded-md  border p-2 mb-2" />
@@ -45,20 +39,20 @@ export const RegisterAndLoginForm = () => {
               <button className="bg-blue-500 text-white block w-full rounded-md p-2 font-semibold shadow-lg">
                 Iniciar Session
               </button>
-            </form>
-            No Estás Registrado ?
-            {isLoginOrRegister === 'Iniciar Session' && (
-              <button onClick={() => setIsLoginOrRegister('Registrarse')} className='pl-2 pt-4 font-semibold'>
-                Registrarse
-              </button>
-            )}
-          </div>
-        )
-      }
-      {
-        isLoginOrRegister === 'Registrarse' && (
-          <div>
-            <form className="w-72" onSubmit={Registrarse}>
+
+              No Estás Registrado ?
+              {isLoginOrRegister === 'Iniciar Session' && (
+                <button onClick={() => setIsLoginOrRegister('Registrarse')} className='pl-2 pt-4 font-semibold'>
+                  Registrarse
+                </button>
+              )}
+            </div>
+          )
+        }
+        {
+          isLoginOrRegister === 'Registrarse' && (
+            <div>
+
               <h1 className='text-center font-semibold pb-4 text-xl'>Ingresa Tus Datos De Registro</h1>
               <input value={name} onChange={ev => setName(ev.target.value)} type="text" placeholder="Nombres"
                 className="block w-full rounded-md  border p-2 mb-2" />
@@ -69,17 +63,18 @@ export const RegisterAndLoginForm = () => {
               <button className="bg-blue-500 text-white block w-full rounded-md p-2 font-semibold shadow-lg">
                 Registrarse
               </button>
-            </form>
 
-            Ya Estás Registrado ?
-            {isLoginOrRegister === 'Registrarse' && (
-              <button onClick={() => setIsLoginOrRegister('Iniciar Session')} className='pl-2 pt-4 font-semibold'>
-                Iniciar Session
-              </button>
-            )}
-          </div>
-        )
-      }
+
+              Ya Estás Registrado ?
+              {isLoginOrRegister === 'Registrarse' && (
+                <button onClick={() => setIsLoginOrRegister('Iniciar Session')} className='pl-2 pt-4 font-semibold'>
+                  Iniciar Session
+                </button>
+              )}
+            </div>
+          )
+        }
+      </form>
     </section >
   )
 }
