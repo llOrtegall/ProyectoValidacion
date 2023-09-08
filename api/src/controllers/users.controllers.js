@@ -1,7 +1,12 @@
 import { connection } from '../db.js'
 import jwt from 'jsonwebtoken'
+// import bcrypt from 'bcryptjs'
 
 const JWT_SECRET = 'hjduytqorpkcmvnfhagqwtvquritoyklasdwqweru'
+
+export const getTest = async (req, res) => {
+  res.status(200).json('Test Ok ¡¡¡')
+}
 
 export const getUsers = async (req, res) => {
   const token = req.cookies?.token
