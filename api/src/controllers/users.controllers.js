@@ -1,8 +1,9 @@
 import { connection } from '../db.js'
 import jwt from 'jsonwebtoken'
-// import bcrypt from 'bcryptjs'
+import bcrypt from 'bcryptjs'
 
 const JWT_SECRET = 'hjduytqorpkcmvnfhagqwtvquritoyklasdwqweru'
+const bcryptSalt = bcrypt.genSaltSync(10)
 
 export const getTest = async (req, res) => {
   res.status(200).json('Test Ok ¡¡¡')
@@ -25,12 +26,12 @@ export const getUsers = async (req, res) => {
 export const createUser = async (req, res) => {
   const { cedula, name, apellidos } = req.body
 
-  console.log(cedula, name, apellidos)
-
   const userName = `CP${cedula}`
   const passWord = `CP${cedula.slice(-3)}`
 
-  const UserCreado = await connection.query(`INSERT INTO login (username, password, nombres, apellidos) VALUES ('${userName}', '${passWord}', '${name}', '${apellidos}')`)
+  const hashedPassword = bcrypt.hashSync(passWord, bcryptSalt)
+
+  const UserCreado = await connection.query(`INSERT INTO login (username, password, nombres, apellidos) VALUES ('${userName}', '${hashedPassword}', '${name} ', '${apellidos} ')`)
 
   res.status(202).json(UserCreado)
 }
@@ -41,10 +42,15 @@ export const getLogin = async (req, res) => {
 
   const [result] = await connection.query(`SELECT BIN_TO_UUID(id) id, username, password, nombres, apellidos FROM login WHERE username = '${username}'`)
 
-  if (result.length > 0) {
-    const UserLogin = result.find((i) => i.username)
+  const UserLogin = result.find((i) => i.username)
+  console.log(UserLogin)
 
-    if (UserLogin.password === password) {
+  if (result.length > 0) {
+    const passOk = bcrypt.compareSync(password, UserLogin.password)
+
+    console.log(passOk)
+
+    if (passOk) {
       const id = UserLogin.id
       const name = UserLogin.nombres
 
