@@ -22,6 +22,28 @@ export const getUsers = async (req, res) => {
   }
 }
 
+// TODO: /login
+export const getLogin = async (req, res) => {
+  const { username, password } = req.body
+
+  const [result] = await connection.query(`SELECT BIN_TO_UUID(id) id, username, password, nombres, apellidos FROM login WHERE username = '${username}'`)
+
+  if (username) {
+    const userData = result.find((i) => i)
+    const { username, password: passDb, id, nombres } = userData
+
+    const passOk = bcrypt.compareSync(password, passDb)
+    if (passOk) {
+      jwt.sign({ id, username, nombres }, JWT_SECRET, {}, (err, token) => {
+        if (err) throw err
+        res.cookie('token', token, { sameSite: 'none', secure: 'true' }).status(201).json({
+          id, username, nombres
+        })
+      })
+    }
+  }
+}
+
 // TODO: /register
 export const createUser = async (req, res) => {
   const { cedula, name, apellidos } = req.body
@@ -57,19 +79,6 @@ export const createUser = async (req, res) => {
     }
   } else {
     res.status(401).json('Error Al Iniciar Sesion Usuario Ya Existe')
-  }
-}
-
-// TODO: /login
-export const getLogin = async (req, res) => {
-  const token = req.cookies?.token
-  if (token) {
-    jwt.verify(token, JWT_SECRET, {}, (err, userData) => {
-      if (err) throw err
-      res.json(userData)
-    })
-  } else {
-    res.status(401).json('No Token Sorry')
   }
 }
 
