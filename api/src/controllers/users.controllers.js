@@ -13,7 +13,7 @@ export const getTest = async (req, res) => {
 export const getUsers = async (req, res) => {
   const token = req.cookies?.token
   if (token) {
-    jwt.verify(token, JWT_SECRET, {}, (err, userData) => {
+    jwt.verify(token, JWT_SECRET, { expiresIn: '1h' }, (err, userData) => {
       if (err) throw err
       res.json(userData)
     })
@@ -34,7 +34,7 @@ export const getLogin = async (req, res) => {
 
     const passOk = bcrypt.compareSync(password, passDb)
     if (passOk) {
-      jwt.sign({ id, username, nombres }, JWT_SECRET, {}, (err, token) => {
+      jwt.sign({ id, username, nombres }, JWT_SECRET, { expiresIn: '1h' }, (err, token) => {
         if (err) throw err
         res.cookie('token', token, { sameSite: 'none', secure: 'true' }).status(201).json({
           id, username, nombres
@@ -65,7 +65,7 @@ export const createUser = async (req, res) => {
         const userData = result.find((i) => i)
         const { id, username, nombres } = userData
 
-        jwt.sign({ id, username, nombres }, JWT_SECRET, {}, (err, token) => {
+        jwt.sign({ id, username, nombres }, JWT_SECRET, { expiresIn: '1h' }, (err, token) => {
           if (err) throw err
           res.cookie('token', token, { sameSite: 'none', secure: 'true' }).status(201).json({
             id, username, nombres

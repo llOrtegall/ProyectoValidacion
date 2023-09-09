@@ -50,7 +50,7 @@ export const RegisterAndLoginForm = () => {
                 className="block w-full rounded-md  border p-2 mb-2" />
               <input value={password} onChange={ev => setPassword(ev.target.value)} type="password" placeholder="Contraseña"
                 className="block w-full rounded-md border p-2 mb-2" />
-              <button className="bg-blue-500 text-white block w-full rounded-md p-2 font-semibold shadow-lg">
+              <button onClick={Refresh} className="bg-blue-500 text-white block w-full rounded-md p-2 font-semibold shadow-lg">
                 Iniciar Session
               </button>
             </form>
@@ -74,7 +74,7 @@ export const RegisterAndLoginForm = () => {
                 className="block w-full rounded-md border p-2 mb-2" />
               <input value={cedula} onChange={ev => setCedula(ev.target.value)} type="text" placeholder="Número De Cédula / ID"
                 className="block w-full rounded-md border p-2 mb-2" />
-              <button id='refresh' onClick={Refresh} className="bg-blue-500 text-white block w-full rounded-md p-2 font-semibold shadow-lg">
+              <button onClick={Refresh} className="bg-blue-500 text-white block w-full rounded-md p-2 font-semibold shadow-lg">
                 Registrarse
               </button>
             </form>
