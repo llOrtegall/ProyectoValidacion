@@ -4,16 +4,6 @@ import { UserContext } from './User.context';
 
 export const RegisterAndLoginForm = () => {
 
-  function Loading() {
-    return (
-      <button type="button" className="bg-indigo-500 ">
-        <svg className="animate-spin h-5 w-5 mr-3 " viewBox="0 0 24 24">
-        </svg>
-        Processing...
-      </button>
-    )
-  }
-
   function Refresh() {
     setTimeout(() => location.reload(), 1600)
   }
@@ -47,7 +37,6 @@ export const RegisterAndLoginForm = () => {
     setId(data.id)
     setName(data.nombres)
   }
-
 
   return (
     <section className="bg-blue-200 h-screen flex flex-col items-center justify-center pb-16 text-center">
@@ -101,4 +90,3 @@ export const RegisterAndLoginForm = () => {
     </section >
   )
 }
-
