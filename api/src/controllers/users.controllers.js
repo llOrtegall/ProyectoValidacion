@@ -30,14 +30,14 @@ export const getLogin = async (req, res) => {
 
   if (username) {
     const userData = result.find((i) => i)
-    const { username, password: passDb, id, nombres } = userData
+    const { username, password: passDb, id, nombres, apellidos } = userData
 
     const passOk = bcrypt.compareSync(password, passDb)
     if (passOk) {
-      jwt.sign({ id, username, nombres }, JWT_SECRET, { expiresIn: '1h' }, (err, token) => {
+      jwt.sign({ id, username, nombres, apellidos }, JWT_SECRET, { expiresIn: '1h' }, (err, token) => {
         if (err) throw err
         res.cookie('token', token, { sameSite: 'none', secure: 'true' }).status(201).json({
-          id, username, nombres
+          id, username, nombres, apellidos
         })
       })
     }
@@ -63,12 +63,12 @@ export const createUser = async (req, res) => {
       // eslint-disable-next-line no-useless-catch
       try {
         const userData = result.find((i) => i)
-        const { id, username, nombres } = userData
+        const { id, username, nombres, apellidos } = userData
 
-        jwt.sign({ id, username, nombres }, JWT_SECRET, { expiresIn: '1h' }, (err, token) => {
+        jwt.sign({ id, username, nombres, apellidos }, JWT_SECRET, { expiresIn: '1h' }, (err, token) => {
           if (err) throw err
           res.cookie('token', token, { sameSite: 'none', secure: 'true' }).status(201).json({
-            id, username, nombres
+            id, username, nombres, apellidos
           })
         })
       } catch (error) {

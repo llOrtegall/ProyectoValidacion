@@ -4,10 +4,12 @@ import { UserContext } from "./User.context";
 import { Dashboard } from "./Components/Dashboard";
 
 export default function Routes() {
-  const { username, name, id } = useContext(UserContext)
+
+  const { username, name, id, apellidos } = useContext(UserContext)
+
 
   if (username) {
-    return (<Dashboard nombre={name} _id={id} />)
+    return (<Dashboard nombre={name} id={id} apellidos={apellidos} />)
   }
 
   return (
