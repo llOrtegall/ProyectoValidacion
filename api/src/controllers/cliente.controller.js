@@ -1,7 +1,7 @@
-import { connection2 } from '../db.js'
+import { connection } from '../db.js'
 
 export const getClientes = async (req, res) => {
-  const [result] = await connection2.query('SELECT * FROM cliente')
+  const [result] = await connection.query('SELECT * FROM personayumbo')
   res.status(202).json(result)
 }
 

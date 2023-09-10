@@ -27,20 +27,6 @@ export function Dashboard({ nombre, apellidos, id }) {
       });
   }, []);
 
-  function UserListItem({ user }) {
-    return (
-      <li>
-        <div>
-          <h2>Nombres: </h2> {user.nombre1}{user.nombre2}
-        </div>
-        <div>
-          <strong>Correo Electrónico: </strong> {user.correo}
-        </div>
-        {/* Agrega más propiedades aquí si es necesario */}
-      </li>
-    );
-  }
-
 
   // useEffect(() => {
   //   axios.get('/clientes').then(response => {
@@ -51,11 +37,11 @@ export function Dashboard({ nombre, apellidos, id }) {
 
 
   return (
-    <section className="w-screen h-screen bg-blue-200">
+    <section className=''>
       {/*// TODO: Aquí Estará la barra de navegación */}
-      <nav className="flex items-center justify-between bg-slate-100 p-2">
+      <nav className="flex items-center justify-between bg-slate-100 px-4 py-2">
 
-        <figure className="flex items-center gap-2">
+        <figure className="flex items-center">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8">
             <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
           </svg>
@@ -75,19 +61,29 @@ export function Dashboard({ nombre, apellidos, id }) {
 
       </nav >
 
-      <main className="bg-cyan-200 h-full">
-        <div>
-          <h1>Lista de Usuarios</h1>
-          <ul>
+      <main className="p-2">
+        <h3 className='w-1/2 p-2 font-semibold text-2xl text-center bg-cyan-200 border rounded-lg my-2'>Usuarios Registrados por ChatBoot</h3>
+        <table className='w-1/2 p-2'>
+          <thead>
+            <tr>
+              <th className='th-td'>Nombres</th>
+              <th className='th-td'>Cedula</th>
+              <th className='th-td'>Correo</th>
+              {/* Agrega más encabezados aquí si es necesario */}
+            </tr>
+          </thead>
+          <tbody>
             {userData.map(user => (
-              // Genera un componente UserListItem para cada usuario
-              <UserListItem key={user.id} user={user} />
+              <tr key={user.id}>
+                <td className='th-td'>{user.nombre}</td>
+                <td className='th-td'>{user.cedula}</td>
+                <td className='th-td'>{user.correo}</td>
+                {/* Agrega más celdas aquí si es necesario */}
+              </tr>
             ))}
-          </ul>
-        </div>
+          </tbody>
+        </table>
       </main>
-
-
     </section >
   )
 }

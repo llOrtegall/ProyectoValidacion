@@ -1,3 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .th-td {
+    @apply p-2 text-center border border-black;
+  }
+}
+
+th {
+  @apply bg-gray-600 text-white
+}
+
+tr:nth-child(even) {
+  @apply bg-blue-200
+}
