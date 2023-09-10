@@ -1,6 +1,53 @@
+import { useEffect, useState } from 'react'
+
 // eslint-disable-next-line react/prop-types
 export function Dashboard({ nombre, apellidos, id }) {
 
+  const [userData, setUserData] = useState([]);
+
+  console.log(userData)
+
+  // TODO: Trae la Data desde la base de Datos De Registro
+  useEffect(() => {
+    // Realiza una solicitud GET utilizando el método fetch
+    fetch('http://localhost:3000/clientes')
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Error en la solicitud');
+        }
+        return response.json();
+      })
+      .then(data => {
+        // Actualiza el estado con los datos obtenidos
+        setUserData(data);
+        console.log(data);
+      })
+      .catch(error => {
+        console.error('Error de solicitud:', error);
+      });
+  }, []);
+
+  function UserListItem({ user }) {
+    return (
+      <li>
+        <div>
+          <h2>Nombres: </h2> {user.nombre1}{user.nombre2}
+        </div>
+        <div>
+          <strong>Correo Electrónico: </strong> {user.correo}
+        </div>
+        {/* Agrega más propiedades aquí si es necesario */}
+      </li>
+    );
+  }
+
+
+  // useEffect(() => {
+  //   axios.get('/clientes').then(response => {
+  //     setUserData(response.data)
+  //     console.log(response.data);
+  //   })
+  // }, [])
 
 
   return (
@@ -29,7 +76,15 @@ export function Dashboard({ nombre, apellidos, id }) {
       </nav >
 
       <main className="bg-cyan-200 h-full">
-        <h1>main</h1>
+        <div>
+          <h1>Lista de Usuarios</h1>
+          <ul>
+            {userData.map(user => (
+              // Genera un componente UserListItem para cada usuario
+              <UserListItem key={user.id} user={user} />
+            ))}
+          </ul>
+        </div>
       </main>
 
 
