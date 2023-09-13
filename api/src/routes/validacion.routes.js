@@ -1,6 +1,6 @@
 import { Router } from 'express'
 import { getValidacion } from '../controllers/validacion.js'
 
-export const routerUser = Router()
+export const routerValidacion = Router()
 
-routerUser.get('/validacion', getValidacion)
+routerValidacion.get('/validacion', getValidacion)
