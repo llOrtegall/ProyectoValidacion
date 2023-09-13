@@ -61,28 +61,59 @@ export function Dashboard({ nombre, apellidos, id }) {
 
       </nav >
 
-      <main className="p-2">
-        <h3 className='w-1/2 p-2 font-semibold text-2xl text-center bg-cyan-200 border rounded-lg my-2'>Usuarios Registrados por ChatBoot</h3>
-        <table className='w-1/2 p-2'>
-          <thead>
-            <tr>
-              <th className='th-td'>Nombres</th>
-              <th className='th-td'>Cedula</th>
-              <th className='th-td'>Correo</th>
-              {/* Agrega más encabezados aquí si es necesario */}
-            </tr>
-          </thead>
-          <tbody>
-            {userData.map(user => (
-              <tr key={user.id}>
-                <td className='th-td'>{user.nombre}</td>
-                <td className='th-td'>{user.cedula}</td>
-                <td className='th-td'>{user.correo}</td>
+      <main className="flex gap-2 p-2">
+
+        <div className='w-1/3'>
+          <h3 className='p-2 font-semibold text-2xl text-center bg-lime-300 rounded-lg my-2'>Usuarios Registrados Por ChatBoot</h3>
+          <table className='p-2 rounded-xl w-full'>
+            <thead>
+              <tr >
+                <th className='th-td'>Nombres</th>
+                <th className='th-td'>Cedula</th>
+                <th className='th-td'>Correo</th>
+                {/* Agrega más encabezados aquí si es necesario */}
+              </tr>
+            </thead>
+            <tbody>
+              {userData.map(user => (
+                <tr key={user.id}>
+                  <td className='th-td'>{user.nombre}</td>
+                  <td className='th-td'>{user.cedula}</td>
+                  <td className='th-td'>{user.correo}</td>
+                  {/* Agrega más celdas aquí si es necesario */}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        <div className='w-2/3'>
+          <h3 className='p-2 font-semibold text-2xl text-center bg-lime-300 rounded-lg my-2'>Validaciones</h3>
+          <table className='p-2 rounded-xl w-full'>
+            <thead>
+              <tr >
+                <th className='th-td text-sm'>Validado</th>
+                <th className='th-td'>Creado</th>
+                <th className='th-td'>Actualizar</th>
+                <th className='th-td'>Eliminar</th>
+                <th className='th-td'>Reporte</th>
+                {/* Agrega más encabezados aquí si es necesario */}
+              </tr>
+            </thead>
+            <tbody>
+              <tr >
+                <td className='th-td'>x</td>
+                <td className='th-td'>x</td>
+                <td className='th-td'>x</td>
+                <td className='th-td'>x</td>
+                <td className='th-td'>x</td>
                 {/* Agrega más celdas aquí si es necesario */}
               </tr>
-            ))}
-          </tbody>
-        </table>
+
+            </tbody>
+          </table>
+        </div>
+
       </main>
     </section >
   )
