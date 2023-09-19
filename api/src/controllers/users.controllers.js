@@ -18,12 +18,14 @@ export const deleteUser = (req, res) => {
 }
 
 export const getLogin = async (req, res) => {
-  const { username } = req.body
+  const { username, password } = req.body
 
   const [result] = await connection.query(`SELECT username, password FROM login WHERE username = '${username}'`)
   const user = result.find((i) => i.username)
-  if (user.username === username) {
-    console.log('TODO VA BIEN')
-    res.send('TODO VA BIEN')
+
+  if (user.username === username && user.password === password) {
+    res.status(201).json('Login Ok')
+  } else {
+    res.status(401).json({ message: 'Usuario o Contraseña No valida' })
   }
 }
