@@ -7,6 +7,12 @@ export const RegisterAndLoginForm = () => {
   // * username, setUsername, id, setId, name, setName, lastName, setLastName
   const { setUsername, setId, setName, lastName } = useContext(UserContext)
 
+  //TODO: Para Errores De Registro 
+  const [errorMessage, setErrorMessage] = useState('')
+
+  //TODO: Para Errores Del Login
+  const [errorLogin, setErrorLogin] = useState('')
+
   // TODO: Para Registro
   const [names, setNames] = useState('');
   const [lastNames, setLastNames] = useState('');
@@ -22,23 +28,50 @@ export const RegisterAndLoginForm = () => {
 
   async function iniciarSession(ev) {
     ev.preventDefault()
-    const { data } = await axios.post('/login', { user, password })
-    const { apellidos, id, nombres, username } = data;
-    setUsername(username); setId(id); setName(nombres); lastName(apellidos);
+
+    try {
+      const { data } = await axios.post('/login', { user, password })
+      const { apellidos, id, nombres, username } = data;
+      setUsername(username); setId(id); setName(nombres); lastName(apellidos);
+    } catch (error) {
+      if (error.response && error.response.status === 401) {
+        const { detalle } = error.response.data
+        setErrorLogin(`${detalle}`);
+      } else if (error.response && error.response.status === 404) {
+        const { detalle } = error.response.data
+        setErrorLogin(`${detalle}`);
+      }
+    }
+
   }
 
   async function Registrarse(ev) {
     ev.preventDefault()
-    const { data } = await axios.post('/register', { names, document, lastNames })
-    const { apellidos, id, nombres, username } = data;
-    setUsername(username); setId(id); setName(nombres); lastName(apellidos);
+
+    try {
+      const { data } = await axios.post('/register', { names, document, lastNames })
+      const { apellidos, id, nombres, username } = data;
+      console.log(data)
+      setUsername(username); setId(id); setName(nombres); lastName(apellidos);
+    } catch (error) {
+
+      if (error.response && error.response.status === 409) {
+        const { detalle } = error.response.data
+
+        setErrorMessage(`${detalle}`);
+      } else {
+        console.error('Error de registro:', error);
+        setErrorMessage('Se produjo un error en el registro.');
+      }
+    }
+
   }
 
   return (
     <section className="bg-blue-200 h-screen flex flex-col items-center justify-center pb-16 text-center">
       {
         isLoginOrRegister === 'Iniciar Session' && (
-          <div>
+          <div className='flex flex-col items-center'>
             <form className="w-72" onSubmit={iniciarSession}>
               <h1 className='text-center font-semibold pb-4 text-xl'>Iniciar Session</h1>
               <input value={user} onChange={ev => setUser(ev.target.value)} type="text" placeholder="Usuario"
@@ -49,18 +82,27 @@ export const RegisterAndLoginForm = () => {
                 Iniciar Session
               </button>
             </form>
-            No Estás Registrado ?
-            {isLoginOrRegister === 'Iniciar Session' && (
-              <button onClick={() => setIsLoginOrRegister('Registrarse')} className='pl-2 pt-4 font-semibold'>
-                Registrarse
-              </button>
-            )}
+            <article>
+              No Estás Registrado ?
+              {isLoginOrRegister === 'Iniciar Session' && (
+                <button onClick={() => setIsLoginOrRegister('Registrarse')} className='pl-2 pt-4 font-semibold'>
+                  Registrarse
+                </button>
+              )}
+            </article>
+            <article>
+              {errorLogin
+                ? <h3 className='text-red-600 font-medium'>{errorLogin}</h3>
+                : null
+              }
+            </article>
+
           </div>
         )
       }
       {
         isLoginOrRegister === 'Registrarse' && (
-          <div>
+          <div className='flex flex-col items-center'>
             <form className="w-72" onSubmit={Registrarse}>
               <h1 className='text-center font-semibold pb-4 text-xl'>Ingresa Tus Datos De Registro</h1>
               <input value={names} onChange={ev => setNames(ev.target.value)} type="text" placeholder="Nombres"
@@ -73,13 +115,22 @@ export const RegisterAndLoginForm = () => {
                 Registrarse
               </button>
             </form>
+            <article>
+              Ya Estás Registrado ?
+              {isLoginOrRegister === 'Registrarse' && (
+                <button onClick={() => setIsLoginOrRegister('Iniciar Session')} className='pl-2 pt-4 font-semibold'>
+                  Iniciar Session
+                </button>
+              )}
+            </article>
+            <article>
+              {errorMessage
+                ? <h3 className='text-red-600 font-medium'>{errorMessage}</h3>
+                : null
+              }
+            </article>
 
-            Ya Estás Registrado ?
-            {isLoginOrRegister === 'Registrarse' && (
-              <button onClick={() => setIsLoginOrRegister('Iniciar Session')} className='pl-2 pt-4 font-semibold'>
-                Iniciar Session
-              </button>
-            )}
+
           </div>
         )
       }

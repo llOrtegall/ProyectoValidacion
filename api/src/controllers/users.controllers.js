@@ -39,10 +39,16 @@ export const getLogin = async (req, res) => {
         })
       })
     } else {
-      res.status(401).json('Contraseña Incorrecta')
+      res.status(401).json({
+        "error": "Acceso no autorizado",
+        "detalle": "La clave del usuario no coinciden"
+      })
     }
   } else {
-    res.status(400).json('Usuario No Encontrado')
+    res.status(404).json({
+      "error": "Usuario no encontrado",
+      "detalle": `El usuario: ${user}, No existe en el sistema.`
+    })
   }
 }
 
@@ -51,15 +57,12 @@ export const createUser = async (req, res) => {
 
   const { names, document, lastNames } = req.body
 
-  const username = `CP${document}`
-  const pass = `CP${document.slice(-3)}`
-  const hashedPassword = bcrypt.hashSync(pass, bcryptSalt)
-
-  const [result] = await connectMysql.query(`SELECT BIN_TO_UUID(id) id, username, password, nombres, apellidos FROM login WHERE username = '${names}'`)
-
-  // TODO valida si el usuario ya existe
+  const [result] = await connectMysql.query(`SELECT * FROM login WHERE documento = '${document}'`)
   if (!result.length > 0) {
-    const [UserCreado] = await connectMysql.query(`INSERT INTO login (username, password, nombres, apellidos) VALUES ('${username}', '${hashedPassword}', '${names} ', '${lastNames} ')`)
+    const username = `CP${document}`; const pass = `CP${document.slice(-3)}`; const hashedPassword = bcrypt.hashSync(pass, bcryptSalt)
+
+    const [UserCreado] = await connectMysql.query(`INSERT INTO login (username, password, nombres, apellidos, documento) 
+    VALUES ('${username}', '${hashedPassword}', '${names} ', '${lastNames}', '${document}')`)
 
     //TODO: si el usuario es creado correctamente genera el token
     if (UserCreado.affectedRows === 1) {
@@ -79,10 +82,13 @@ export const createUser = async (req, res) => {
         throw error
       }
     } else {
-      res.status(400).json('Error Al Crear El Usuario')
+      res.status(500).json('Error Al Crear El Usuario')
     }
   } else {
-    res.status(406).json('Error Al Registrarse El Usuario Ya Existe')
+    res.status(409).json({
+      "error": "El registro de usuario ya existe",
+      "detalle": `Usuario con documento: ${document}, Ya está registrado en el sistema`
+    })
   }
 }
 
