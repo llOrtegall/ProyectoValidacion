@@ -1,19 +1,63 @@
 import { useEffect, useState } from "react";
-import { getData } from "../services/getDataUser.js";
-import { RegistradoClienteFiel } from "./RegistradoClienteFiel.jsx";
+import axios from "axios";
 
 export function RenderUsuarios() {
 
-  const [user, setUser] = useState([])
+  // eslint-disable-next-line react/prop-types
+  function ValidarUsuario({ cc }) {
+    const [valida, setValida] = useState('')
 
-  useEffect(() => {
-    getData()
-      .then(data => { setUser(data) }
-      )
-      .catch(err => {
-        console.log('Error: ', err)
-      })
-  }, [])
+    useEffect(() => {
+      axios.post('http://localhost:3000/validarUsuario', { cc })
+        .then(data => {
+          setValida(data.data)
+        })
+        .catch(data => {
+          if (data.response && data.response.status === 200) {
+            setValida(data.response.data)
+          }
+        })
+    }, [cc])
+
+    return (
+      valida === 'Si Existe'
+        ? <td className="bg-green-300">{valida}</td>
+        : <td className="bg-red-300">{valida}</td>
+    )
+  }
+
+  function RenderUsers() {
+    const [user, setUser] = useState([]);
+
+    useEffect(() => {
+      axios.get('http://localhost:3000/clientes')
+        .then(data => {
+          setUser(data.data)
+        })
+        .catch(error => {
+          if (error.response && error.response.status === 404) {
+            console.log(error.response)
+          }
+          throw error
+        })
+    }, [])
+
+    return (
+      user.length > 0
+        ? user.map(i => (
+          <tr key={i.cedula}>
+            <td>{i.nombre}</td>
+            <td>{i.cedula}</td>
+            <td>{i.telefono}</td>
+            <td>{i.correo}</td>
+            <td>{i.telwhats}</td>
+            <ValidarUsuario cc={i.cedula} />
+          </tr>
+        ))
+        : <tr>NO LLEGO SOLICITUD DE USUARIOS</tr>
+    )
+  }
+
 
   return (
     <section className="w-full flex flex-col p-2">
@@ -31,19 +75,7 @@ export function RenderUsuarios() {
           </tr>
         </thead>
         <tbody className="text-center">
-
-          {user.map(item => {
-            return (
-              <tr key={item.cedula}>
-                <td>{item.nombre}</td>
-                <td>{item.cedula}</td>
-                <td>{item.telefono}</td>
-                <td>{item.correo}</td>
-                <td>{item.telwhats}</td>
-                <RegistradoClienteFiel cc={item.cedula} />
-              </tr>
-            )
-          })}
+          <RenderUsers />
         </tbody>
       </table >
     </section>
