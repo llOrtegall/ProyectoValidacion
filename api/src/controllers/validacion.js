@@ -1,13 +1,5 @@
 import { connection, connection2 } from '../db.js'
 
-// function arrayToObject(array) {
-//   const result = {}
-//   array.forEach(item => {
-//     result[item.cedula] = item
-//   })
-//   return result
-// }
-
 export const getValidacion = async (req, res) => {
   // TODO: Esta es la data desde Chat Boot
   const [result] = await connection.query('SELECT * FROM personayumbo')
