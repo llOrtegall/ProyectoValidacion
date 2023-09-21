@@ -21,8 +21,8 @@ export function RenderUsuarios() {
 
     return (
       valida === 'Si Existe'
-        ? <td className="bg-green-300">{valida}</td>
-        : <td className="bg-red-300">{valida}</td>
+        ? <td className="bg-green-400">{valida}</td>
+        : <td className="bg-red-400">{valida}</td>
     )
   }
 

@@ -128,8 +128,6 @@ export const RegisterAndLoginForm = () => {
                 : null
               }
             </article>
-
-
           </div>
         )
       }
