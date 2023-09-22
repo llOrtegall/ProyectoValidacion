@@ -45,9 +45,20 @@ export const getValidacion = async (req, res) => {
     const numeroMinimoDePalabras = 2
     const resultado2 = contieneAlMenosNPalabras(ncLower, vnLower, numeroMinimoDePalabras)
     if (resultado2) {
-      res.status(200).json('Usuario Creado')
+      res.status(200).json('Usuario Creado Automaticamente')
     } else {
       res.status(404).json('Usuario No Creado')
     }
+  }
+}
+
+export const newValidacion = async (req, res) => {
+  try {
+    const { data } = req.body
+    console.log(data)
+    res.status(200).send('Tarea completada');
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Error en la tarea programada');
   }
 }
