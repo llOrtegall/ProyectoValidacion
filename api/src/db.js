@@ -13,8 +13,8 @@ export const connectMysql = createPool({
 })
 
 // TODO: Creando la conecxión a bd Clientes
-export const connectOraDb = await oracledb.getConnection({
-  user: "INSERTACLIENTES",
-  password: '01e8dc3934',  // contains the hr schema password
-  connectString: "172.20.1.174:1521/demopb"
-})
+// export const connectOraDb = await oracledb.getConnection({
+//   user: "INSERTACLIENTES",
+//   password: '01e8dc3934',  // contains the hr schema password
+//   connectString: "172.20.1.174:1521/demopb"
+// })

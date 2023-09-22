@@ -1,17 +1,16 @@
-import axios from 'axios'
-import { UserContextProvider } from './User.context';
-import Routes from './Routes';
+import { Route, Routes, BrowserRouter } from "react-router-dom";
+import { RegisterAndLoginForm } from "./RegisterAndLoginForm";
+import { Dashboard } from "./Components/Dashboard.jsx";
+import axios from "axios";
 
-function App() {
 
+export function App() {
+
+  // TODO: axios raiz
   axios.defaults.baseURL = 'http://localhost:3000'
   axios.defaults.withCredentials = true;
 
   return (
-    <UserContextProvider>
-      <Routes />
-    </UserContextProvider>
+    <RegisterAndLoginForm />
   )
 }
-
-export default App

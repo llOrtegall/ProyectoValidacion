@@ -9,7 +9,7 @@ const JWT_SECRET = process.env.JWT_SECRET;
 const bcryptSalt = bcrypt.genSaltSync(10)
 
 // TODO: /profile
-export const getUsers = async (req, res) => {
+export const getUser = async (req, res) => {
   const token = req.cookies?.token
   if (token) {
     jwt.verify(token, JWT_SECRET, { expiresIn: '5h' }, (err, userData) => {

@@ -1,6 +1,6 @@
 import express from 'express'
 import { routerUser } from './routes/users.routes.js'
-import { routerCliente } from './routes/clientes.routes.js'
+import { chatBootClient } from './routes/chatBoot.routes.js'
 import cors from 'cors'
 import cookieParser from 'cookie-parser'
 import { routerUserAdmin } from './routes/userCreate.routes.js'
@@ -18,8 +18,8 @@ app.use(express.json())
 // TODO: routerUser para consultar la bd chatboot
 app.use(routerUser)
 
-// TODO: routerCliente para consultar la bd Produccion
-app.use(routerCliente)
+// TODO: Metodos En Chat Boot DB
+app.use(chatBootClient)
 
 // TODO: routerValidación para realizar la validación
 app.use(routerUserAdmin)

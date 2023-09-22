@@ -1,10 +1,12 @@
 import { connectMysql } from '../db.js'
 
+//TODO: trae los clientes registrados en x chatBoot
 export const getClientes = async (req, res) => {
   const [result] = await connectMysql.query('SELECT * FROM personayumbo')
   res.status(202).json(result)
 }
 
+//TODO: trae 1 cliente registrado en chatBoot con la cedula
 export const getClient = async (req, res) => {
   const { documento } = req.body
 
