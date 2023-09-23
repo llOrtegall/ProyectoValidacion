@@ -5,7 +5,7 @@ import { UserContext } from './User.context';
 export const RegisterAndLoginForm = () => {
 
   function Refresh() {
-    setTimeout(() => location.reload(), 1600)
+    setTimeout(() => location.reload(), 600)
   }
 
   // TODO: Para Registro

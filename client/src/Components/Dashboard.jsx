@@ -29,23 +29,23 @@ export function Dashboard({ nombre, apellidos, id }) {
 
       <main className="flex gap-2 px-2">
 
-        <div className='w-1/3'>
+        <div className='w-2/3'>
           <h3 className='p-2 font-semibold text-2xl text-center bg-lime-300 rounded-lg my-2'>Usuarios Registrados Por ChatBoot</h3>
           <table className='p-2 rounded-xl w-full'>
             <thead>
               <tr >
-                <th className='th-td'>Nombres</th>
-                <th className='th-td'>Cedula</th>
-                <th className='th-td'>Correo</th>
+                <th className='th-td text-sm'>Nombres</th>
+                <th className='th-td text-sm'>Cedula</th>
+                <th className='th-td text-sm'>Correo</th>
                 {/* Agrega más encabezados aquí si es necesario */}
               </tr>
             </thead>
             <tbody>
               {UserDataChat().map(user => (
                 <tr key={user.id}>
-                  <td className='th-td'>{user.nombre}</td>
-                  <td className='th-td'>{user.cedula}</td>
-                  <td className='th-td'>{user.correo}</td>
+                  <td className='th-td text-sm'> {user.nombre}</td>
+                  <td className='th-td text-sm'> {user.cedula}</td>
+                  <td className='th-td text-sm'> {user.correo}</td>
                   {/* Agrega más celdas aquí si es necesario */}
                 </tr>
               ))}
@@ -53,16 +53,16 @@ export function Dashboard({ nombre, apellidos, id }) {
           </table>
         </div>
 
-        <div className='w-2/3'>
+        <div className='w-1/3'>
           <h3 className='p-2 font-semibold text-2xl text-center bg-lime-300 rounded-lg my-2'>Validaciones</h3>
           <table className='p-2 rounded-xl w-full'>
             <thead>
               <tr >
-                <th className='th-td text-sm'>Validado</th>
-                <th className='th-td'>Creado</th>
-                <th className='th-td'>Actualizar</th>
-                <th className='th-td'>Eliminar</th>
-                <th className='th-td'>Reporte</th>
+                <th className='th-td text-xs'>Validado</th>
+                <th className='th-td text-xs'>Creado</th>
+                <th className='th-td text-xs'>Actualizar</th>
+                <th className='th-td text-xs'>Eliminar</th>
+
                 {/* Agrega más encabezados aquí si es necesario */}
               </tr>
             </thead>
@@ -72,34 +72,17 @@ export function Dashboard({ nombre, apellidos, id }) {
                 <td className='th-td'>x</td>
                 <td className='th-td'>x</td>
                 <td className='th-td'>x</td>
-                <td className='th-td'>x</td>
-                {/* Agrega más celdas aquí si es necesario */}
-              </tr>
-              <tr >
-                <td className='th-td'>x</td>
-                <td className='th-td'>x</td>
-                <td className='th-td'>x</td>
-                <td className='th-td'>x</td>
-                <td className='th-td'>x</td>
-                {/* Agrega más celdas aquí si es necesario */}
-              </tr>
-              <tr >
-                <td className='th-td'>x</td>
-                <td className='th-td'>x</td>
-                <td className='th-td'>x</td>
-                <td className='th-td'>x</td>
-                <td className='th-td'>x</td>
-                {/* Agrega más celdas aquí si es necesario */}
-              </tr>
-              <tr >
-                <td className='th-td'>x</td>
-                <td className='th-td'>x</td>
-                <td className='th-td'>x</td>
-                <td className='th-td'>x</td>
-                <td className='th-td'>x</td>
-                {/* Agrega más celdas aquí si es necesario */}
-              </tr>
 
+                {/* Agrega más celdas aquí si es necesario */}
+              </tr>
+              <tr >
+                <td className='th-td'>x</td>
+                <td className='th-td'>x</td>
+                <td className='th-td'>x</td>
+                <td className='th-td'>x</td>
+
+                {/* Agrega más celdas aquí si es necesario */}
+              </tr>
             </tbody>
           </table>
         </div>
