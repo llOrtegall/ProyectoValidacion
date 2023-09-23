@@ -25,29 +25,41 @@ function contieneAlMenosNPalabras(cadena1, cadena2, n) {
 
 export const getValidacion = async (req, res) => {
   // TODO: Esta es la data desde Chat Boot
-  const [result] = await connection.query('SELECT * FROM personayumbo')
-  const [result2] = await connection2.query('SELECT * FROM cliente')
+  const [result] = await connection.query('SELECT * FROM personayumbo') // TODO: CHAT BOOT
+  const [result2] = await connection2.query('SELECT * FROM cliente') // TODO: cliente fiel
+
+  console.log(result)
+  console.log(result2)
+
+
   const resultCedula1 = result.map(item => item.cedula)
   const resultCedula2 = result2.map(item => item.cedula)
+
   const UsuariosNoCreados = resultCedula1.filter(item => !resultCedula2.includes(item))
   const stringCedula = UsuariosNoCreados[0].toString()
+
+  console.log('CEDULAS NO CREADAS: ' + UsuariosNoCreados)
+
   webScraping(stringCedula)
     .then(({ apellido, nombre }) => {
       const resultado = { apellido, nombre }
       validarResultado(resultado)
     })
     .catch((err) => { throw err })
+
   function validarResultado(resultado) {
     const nombreCompleto = resultado.apellido + ' ' + resultado.nombre
     const ValidarNombreRegChatBoot = result[0].nombre
     const ncLower = nombreCompleto.toLowerCase()
     const vnLower = ValidarNombreRegChatBoot.toLowerCase()
+
     const numeroMinimoDePalabras = 2
     const resultado2 = contieneAlMenosNPalabras(ncLower, vnLower, numeroMinimoDePalabras)
     if (resultado2) {
-      res.status(200).json('Usuario Creado Automaticamente')
+      // CREAR EL USUARIO EN CLIENTE FIEL <---------------
+      res.status(200).json('Aquí Iran El INSERT A CLIENTE FIEL')
     } else {
-      res.status(404).json('Usuario No Creado')
+      res.status(404).json('USUARIO NO VALIDADO TOCA DE FORMA MANUAL')
     }
   }
 }

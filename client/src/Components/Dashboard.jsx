@@ -75,6 +75,30 @@ export function Dashboard({ nombre, apellidos, id }) {
                 <td className='th-td'>x</td>
                 {/* Agrega más celdas aquí si es necesario */}
               </tr>
+              <tr >
+                <td className='th-td'>x</td>
+                <td className='th-td'>x</td>
+                <td className='th-td'>x</td>
+                <td className='th-td'>x</td>
+                <td className='th-td'>x</td>
+                {/* Agrega más celdas aquí si es necesario */}
+              </tr>
+              <tr >
+                <td className='th-td'>x</td>
+                <td className='th-td'>x</td>
+                <td className='th-td'>x</td>
+                <td className='th-td'>x</td>
+                <td className='th-td'>x</td>
+                {/* Agrega más celdas aquí si es necesario */}
+              </tr>
+              <tr >
+                <td className='th-td'>x</td>
+                <td className='th-td'>x</td>
+                <td className='th-td'>x</td>
+                <td className='th-td'>x</td>
+                <td className='th-td'>x</td>
+                {/* Agrega más celdas aquí si es necesario */}
+              </tr>
 
             </tbody>
           </table>
