@@ -1,7 +1,7 @@
 import express from 'express'
 import { routerUser } from './routes/users.routes.js'
 import { chatBootClient } from './routes/chatBoot.routes.js'
-import { routerCF } from "./routes/clienteFiel.routes.js";
+// import { routerCF } from "./routes/clienteFiel.routes.js";
 import cors from 'cors'
 import cookieParser from 'cookie-parser'
 
@@ -18,7 +18,7 @@ app.use(cookieParser())
 app.use(express.json())
 
 //TODO: Metodos Cliente Fiel
-app.use(routerCF)
+//app.use(routerCF)
 
 // TODO: Metodos En Chat Boot DB
 app.use(chatBootClient)

@@ -7,10 +7,8 @@ export const RegisterAndLoginForm = () => {
   // * username, setUsername, id, setId, name, setName, lastName, setLastName
   const { setUsername, setId, setName, lastName } = useContext(UserContext)
 
-  //TODO: Para Errores De Registro 
+  //TODO: Para Errores Login y Registro
   const [errorMessage, setErrorMessage] = useState('')
-  //TODO: Para Errores Del Login
-  const [errorLogin, setErrorLogin] = useState('')
 
   // TODO: Para Registro
   const [names, setNames] = useState('');
@@ -35,10 +33,17 @@ export const RegisterAndLoginForm = () => {
     } catch (error) {
       if (error.response && error.response.status === 401) {
         const { detalle } = error.response.data
-        setErrorLogin(`${detalle}`);
+        setErrorMessage(`${detalle}`);
+        setTimeout(() => {
+          setErrorMessage('')
+        }, 10000)
+
       } else if (error.response && error.response.status === 404) {
         const { detalle } = error.response.data
-        setErrorLogin(`${detalle}`);
+        setErrorMessage(`${detalle}`);
+        setTimeout(() => {
+          setErrorMessage('')
+        }, 10000)
       }
     }
 
@@ -56,11 +61,16 @@ export const RegisterAndLoginForm = () => {
 
       if (error.response && error.response.status === 409) {
         const { detalle } = error.response.data
-
         setErrorMessage(`${detalle}`);
+        setTimeout(() => {
+          setErrorMessage('')
+        }, 10000)
       } else {
         console.error('Error de registro:', error);
-        setErrorMessage('Se produjo un error en el registro.');
+        setErrorMessage('Se produjo un error en al Iniciar Session Automaticamente.');
+        setTimeout(() => {
+          setErrorMessage('')
+        }, 10000)
       }
     }
 
@@ -90,8 +100,8 @@ export const RegisterAndLoginForm = () => {
               )}
             </article>
             <article>
-              {errorLogin
-                ? <h3 className='text-red-600 font-medium'>{errorLogin}</h3>
+              {errorMessage
+                ? <h3 className='text-red-600 font-medium'>{errorMessage}</h3>
                 : null
               }
             </article>
