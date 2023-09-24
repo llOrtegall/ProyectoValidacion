@@ -1,10 +1,7 @@
 import { connectOraDb } from '../db.js'
 
-export const validarDian = async (req, res) => {
 
-}
-
-export const userCreated = async (req, res) => {
+export const getClientFiel = async (req, res) => {
   const { cc } = req.body
   const result = await connectOraDb.execute(`SELECT * FROM gamble.clientes WHERE documento = '${cc}'`);
 
@@ -15,7 +12,7 @@ export const userCreated = async (req, res) => {
   }
 }
 
-export const CreateUserclient = async (req, res) => {
+export const createdClientFiel = async (req, res) => {
 
   // { //TODO: Estructura Objecto Inicial
   //   "nombre": "Andres",
@@ -29,9 +26,7 @@ export const CreateUserclient = async (req, res) => {
   const user = req.body;
 
   try {
-
     const { nombre, nombre2, apellido, apellido2, documento, celular } = user
-
     const result = await conecOracDB.execute(`INSERT INTO gamble.clientes 
     (DOCUMENTO, TOTALPUNTOS, USUARIO, FECHASYS, NOMBRES, APELLIDO1, APELLIDO2, FECHANACIMIENTO, 
     TELEFONO, DIRECCION, TIPO_DEPTO, CODDEPTO,TIPO_MUNICIPIO, CODMUNICIPIO, ENT_SEXO, DAT_DTO_SEXO, 

@@ -1,9 +1,10 @@
 import express from 'express'
 import { routerUser } from './routes/users.routes.js'
 import { chatBootClient } from './routes/chatBoot.routes.js'
+import { routerCF } from "./routes/clienteFiel.routes.js";
 import cors from 'cors'
 import cookieParser from 'cookie-parser'
-import { routerUserAdmin } from './routes/userCreate.routes.js'
+
 import dotenv from "dotenv";
 
 const app = express()
@@ -15,14 +16,15 @@ app.use(cors({
 }))
 app.use(cookieParser())
 app.use(express.json())
-// TODO: routerUser para consultar la bd chatboot
-app.use(routerUser)
+
+//TODO: Metodos Cliente Fiel
+app.use(routerCF)
 
 // TODO: Metodos En Chat Boot DB
 app.use(chatBootClient)
 
-// TODO: routerValidación para realizar la validación
-app.use(routerUserAdmin)
+// TODO: Metodos En Usuarios Login
+app.use(routerUser)
 
 app.listen(PORT, () => {
   console.log(`Server On Port http://localhost:${PORT}`)
