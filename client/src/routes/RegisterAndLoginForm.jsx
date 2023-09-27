@@ -1,19 +1,17 @@
 import axios from 'axios';
-import { useContext, useState } from 'react';
-import { UserContext } from './User.context';
+import { useState } from 'react';
 
 export const RegisterAndLoginForm = () => {
 
   // * username, setUsername, id, setId, name, setName, lastName, setLastName
-  const { setUsername, setId, setName, lastName } = useContext(UserContext)
 
   //TODO: Para Errores Login y Registro
-  const [errorMessage, setErrorMessage] = useState('')
+  // const [errorMessage, setErrorMessage] = useState('')
 
-  // TODO: Para Registro
-  const [names, setNames] = useState('');
-  const [lastNames, setLastNames] = useState('');
-  const [document, setDocument] = useState('');
+  // // TODO: Para Registro
+  // const [names, setNames] = useState('');
+  // const [lastNames, setLastNames] = useState('');
+  // const [document, setDocument] = useState('');
 
   // TODO: Para Logín
   const [user, setUser] = useState('');
@@ -25,56 +23,59 @@ export const RegisterAndLoginForm = () => {
 
   async function iniciarSession(ev) {
     ev.preventDefault()
+    const { data } = await axios.post('/login', { user, password })
+    if (data) {
+      console.log(data);
 
-    try {
-      const { data } = await axios.post('/login', { user, password })
-      const { apellidos, id, nombres, username } = data;
-      setUsername(username); setId(id); setName(nombres); lastName(apellidos);
-    } catch (error) {
-      if (error.response && error.response.status === 401) {
-        const { detalle } = error.response.data
-        setErrorMessage(`${detalle}`);
-        setTimeout(() => {
-          setErrorMessage('')
-        }, 10000)
-
-      } else if (error.response && error.response.status === 404) {
-        const { detalle } = error.response.data
-        setErrorMessage(`${detalle}`);
-        setTimeout(() => {
-          setErrorMessage('')
-        }, 10000)
-      }
+    } else {
+      console.log('Error al dar datos');
     }
 
+
+    // try {
+
+    // } catch (error) {
+    //   if (error.response && error.response.status === 401) {
+    //     const { detalle } = error.response.data
+    //     setErrorMessage(`${detalle}`);
+    //     setTimeout(() => {
+    //       setErrorMessage('')
+    //     }, 10000)
+
+    //   } else if (error.response && error.response.status === 404) {
+    //     const { detalle } = error.response.data
+    //     setErrorMessage(`${detalle}`);
+    //     setTimeout(() => {
+    //       setErrorMessage('')
+    //     }, 10000)
+    //   }
+    // }
   }
 
-  async function Registrarse(ev) {
-    ev.preventDefault()
+  // async function Registrarse(ev) {
+  //   ev.preventDefault()
 
-    try {
-      const { data } = await axios.post('/register', { names, document, lastNames })
-      const { apellidos, id, nombres, username } = data;
-      console.log(data)
-      setUsername(username); setId(id); setName(nombres); lastName(apellidos);
-    } catch (error) {
+  //   try {
+  //     const { data } = await axios.post('/register', { names, document, lastNames })
+  //     const { id, username } = data;
+  //     console.log(data)
+  //     setUsername(username); setId(id);
+  //   } catch (error) {
 
-      if (error.response && error.response.status === 409) {
-        const { detalle } = error.response.data
-        setErrorMessage(`${detalle}`);
-        setTimeout(() => {
-          setErrorMessage('')
-        }, 10000)
-      } else {
-        console.error('Error de registro:', error);
-        setErrorMessage('Se produjo un error en al Iniciar Session Automaticamente.');
-        setTimeout(() => {
-          setErrorMessage('')
-        }, 10000)
-      }
-    }
-
-  }
+  //     if (error.response && error.response.status === 409) {
+  //       const { detalle } = error.response.data
+  //       setErrorMessage(`${detalle}`);
+  //       setTimeout(() => {
+  //         setErrorMessage('')
+  //       }, 10000)
+  //     } else {
+  //       console.error('Error de registro:', error);
+  //       setErrorMessage('Se produjo un error en al Iniciar Session Automaticamente.');
+  //       setTimeout(() => {
+  //         setErrorMessage('')
+  //       }, 10000)
+  //     }
+  //   }
 
   return (
     <section className="bg-blue-200 h-screen flex flex-col items-center justify-center pb-16 text-center">
@@ -99,20 +100,20 @@ export const RegisterAndLoginForm = () => {
                 </button>
               )}
             </article>
-            <article>
+            {/* <article>
               {errorMessage
                 ? <h3 className='text-red-600 font-medium'>{errorMessage}</h3>
                 : null
               }
-            </article>
+            </article> */}
 
           </div>
         )
       }
-      {
+      {/* {
         isLoginOrRegister === 'Registrarse' && (
           <div className='flex flex-col items-center'>
-            <form className="w-72" onSubmit={Registrarse}>
+            <form className="w-72">
               <h1 className='text-center font-semibold pb-4 text-xl'>Ingresa Tus Datos De Registro</h1>
               <input value={names} onChange={ev => setNames(ev.target.value)} type="text" placeholder="Nombres"
                 className="block w-full rounded-md  border p-2 mb-2" required={true} />
@@ -140,7 +141,7 @@ export const RegisterAndLoginForm = () => {
             </article>
           </div>
         )
-      }
+      } */}
     </section >
   )
 }
