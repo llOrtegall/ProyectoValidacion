@@ -14,7 +14,7 @@ export const Login = () => {
 
   async function iniciarSession(ev) {
     ev.preventDefault()
-    const response = await axios.post('http://localhost:3000/login', { user, password })
+    const response = await axios.post('/login', { user, password })
     if (response.status === 202) {
       setUsername(true)
       goTo("/dashboard")
@@ -22,7 +22,6 @@ export const Login = () => {
   }
 
   return (
-
     <div className='flex flex-col items-center'>
       <form className="w-72" onSubmit={iniciarSession}>
         <h1 className='text-center font-semibold pb-4 text-xl'>Iniciar Session</h1>

@@ -1,4 +1,5 @@
-import { createContext, useState } from "react";
+import axios from "axios";
+import { createContext, useEffect, useState } from "react";
 
 export const AuthContext = createContext(false);
 
@@ -6,7 +7,12 @@ export const AuthContext = createContext(false);
 export function AuthContextProvider({ children }) {
   const [username, setUsername] = useState(false)
 
-  console.log(username);
+  useEffect(() => {
+    axios.get('http://localhost:3000/profile')
+      .then(response => {
+        setUsername(response.data.username)
+      })
+  }, [])
 
 
   return (
