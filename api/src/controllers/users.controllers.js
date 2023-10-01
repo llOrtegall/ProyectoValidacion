@@ -23,21 +23,18 @@ export const getUser = async (req, res) => {
 
 // TODO: /login
 export const getLogin = async (req, res) => {
-
   const { user, password } = req.body
   const [result] = await connectMysql.query(`SELECT BIN_TO_UUID(id) id, username, password, nombres, apellidos FROM login WHERE username = '${user}'`)
-  console.log(result);
 
   if (result.length > 0) {
     const userData = result.find((i) => i)
     const { username, password: passDb, id, nombres, apellidos } = userData
     const passOk = bcrypt.compareSync(password, passDb)
-    console.log(passOk);
 
     if (passOk) {
       jwt.sign({ id, username, nombres, apellidos }, JWT_SECRET, {}, (err, token) => {
         if (err) throw err
-        res.cookie('token', token, { sameSite: 'none', secure: 'true' }).status(202).json({
+        res.cookie('token', token, { sameSite: 'none', secure: 'true' }).status(200).json({
           id, username, nombres, apellidos
         })
       })

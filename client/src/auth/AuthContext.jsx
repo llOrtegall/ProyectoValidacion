@@ -10,10 +10,11 @@ export function AuthContextProvider({ children }) {
   useEffect(() => {
     axios.get('http://localhost:3000/profile')
       .then(response => {
-        setUsername(response.data.username)
+        if (response.status === 200) {
+          setUsername(true)
+        }
       })
   }, [])
-
 
   return (
     <AuthContext.Provider value={{ username, setUsername }}>

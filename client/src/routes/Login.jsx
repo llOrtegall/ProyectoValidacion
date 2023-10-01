@@ -15,7 +15,7 @@ export const Login = () => {
   async function iniciarSession(ev) {
     ev.preventDefault()
     const response = await axios.post('/login', { user, password })
-    if (response.status === 202) {
+    if (response.status === 200) {
       setUsername(true)
       goTo("/dashboard")
     }
