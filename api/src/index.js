@@ -25,31 +25,17 @@ app.listen(PORT, () => {
   console.log(`Server On Port http://localhost:${PORT}`)
 })
 
-// import { getConnection } from 'oracledb'
-// import dotenv from 'dotenv'
-// dotenv.config()
+// async function run() {
+//   const connection = await oracledb.getConnection({
+//     user: "INSERTACLIENTES",
+//     password: '01e8dc3934',  // contains the hr schema password
+//     connectString: "172.20.1.174:1521/demopb"
+//   });
 
-// const config = {
-//   user: process.env.USER_NAME,
-//   password: process.env.PASS_WORD,
-//   connectString: process.env.CONECT_STRING,
-//   externalAuth: false,
-// }
-// async function getEmployee() {
-//   let conn
-//   try {
-//     conn = await getConnection(config)
-//     const result = await conn.execute(
-//       'select * from gamble.clientes WHERE DOCUMENTO=31206266;'
-//     )
-//     console.log(result.rows[0])
-//   } catch (err) {
-//     console.log('Ouch!', err)
-//   } finally {
-//     if (conn) { // conn assignment worked, need to close
-//       await conn.close()
-//     }
-//   }
+//   const result = await connection.execute(`select * from gamble.clientes where documento=29974550`);
+//   console.log("Result is:", result.rows);
+
+//   await connection.close();   // Always close connections
 // }
 
-// getEmployee()
+// run();
