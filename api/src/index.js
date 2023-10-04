@@ -24,18 +24,3 @@ app.use(routerValidacion)
 app.listen(PORT, () => {
   console.log(`Server On Port http://localhost:${PORT}`)
 })
-
-// async function run() {
-//   const connection = await oracledb.getConnection({
-//     user: "INSERTACLIENTES",
-//     password: '01e8dc3934',  // contains the hr schema password
-//     connectString: "172.20.1.174:1521/demopb"
-//   });
-
-//   const result = await connection.execute(`select * from gamble.clientes where documento=29974550`);
-//   console.log("Result is:", result.rows);
-
-//   await connection.close();   // Always close connections
-// }
-
-// run();

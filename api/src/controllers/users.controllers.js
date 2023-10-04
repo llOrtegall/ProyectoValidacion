@@ -5,10 +5,6 @@ import bcrypt from 'bcryptjs'
 const JWT_SECRET = 'hjduytqorpkcmvnfhagqwtvquritoyklasdwqweru'
 const bcryptSalt = bcrypt.genSaltSync(10)
 
-export const getTest = async (req, res) => {
-  res.status(200).json('Test Ok ¡¡¡')
-}
-
 // TODO: /profile
 export const getUsers = async (req, res) => {
   const token = req.cookies?.token

@@ -5,6 +5,14 @@ export const getClientes = async (req, res) => {
   res.status(202).json(result)
 }
 
+export const getClient = async (req, res) => {
+  const documento = req.body
+  console.log(documento);
+
+  const [result] = await connection.query(`SELECT * FROM personayumbo where cedula=${documento.documento}`)
+  res.status(200).json(result)
+}
+
 export const createCliente = (req, res) => {
   res.send('Creando los Clientes')
 }

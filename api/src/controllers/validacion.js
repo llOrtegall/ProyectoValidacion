@@ -1,25 +1,19 @@
-import { connection, conecOracDB } from '../db.js'
+import { conecOracDB } from '../db.js'
 
-export const getValidacion = async (req, res) => {
+export const userCreated = async (req, res) => {
 
-
-  // TODO: Esta es la data desde Chat Boot
-  const [result] = await connection.query('SELECT * FROM personayumbo') // TODO: CHAT BOOT
-  const resultCedula1 = result.map(item => item.cedula)
-
+  const ccConsultar = req.body
 
   // TODO: Esta es la data desde Chat Boot
-  const result2 = await conecOracDB.execute(`select * from gamble.clientes where documento=29974550`);
-  await conecOracDB.close();   // Always close connections
+  const result2 = await conecOracDB.execute(`select * from gamble.clientes where documento=${ccConsultar.documento}`);
 
-  console.log(resultCedula1);
-  const datos = result2.rows
-
-  const documento = datos[0][0]
-  const primerNombre = datos[0][4]; //
-  const primerApellido = datos[0][5]; // 
-  const segundoApellido = datos[0][6]; // 
-
-  console.log(`Documento: ${documento}, Nombre: ${primerNombre} ${primerApellido} ${segundoApellido}`);
+  if (result2.rows.length === 0) {
+    console.log("El array está vacío.");
+    res.status(200).json('Usuario No Esta Creado En Cliente Fiel')
+  } else {
+    console.log("El Array No está vacío.");
+    res.status(203).json('Usuario Esta Creado En Cliente Fiel')
+  }
+  await conecOracDB.close();
 
 }

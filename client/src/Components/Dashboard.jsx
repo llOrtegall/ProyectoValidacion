@@ -58,31 +58,24 @@ export function Dashboard({ nombre, apellidos, id }) {
           <table className='p-2 rounded-xl w-full'>
             <thead>
               <tr >
-                <th className='th-td text-xs'>Validado</th>
-                <th className='th-td text-xs'>Creado</th>
-                <th className='th-td text-xs'>Actualizar</th>
-                <th className='th-td text-xs'>Eliminar</th>
+                <th className='th-td text-sm'>Creado</th>
+                <th className='th-td text-sm'>Validado</th>
+                <th className='th-td text-sm'>Actualizar</th>
+                <th className='th-td text-sm'>Eliminar</th>
 
                 {/* Agrega más encabezados aquí si es necesario */}
               </tr>
             </thead>
             <tbody>
-              <tr >
-                <td className='th-td'>x</td>
-                <td className='th-td'>x</td>
-                <td className='th-td'>x</td>
-                <td className='th-td'>x</td>
-
-                {/* Agrega más celdas aquí si es necesario */}
-              </tr>
-              <tr >
-                <td className='th-td'>x</td>
-                <td className='th-td'>x</td>
-                <td className='th-td'>x</td>
-                <td className='th-td'>x</td>
-
-                {/* Agrega más celdas aquí si es necesario */}
-              </tr>
+              {UserDataChat().map(user => (
+                <tr key={user.id}>
+                  <td className='th-td text-sm'> x </td>
+                  <td className='th-td text-sm'> x </td>
+                  <td className='th-td text-sm'> x </td>
+                  <td className='th-td text-sm'> x </td>
+                  {/* Agrega más celdas aquí si es necesario */}
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
