@@ -4,16 +4,16 @@ export const userCreated = async (req, res) => {
 
   const ccConsultar = req.body
 
+  const ccprop = ccConsultar.prop
+
+
   // TODO: Esta es la data desde Chat Boot
-  const result2 = await conecOracDB.execute(`select * from gamble.clientes where documento=${ccConsultar.documento}`);
+  const result2 = await conecOracDB.execute(`select * from gamble.clientes where documento=${ccprop}`);
 
   if (result2.rows.length === 0) {
-    console.log("El array está vacío.");
-    res.status(200).json('Usuario No Esta Creado En Cliente Fiel')
+    res.status(200).json('user no created')
   } else {
-    console.log("El Array No está vacío.");
-    res.status(203).json('Usuario Esta Creado En Cliente Fiel')
+    res.status(202).json('user created')
   }
-  await conecOracDB.close();
 
 }

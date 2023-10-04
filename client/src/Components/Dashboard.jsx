@@ -1,7 +1,44 @@
 import { UserDataChat } from '../services/UserDataChat.jsx'
+import { useEffect, useState } from 'react'
+
+function TuComponente(prop) {
+
+  const [respuestaAPI, setRespuestaAPI] = useState('');
+
+  useEffect(() => {
+    if (prop) {
+      // Realiza una solicitud a tu API aquí
+      enviarDatosALaApi(prop);
+    }
+  }, [])
+
+  const enviarDatosALaApi = (prop) => {
+    // Aquí puedes usar fetch o cualquier otra librería para hacer la solicitud a tu API.
+    // Por ejemplo, con fetch:
+    fetch('http://localhost:3000/validacion', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(prop),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        // Maneja la respuesta de tu API aquí
+        console.log(data)
+        respuestaAPI(data)
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
+  return (
+    <td className={respuestaAPI ? 'user created' : 'bg-green-500'}></td >
+  );
+}
+
 
 // eslint-disable-next-line react/prop-types
 export function Dashboard({ nombre, apellidos, id }) {
+
 
   return (
     <section className=''>
@@ -69,7 +106,7 @@ export function Dashboard({ nombre, apellidos, id }) {
             <tbody>
               {UserDataChat().map(user => (
                 <tr key={user.id}>
-                  <td className='th-td text-sm'> x </td>
+                  <TuComponente prop={user.cedula} />
                   <td className='th-td text-sm'> x </td>
                   <td className='th-td text-sm'> x </td>
                   <td className='th-td text-sm'> x </td>
