@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import axios from 'axios'
 
 function UserDataChat() {
   const [userData, setUserData] = useState([]);
@@ -13,20 +12,12 @@ function UserDataChat() {
   return userData
 }
 
-const UserCreatedClient = async () => {
-  const respuesta = await axios.get('http://localhost:3000/validacion:id', { params: 1118307852 })
-  console.log(respuesta)
-}
-
-UserCreatedClient()
-
-
 // eslint-disable-next-line react/prop-types
 export function Dashboard({ nombre, apellidos, id }) {
 
   return (
-    <section key={id}>
-      {/*// TODO: Aquí Estará la barra de navegación */}
+    <section>
+
       <nav className="flex items-center justify-between bg-slate-300 m-2 px-4 py-2 rounded-xl">
         <figure className="flex items-center">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-10 h-10 mr-2">
@@ -48,16 +39,19 @@ export function Dashboard({ nombre, apellidos, id }) {
       </nav >
 
       <main className="flex gap-2 px-2">
-        <div className='w-2/3'>
+
+        <section className='w-1/2'>
           <h3 className='p-2 font-semibold text-2xl text-center bg-lime-300 rounded-lg my-2'>Usuarios Registrados Por ChatBoot</h3>
           <table className='p-2 rounded-xl w-full'>
             <thead>
+
               <tr >
                 <th className='th-td text-sm'>Nombres</th>
                 <th className='th-td text-sm'>Cedula</th>
                 <th className='th-td text-sm'>Correo</th>
                 {/* Agrega más encabezados aquí si es necesario */}
               </tr>
+
             </thead>
             <tbody>
               {UserDataChat().map(user => (
@@ -65,34 +59,40 @@ export function Dashboard({ nombre, apellidos, id }) {
                   <td className='th-td text-sm'> {user.nombre}</td>
                   <td className='th-td text-sm'> {user.cedula}</td>
                   <td className='th-td text-sm'> {user.correo}</td>
-                  {/* Agrega más celdas aquí si es necesario */}
+
                 </tr>
               ))}
             </tbody>
           </table>
-        </div>
+        </section>
 
-        <div className='w-1/3'>
+        <section className='w-1/2'>
           <h3 className='p-2 font-semibold text-2xl text-center bg-lime-300 rounded-lg my-2'>Validaciones</h3>
           <table className='p-2 rounded-xl w-full'>
             <thead>
+
               <tr >
-                <th className='th-td text-xs'>Creado Cliente Fiel</th>
-                <th className='th-td text-sm'>Validado</th>
-                <th className='th-td text-sm'>Actualizar</th>
-                <th className='th-td text-sm'>Eliminar</th>
+                <th className='th-td text-sm'>Validado Dian</th>
+                <th className='th-td text-sm'>Cliente Fiel Creado</th>
+                <th className='th-td text-sm'>Editar Cliente</th>
+                <th className='th-td text-sm'>Eliminar Cliente</th>
+                {/* Agrega más encabezados aquí si es necesario */}
               </tr>
+
             </thead>
             <tbody>
-              <tr>
-                <td className='th-td text-sm'> x </td>
-                <td className='th-td text-sm'> x </td>
-                <td className='th-td text-sm'> x </td>
-                {/* Agrega más celdas aquí si es necesario */}
-              </tr>
+              {UserDataChat().map(user => (
+                <tr key={user.id}>
+                  <td className='th-td text-sm'> x </td>
+                  <td className='th-td text-sm'> x </td>
+                  <td className='th-td text-sm'> x </td>
+                  <td className='th-td text-sm'> x </td>
+                </tr>
+              ))}
             </tbody>
           </table>
-        </div>
+        </section>
+
 
       </main>
     </section >
