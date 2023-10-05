@@ -3,7 +3,7 @@ import { useState } from 'react'
 import axios from 'axios'
 
 
-function TuComponente(prop) {
+function ValidarUsuarioCreado(prop) {
 
   const [user, setUser] = useState('')
 
@@ -19,8 +19,8 @@ function TuComponente(prop) {
   return (
     <>
       {(user === 'true')
-        ? <td className='th-td text-sm bg-green-500'> Si </td>
-        : <td className='th-td text-sm bg-red-500'> No </td>}
+        ? <td className='th-td text-sm text-black font-semibold bg-green-400'> Si </td>
+        : <td className='th-td text-sm text-black font-semibold bg-red-400'> No </td>}
     </>
   )
 
@@ -97,7 +97,7 @@ export function Dashboard({ nombre, apellidos, id }) {
             <tbody>
               {UserDataChat().map(user => (
                 <tr key={user.id}>
-                  <TuComponente prop={user.cedula} />
+                  <ValidarUsuarioCreado prop={user.cedula} />
                   <td className='th-td text-sm'> x </td>
                   <td className='th-td text-sm'> x </td>
                   <td className='th-td text-sm'> x </td>
