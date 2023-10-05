@@ -1,38 +1,46 @@
 import { useEffect, useState } from 'react'
-import axios from 'axios'
 
 function UserDataChat() {
   const [userData, setUserData] = useState([]);
-
   useEffect(() => {
-    fetch('/clientes')
+    fetch('http://localhost:3000/clientes')
       .then(res => res.json())
       .then(data => setUserData(data))
   }, [])
 
-  return userData
-}
-
-function UserCreatedOnClient(cc) {
-  const [user, setUser] = useState('')
-
-  useEffect(() => {
-    axios.post('/validacion', cc)
-      .then(res => res.data())
-      .then(function (data) {
-        setUser(data)
-      })
-  }, [cc])
-
   return (
-    <>
-      {user.data.user === true
-        ? <td className='th-td text-sm bg-green-500'> x </td>
-        : <td className='th-td text-sm bg-red-500'> x </td>}
-    </>
-  )
+    <table className='p-2 rounded-xl w-full'>
 
+      <thead>
+        <tr >
+          <th className='th-td text-sm'>Nombres</th>
+          <th className='th-td text-sm'>Cedula</th>
+          <th className='th-td text-sm'>Correo</th>
+          {/* Agrega más encabezados aquí si es necesario */}
+        </tr>
+      </thead>
+
+      {userData.length >= 0
+        ? (userData.map(i => (
+          <tbody key={i.id}>
+            <tr >
+              <td className='th-td text-sm'>{i.nombre}</td>
+              <td className='th-td text-sm'>{i.cedula}</td>
+              <td className='th-td text-sm'> {i.correo}</td>
+            </tr>
+          </tbody>
+        )
+        ))
+        : <tbody>
+          <tr>
+            <td className='th-td text-sm'> NO SE ENCUENTRAS RESULTADOS NUEVOS </td>
+          </tr>
+        </tbody>
+      }
+    </table>
+  )
 }
+
 
 // eslint-disable-next-line react/prop-types
 export function Dashboard({ nombre, apellidos, id }) {
@@ -64,28 +72,7 @@ export function Dashboard({ nombre, apellidos, id }) {
 
         <section className='w-1/2'>
           <h3 className='p-2 font-semibold text-2xl text-center bg-lime-300 rounded-lg my-2'>Usuarios Registrados Por ChatBoot</h3>
-          <table className='p-2 rounded-xl w-full'>
-            <thead>
-
-              <tr >
-                <th className='th-td text-sm'>Nombres</th>
-                <th className='th-td text-sm'>Cedula</th>
-                <th className='th-td text-sm'>Correo</th>
-                {/* Agrega más encabezados aquí si es necesario */}
-              </tr>
-
-            </thead>
-            <tbody>
-              {UserDataChat().map(user => (
-                <tr key={user.id}>
-                  <td className='th-td text-sm'> {user.nombre}</td>
-                  <td className='th-td text-sm'> {user.cedula}</td>
-                  <td className='th-td text-sm'> {user.correo}</td>
-
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <UserDataChat />
         </section>
 
         <section className='w-1/2'>
@@ -103,20 +90,18 @@ export function Dashboard({ nombre, apellidos, id }) {
 
             </thead>
             <tbody>
-              {UserDataChat().map(user => (
-                <tr key={user.id}>
-                  <UserCreatedOnClient cc={user.cedula} />
-                  <td className='th-td text-sm'> x </td>
-                  <td className='th-td text-sm'> x </td>
-                  <td className='th-td text-sm'> x </td>
-                </tr>
-              ))}
+              <tr>
+                <td className='th-td text-sm'> x </td>
+                <td className='th-td text-sm'> x </td>
+                <td className='th-td text-sm'> x </td>
+                <td className='th-td text-sm'> x </td>
+              </tr>
             </tbody>
           </table>
         </section>
 
 
-      </main>
+      </main >
     </section >
   )
 }
