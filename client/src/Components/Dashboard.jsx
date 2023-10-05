@@ -1,38 +1,29 @@
 import { UserDataChat } from '../services/UserDataChat.jsx'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
+import axios from 'axios'
+
 
 function TuComponente(prop) {
 
-  const [respuestaAPI, setRespuestaAPI] = useState('');
+  const [user, setUser] = useState('')
 
-  useEffect(() => {
-    if (prop) {
-      // Realiza una solicitud a tu API aquí
-      enviarDatosALaApi(prop);
-    }
-  }, [])
-
-  const enviarDatosALaApi = (prop) => {
-    // Aquí puedes usar fetch o cualquier otra librería para hacer la solicitud a tu API.
-    // Por ejemplo, con fetch:
-    fetch('http://localhost:3000/validacion', {
-      method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(prop),
+  axios.post('/validacion', prop)
+    .then(function ({ data }) {
+      setUser(data.state);
     })
-      .then((response) => response.json())
-      .then((data) => {
-        // Maneja la respuesta de tu API aquí
-        console.log(data)
-        respuestaAPI(data)
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  };
+    .catch(function (error) {
+      console.log(error);
+    })
+
 
   return (
-    <td className={respuestaAPI ? 'user created' : 'bg-green-500'}></td >
-  );
+    <>
+      {(user === 'true')
+        ? <td className='th-td text-sm bg-green-500'> Si </td>
+        : <td className='th-td text-sm bg-red-500'> No </td>}
+    </>
+  )
+
 }
 
 
