@@ -1,15 +1,37 @@
 import { useEffect, useState } from 'react'
+import axios from 'axios'
 
 function UserDataChat() {
   const [userData, setUserData] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:3000/clientes')
+    fetch('/clientes')
       .then(res => res.json())
       .then(data => setUserData(data))
   }, [])
 
   return userData
+}
+
+function UserCreatedOnClient(cc) {
+  const [user, setUser] = useState('')
+
+  useEffect(() => {
+    axios.post('/validacion', cc)
+      .then(res => res.data())
+      .then(function (data) {
+        setUser(data)
+      })
+  }, [cc])
+
+  return (
+    <>
+      {user.data.user === true
+        ? <td className='th-td text-sm bg-green-500'> x </td>
+        : <td className='th-td text-sm bg-red-500'> x </td>}
+    </>
+  )
+
 }
 
 // eslint-disable-next-line react/prop-types
@@ -83,7 +105,7 @@ export function Dashboard({ nombre, apellidos, id }) {
             <tbody>
               {UserDataChat().map(user => (
                 <tr key={user.id}>
-                  <td className='th-td text-sm'> x </td>
+                  <UserCreatedOnClient cc={user.cedula} />
                   <td className='th-td text-sm'> x </td>
                   <td className='th-td text-sm'> x </td>
                   <td className='th-td text-sm'> x </td>
