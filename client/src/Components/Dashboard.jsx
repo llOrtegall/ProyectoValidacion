@@ -9,35 +9,64 @@ function UserDataChat() {
   }, [])
 
   return (
-    <table className='p-2 rounded-xl w-full'>
+    <>
+      <section className='w-1/2'>
+        <h3 className='p-2 font-semibold text-2xl text-center bg-lime-300 rounded-lg my-2'>Usuarios Registrados Por ChatBoot</h3>
+        <table className='p-2 rounded-xl w-full'>
 
-      <thead>
-        <tr >
-          <th className='th-td text-sm'>Nombres</th>
-          <th className='th-td text-sm'>Cedula</th>
-          <th className='th-td text-sm'>Correo</th>
-          {/* Agrega más encabezados aquí si es necesario */}
-        </tr>
-      </thead>
-
-      {userData.length >= 0
-        ? (userData.map(i => (
-          <tbody key={i.id}>
+          <thead>
             <tr >
-              <td className='th-td text-sm'>{i.nombre}</td>
-              <td className='th-td text-sm'>{i.cedula}</td>
-              <td className='th-td text-sm'> {i.correo}</td>
+              <th className='th-td text-sm'>Nombres</th>
+              <th className='th-td text-sm'>Cedula</th>
+              <th className='th-td text-sm'>Correo</th>
+              {/* Agrega más encabezados aquí si es necesario */}
             </tr>
+          </thead>
+          <tbody >
+            {
+              userData.length >= 0
+                ? (userData.map(i => (
+                  <tr key={i.id}>
+                    <td className='th-td text-sm'>{i.nombre}</td>
+                    <td className='th-td text-sm'>{i.cedula}</td>
+                    <td className='th-td text-sm'> {i.correo}</td>
+                  </tr>)))
+                : <tr> <td className='th-td text-sm'> NO SE ENCUENTRAS RESULTADOS NUEVOS </td> </tr>
+            }
           </tbody>
-        )
-        ))
-        : <tbody>
-          <tr>
-            <td className='th-td text-sm'> NO SE ENCUENTRAS RESULTADOS NUEVOS </td>
-          </tr>
-        </tbody>
-      }
-    </table>
+        </table>
+
+      </section>
+
+      <section className='w-1/2'>
+        <h3 className='p-2 font-semibold text-2xl text-center bg-lime-300 rounded-lg my-2'>Validación Usuarios</h3>
+        <table className='p-2 rounded-xl w-full'>
+          <thead>
+            <tr >
+              <th className='th-td text-sm'>Validado Dian</th>
+              <th className='th-td text-sm'>Creado Cliente Fiel</th>
+              <th className='th-td text-sm'>Editar Cliente</th>
+              <th className='th-td text-sm'>Eliminar Cliente</th>
+              {/* Agrega más encabezados aquí si es necesario */}
+            </tr>
+          </thead>
+          <tbody>
+
+            {userData.length >= 0
+              ? (userData.map(i => (
+                <tr key={i.id}>
+                  <td className='th-td text-sm' > {console.log(i.cedula)} </td>
+                  <td className='th-td text-sm' > x </td>
+                  <td className='th-td text-sm' > x </td>
+                  <td className='th-td text-sm' > x </td>
+                </tr>
+              )))
+              : <td>noresults</td>
+            }
+          </tbody>
+        </table>
+      </section >
+    </>
   )
 }
 
@@ -70,36 +99,7 @@ export function Dashboard({ nombre, apellidos, id }) {
 
       <main className="flex gap-2 px-2">
 
-        <section className='w-1/2'>
-          <h3 className='p-2 font-semibold text-2xl text-center bg-lime-300 rounded-lg my-2'>Usuarios Registrados Por ChatBoot</h3>
-          <UserDataChat />
-        </section>
-
-        <section className='w-1/2'>
-          <h3 className='p-2 font-semibold text-2xl text-center bg-lime-300 rounded-lg my-2'>Validaciones</h3>
-          <table className='p-2 rounded-xl w-full'>
-            <thead>
-
-              <tr >
-                <th className='th-td text-sm'>Validado Dian</th>
-                <th className='th-td text-sm'>Cliente Fiel Creado</th>
-                <th className='th-td text-sm'>Editar Cliente</th>
-                <th className='th-td text-sm'>Eliminar Cliente</th>
-                {/* Agrega más encabezados aquí si es necesario */}
-              </tr>
-
-            </thead>
-            <tbody>
-              <tr>
-                <td className='th-td text-sm'> x </td>
-                <td className='th-td text-sm'> x </td>
-                <td className='th-td text-sm'> x </td>
-                <td className='th-td text-sm'> x </td>
-              </tr>
-            </tbody>
-          </table>
-        </section>
-
+        <UserDataChat />
 
       </main >
     </section >
