@@ -6,6 +6,7 @@ export function Dashboard({ id, nombre, apellidos }) {
 
   return (
     <section>
+
       <nav className="flex items-center justify-between bg-slate-300 m-2 px-4 py-2 rounded-xl">
         <figure className="flex items-center">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-10 h-10 mr-2">
@@ -25,7 +26,9 @@ export function Dashboard({ id, nombre, apellidos }) {
         </button>
 
       </nav >
+
       <main className="flex gap-2 px-2">
+
         <section className='w-1/2'>
           <h3 className='p-2 font-semibold text-2xl text-center bg-lime-300 rounded-lg my-2'>Usuarios Registrados Por ChatBoot</h3>
           <table className='p-2 rounded-xl w-full'>
@@ -35,6 +38,7 @@ export function Dashboard({ id, nombre, apellidos }) {
                 <th className='th-td text-sm'>Nombres</th>
                 <th className='th-td text-sm'>Cedula</th>
                 <th className='th-td text-sm'>Correo</th>
+                <th className='th-td text-sm'>Télefono</th>
               </tr>
             </thead>
             <tbody >
@@ -43,6 +47,7 @@ export function Dashboard({ id, nombre, apellidos }) {
           </table>
 
         </section>
+
         <section className='w-1/2'>
           <h3 className='p-2 font-semibold text-2xl text-center bg-lime-300 rounded-lg my-2'>Validación Usuarios</h3>
           <table className='p-2 rounded-xl w-full'>
@@ -60,6 +65,7 @@ export function Dashboard({ id, nombre, apellidos }) {
             </tbody>
           </table>
         </section >
+
       </main >
     </section >
   )

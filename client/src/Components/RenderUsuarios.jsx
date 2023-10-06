@@ -32,7 +32,8 @@ export function RenderUsuarios() {
                 <tr key={i.cedula}>
                   <td className='th-td text-sm'>{i.nombre}</td>
                   <td className='th-td text-sm'>{i.cedula}</td>
-                  <td className='th-td text-sm'> {i.correo}</td>
+                  <td className='th-td text-sm'>{i.correo}</td>
+                  <td className='th-td text-sm'>{i.telefono}</td>
                 </tr>
               ))
             }
