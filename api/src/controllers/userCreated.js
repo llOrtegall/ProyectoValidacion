@@ -1,20 +1,18 @@
 import { conecOracDB } from '../db.js'
 
-
 export const userCreated = async (req, res) => {
-  const consultarCedula = req.body.cedula
 
-  // TODO: Esta es la data desde Cliente Fiel
-  const result = await conecOracDB.execute(`select * from gamble.clientes where documento=${consultarCedula}`);
+  const cedula = req.body.cc;
+
+  const result = await conecOracDB.execute(`SELECT * FROM gamble.clientes WHERE documento = ${cedula}`);
 
   if (result.rows?.length > 0) {
-    if (result.rows[0][0] === consultarCedula) {
-      res.status(200).json({ 'user': true })
+    if (result.rows[0][0] === cedula) {
+      res.status(200).json({ 'userCreated': true, 'cedula': cedula });
     }
   } else {
-    res.status(200).json({ 'user': false })
+    res.status(200).json({ 'userCreated': false, 'cedula': cedula });
   }
-
 }
 
 export const CreateUserclient = async (req, res) => {
