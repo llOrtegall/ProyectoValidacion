@@ -1,25 +1,56 @@
 import { useEffect, useState } from 'react'
+import axios from 'axios'
 
 // eslint-disable-next-line react/prop-types
 export function Dashboard({ nombre, apellidos, id }) {
 
   const [userData, setUserData] = useState([]);
+  const [userCreated, setUserCreated] = useState([]);
 
   useEffect(() => {
     fetch('http://localhost:3000/clientes')
       .then(res => res.json())
-      .then(data => setUserData(data))
+      .then(data => {
+        setUserData(data)
+      })
   }, [])
 
-  async function ValidarCreacion(Data) {
+  function ValidarCedulas() {
+    const url = 'http://localhost:3000/validacion';
 
-    for (let i = 0; i < Data.length; i++) {
-      console.log(Data[i].cedula);
+    function ExtraerCedulas(Data) {
+      let cedulas = []
+      for (let i = 0; i < Data.length; i++) {
+        cedulas.push(Data[i].cedula);
+      }
+      return cedulas
     }
+
+    const cedulas = ExtraerCedulas(userData)
+
+    useEffect(() => {
+      axios.post(url, cedulas)
+        .then(response => {
+          setUserCreated(response.data);
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    }, [])
+
+    return (
+      userData.length >= 0
+        ? userCreated.map(i => (
+          <tr key={i.cedula}>
+            {i.userCreated === true
+              ? <td className='th-td text-sm bg-green-500'>Si</td>
+              : <td className='th-td text-sm bg-red-500'> No </td>
+            }
+          </tr>
+        ))
+        : <tr> <td className='th-td text-sm'> NO SE ENCUENTRAS RESULTADOS NUEVOS </td> </tr>
+    )
   }
-
-  ValidarCreacion(userData)
-
 
   return (
     <section>
@@ -76,15 +107,15 @@ export function Dashboard({ nombre, apellidos, id }) {
           <table className='p-2 rounded-xl w-full'>
             <thead>
               <tr >
-                <th className='th-td text-sm'>Validado Dian</th>
                 <th className='th-td text-sm'>Creado Cliente Fiel</th>
+                <th className='th-td text-sm'>Validado Dian</th>
                 <th className='th-td text-sm'>Editar Cliente</th>
                 <th className='th-td text-sm'>Eliminar Cliente</th>
                 {/* Agrega más encabezados aquí si es necesario */}
               </tr>
             </thead>
             <tbody>
-              { }
+              <ValidarCedulas />
             </tbody>
           </table>
         </section >

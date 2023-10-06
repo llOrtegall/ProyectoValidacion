@@ -2,17 +2,33 @@ import { conecOracDB } from '../db.js'
 
 export const userCreated = async (req, res) => {
 
-  const cedula = req.body.cc;
+  const cedulas = req.body;
 
-  const result = await conecOracDB.execute(`SELECT * FROM gamble.clientes WHERE documento = ${cedula}`);
+  const results = [];
 
-  if (result.rows?.length > 0) {
-    if (result.rows[0][0] === cedula) {
-      res.status(200).json({ 'userCreated': true, 'cedula': cedula });
-    }
-  } else {
-    res.status(200).json({ 'userCreated': false, 'cedula': cedula });
+  for (const cedula of cedulas) {
+    const result = await conecOracDB.execute(`SELECT * FROM gamble.clientes WHERE documento = '${cedula}'`);
+    results.push(result);
   }
+
+  const response = cedulas.map((cedula, index) => ({
+    cedula,
+    userCreated: results[index].rows?.length > 0
+  }));
+
+  res.status(200).json(response);
+
+  // const cedula = req.body;
+
+  // const result = await conecOracDB.execute(`SELECT * FROM gamble.clientes WHERE documento = ${cedula}`);
+
+  // if (result.rows?.length > 0) {
+  //   if (result.rows[0][0] === cedula) {
+  //     res.status(200).json({ 'userCreated': true, 'cedula': cedula });
+  //   }
+  // } else {
+  //   res.status(200).json({ 'userCreated': false, 'cedula': cedula });
+  // }
 }
 
 export const CreateUserclient = async (req, res) => {
