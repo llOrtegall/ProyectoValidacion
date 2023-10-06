@@ -1,15 +1,132 @@
-import { useEffect, useState } from 'react'
-import axios from 'axios'
+import { useEffect, useState } from "react"
+
+function RenderUsuarios() {
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const apiUrl = 'http://localhost:3000/clientes'
+
+    fetch(apiUrl)
+      .then(response => response.json())
+      .then(data => {
+        setData(data)
+        setLoading(false)
+      })
+      .catch(error => {
+        console.error('Error al obtener datos de la API:', error);
+        setLoading(false)
+      })
+  }, [])
+
+  return (
+    <>
+      {loading
+        ? (
+          <p>Cargando...</p>
+        )
+        : (
+          <>
+            {
+              data.map(i => (
+                <tr key={i.cedula}>
+                  <td className='th-td text-sm'>{i.nombre}</td>
+                  <td className='th-td text-sm'>{i.cedula}</td>
+                  <td className='th-td text-sm'> {i.correo}</td>
+                </tr>
+              ))
+            }
+          </>
+        )
+      }
+    </>
+  )
+}
+
+function ValidarCedulas() {
+  const [responseData, setResponseData] = useState(null);
+  const [userCedulas, setUserCedulas] = useState([])
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(true);
+
+  useEffect(() => {
+    const apiUrl = 'http://localhost:3000/clientes'
+
+    fetch(apiUrl)
+      .then(response => response.json())
+      .then(data => {
+        setUserCedulas(data)
+        setError(false)
+      })
+      .catch(err => {
+        console.error('Error al obtener datos de la API:', err);
+        setError(false)
+      })
+  }, [])
+
+
+  useEffect(() => {
+
+    function ExtraerCedulas(data) {
+      let cedulas = []
+      for (let i = 0; i < data.length; i++) {
+        cedulas.push(data[i].cedula);
+      }
+      return cedulas
+    }
+
+    const cedulas = ExtraerCedulas(userCedulas)
+
+    fetch('http://localhost:3000/validacion', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(cedulas)
+    })
+      .then(response => response.json())
+      .then(data => {
+        setResponseData(data);
+        setLoading(false)
+      })
+      .catch(error => {
+        console.error('Error al realizar la solicitud POST:', error);
+        setLoading(false)
+      });
+
+  }, [error])
+
+  return (
+    <>
+      {loading
+        ? (
+          <p>Cargando...</p>
+        )
+        : (
+          <>
+            {
+              responseData.map(i => (
+                <tr key={i.cedula}>
+                  {
+                    i.userCreated === true
+                      ? <td className='th-td text-sm bg-green-400'>Si</td>
+                      : <td className='th-td text-sm bg-red-400'>No</td>
+                  }
+                </tr>
+              ))
+            }
+          </>
+        )
+      }
+    </>
+  )
+}
 
 // eslint-disable-next-line react/prop-types
 export function Dashboard({ nombre, apellidos, id }) {
 
-  const [userData, setUserData] = useState([]);
-  const [userCreated, setUserCreated] = useState([]);
-
-  function RenderUserLogin() {
-
-    return (
+  return (
+    <section key={id}>
       <nav className="flex items-center justify-between bg-slate-300 m-2 px-4 py-2 rounded-xl">
         <figure className="flex items-center">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-10 h-10 mr-2">
@@ -29,86 +146,20 @@ export function Dashboard({ nombre, apellidos, id }) {
         </button>
 
       </nav >
-    )
-  }
-
-  function RenderUserChatBoot() {
-    useEffect(() => {
-      fetch('http://localhost:3000/clientes')
-        .then(res => res.json())
-        .then(data => {
-          setUserData(data)
-        })
-    }, [])
-
-    return (
-      userData.length >= 0
-        ? (userData.map(i => (
-          <tr key={i.id}>
-            <td className='th-td text-sm'>{i.nombre}</td>
-            <td className='th-td text-sm'>{i.cedula}</td>
-            <td className='th-td text-sm'> {i.correo}</td>
-          </tr>)))
-        : <tr> <td className='th-td text-sm'> NO SE ENCUENTRAS RESULTADOS NUEVOS </td> </tr>
-
-    )
-  }
-
-  function ValidarCedulas() {
-    const url = 'http://localhost:3000/validacion';
-
-    function ExtraerCedulas(Data) {
-      let cedulas = []
-      for (let i = 0; i < Data.length; i++) {
-        cedulas.push(Data[i].cedula);
-      }
-      return cedulas
-    }
-
-    const cedulas = ExtraerCedulas(userData)
-
-    useEffect(() => {
-      axios.post(url, cedulas)
-        .then(response => {
-          setUserCreated(response.data);
-        })
-        .catch(error => {
-          console.log(error);
-        });
-    })
-
-    return (
-      userData.length >= 0
-        ? userCreated.map(i => (
-          <tr key={i.cedula}>
-            {i.userCreated === true
-              ? <td className='th-td text-sm bg-green-500'>Si</td>
-              : <td className='th-td text-sm bg-red-500'> No </td>
-            }
-          </tr>
-        ))
-        : <tr> <td className='th-td text-sm'> NO SE ENCUENTRAS RESULTADOS NUEVOS </td> </tr>
-    )
-  }
-
-  return (
-    <section key={id}>
-      <RenderUserLogin />
       <main className="flex gap-2 px-2">
         <section className='w-1/2'>
           <h3 className='p-2 font-semibold text-2xl text-center bg-lime-300 rounded-lg my-2'>Usuarios Registrados Por ChatBoot</h3>
           <table className='p-2 rounded-xl w-full'>
 
             <thead>
-              <tr >
+              <tr>
                 <th className='th-td text-sm'>Nombres</th>
                 <th className='th-td text-sm'>Cedula</th>
                 <th className='th-td text-sm'>Correo</th>
-                {/* Agrega más encabezados aquí si es necesario */}
               </tr>
             </thead>
             <tbody >
-              <RenderUserChatBoot />
+              <RenderUsuarios />
             </tbody>
           </table>
 
