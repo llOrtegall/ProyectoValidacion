@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { AgregarUser } from './AgregarUser'
 
 export function ValidarCedulas() {
   const [responseData, setResponseData] = useState(null);
@@ -72,7 +73,7 @@ export function ValidarCedulas() {
                       </td>
                       :
                       <td className='th-td text-md p-3 justify-between bg-red-400 font-semibold'>
-                        No <button className='ml-3 px-1 bg-white rounded p-1 '>Crear Cliente</button>
+                        No <AgregarUser data={responseData} />
                       </td>
                   }
                 </tr>
