@@ -1,7 +1,31 @@
+import { useState, useEffect } from "react";
+
 export function AgregarUser(data) {
 
-  // TODO: Tomamos el objeto y filtramos por usuarios no creados
-  const usuariosNoCreados = data.data.filter(item => !item.userCreated);
+  console.log(data.user);
+
+
+  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const apiUrl = 'http://localhost:3000/clientes'
+
+    fetch(apiUrl)
+      .then(response => response.json())
+      .then(data => {
+        setUsers(data)
+        setLoading(false)
+      })
+      .catch(error => {
+        console.error('Error al obtener datos de la API:', error);
+        setLoading(false)
+      })
+  }, [])
+
+
+
+
 
 
   return (

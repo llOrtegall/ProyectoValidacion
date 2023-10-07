@@ -73,7 +73,7 @@ export function ValidarCedulas() {
                       </td>
                       :
                       <td className='th-td text-md p-3 justify-between bg-red-400 font-semibold'>
-                        No <AgregarUser data={responseData} />
+                        No <AgregarUser user={i.cedula} />
                       </td>
                   }
                 </tr>
