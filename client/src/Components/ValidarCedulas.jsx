@@ -63,11 +63,17 @@ export function ValidarCedulas() {
           <>
             {
               responseData.map(i => (
-                <tr key={i.cedula}>
+                <tr key={i.cedula} className=''>
                   {
                     i.userCreated === true
-                      ? <td className='th-td text-sm bg-green-400'>Si</td>
-                      : <td className='th-td text-sm bg-red-400'>No</td>
+                      ?
+                      <td className='th-td text-md p-4 bg-green-300 font-semibold'>
+                        Si
+                      </td>
+                      :
+                      <td className='th-td text-md p-3 justify-between bg-red-400 font-semibold'>
+                        No <button className='ml-3 px-1 bg-white rounded p-1 '>Crear Cliente</button>
+                      </td>
                   }
                 </tr>
               ))

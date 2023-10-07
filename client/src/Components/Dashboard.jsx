@@ -35,10 +35,10 @@ export function Dashboard({ id, nombre, apellidos }) {
 
             <thead>
               <tr>
-                <th className='th-td text-sm'>Nombres</th>
-                <th className='th-td text-sm'>Cedula</th>
-                <th className='th-td text-sm'>Correo</th>
-                <th className='th-td text-sm'>Télefono</th>
+                <th className='th-td p-3 text-lg'>Nombres</th>
+                <th className='th-td p-3 text-lg'>Cedula</th>
+                <th className='th-td p-3 text-lg'>Correo</th>
+                <th className='th-td p-3 text-lg'>Télefono</th>
               </tr>
             </thead>
             <tbody >
@@ -53,10 +53,10 @@ export function Dashboard({ id, nombre, apellidos }) {
           <table className='p-2 rounded-xl w-full'>
             <thead>
               <tr >
-                <th className='th-td text-sm'>Creado Cliente Fiel</th>
-                <th className='th-td text-sm'>Validado Dian</th>
-                <th className='th-td text-sm'>Editar Cliente</th>
-                <th className='th-td text-sm'>Eliminar Cliente</th>
+                <th className='th-td p-3 text-lg'>Creado Cliente Fiel</th>
+                <th className='th-td p-3 text-lg'>Validado Dian</th>
+                <th className='th-td p-3 text-lg'>Editar Cliente</th>
+                <th className='th-td p-3 text-lg'>Eliminar Cliente</th>
                 {/* Agrega más encabezados aquí si es necesario */}
               </tr>
             </thead>

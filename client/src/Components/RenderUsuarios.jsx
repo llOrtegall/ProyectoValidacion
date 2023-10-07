@@ -29,11 +29,11 @@ export function RenderUsuarios() {
           <>
             {
               data.map(i => (
-                <tr key={i.cedula}>
-                  <td className='th-td text-sm'>{i.nombre}</td>
-                  <td className='th-td text-sm'>{i.cedula}</td>
-                  <td className='th-td text-sm'>{i.correo}</td>
-                  <td className='th-td text-sm'>{i.telefono}</td>
+                <tr key={i.cedula} >
+                  <td className='th-td text-md p-4 font-semibold'>{i.nombre}</td>
+                  <td className='th-td text-md p-4 font-semibold'>{i.cedula}</td>
+                  <td className='th-td text-md p-4 font-semibold'>{i.correo}</td>
+                  <td className='th-td text-md p-4 font-semibold'>{i.telefono}</td>
                 </tr>
               ))
             }
