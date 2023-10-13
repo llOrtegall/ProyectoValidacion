@@ -47,7 +47,7 @@ export const CreateUserclient = async (req, res) => {
     '${celular}', '', '6', '30', '8', '965', '60', '33', '66910151', '00000', '0' ,'0', '', null, null, null, null, null, '101010', null, null, null, null, null, null, null, null, null)`);
 
     await conecOracDB.commit();
-    res.status(201).json({ 'success': true, 'message': 'Commit successfully committed' })
+    res.status(201).json({ 'success': true, 'message': 'Commit successfully committed' }).json(result)
 
   } catch (error) {
     res.status(500).json({ 'success': false, 'message': 'Commit error committed' })

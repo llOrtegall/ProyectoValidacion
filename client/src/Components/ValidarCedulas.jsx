@@ -62,6 +62,7 @@ export function ValidarCedulas() {
         )
         : (
           <>
+            {console.log(responseData)}
             {
               responseData.map(i => (
                 <tr key={i.cedula} className=''>

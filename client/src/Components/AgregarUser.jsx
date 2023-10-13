@@ -1,33 +1,32 @@
-import { useState, useEffect } from "react";
+export function AgregarUser({ user }) {
 
-export function AgregarUser(data) {
+  const SchemaUser = {
+    "documento": `${user}`
+  }
 
-  console.log(data.user);
+  const getClient = async () => {
+    try {
+      const url = 'http://localhost:3000/cliente';
+      const opciones = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(SchemaUser)
+      };
+      const response = await fetch(url, opciones);
+      if (!response.ok) {
+        throw new Error('Error en la solicitud');
+      }
+      const responseData = await response.json();
+      console.log('Respuesta del servidor:', responseData);
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  }
 
-
-  const [users, setUsers] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const apiUrl = 'http://localhost:3000/clientes'
-
-    fetch(apiUrl)
-      .then(response => response.json())
-      .then(data => {
-        setUsers(data)
-        setLoading(false)
-      })
-      .catch(error => {
-        console.error('Error al obtener datos de la API:', error);
-        setLoading(false)
-      })
-  }, [])
-
-
-
-
-
-
+  getClient()
+  console.log(getClient())
   return (
     <button className='ml-3 px-1 bg-white rounded p-1 '>Crear Cliente</button>
   )

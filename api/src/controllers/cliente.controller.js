@@ -6,10 +6,9 @@ export const getClientes = async (req, res) => {
 }
 
 export const getClient = async (req, res) => {
-  const documento = req.body
-  console.log(documento);
+  const { documento } = req.body
 
-  const [result] = await connection.query(`SELECT * FROM personayumbo where cedula=${documento.documento}`)
+  const [result] = await connection.query(`SELECT * FROM personayumbo where cedula=${documento}`)
   res.status(200).json(result)
 }
 
