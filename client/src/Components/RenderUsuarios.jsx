@@ -1,25 +1,23 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { getData } from "../services/getDataUser.js";
 
 export function RenderUsuarios() {
+  const [user, setUser] = useState([])
 
   useEffect(() => {
-    try {
-      const apiUrl = 'http://localhost:3000/clientes'; // URL de ejemplo
-      const response = fetch(apiUrl);
-      if (!response.ok) {
-        throw new Error('Error en la solicitud');
-      }
-      const data = response.json();
-      console.log(data)
-    } catch (error) {
-      console.error('Error:', error);
-    }
-
+    getData()
+      .then(data => { setUser(data) }
+      )
+      .catch(err => {
+        console.log('Error: ', err)
+      })
   }, [])
+
 
 
   return (
     <div>
+      <h2>{console.log(user)}</h2>
     </div>
   )
 }
