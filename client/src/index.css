@@ -9,7 +9,7 @@
 }
 
 th {
-  @apply bg-gray-600 text-white
+  @apply bg-indigo-600 text-white
 }
 
 tr:nth-child(even) {
