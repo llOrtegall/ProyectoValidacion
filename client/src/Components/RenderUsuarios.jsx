@@ -13,11 +13,10 @@ export function RenderUsuarios() {
       })
   }, [])
 
-
-
   return (
-    <div>
-      <h2>{console.log(user)}</h2>
-    </div>
+    <section>
+      {user.length > 0
+        ? user.map()}
+    </section>
   )
 }
