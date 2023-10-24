@@ -25,7 +25,7 @@ export const Login = () => {
   }
 
   return (
-    <div className='flex flex-col items-center'>
+    <section className='flex justify-center items-center h-screen w-screen bg-blue-200 pb-12'>
       <form className="w-72" onSubmit={iniciarSession}>
         <h1 className='text-center font-semibold pb-4 text-xl'>Iniciar Session</h1>
         <input value={user} onChange={ev => setUser(ev.target.value)} type="text" placeholder="Usuario"
@@ -36,7 +36,7 @@ export const Login = () => {
           Iniciar Session
         </button>
       </form>
-    </div>
+    </section>
 
   )
 }
