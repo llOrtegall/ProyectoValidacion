@@ -7,12 +7,9 @@ export function RenderUsuarios() {
   const [value, setValue] = useState('')
 
   const handleClick = (prop) => {
-    // Cambiar el estado para renderizar el componente cuando se hace clic
     setRenderComponent(true);
-    // console.log(prop.target.id);
     setValue(prop.target.id)
   };
-
 
   // eslint-disable-next-line react/prop-types
   function ValidarUsuario({ cc }) {
@@ -39,7 +36,7 @@ export function RenderUsuarios() {
         : <>
           <td className="bg-red-400">{valida.stado}</td>
           <td className="hover:bg-yellow-500 hover:cursor-pointer hover:text-white"
-            onClick={ev => handleClick(ev)} id={valida.user}>Crear Usuario</td>
+            onClick={ev => handleClick(ev)} id={valida.user}>Opc Usuario</td>
         </>
     )
   }
@@ -147,7 +144,6 @@ export function RenderUsuarios() {
 
     )
   }
-
 
   return (
     <>

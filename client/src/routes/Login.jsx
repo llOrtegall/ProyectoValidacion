@@ -22,6 +22,10 @@ export const Login = () => {
       }).catch((err) => {
         setErrorMessage(err.response.data.detalle);
       })
+
+    setTimeout(() => {
+      setErrorMessage('')
+    }, 8000)
   }
 
   return (

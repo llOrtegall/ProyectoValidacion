@@ -11,16 +11,6 @@ export const getClientFiel = async (req, res) => {
 }
 
 export const createdClientFiel = async (req, res) => {
-
-  // { //TODO: Estructura Objecto Inicial
-  //   "nombre": "Andres",
-  //   "nombre2": "Felipe",
-  //   "apellido": "Izquierdo",
-  //   "apellido2": "Saya",
-  //   "documento": "1114345243",
-  //   "celular": "324 546 6577"
-  // }
-
   const user = req.body;
 
   try {
