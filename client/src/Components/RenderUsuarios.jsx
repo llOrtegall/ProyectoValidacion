@@ -6,9 +6,11 @@ export function RenderUsuarios() {
   // eslint-disable-next-line react/prop-types
   function ValidarUsuario({ cc }) {
     const [valida, setValida] = useState('')
+    console.log(cc);
+
 
     useEffect(() => {
-      axios.post('http://localhost:3000/validarUsuario', { cc })
+      axios.post('http://localhost:3000/getCF', { cc })
         .then(data => {
           setValida(data.data)
         })
