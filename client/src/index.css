@@ -7,7 +7,7 @@ td {
 }
 
 th {
-  @apply bg-indigo-600 text-white border
+  @apply bg-indigo-600 text-white border py-2
 }
 
 tr:nth-child(even) {

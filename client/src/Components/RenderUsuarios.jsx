@@ -93,15 +93,17 @@ export function RenderUsuarios() {
 
     return (
       <>
-        <section className="flex w-auto m-2 p-2 bg-yellow-300 rounded-lg justify-center">
-          <span className="font-semibold">Por Favor Antes De Agregar El Usuario Validar Con Alguna Página Del Estado</span>
+        <section className="flex w-auto m-2 p-2 bg-yellow-300 rounded-lg justify-center ">
+          <span className="font-semibold">Por Favor Antes De Agregar El Usuario Validar Con Alguna Página Del Estado La Información Recibida</span>
         </section>
 
-        <section className="flex m-2 p-2 bg-purple-400 rounded-lg items-center">
-          <figure className="pr-2">
+        <section className="flex m-2 p-6 bg-zinc-300 rounded-lg items-center">
+
+          <figure className="w-auto h-full pr-2 ">
             <InfoIcon />
           </figure>
-          <article className="flex flex-col border rounded-md p-2 w-auto">
+
+          <article className="flex flex-col border rounded-md p-6 bg-zinc-400 w-auto">
             {renderInfo.length > 0
               ? renderInfo.map(
                 i => (
@@ -127,12 +129,24 @@ export function RenderUsuarios() {
                       <h1 className="font-bold pr-8">Correo: </h1>
                       <h1 className="">{i.correo}</h1>
                     </div>
+                    <div className="flex justify-between">
+                      <label className="font-bold pr-8"> Usuario Validado: </label>
+                      <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike" className="w-4" />
+                    </div>
                   </>
                 ))
               : <h2>null</h2>
             }
           </article>
+
+          <article className="grid grid-cols-1 w-auto h-auto">
+            <button className="hover:text-white shadow-lg font-semibold p-2 mx-4 my-2 rounded-xl bg-green-400">Crear Usuario</button>
+            <button className="hover:text-white shadow-lg font-semibold p-2 mx-4 my-2 rounded-xl bg-yellow-400">Editar Usuario</button>
+            <button className="hover:text-white shadow-lg font-semibold p-2 mx-4 my-2 rounded-xl bg-red-400">Eliminar Usuario</button>
+          </article>
+
         </section >
+
       </>
 
     )
@@ -151,7 +165,7 @@ export function RenderUsuarios() {
               <th>Telefono</th>
               <th>Correo</th>
               <th>N° Registro</th>
-              <th>RCF</th>
+              <th className="">RCCF</th>
               <th>Opciones</th>
             </tr>
           </thead>
