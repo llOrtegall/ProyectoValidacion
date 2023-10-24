@@ -34,11 +34,12 @@ export function RenderUsuarios() {
       valida.stado === 'Si Existe'
         ? <>
           <td className="bg-green-400">{valida.stado}</td>
-          <td>Ok</td>
+          <td className="bg-green-400">Ok</td>
         </>
         : <>
           <td className="bg-red-400">{valida.stado}</td>
-          <td onClick={ev => handleClick(ev)} id={valida.user}>Crear Usuario</td>
+          <td className="hover:bg-yellow-500 hover:cursor-pointer hover:text-white"
+            onClick={ev => handleClick(ev)} id={valida.user}>Crear Usuario</td>
         </>
     )
   }

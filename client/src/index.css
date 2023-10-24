@@ -2,16 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer components {
-  .th-td {
-    @apply text-center border border-black;
-  }
+td {
+  @apply py-2 border
 }
 
 th {
-  @apply bg-indigo-600 text-white
+  @apply bg-indigo-600 text-white border
 }
 
 tr:nth-child(even) {
-  @apply bg-blue-200
+  @apply bg-blue-200 border
 }
