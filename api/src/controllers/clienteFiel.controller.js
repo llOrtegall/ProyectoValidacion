@@ -1,17 +1,12 @@
 import { connectOraDb } from '../db.js'
 
-
 export const getClientFiel = async (req, res) => {
-  console.log(req.body);
-
-
   const { cc } = req.body
   const result = await connectOraDb.execute(`SELECT * FROM gamble.clientes WHERE documento = '${cc}'`);
-
   if (result.rows.length > 0) {
-    res.status(200).json('Si Existe')
+    res.status(200).json({ "user": `${cc}`, "stado": "Si Existe" })
   } else {
-    res.status(200).json('No Existe')
+    res.status(200).json({ "user": `${cc}`, "stado": "No Existe" })
   }
 }
 
