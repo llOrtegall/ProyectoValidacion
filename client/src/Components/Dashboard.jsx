@@ -1,12 +1,14 @@
 import { LoginUserComponent } from "../Components/LoginUserComponent.jsx";
-// import { RenderUsuarios } from "./RenderUsuarios.jsx";
+import { RenderUsuarios } from "./RenderUsuarios.jsx";
 
-export function Dashboard() {
+// eslint-disable-next-line react/prop-types
+export function Dashboard({ inf }) {
+  const userLogin = inf
 
   return (
     <>
-      <LoginUserComponent />
-      {/* <RenderUsuarios /> */}
+      <LoginUserComponent usuario={userLogin} />
+      <RenderUsuarios />
     </>
   )
 }

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useContext, useState } from "react";
 import { AuthContext } from '../auth/AuthContext';
-import { useNavigate } from 'react-router-dom';
+
 
 export const Login = () => {
 
@@ -9,16 +9,19 @@ export const Login = () => {
   const [user, setUser] = useState('');
   const [password, setPassword] = useState('');
 
-  const { setUsername } = useContext(AuthContext)
-  const goTo = useNavigate()
+  const { setUser: setUserWithLogin, setName, setLastName, setId } = useContext(AuthContext);
 
   async function iniciarSession(ev) {
     ev.preventDefault()
-    const response = await axios.post('/login', { user, password })
-    if (response.status === 200) {
-      setUsername(true)
-      goTo("/dashboard")
-    }
+    await axios.post('/login', { user, password })
+      .then(data => {
+        console.log(data);
+        const { apellidos, id, nombres, username } = data.data
+        setUserWithLogin(username), setName(nombres), setLastName(apellidos), setId(id)
+      }).catch((err) => {
+        console.error(err);
+        throw err;
+      })
   }
 
   return (
