@@ -46,7 +46,7 @@ export const getLogin = async (req, res) => {
     }
   } else {
     res.status(404).json({
-      "error": "Usuario no encontrado",
+      "error": "Usuario No encontrado y/o Registrado",
       "detalle": `El usuario: ${user}, No existe en el sistema.`
     })
   }

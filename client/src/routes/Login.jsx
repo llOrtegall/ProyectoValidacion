@@ -8,25 +8,25 @@ export const Login = () => {
   // TODO: Para Logín
   const [user, setUser] = useState('');
   const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('')
 
   const { setUser: setUserWithLogin, setName, setLastName, setId } = useContext(AuthContext);
 
   async function iniciarSession(ev) {
     ev.preventDefault()
+
     await axios.post('/login', { user, password })
       .then(data => {
-        console.log(data);
         const { apellidos, id, nombres, username } = data.data
         setUserWithLogin(username), setName(nombres), setLastName(apellidos), setId(id)
       }).catch((err) => {
-        console.error(err);
-        throw err;
+        setErrorMessage(err.response.data.detalle);
       })
   }
 
   return (
-    <section className='flex justify-center items-center h-screen w-screen bg-blue-200 pb-12'>
-      <form className="w-72" onSubmit={iniciarSession}>
+    <section className='flex justify-center items-center h-screen w-screen bg-blue-200 '>
+      <form className="w-80" onSubmit={iniciarSession}>
         <h1 className='text-center font-semibold pb-4 text-xl'>Iniciar Session</h1>
         <input value={user} onChange={ev => setUser(ev.target.value)} type="text" placeholder="Usuario"
           className="block w-full rounded-md  border p-2 mb-2" required={true} />
@@ -35,6 +35,9 @@ export const Login = () => {
         <button className="bg-blue-500 text-white block w-full rounded-md p-2 font-semibold shadow-lg">
           Iniciar Session
         </button>
+        <article className='w-auto mt-12 text-center text-red-700 font-medium'>
+          {errorMessage}
+        </article>
       </form>
     </section>
 

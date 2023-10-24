@@ -72,7 +72,7 @@ export function RenderUsuarios() {
 
           </tr>
         ))
-        : <div>NO LLEGO SOLICITUD DE USUARIOS</div>
+        : null
     )
   }
 
@@ -88,9 +88,6 @@ export function RenderUsuarios() {
         })
     }, [documento])
 
-    console.log(renderInfo);
-
-
     return (
       <>
         <section className="flex w-auto m-2 p-2 bg-yellow-300 rounded-lg justify-center ">
@@ -103,12 +100,12 @@ export function RenderUsuarios() {
             <InfoIcon />
           </figure>
 
-          <article className="flex flex-col border rounded-md p-6 bg-zinc-400 w-auto">
+          <div className="flex flex-col border rounded-md p-6 bg-zinc-400 w-auto">
             {renderInfo.length > 0
               ? renderInfo.map(
                 i => (
-                  <>
-                    <div key={i.cedula} className="flex justify-between">
+                  <div key={i.cedula}>
+                    <div className="flex justify-between">
                       <h1 className="font-bold pr-8">Nombres: </h1>
                       <h1 className="">{i.nombre}</h1>
                     </div>
@@ -133,11 +130,10 @@ export function RenderUsuarios() {
                       <label className="font-bold pr-8"> Usuario Validado: </label>
                       <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike" className="w-4" />
                     </div>
-                  </>
+                  </div>
                 ))
-              : <h2>null</h2>
-            }
-          </article>
+              : null}
+          </div>
 
           <article className="grid grid-cols-1 w-auto h-auto">
             <button className="hover:text-white shadow-lg font-semibold p-2 mx-4 my-2 rounded-xl bg-green-400">Crear Usuario</button>
