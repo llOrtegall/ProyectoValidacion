@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { InfoIcon } from "./IconsSvg";
 
 export function RenderUsuarios() {
   const [renderComponent, setRenderComponent] = useState(false);
@@ -70,13 +71,69 @@ export function RenderUsuarios() {
 
           </tr>
         ))
-        : <tr>NO LLEGO SOLICITUD DE USUARIOS</tr>
+        : <div>NO LLEGO SOLICITUD DE USUARIOS</div>
     )
   }
 
-  function AgregarCliente() {
+  // eslint-disable-next-line react/prop-types
+  function AgregarCliente({ user }) {
+
+    const documento = user
+    const [renderInfo, setRenderInfo] = useState({})
+    useEffect(() => {
+      axios.post('http://localhost:3000/cliente', { documento })
+        .then(data => {
+          setRenderInfo(data.data);
+        })
+    }, [documento])
+
+    console.log(renderInfo);
+
+
     return (
-      <section>{value}</section>
+      <>
+        <section className="flex w-auto m-2 p-2 bg-yellow-300 rounded-lg justify-center">
+          <span className="font-semibold">Por Favor Antes De Agregar El Usuario Validar Con Alguna Página Del Estado</span>
+        </section>
+
+        <section className="flex m-2 p-2 bg-purple-400 rounded-lg items-center">
+          <figure className="pr-2">
+            <InfoIcon />
+          </figure>
+          <article className="flex flex-col border rounded-md p-2 w-auto">
+            {renderInfo.length > 0
+              ? renderInfo.map(
+                i => (
+                  <>
+                    <div key={i.cedula} className="flex justify-between">
+                      <h1 className="font-bold pr-8">Nombres: </h1>
+                      <h1 className="">{i.nombre}</h1>
+                    </div>
+                    <div className="flex justify-between">
+                      <h1 className="font-bold pr-8">N° Cedula: </h1>
+                      <h1 className="">{i.cedula}</h1>
+                    </div>
+
+                    <div className="flex justify-between">
+                      <h1 className="font-bold pr-8">Telefono: </h1>
+                      <h1 className="">{i.telefono}</h1>
+                    </div>
+                    <div className="flex justify-between">
+                      <h1 className="font-bold pr-8">Tel Registro: </h1>
+                      <h1 className="">{i.telwhats}</h1>
+                    </div>
+                    <div className="flex justify-between">
+                      <h1 className="font-bold pr-8">Correo: </h1>
+                      <h1 className="">{i.correo}</h1>
+                    </div>
+                  </>
+                ))
+              : <h2>null</h2>
+            }
+          </article>
+        </section >
+      </>
+
     )
   }
 
@@ -102,7 +159,7 @@ export function RenderUsuarios() {
           </tbody>
         </table >
       </section>
-      {renderComponent && <AgregarCliente />}
+      {renderComponent && <AgregarCliente user={value} />}
     </>
   )
 }
