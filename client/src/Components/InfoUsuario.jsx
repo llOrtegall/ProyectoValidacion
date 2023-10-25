@@ -11,9 +11,7 @@ export function InfoUsuario({ user }) {
         <figure className="w-auto h-full pr-2 ">
           <InfoIcon />
         </figure>
-
         <div className="flex flex-col border rounded-md p-6 bg-zinc-400 w-auto">
-
           {user.length > 0
             ? user.map(
               i => (
@@ -46,13 +44,11 @@ export function InfoUsuario({ user }) {
               ))
             : null}
         </div>
-
         <article className="grid grid-cols-1 w-auto h-auto">
           <button className="hover:text-white shadow-lg font-semibold p-2 mx-4 my-2 rounded-xl bg-green-400">Crear Usuario</button>
           <button className="hover:text-white shadow-lg font-semibold p-2 mx-4 my-2 rounded-xl bg-yellow-400">Editar Usuario</button>
           <button className="hover:text-white shadow-lg font-semibold p-2 mx-4 my-2 rounded-xl bg-red-400">Eliminar Usuario</button>
         </article>
-
       </section >
     </>
   )

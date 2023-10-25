@@ -3,7 +3,6 @@ import { ValidarUsuario } from "./ValidarUsuario.jsx";
 // import { InfoUsuario } from "./InfoUsuario.jsx";
 import axios from "axios";
 
-
 export function RenderUsuarios() {
   const [user, setUser] = useState([]);
 
@@ -20,15 +19,11 @@ export function RenderUsuarios() {
       })
   }, [])
 
-  // function handleClick(i) {
-  //   return console.log(i);
-  // }
-
   return (
     <>
       <section className="w-full flex flex-col p-2">
         <h1 className="p-3 text-white rounded-t-xl text-xl font-semibold bg-blue-500 text-center">Usuarios Registrados Por Chat Boot</h1>
-        <table className="">
+        <table>
           <thead >
             <tr>
               <th>Nombres</th>
@@ -36,7 +31,7 @@ export function RenderUsuarios() {
               <th>Telefono</th>
               <th>Correo</th>
               <th>N° Registro</th>
-              <th className="">RCCF</th>
+              <th >RCCF</th>
               <th>Opciones</th>
             </tr>
           </thead>
@@ -50,14 +45,12 @@ export function RenderUsuarios() {
                   <td>{i.correo}</td>
                   <td>{i.telwhats}</td>
                   <ValidarUsuario user={i.cedula} />
-                  {/* <td><button onClick={handleClick(i)}>Opc Usuario</button></td> */}
                 </tr>
               ))
               : null}
           </tbody>
         </table >
       </section>
-      { }
     </>
   )
 }
