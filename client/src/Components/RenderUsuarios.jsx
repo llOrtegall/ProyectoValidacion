@@ -1,51 +1,24 @@
 import { useEffect, useState } from "react";
-import { AgregarCliente } from "./AgregarCliente.jsx";
 import { ValidarUsuario } from "./ValidarUsuario.jsx";
+import { OpcUsuario } from "./OpcUsuario.jsx";
 import axios from "axios";
 
 
 export function RenderUsuarios() {
-  const [renderComponent, setRenderComponent] = useState(false);
-  const [value, setValue] = useState('')
+  const [user, setUser] = useState([]);
 
-  const handleClick = (prop) => {
-    setRenderComponent(true);
-    setValue(prop.target.id)
-  };
-
-  function UserTablesDetail() {
-    const [user, setUser] = useState([]);
-    useEffect(() => {
-      axios.get('http://localhost:3000/clientes')
-        .then(data => {
-          setUser(data.data)
-        })
-        .catch(error => {
-          if (error.response && error.response.status === 404) {
-            console.log(error.response)
-          }
-          throw error
-        })
-    }, [])
-
-    return (
-      user.length > 0
-        ? user.map(i => (
-          <tr key={i.cedula}>
-            <td>{i.nombre}</td>
-            <td>{i.cedula}</td>
-            <td>{i.telefono}</td>
-            <td>{i.correo}</td>
-            <td>{i.telwhats}</td>
-            <ValidarUsuario cc={i.cedula} funcion={handleClick} />
-
-          </tr>
-        ))
-        : null
-    )
-  }
-
-
+  useEffect(() => {
+    axios.get('http://localhost:3000/clientes')
+      .then(data => {
+        setUser(data.data)
+      })
+      .catch(error => {
+        if (error.response && error.response.status === 404) {
+          console.log(error.response)
+        }
+        throw error
+      })
+  }, [])
 
   return (
     <>
@@ -64,11 +37,22 @@ export function RenderUsuarios() {
             </tr>
           </thead>
           <tbody className="text-center">
-            <UserTablesDetail />
+            {user.length > 0
+              ? user.map(i => (
+                <tr key={i.cedula}>
+                  <td>{i.nombre}</td>
+                  <td>{i.cedula}</td>
+                  <td>{i.telefono}</td>
+                  <td>{i.correo}</td>
+                  <td>{i.telwhats}</td>
+                  <ValidarUsuario user={i.cedula} />
+                </tr>
+              ))
+              : null}
           </tbody>
         </table >
       </section>
-      {renderComponent && <AgregarCliente user={value} />}
+      <OpcUsuario />
     </>
   )
 }
