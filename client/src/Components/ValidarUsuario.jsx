@@ -19,8 +19,8 @@ export function ValidarUsuario({ user }) {
   }, [cc])
 
   return (
-    valida.stado === 'Si Existe'
-      ? <td className="bg-green-400">{valida.stado}</td>
-      : <td className="bg-red-400">{valida.stado}</td>
+    valida.Estado === 'Si Existe'
+      ? <td className="bg-green-400">{valida.Estado}</td>
+      : <td className="bg-red-400">{valida.Estado}</td>
   )
 }
