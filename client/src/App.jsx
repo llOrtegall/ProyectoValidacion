@@ -2,7 +2,8 @@ import axios from "axios";
 import { Login } from "./routes/Login";
 import { useContext } from "react";
 import { AuthContext } from "./auth/AuthContext";
-import { Dashboard } from "./Components/Dashboard.jsx";
+import { Dashboard } from "./routes/Dashboard";
+
 
 export function App() {
 
