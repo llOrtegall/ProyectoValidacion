@@ -4,32 +4,17 @@ export const getClientFiel = async (req, res) => {
 
   const { cc } = req.body
 
-  switch (cc) {
-    case 1118307852:
-      res.status(200).json({
-        "user": 1118307852,
-        "stado": "Si Existe"
-      })
-      break;
-    case 66910151:
-      res.status(200).json({
-        "user": 66910151,
-        "stado": "Si Existe"
-      })
-      break;
-    default:
-      res.status(200).json({
-        "user": `${cc}`,
-        "stado": "No Existe"
-      })
+  try {
+    const result = await connectOraDb.execute(`SELECT * FROM gamble.clientes WHERE documento = '${cc}'`);
+    if (result.rows.length > 0) {
+      res.status(200).json({ "user": `${cc}`, "stado": "Si existe" })
+    } else {
+      res.status(404).json({ "user": `${cc}`, "stado": "No existe" })
+    }
+  } catch (error) {
+    console.log(error);
+    throw error;
   }
-
-  // const result = await connectOraDb.execute(`SELECT * FROM gamble.clientes WHERE documento = '${cc}'`);
-  // if (result.rows.length > 0) {
-  //   res.status(200).json({ "user": `${cc}`, "stado": "Si Existe" })
-  // } else {
-  //   res.status(200).json({ "user": `${cc}`, "stado": "No Existe" })
-  // }
 }
 
 export const createdClientFiel = async (req, res) => {
