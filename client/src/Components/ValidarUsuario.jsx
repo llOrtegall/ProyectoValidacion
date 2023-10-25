@@ -12,7 +12,7 @@ export function ValidarUsuario({ user }) {
         setValida(data.data)
       })
       .catch(data => {
-        if (data.response && data.response.status === 200) {
+        if (data.response && data.response.status === 404) {
           setValida(data.response.data)
         }
       })

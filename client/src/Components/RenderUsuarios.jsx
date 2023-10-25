@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { ValidarUsuario } from "./ValidarUsuario.jsx";
-import { InfoUsuario } from "./InfoUsuario.jsx";
+// import { InfoUsuario } from "./InfoUsuario.jsx";
 import axios from "axios";
 
 
@@ -20,9 +20,9 @@ export function RenderUsuarios() {
       })
   }, [])
 
-  function handleClick(i) {
-    return console.log(i);
-  }
+  // function handleClick(i) {
+  //   return console.log(i);
+  // }
 
   return (
     <>
@@ -50,7 +50,7 @@ export function RenderUsuarios() {
                   <td>{i.correo}</td>
                   <td>{i.telwhats}</td>
                   <ValidarUsuario user={i.cedula} />
-                  <td><button onClick={handleClick(i)}>Opc Usuario</button></td>
+                  {/* <td><button onClick={handleClick(i)}>Opc Usuario</button></td> */}
                 </tr>
               ))
               : null}
