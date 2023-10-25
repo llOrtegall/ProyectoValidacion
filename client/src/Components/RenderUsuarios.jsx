@@ -19,6 +19,7 @@ export function RenderUsuarios() {
       axios.post('http://localhost:3000/getCF', { cc })
         .then(data => {
           setValida(data.data)
+          console.log(data.data);
         })
         .catch(data => {
           if (data.response && data.response.status === 200) {
@@ -29,15 +30,18 @@ export function RenderUsuarios() {
 
     return (
       valida.stado === 'Si Existe'
-        ? <>
+        ?
+        <>
           <td className="bg-green-400">{valida.stado}</td>
           <td className="bg-green-400">Ok</td>
-        </>
-        : <>
+        </> :
+        <>
           <td className="bg-red-400">{valida.stado}</td>
           <td className="hover:bg-yellow-500 hover:cursor-pointer hover:text-white"
             onClick={ev => handleClick(ev)} id={valida.user}>Opc Usuario</td>
         </>
+
+
     )
   }
 
