@@ -10,18 +10,35 @@ export const getClientes = async (req, res) => {
 export const getClient = async (req, res) => {
   const { documento } = req.body
 
-  const [result] = await connectMysql.query(`SELECT * FROM personayumbo where cedula=${documento}`)
+  const [result] = await connectMysql.query(`SELECT * FROM personayumbo WHERE cedula=${documento}`)
   res.status(200).json(result)
 }
 
-export const createCliente = (req, res) => {
-  res.send('Creando los Clientes')
+
+export const updateCliente = async (req, res) => {
+  console.log(req.body);
+
+  const { names, tel, email, cedula, nombre, telefono, correo } = req.body
+
+  console.log(names, tel, email);
+
+
+  const sendNames = names === '' ? nombre : names
+  const sendTel = tel === '' ? telefono : tel
+  const sendEmail = email === '' ? correo : email
+
+  console.log(sendNames, sendTel, sendEmail);
+
+  try {
+    const [result] = await connectMysql.query(`SELECT * FROM personayumbo WHERE cedula = ${cedula}`)
+    if (result.length > 0) {
+      console.log('Hace El update');
+
+      const [result2] = await connectMysql.query(`UPDATE personayumbo SET nombre='${sendNames}', telefono='${sendTel}', correo='${sendEmail}' WHERE cedula = '${cedula}'`)
+      res.status(200).json(result2)
+    }
+  } catch (error) {
+    console.log(error);
+  }
 }
 
-export const updateCliente = (req, res) => {
-  res.send('Actualizando los Clientes')
-}
-
-export const deleteCliente = (req, res) => {
-  res.send('Borrando los Clientes')
-}
