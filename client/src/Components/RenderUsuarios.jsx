@@ -1,11 +1,18 @@
 import { useEffect, useState } from "react";
 import { ValidarUsuario } from "./ValidarUsuario.jsx";
-// import { InfoUsuario } from "./InfoUsuario.jsx";
+import { InfoUsuario } from "./InfoUsuario.jsx";
 import axios from "axios";
 
 export function RenderUsuarios() {
   const [user, setUser] = useState([]);
+  const [showComponent, setShowComponent] = useState(false)
+  const [opcUser, setOpcUser] = useState('')
 
+
+  const toggleComponent = (user) => {
+    setShowComponent(!showComponent)
+    setOpcUser(user);
+  }
   useEffect(() => {
     axios.get('http://localhost:3000/clientes')
       .then(data => {
@@ -44,12 +51,15 @@ export function RenderUsuarios() {
                   <td>{i.telefono}</td>
                   <td>{i.correo}</td>
                   <td>{i.telwhats}</td>
-                  <ValidarUsuario user={i.cedula} />
+                  <ValidarUsuario user={i} fun={toggleComponent} />
                 </tr>
               ))
               : null}
           </tbody>
         </table >
+      </section>
+      <section>
+        {showComponent && <InfoUsuario info={opcUser} />}
       </section>
     </>
   )
