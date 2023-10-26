@@ -1,9 +1,9 @@
 import { InfoIcon } from "./IconsSvg";
 
 // eslint-disable-next-line react/prop-types
-export function InfoUsuario({ inf }) {
+export function InfoUsuario({ inf, fun }) {
 
-
+  const toggleComponent = fun
 
 
   return (
@@ -51,8 +51,11 @@ export function InfoUsuario({ inf }) {
         <article className="grid grid-cols-1 w-auto h-auto">
           <button className="hover:text-white shadow-lg font-semibold p-2 mx-4 my-2 rounded-xl bg-green-400">Crear Usuario</button>
           <button className="hover:text-white shadow-lg font-semibold p-2 mx-4 my-2 rounded-xl bg-yellow-400">Editar Usuario</button>
-          <button className="hover:text-white shadow-lg font-semibold p-2 mx-4 my-2 rounded-xl bg-red-400">Eliminar Usuario</button>
+          <button className="hover:text-white shadow-lg font-semibold p-2 mx-4 my-2 rounded-xl bg-purple-400">Validar Usuario</button>
         </article>
+        <button onClick={toggleComponent}>cerrar
+
+        </button>
       </section >
     </>
   )

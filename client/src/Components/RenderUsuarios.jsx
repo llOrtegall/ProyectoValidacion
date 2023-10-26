@@ -66,7 +66,7 @@ export function RenderUsuarios() {
         </table >
       </section>
       <section>
-        {showComponent && <InfoUsuario inf={sendUserRender} />}
+        {showComponent && <InfoUsuario inf={sendUserRender} fun={toggleComponent} />}
       </section>
     </>
   )
