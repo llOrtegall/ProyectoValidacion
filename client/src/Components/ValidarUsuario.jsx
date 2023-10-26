@@ -6,7 +6,6 @@ export function ValidarUsuario({ user, fun }) {
   const [valida, setValida] = useState('')
 
   const cc = user.cedula
-
   const toggleComponent = fun
 
   useEffect(() => {
@@ -34,7 +33,7 @@ export function ValidarUsuario({ user, fun }) {
       :
       (<>
         <td className="bg-red-400">{valida.Estado}</td>
-        <td className="bg-yellow-300 hover: cursor-pointer hover:bg-purple-400 hover:text-white" onClick={ev => toggleComponent(ev.target)}>Opc Usuario</td>
+        <td className="bg-yellow-300 hover: cursor-pointer hover:bg-purple-400 hover:text-white" onClick={toggleComponent}>Opc Usuario</td>
       </>)
   )
 }

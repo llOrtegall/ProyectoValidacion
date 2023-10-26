@@ -6,12 +6,12 @@ import axios from "axios";
 export function RenderUsuarios() {
   const [user, setUser] = useState([]);
   const [showComponent, setShowComponent] = useState(false)
-  const [opcUser, setOpcUser] = useState('')
 
 
-  const toggleComponent = (user) => {
+
+  const toggleComponent = () => {
     setShowComponent(!showComponent)
-    setOpcUser(user);
+
   }
   useEffect(() => {
     axios.get('http://localhost:3000/clientes')
@@ -59,7 +59,7 @@ export function RenderUsuarios() {
         </table >
       </section>
       <section>
-        {showComponent && <InfoUsuario info={opcUser} />}
+        {showComponent && <InfoUsuario />}
       </section>
     </>
   )
