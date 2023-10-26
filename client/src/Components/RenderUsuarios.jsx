@@ -6,12 +6,19 @@ import axios from "axios";
 export function RenderUsuarios() {
   const [user, setUser] = useState([]);
   const [showComponent, setShowComponent] = useState(false)
+  const [sendUserRender, setSendUserRender] = useState({})
 
 
-
-  const toggleComponent = () => {
+  const toggleComponent = (ev) => {
     setShowComponent(!showComponent)
+    const User = (ev.id);
 
+    const sendUser = () => {
+      const newUser = user.filter((i) => i.cedula == User)
+      setSendUserRender(newUser)
+    }
+
+    sendUser()
   }
   useEffect(() => {
     axios.get('http://localhost:3000/clientes')
@@ -59,7 +66,7 @@ export function RenderUsuarios() {
         </table >
       </section>
       <section>
-        {showComponent && <InfoUsuario />}
+        {showComponent && <InfoUsuario inf={sendUserRender} />}
       </section>
     </>
   )

@@ -33,7 +33,7 @@ export function ValidarUsuario({ user, fun }) {
       :
       (<>
         <td className="bg-red-400">{valida.Estado}</td>
-        <td className="bg-yellow-300 hover: cursor-pointer hover:bg-purple-400 hover:text-white" onClick={toggleComponent}>Opc Usuario</td>
+        <td className="bg-yellow-300 hover: cursor-pointer hover:bg-purple-400 hover:text-white" id={valida.user} onClick={ev => toggleComponent(ev.target)}>Opc Usuario</td>
       </>)
   )
 }
