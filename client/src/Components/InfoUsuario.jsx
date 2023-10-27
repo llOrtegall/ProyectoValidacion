@@ -29,17 +29,18 @@ export function InfoUsuario({ inf, fun }) {
 
   return (
     <>
-      <section className="flex w-auto m-2 p-2 bg-yellow-300 rounded-lg justify-center ">
-        <span className="font-semibold">Por Favor Antes De Agregar El Usuario Validar Con Alguna Página Del Estado La Información Recibida</span>
+      <section className="flex m-2 p-2 bg-red-500 text-white rounded-lg justify-center shadow-xl ">
+        <span className="font-semibold">Por Favor Antes De Agregar El Usuario Validar Con Alguna Página Del Estado La Información Recibida !!!</span>
       </section>
 
-      <section className="relative m-2 p-6 bg-zinc-300 rounded-lg">
-        <div className="flex">
-          <figure className="flex items-center pr-2 ">
+      <section className="w-auto h-full relative m-2 p-6 bg-zinc-500 rounded-lg shadow-2xl">
+
+        <section className="flex items-center justify-start">
+          <figure className="">
             <InfoIcon />
           </figure>
 
-          <section className="flex flex-col m-2 p-2">
+          <section className="flex flex-col">
             <div className="m-2 p-2">
               <div className="flex justify-between">
                 <h1 className="font-bold pr-8">Nombres: </h1>
@@ -86,9 +87,9 @@ export function InfoUsuario({ inf, fun }) {
           {crearUsuario && <NewUserCreate user={inf} fun={handleClickCreated} />}
 
 
-        </div>
+        </section>
 
-        <button className="absolute top-2 right-2 hover:bg-red-700 hover:rounded-full hover:text-white" onClick={toggleComponent}><CloseIcon /></button>
+        <button className="text-white absolute top-2 right-2 hover:bg-red-500 hover:rounded-full hover:text-white" onClick={toggleComponent}><CloseIcon /></button>
 
       </section >
     </>

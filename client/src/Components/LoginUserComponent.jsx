@@ -7,22 +7,24 @@ export function LoginUserComponent({ usuario }) {
   const { id, lastName, name, user } = usuario
 
   return (
-    <nav className="flex items-center justify-between bg-slate-300 m-2 px-4 py-2 rounded-xl">
-      <figure className="flex items-center">
-        <UserIcon />
-        <section>
-          <h3 className="font-semibold text-xl">Bienvenido <span>{name}</span><span>{lastName}</span></h3>
-          <div className="flex ">
-            <p style={{ fontSize: '10px' }}>{user}</p>
-            <p className="pl-2" style={{ fontSize: '10px' }}>{id}</p>
-          </div>
-        </section>
-      </figure>
+    <section className="fixed bottom-0">
+      <nav className="flex items-center justify-between bg-slate-600 m-2 px-4 py-2 rounded-xl text-white">
+        <figure className="flex items-center">
+          <UserIcon />
+          <section>
+            <h3 className="font-semibold text-xl">Bienvenido <span>{name}</span><span>{lastName}</span></h3>
+            <div className="flex ">
+              <p style={{ fontSize: '10px' }}>{user}</p>
+              <p className="pl-2" style={{ fontSize: '10px' }}>{id}</p>
+            </div>
+          </section>
+        </figure>
 
-      <button id="close session" className="flex flex-col items-center text-center">
-        <CloseSession />
-        <p>Cerrar Session</p>
-      </button>
-    </nav >
+        <button id="close session" className="flex flex-col items-center text-center">
+          <CloseSession />
+          <p>Cerrar Session</p>
+        </button>
+      </nav >
+    </section>
   )
 }

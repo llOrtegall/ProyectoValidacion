@@ -23,15 +23,14 @@ export const updateCliente = async (req, res) => {
   const { apellido1, apellido2, nombre1, nombre2, nombre_1, nombre_2, apellido_1, apellido_2, tel, email, cedula, telefono, correo } = req.body
 
   //* Verifica si las variables están vacias toma el valor anterior y solo actualizar las que tengan cambios
-
   const nombre_1ok = nombre_1 === '' ? nombre1 : nombre_1
   const nombre_2ok = nombre_2 === '' ? nombre2 : nombre_2
   const apellido_1ok = apellido_1 === '' ? apellido1 : apellido_1
   const apellido_2ok = apellido_2 === '' ? apellido2 : apellido_2
-
   const sendTel = tel === '' ? telefono : tel
   const sendEmail = email === '' ? correo : email
 
+  //* UNIFICA LAS VARIABLES PARA ACTUALIZAR EN chat boot
   const names = `${apellido_1ok} ${apellido_2ok} ${nombre_2ok} ${nombre_1ok}`
   const nombresInsert = names.toUpperCase();
 
