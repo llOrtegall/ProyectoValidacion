@@ -43,26 +43,26 @@ export function NewUserCreate({ user, fun }) {
 
   return (
     <>
-      <section className="relative">
+      <section className="relative w-1/3">
         <form className="flex flex-col m-2 p-2 rounded-lg bg-green-100" onSubmit={handleCreate}>
-          <div className="flex justify-between">
+          <div className="flex">
             <label className="font-bold pr-8">Nombres: </label>
-            <input className="mb-2 rounded-lg px-2" disabled value={nombre} />
+            <input className="mb-2 rounded-lg px-2 w-full" disabled value={nombre} />
           </div>
-          <div className="flex justify-between">
+          <div className="flex">
             <label className="font-bold pr-8">Telefono: </label>
-            <input className="mb-2 rounded-lg px-2" disabled value={telefono} />
+            <input className="mb-2 rounded-lg px-2 w-full" disabled value={telefono} />
           </div>
-          <div className="flex justify-between">
+          <div className="flex">
             <label className="font-bold pr-8">Correo: </label>
-            <input className="mb-2 rounded-lg px-2" disabled value={correo} />
+            <input className="mb-2 rounded-lg px-2 w-full" disabled value={correo} />
           </div>
-          <div className="flex justify-between">
+          <div className="flex">
             <label className="font-bold pr-8">Cedula: </label>
-            <input className="mb-2 rounded-lg px-2" disabled value={cedula} />
+            <input className="mb-2 rounded-lg px-2 w-full" disabled value={cedula} />
           </div>
           {userCreated ? (
-            <div className="text-center pt-2 text-orange-500 font-semibold">Creando El Cliente...</div>
+            <div className="text-center  text-orange-500 font-semibold">Creando El Cliente...</div>
           ) : (
             <button className="font-semibold bg-green-400 p-2 rounded-xl hover:bg-white hover:text-green-400 " >
               Crear Cliente Fiel

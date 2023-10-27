@@ -19,6 +19,7 @@ export function EditarUsuario({ user, fun }) {
   const [tel, setTel] = useState('')
   const [email, setEmail] = useState('')
 
+  // eslint-disable-next-line react/prop-types
   var palabras = nombre.split(' ');
   switch (palabras.length) {
     case 2:
@@ -69,7 +70,7 @@ export function EditarUsuario({ user, fun }) {
       CloseComponent()
       location.reload()
     }, 3000)
-    return <div className="text-green-500 pt-2 absolute bottom-0 pb-4 right-auto font-bold "> Usuarios Actualizado Correctamente !!!</div>
+    return <div className="text-green-800 absolute bottom-0 ml-2 right-auto font-bold "> Usuarios Actualizado Correctamente !!!</div>
   }
 
   return (
