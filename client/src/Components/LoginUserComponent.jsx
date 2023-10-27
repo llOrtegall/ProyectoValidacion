@@ -7,8 +7,8 @@ export function LoginUserComponent({ usuario }) {
   const { id, lastName, name, user } = usuario
 
   return (
-    <section className="fixed bottom-0">
-      <nav className="flex items-center justify-between bg-slate-600 m-2 px-4 py-2 rounded-xl text-white">
+    <section className=" ">
+      <nav className="flex items-center justify-between bg-slate-600 m-2 px-4 py-4 mx rounded-xl text-white">
         <figure className="flex items-center">
           <UserIcon />
           <section>

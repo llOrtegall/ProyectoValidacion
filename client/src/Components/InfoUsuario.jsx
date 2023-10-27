@@ -29,7 +29,7 @@ export function InfoUsuario({ inf, fun }) {
 
   return (
     <>
-      <section className="flex m-2 p-2 bg-orange-600 text-yellow-50 rounded-lg justify-center shadow-xl ">
+      <section className="flex m-2 p-2 bg-orange-800 text-yellow-50 rounded-lg justify-center shadow-xl ">
         <span className="font-semibold">Por Favor Antes De Agregar El Usuario Validar Con Alguna Página Del Estado La Información Recibida !!!</span>
       </section>
 

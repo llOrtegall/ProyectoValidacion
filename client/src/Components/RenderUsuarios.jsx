@@ -37,7 +37,8 @@ export function RenderUsuarios() {
 
   return (
     <>
-      <section className="w-full flex flex-col p-4">
+
+      <section className="h-1/2 flex flex-col p-2">
         <h1 className="p-3 text-white rounded-t-xl text-xl font-semibold bg-blue-500 text-center">Usuarios Registrados Por Chat Boot</h1>
         <table>
           <thead >
@@ -67,7 +68,8 @@ export function RenderUsuarios() {
           </tbody>
         </table >
       </section>
-      <section className="fixed top-20 m-2 h-2/6 w-5/6 ">
+
+      <section className="h-1/2 ">
         {showComponent && <InfoUsuario inf={sendUserRender} fun={toggleComponent} />}
       </section>
     </>
