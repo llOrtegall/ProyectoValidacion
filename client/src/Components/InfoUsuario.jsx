@@ -79,7 +79,7 @@ export function InfoUsuario({ inf, fun }) {
           </aside>
 
 
-          {showComponent && <EditarUsuario user={inf} />}
+          {showComponent && <EditarUsuario user={inf} fun={handleClick} />}
 
         </div>
 

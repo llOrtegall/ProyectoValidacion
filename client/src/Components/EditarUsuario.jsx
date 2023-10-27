@@ -2,10 +2,13 @@ import axios from "axios"
 import { useState } from "react"
 
 // eslint-disable-next-line react/prop-types
-export function EditarUsuario({ user }) {
+export function EditarUsuario({ user, fun }) {
+
+  const handleClick = fun
 
   // eslint-disable-next-line react/prop-types
   const { nombre, telefono, cedula, correo } = user[0]
+  const [userUpdate, setUserUpdate] = useState(false);
   const [loading, setLoading] = useState(false);
   const [names, setNames] = useState('')
   const [tel, setTel] = useState('')
@@ -18,7 +21,7 @@ export function EditarUsuario({ user }) {
     axios.put('http://localhost:3000/cliente', { names, tel, email, cedula, nombre, telefono, correo })
       .then(response => {
         if (response.status === 200) {
-          console.log(response.status);
+          setUserUpdate(true)
         }
       })
       .then(data => console.log(data.json()))
@@ -30,6 +33,14 @@ export function EditarUsuario({ user }) {
       .finally(() => {
         setLoading(false)
       })
+  }
+
+  const UsuarioActualizado = () => {
+
+    setTimeout(() => {
+      handleClick()
+    }, 3000)
+    return <div className="text-green-500 pt-2 absolute bottom-0 pb-4 right-auto font-bold "> Usuarios Actualizado Correctamente !!!</div>
   }
 
   return (
@@ -55,6 +66,10 @@ export function EditarUsuario({ user }) {
             Actualizar Información
           </button>
         )}
+        {userUpdate === true
+          ? <UsuarioActualizado />
+          : null
+        }
 
       </form>
 
