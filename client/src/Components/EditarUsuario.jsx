@@ -19,6 +19,7 @@ export function EditarUsuario({ user, fun }) {
   const [tel, setTel] = useState('')
   const [email, setEmail] = useState('')
 
+
   var palabras = nombre.split(' ');
 
   switch (palabras.length) {
@@ -44,11 +45,10 @@ export function EditarUsuario({ user, fun }) {
       console.log('Número de palabras en el nombre no coincide con los casos esperados.');
   }
 
-
   async function handleSubmit(ev) {
     ev.preventDefault()
     setLoading(true)
-    axios.put('http://localhost:3000/cliente', { nombre_1, nombre_2, apellido_1, apellido_2, tel, email, cedula, telefono, correo })
+    axios.put('http://localhost:3000/cliente', { apellido1, apellido2, nombre1, nombre2, nombre_1, nombre_2, apellido_1, apellido_2, tel, email, cedula, telefono, correo })
       .then(response => {
         if (response.status === 200) {
           setUserUpdate(true)
@@ -77,23 +77,23 @@ export function EditarUsuario({ user, fun }) {
   return (
     <>
       <section className="relative">
-        <form className="flex flex-col m-4 p-4 rounded-lg" onSubmit={handleSubmit}>
+        <form className="flex flex-col m-4 p-4 rounded-lg uppercase" onSubmit={handleSubmit}>
 
           <div className="flex justify-between">
-            <label className="font-bold pr-8">Nombre 1 : </label>
-            <input className="mb-2 rounded-lg px-2" defaultValue={nombre1} onChange={ev => setNombre_1(ev.target.value)} />
-          </div>
-          <div className="flex justify-between">
-            <label className="font-bold pr-8">Nombre 2: </label>
-            <input className="mb-2 rounded-lg px-2" defaultValue={nombre2} onChange={ev => setNombre_2(ev.target.value)} />
-          </div>
-          <div className="flex justify-between">
             <label className="font-bold pr-8">Apellido 1: </label>
-            <input className="mb-2 rounded-lg px-2" defaultValue={apellido1} onChange={ev => setApellido_1(ev.target.value)} />
+            <input className="mb-2 rounded-lg px-2 uppercase" defaultValue={apellido1} onChange={ev => setApellido_1(ev.target.value)} />
           </div>
           <div className="flex justify-between">
             <label className="font-bold pr-8">Apellido 2: </label>
-            <input className="mb-2 rounded-lg px-2" defaultValue={apellido2} onChange={ev => setApellido_2(ev.target.value)} />
+            <input className="mb-2 rounded-lg px-2 uppercase" defaultValue={apellido2} onChange={ev => setApellido_2(ev.target.value)} />
+          </div>
+          <div className="flex justify-between">
+            <label className="font-bold pr-8">Nombre 1 : </label>
+            <input className="mb-2 rounded-lg px-2 uppercase" defaultValue={nombre1} onChange={ev => setNombre_1(ev.target.value)} />
+          </div>
+          <div className="flex justify-between">
+            <label className="font-bold pr-8">Nombre 2: </label>
+            <input className="mb-2 rounded-lg px-2 uppercase" defaultValue={nombre2} onChange={ev => setNombre_2(ev.target.value)} />
           </div>
 
           <div className="flex justify-between">
