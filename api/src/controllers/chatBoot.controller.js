@@ -17,11 +17,15 @@ export const getClient = async (req, res) => {
 // TODO: Función que actualiza el cliente en Chat Boot
 export const updateCliente = async (req, res) => {
 
+  console.log(req.body);
+
+
   // * Recibe todas las variables necesarias para hacer el insert 
-  const { names, tel, email, cedula, nombre, telefono, correo } = req.body
+  const { tel, email, cedula, telefono, correo, nombre_1, nombre_2, apellido_1, apellido_2 } = req.body
 
   //* Verifica si las variables están vacias toma el valor anterior y solo actualizar las que tengan cambios
-  const sendNames = names === '' ? nombre : names
+
+  const names = `${apellido_1} ${apellido_2} ${nombre_1} ${nombre_2}`
   const sendTel = tel === '' ? telefono : tel
   const sendEmail = email === '' ? correo : email
 
@@ -31,7 +35,7 @@ export const updateCliente = async (req, res) => {
     const [result] = await connectMysql.query(`SELECT * FROM personayumbo WHERE cedula = ${cedula}`)
     if (result.length > 0) {
       // TODO: Función Que Actualizar El Usuario 
-      const [result2] = await connectMysql.query(`UPDATE personayumbo SET nombre='${sendNames}', telefono='${sendTel}', correo='${sendEmail}' WHERE cedula = '${cedula}'`)
+      const [result2] = await connectMysql.query(`UPDATE personayumbo SET nombre='${names}', telefono='${sendTel}', correo='${sendEmail}' WHERE cedula = '${cedula}'`)
       res.status(200).json(result2)
     } else {
       res.status(500).json(result)
