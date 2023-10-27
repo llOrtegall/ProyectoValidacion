@@ -29,46 +29,48 @@ export function InfoUsuario({ inf, fun }) {
 
   return (
     <>
-      <section className="flex m-2 p-2 bg-red-500 text-white rounded-lg justify-center shadow-xl ">
+      <section className="flex m-2 p-2 bg-orange-600 text-yellow-50 rounded-lg justify-center shadow-xl ">
         <span className="font-semibold">Por Favor Antes De Agregar El Usuario Validar Con Alguna Página Del Estado La Información Recibida !!!</span>
       </section>
 
-      <section className="w-auto h-full relative m-2 p-6 bg-zinc-500 rounded-lg shadow-2xl">
+      <section className="w-auto h-full relative m-2 p-6 bg-zinc-400 rounded-lg shadow-2xl">
 
-        <section className="flex items-center justify-start">
+        <section className="flex items-center w-full h-full justify-start">
           <figure className="">
             <InfoIcon />
           </figure>
 
-          <section className="flex flex-col">
-            <div className="m-2 p-2">
+          <section className="flex items-center">
+
+            <div className="">
               <div className="flex justify-between">
-                <h1 className="font-bold pr-8">Nombres: </h1>
+                <h1 className="font-medium pr-8 ">Nombres: </h1>
                 <h1 className="">{nombre}</h1>
               </div>
               <div className="flex justify-between">
-                <h1 className="font-bold pr-8">N° Cedula: </h1>
-                <h1 className="text-red-600 font-semibold">{cedula}</h1>
+                <h1 className="font-medium pr-8 ">N° Cedula: </h1>
+                <h1 className=" font-bold">{cedula}</h1>
               </div>
               <div className="flex justify-between">
-                <h1 className="font-bold pr-8">Telefono: </h1>
+                <h1 className="font-medium pr-8 ">Telefono: </h1>
                 <h1 className="">{telefono}</h1>
               </div>
               <div className="flex justify-between">
-                <h1 className="font-bold pr-8">Tel Registro: </h1>
+                <h1 className="font-medium pr-8 ">Tel Registro: </h1>
                 <h1 className="">{telwhats}</h1>
               </div>
               <div className="flex justify-between">
-                <h1 className="font-bold pr-8 ">Correo: </h1>
+                <h1 className="font-medium pr-8 ">Correo: </h1>
                 <h1 className="">{correo}</h1>
               </div>
               <div className="flex justify-between">
-                <label className="font-bold pr-8"> Usuario Validado: </label>
+                <label className="font-medium pr-8 "> Usuario Validado: </label>
                 <input type="checkbox" className="w-4" checked={isChecked}
                   onChange={handleCheckboxChange}
                 />
               </div>
             </div>
+
           </section>
 
           <aside className="flex flex-col justify-center">
