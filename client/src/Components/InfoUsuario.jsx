@@ -33,7 +33,7 @@ export function InfoUsuario({ inf, fun }) {
         <span className="font-semibold">Por Favor Antes De Agregar El Usuario Validar Con Alguna Página Del Estado La Información Recibida !!!</span>
       </section>
 
-      <section className="w-auto h-full relative m-2 p-6 bg-zinc-400 rounded-lg shadow-2xl">
+      <section className="w-auto h-full relative m-2 p-6 bg-slate-300 rounded-lg shadow-2xl">
 
         <section className="flex items-center w-full h-full justify-start">
           <figure className="">
@@ -91,7 +91,7 @@ export function InfoUsuario({ inf, fun }) {
 
         </section>
 
-        <button className="text-white absolute top-2 right-2 hover:bg-red-500 hover:rounded-full hover:text-white" onClick={toggleComponent}><CloseIcon /></button>
+        <button className=" absolute top-2 right-2 hover:bg-red-500 hover:rounded-full hover:text-white" onClick={toggleComponent}><CloseIcon /></button>
 
       </section >
     </>
