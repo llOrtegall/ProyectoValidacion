@@ -37,11 +37,10 @@ export function RenderUsuarios() {
 
   return (
     <>
-
-      <section className="h-1/2 flex flex-col p-2">
+      <section className="flex flex-col p-2" style={{ maxHeight: "350px", overflowY: "auto" }}>
         <h1 className="p-3 text-white rounded-t-xl text-xl font-semibold bg-blue-500 text-center">Usuarios Registrados Por Chat Boot</h1>
         <table>
-          <thead >
+          <thead className="">
             <tr>
               <th>Nombres</th>
               <th>Documento</th>
@@ -52,6 +51,7 @@ export function RenderUsuarios() {
               <th>Opciones</th>
             </tr>
           </thead>
+
           <tbody className="text-center">
             {user.length > 0
               ? user.map(i => (
@@ -66,10 +66,10 @@ export function RenderUsuarios() {
               ))
               : null}
           </tbody>
-        </table >
+        </table>
       </section>
 
-      <section className="h-1/2 ">
+      <section className="flex flex-col">
         {showComponent && <InfoUsuario inf={sendUserRender} fun={toggleComponent} />}
       </section>
     </>
