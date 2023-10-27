@@ -14,31 +14,31 @@ export const getClient = async (req, res) => {
   res.status(200).json(result)
 }
 
-
+// TODO: Función que actualiza el cliente en Chat Boot
 export const updateCliente = async (req, res) => {
-  console.log(req.body);
 
+  // * Recibe todas las variables necesarias para hacer el insert 
   const { names, tel, email, cedula, nombre, telefono, correo } = req.body
 
-  console.log(names, tel, email);
-
-
+  //* Verifica si las variables están vacias toma el valor anterior y solo actualizar las que tengan cambios
   const sendNames = names === '' ? nombre : names
   const sendTel = tel === '' ? telefono : tel
   const sendEmail = email === '' ? correo : email
 
-  console.log(sendNames, sendTel, sendEmail);
-
+  //TODO: Realizamos un Try_Cath para ejecutar las sentencias SQL
   try {
+    //* Primero verifica si el usuario que queremos actualizar Existe en la base de Datos
     const [result] = await connectMysql.query(`SELECT * FROM personayumbo WHERE cedula = ${cedula}`)
     if (result.length > 0) {
-      console.log('Hace El update');
-
+      // TODO: Función Que Actualizar El Usuario 
       const [result2] = await connectMysql.query(`UPDATE personayumbo SET nombre='${sendNames}', telefono='${sendTel}', correo='${sendEmail}' WHERE cedula = '${cedula}'`)
       res.status(200).json(result2)
+    } else {
+      res.status(500).json(result)
     }
   } catch (error) {
-    console.log(error);
+    //TODO: Retornará un Error en caso de que falle se la inyección SQL
+    res.status(500).json('Usuario No Actualizados Intente De Nuevo')
   }
 }
 

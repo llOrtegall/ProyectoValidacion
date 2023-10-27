@@ -17,19 +17,15 @@ export function EditarUsuario({ user }) {
     axios.put('http://localhost:3000/cliente', { names, tel, email, cedula, nombre, telefono, correo })
       .then(response => {
         if (response.status === 200) {
-          setTimeout(() => {
-            location.reload()
-          }, 100)
+          console.log(response.status);
         }
       })
-      .then(data => console.log(data))
+      .then(data => console.log(data.json()))
       .catch(response => {
         if (response.status === 500) {
           console.log('error al actulizar')
         }
       })
-
-
   }
 
   return (
