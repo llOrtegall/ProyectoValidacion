@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { EditarUsuario } from "./EditarUsuario";
 import { CloseIcon, InfoIcon } from "./IconsSvg";
+import { NewUserCreate } from "./NewUserCreate";
 
 // eslint-disable-next-line react/prop-types
 export function InfoUsuario({ inf, fun }) {
@@ -9,9 +10,11 @@ export function InfoUsuario({ inf, fun }) {
   const { nombre, cedula, telefono, telwhats, correo } = inf[0]
   const [showComponent, setShowComponent] = useState(false)
   const [isChecked, setIsChecked] = useState(false);
+  const [crearUsuario, setCrearUsuario] = useState(false)
 
-  console.log(isChecked);
-
+  const handleClickCreated = () => {
+    setCrearUsuario(!crearUsuario)
+  }
 
   const handleCheckboxChange = (event) => {
     setIsChecked(event.target.checked);
@@ -44,7 +47,7 @@ export function InfoUsuario({ inf, fun }) {
               </div>
               <div className="flex justify-between">
                 <h1 className="font-bold pr-8">N° Cedula: </h1>
-                <h1 className="">{cedula}</h1>
+                <h1 className="text-red-600 font-semibold">{cedula}</h1>
               </div>
               <div className="flex justify-between">
                 <h1 className="font-bold pr-8">Telefono: </h1>
@@ -55,7 +58,7 @@ export function InfoUsuario({ inf, fun }) {
                 <h1 className="">{telwhats}</h1>
               </div>
               <div className="flex justify-between">
-                <h1 className="font-bold pr-8">Correo: </h1>
+                <h1 className="font-bold pr-8 ">Correo: </h1>
                 <h1 className="">{correo}</h1>
               </div>
               <div className="flex justify-between">
@@ -69,8 +72,8 @@ export function InfoUsuario({ inf, fun }) {
 
           <aside className="flex flex-col justify-center">
             {isChecked === true
-              ? < button className="hover:text-white shadow-lg font-semibold p-2 mx-4 my-2 rounded-xl bg-green-400">Crear Usuario</button>
-              : <button disabled className=" font-semibold p-2 mx-4 my-2 rounded-xl bg-green-200 text-opacity-75 text-gray-400">Crear Usuario</button>
+              ? < button className="hover:text-white shadow-lg font-semibold p-2 mx-4 my-2 rounded-xl bg-green-400" onClick={handleClickCreated}>Crear Usuario</button>
+              : <button disabled className=" font-semibold p-2 mx-4 my-2 rounded-xl bg-green-200 text-opacity-75 text-gray-400" >Crear Usuario</button>
             }
             {/* <button className="hover:text-white shadow-lg font-semibold p-2 mx-4 my-2 rounded-xl bg-green-400">Crear Usuario</button> */}
             <button className="hover:text-white shadow-lg font-semibold p-2 mx-4 my-2 rounded-xl bg-yellow-400" onClick={handleClick}>Editar Usuario</button>
@@ -78,8 +81,10 @@ export function InfoUsuario({ inf, fun }) {
 
           </aside>
 
-
           {showComponent && <EditarUsuario user={inf} fun={handleClick} />}
+
+          {crearUsuario && <NewUserCreate user={inf} fun={handleClickCreated} />}
+
 
         </div>
 
