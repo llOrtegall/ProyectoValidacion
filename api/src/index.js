@@ -17,6 +17,10 @@ app.use(cors({
 app.use(cookieParser())
 app.use(express.json())
 
+app.get('http://localhost:3000', (req, res) => {
+  res.status(200).send('Ok Test')
+})
+
 //TODO: Metodos Cliente Fiel
 app.use(routerCF)
 

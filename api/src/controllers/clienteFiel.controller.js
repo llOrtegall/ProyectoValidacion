@@ -18,9 +18,6 @@ export const createdClientFiel = async (req, res) => {
 
   const { cedula, nombre, telefono, correo } = req.body
 
-  console.log(nombre);
-
-
   var palabras = nombre.split(' ');
 
   switch (palabras.length) {
@@ -29,21 +26,19 @@ export const createdClientFiel = async (req, res) => {
       var apellido1 = palabras[1];
       var apellido2 = ''
       var nombre2 = ''
-      console.log(nombre1, apellido1, apellido2, nombre2);
+
       break;
     case 3:
       var nombre1 = palabras[0];
       var apellido1 = palabras[1];
       var nombre2 = palabras[2];
       var apellido2 = ''
-      console.log(`nombre1 = ${nombre1} primer apellido=${apellido1}, segundo apellido= ${nombre2}`);
       break;
     case 4:
       var nombre1 = palabras[0];
       var apellido1 = palabras[1];
       var apellido2 = palabras[2];
       var nombre2 = palabras[3];
-      console.log('cuatro nombres' + ' ' + nombre1, apellido1, apellido2, nombre2);
       break;
     default:
       console.log('Número de palabras en el nombre no coincide con los casos esperados.');
@@ -57,7 +52,7 @@ export const createdClientFiel = async (req, res) => {
     ACEPTAPOLITICATDP, CLIENTEVENDEDOR, CLAVECANAL, TPOTRT_CODIGO_NACION, TRT_CODIGO_NACION, TPOTRT_CODIGO_EXPDOC, TRT_CODIGO_EXPDOC,
     FECHAEXPDOC, DTO_CODIGO_TPDOC, ENT_CODIGO_TPDOC, IDLOGIN, SECURITY_TOKEN)
     VALUES
-    ('${cedula}', '0000', 'JBOSS', to_date('27/06/18','DD/MM/RR'), '${nombre1} ${nombre2}', '${apellido1}', '${apellido2}', to_date('27/01/81','DD/MM/RR'),
+    ('${cedula}', 'u+#ajÕ', 'JBOSS', to_date('27/06/18','DD/MM/RR'), '${nombre1} ${nombre2}', '${apellido1}', '${apellido2}', to_date('27/01/81','DD/MM/RR'),
     '${telefono}', '', '6', '30', '8', '965', '60', '33', '66910151', '00000', '0' ,'0', '${correo}', null, null, null, null, null, '101010', null, null, null, null, null, null, null, null, null)`);
 
     await connectOraDb.commit();
