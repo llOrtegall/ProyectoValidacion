@@ -70,7 +70,7 @@ export function InfoUsuario({ inf, fun }) {
           <aside className="flex flex-col justify-center">
             {isChecked === true
               ? < button className="hover:text-white shadow-lg font-semibold p-2 mx-4 my-2 rounded-xl bg-green-400">Crear Usuario</button>
-              : <button disabled className="shadow-lg  font-semibold p-2 mx-4 my-2 rounded-xl bg-green-400  ">Crear Usuario</button>
+              : <button disabled className=" font-semibold p-2 mx-4 my-2 rounded-xl bg-green-200 text-opacity-75 text-gray-400">Crear Usuario</button>
             }
             {/* <button className="hover:text-white shadow-lg font-semibold p-2 mx-4 my-2 rounded-xl bg-green-400">Crear Usuario</button> */}
             <button className="hover:text-white shadow-lg font-semibold p-2 mx-4 my-2 rounded-xl bg-yellow-400" onClick={handleClick}>Editar Usuario</button>
