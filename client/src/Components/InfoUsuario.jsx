@@ -1,10 +1,26 @@
+import { useState } from "react";
 import { EditarUsuario } from "./EditarUsuario";
 import { CloseIcon, InfoIcon } from "./IconsSvg";
 
 // eslint-disable-next-line react/prop-types
 export function InfoUsuario({ inf, fun }) {
 
+  // eslint-disable-next-line react/prop-types
   const { nombre, cedula, telefono, telwhats, correo } = inf[0]
+  const [showComponent, setShowComponent] = useState(false)
+  const [isChecked, setIsChecked] = useState(false);
+
+  console.log(isChecked);
+
+
+  const handleCheckboxChange = (event) => {
+    setIsChecked(event.target.checked);
+  };
+
+
+  const handleClick = () => {
+    setShowComponent(!showComponent)
+  }
 
   const toggleComponent = fun
 
@@ -44,24 +60,32 @@ export function InfoUsuario({ inf, fun }) {
               </div>
               <div className="flex justify-between">
                 <label className="font-bold pr-8"> Usuario Validado: </label>
-                <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike" className="w-4" />
+                <input type="checkbox" className="w-4" checked={isChecked}
+                  onChange={handleCheckboxChange}
+                />
               </div>
             </div>
           </section>
 
           <aside className="flex flex-col justify-center">
-            <button className="hover:text-white shadow-lg font-semibold p-2 mx-4 my-2 rounded-xl bg-green-400">Crear Usuario</button>
-            <button className="hover:text-white shadow-lg font-semibold p-2 mx-4 my-2 rounded-xl bg-yellow-400">Editar Usuario</button>
+            {isChecked === true
+              ? < button className="hover:text-white shadow-lg font-semibold p-2 mx-4 my-2 rounded-xl bg-green-400">Crear Usuario</button>
+              : <button disabled className="shadow-lg  font-semibold p-2 mx-4 my-2 rounded-xl bg-green-400  ">Crear Usuario</button>
+            }
+            {/* <button className="hover:text-white shadow-lg font-semibold p-2 mx-4 my-2 rounded-xl bg-green-400">Crear Usuario</button> */}
+            <button className="hover:text-white shadow-lg font-semibold p-2 mx-4 my-2 rounded-xl bg-yellow-400" onClick={handleClick}>Editar Usuario</button>
             <button className="hover:text-white shadow-lg font-semibold p-2 mx-4 my-2 rounded-xl bg-purple-400">Validar Usuario</button>
+
           </aside>
 
-          <EditarUsuario user={inf} />
+
+          {showComponent && <EditarUsuario user={inf} />}
 
         </div>
 
         <button className="absolute top-2 right-2 hover:bg-red-700 hover:rounded-full hover:text-white" onClick={toggleComponent}><CloseIcon /></button>
 
-      </section>
+      </section >
     </>
   )
 }
