@@ -16,32 +16,59 @@ export const getClientFiel = async (req, res) => {
 
 export const createdClientFiel = async (req, res) => {
 
-  const user = req.body;
+  const { cedula, nombre, telefono, correo } = req.body
 
-  console.log(req.body);
+  console.log(nombre);
 
-  const { nombre1, nombre2, apellido1, apellido2, documento, celular } = user
 
-  // try {
-  //   const result = await connectOraDb.execute(`INSERT INTO gamble.clientes
-  //   (DOCUMENTO, TOTALPUNTOS, USUARIO, FECHASYS, NOMBRES, APELLIDO1, APELLIDO2, FECHANACIMIENTO,
-  //   TELEFONO, DIRECCION, TIPO_DEPTO, CODDEPTO,TIPO_MUNICIPIO, CODMUNICIPIO, ENT_SEXO, DAT_DTO_SEXO,
-  //   DOCALTERNO, NRO_FAVORITO, VERSION, CCOSTO, MAIL, NOMBRE1, NOMBRE2, CELULAR,
-  //   ACEPTAPOLITICATDP, CLIENTEVENDEDOR, CLAVECANAL, TPOTRT_CODIGO_NACION, TRT_CODIGO_NACION, TPOTRT_CODIGO_EXPDOC, TRT_CODIGO_EXPDOC,
-  //   FECHAEXPDOC, DTO_CODIGO_TPDOC, ENT_CODIGO_TPDOC, IDLOGIN, SECURITY_TOKEN)
-  //   VALUES
-  //   ('${documento}', '0000', 'JBOSS', to_date('27/06/18','DD/MM/RR'), '${nombre1} ${nombre2}', '${apellido1}', '${apellido2}', to_date('27/01/81','DD/MM/RR'),
-  //   '${celular}', '', '6', '30', '8', '965', '60', '33', '66910151', '00000', '0' ,'0', '', null, null, null, null, null, '101010', null, null, null, null, null, null, null, null, null)`);
+  var palabras = nombre.split(' ');
 
-  //   await connectOraDb.commit();
+  switch (palabras.length) {
+    case 2:
+      var nombre1 = palabras[0];
+      var apellido1 = palabras[1];
+      var apellido2 = ''
+      var nombre2 = ''
+      console.log(nombre1, apellido1, apellido2, nombre2);
+      break;
+    case 3:
+      var nombre1 = palabras[0];
+      var apellido1 = palabras[1];
+      var nombre2 = palabras[2];
+      var apellido2 = ''
+      console.log(`nombre1 = ${nombre1} primer apellido=${apellido1}, segundo apellido= ${nombre2}`);
+      break;
+    case 4:
+      var nombre1 = palabras[0];
+      var apellido1 = palabras[1];
+      var apellido2 = palabras[2];
+      var nombre2 = palabras[3];
+      console.log('cuatro nombres' + ' ' + nombre1, apellido1, apellido2, nombre2);
+      break;
+    default:
+      console.log('Número de palabras en el nombre no coincide con los casos esperados.');
+  }
 
-  //   if (result.rowsAffected === 1) {
-  //     res.status(201).json({ 'success': true, 'message': 'Commit successfully committed', "user": "Created" })
-  //   } else {
-  //     res.status(500).json({ 'success': false, 'message': 'Commit failed committed', "user": "No Created" })
-  //   }
-  // } catch (error) {
-  //   res.status(500).json({ 'success': false, 'message': 'Commit error committed' })
-  //   console.error('Error al insertar datos:', error);
-  // }
+  try {
+    const result = await connectOraDb.execute(`INSERT INTO gamble.clientes
+    (DOCUMENTO, TOTALPUNTOS, USUARIO, FECHASYS, NOMBRES, APELLIDO1, APELLIDO2, FECHANACIMIENTO,
+    TELEFONO, DIRECCION, TIPO_DEPTO, CODDEPTO,TIPO_MUNICIPIO, CODMUNICIPIO, ENT_SEXO, DAT_DTO_SEXO,
+    DOCALTERNO, NRO_FAVORITO, VERSION, CCOSTO, MAIL, NOMBRE1, NOMBRE2, CELULAR,
+    ACEPTAPOLITICATDP, CLIENTEVENDEDOR, CLAVECANAL, TPOTRT_CODIGO_NACION, TRT_CODIGO_NACION, TPOTRT_CODIGO_EXPDOC, TRT_CODIGO_EXPDOC,
+    FECHAEXPDOC, DTO_CODIGO_TPDOC, ENT_CODIGO_TPDOC, IDLOGIN, SECURITY_TOKEN)
+    VALUES
+    ('${cedula}', '0000', 'JBOSS', to_date('27/06/18','DD/MM/RR'), '${nombre1} ${nombre2}', '${apellido1}', '${apellido2}', to_date('27/01/81','DD/MM/RR'),
+    '${telefono}', '', '6', '30', '8', '965', '60', '33', '66910151', '00000', '0' ,'0', '${correo}', null, null, null, null, null, '101010', null, null, null, null, null, null, null, null, null)`);
+
+    await connectOraDb.commit();
+
+    if (result.rowsAffected === 1) {
+      res.status(201).json({ 'success': true, 'message': 'Commit successfully committed', "user": "Created" })
+    } else {
+      res.status(500).json({ 'success': false, 'message': 'Commit failed committed', "user": "No Created" })
+    }
+  } catch (error) {
+    res.status(500).json({ 'success': false, 'message': 'Commit error committed' })
+    console.error('Error al insertar datos:', error);
+  }
 }
