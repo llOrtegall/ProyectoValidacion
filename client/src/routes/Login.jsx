@@ -1,18 +1,16 @@
-import axios from 'axios';
-import { useContext, useState } from "react";
-import { AuthContext } from '../auth/AuthContext';
-
+import axios from 'axios'
+import { useContext, useState } from 'react'
+import { AuthContext } from '../auth/AuthContext'
 
 export const Login = () => {
-
   // TODO: Para Logín
-  const [user, setUser] = useState('');
-  const [password, setPassword] = useState('');
+  const [user, setUser] = useState('')
+  const [password, setPassword] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
 
-  const { setUser: setUserWithLogin, setName, setLastName, setId } = useContext(AuthContext);
+  const { setUser: setUserWithLogin, setName, setLastName, setId } = useContext(AuthContext)
 
-  async function iniciarSession(ev) {
+  async function iniciarSession (ev) {
     ev.preventDefault()
 
     await axios.post('/login', { user, password })
@@ -20,7 +18,7 @@ export const Login = () => {
         const { apellidos, id, nombres, username } = data.data
         setUserWithLogin(username), setName(nombres), setLastName(apellidos), setId(id)
       }).catch((err) => {
-        setErrorMessage(err.response.data.detalle);
+        setErrorMessage(err.response.data.detalle)
       })
 
     setTimeout(() => {
@@ -30,13 +28,17 @@ export const Login = () => {
 
   return (
     <section className='flex justify-center items-center h-screen w-screen bg-blue-200 '>
-      <form className="w-80" onSubmit={iniciarSession}>
+      <form className='w-80' onSubmit={iniciarSession}>
         <h1 className='text-center font-semibold pb-4 text-xl'>Iniciar Session</h1>
-        <input value={user} onChange={ev => setUser(ev.target.value)} type="text" placeholder="Usuario"
-          className="block w-full rounded-md  border p-2 mb-2" required={true} />
-        <input value={password} onChange={ev => setPassword(ev.target.value)} type="password" placeholder="Contraseña"
-          className="block w-full rounded-md border p-2 mb-2" required={true} />
-        <button className="bg-blue-500 text-white block w-full rounded-md p-2 font-semibold shadow-lg">
+        <input
+          value={user} onChange={ev => setUser(ev.target.value)} type='text' placeholder='Usuario'
+          className='block w-full rounded-md  border p-2 mb-2' required
+        />
+        <input
+          value={password} onChange={ev => setPassword(ev.target.value)} type='password' placeholder='Contraseña'
+          className='block w-full rounded-md border p-2 mb-2' required
+        />
+        <button className='bg-blue-500 text-white block w-full rounded-md p-2 font-semibold shadow-lg'>
           Iniciar Session
         </button>
         <article className='w-auto mt-12 text-center text-red-700 font-medium'>
