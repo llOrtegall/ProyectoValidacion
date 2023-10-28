@@ -19,11 +19,11 @@ export function RenderUsuarios () {
 
     sendUser()
   }
+  
   useEffect(() => {
     axios.get('http://localhost:3000/clientes')
       .then(data => {
         setUser(data.data)
-        console.log(data)
       })
       .catch(error => {
         if (error.response && error.response.status === 404) {

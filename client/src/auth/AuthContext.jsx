@@ -1,10 +1,10 @@
-import { createContext, useState, useEffect } from "react";
-import axios from "axios";
+import { createContext, useState, useEffect } from 'react'
+import axios from 'axios'
 
-export const AuthContext = createContext({});
+export const AuthContext = createContext({})
 
 // eslint-disable-next-line react/prop-types
-export function AuthContextProvider({ children }) {
+export function AuthContextProvider ({ children }) {
   const [user, setUser] = useState(null)
   const [name, setName] = useState(null)
   const [lastName, setLastName] = useState(null)
@@ -14,7 +14,10 @@ export function AuthContextProvider({ children }) {
     axios.get('/profile')
       .then(data => {
         const { apellidos, id, nombres, username } = data.data
-        setUser(username), setName(nombres), setLastName(apellidos), setId(id)
+        setUser(username)
+        setName(nombres)
+        setLastName(apellidos)
+        setId(id)
       })
   }, [])
 
@@ -24,4 +27,3 @@ export function AuthContextProvider({ children }) {
     </AuthContext.Provider>
   )
 }
-

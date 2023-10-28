@@ -12,11 +12,13 @@ export const Login = () => {
 
   async function iniciarSession (ev) {
     ev.preventDefault()
-
     await axios.post('/login', { user, password })
       .then(data => {
         const { apellidos, id, nombres, username } = data.data
-        setUserWithLogin(username), setName(nombres), setLastName(apellidos), setId(id)
+        setUserWithLogin(username)
+        setName(nombres)
+        setLastName(apellidos)
+        setId(id)
       }).catch((err) => {
         setErrorMessage(err.response.data.detalle)
       })
