@@ -13,8 +13,8 @@ export const Login = () => {
   async function iniciarSession (ev) {
     ev.preventDefault()
     await axios.post('/login', { user, password })
-      .then(data => {
-        const { apellidos, id, nombres, username } = data.data
+      .then(response => {
+        const { apellidos, id, nombres, username } = response.data.user
         setUserWithLogin(username)
         setName(nombres)
         setLastName(apellidos)
