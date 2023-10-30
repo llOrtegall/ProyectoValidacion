@@ -52,14 +52,14 @@ export function RenderUsuarios () {
 
           <tbody className='text-center'>
             {user.length > 0
-              ? user.map(i => (
-                <tr key={i.cedula}>
-                  <td>{i.nombre}</td>
-                  <td>{i.cedula}</td>
-                  <td>{i.telefono}</td>
-                  <td>{i.correo}</td>
-                  <td>{i.telwhats}</td>
-                  <ValidarUsuario user={i} fun={toggleComponent} />
+              ? user.map(index => (
+                <tr key={index.value}>
+                  <td>{index.nombre}</td>
+                  <td>{index.cedula}</td>
+                  <td>{index.telefono}</td>
+                  <td>{index.correo}</td>
+                  <td>{index.telwhats}</td>
+                  <ValidarUsuario user={index} fun={toggleComponent} />
                 </tr>
               ))
               : null}

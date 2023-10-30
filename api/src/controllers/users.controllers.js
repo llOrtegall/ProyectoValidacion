@@ -34,9 +34,7 @@ export const getLogin = async (req, res) => {
     if (passOk) {
       jwt.sign({ id, username, nombres, apellidos }, JWT_SECRET, {}, (err, token) => {
         if (err) throw err
-        res.cookie('token', token, { sameSite: 'none', secure: 'true' }).status(200).json({
-          id, username, nombres, apellidos
-        })
+        res.cookie('token', token, { sameSite: 'none', secure: 'true' }).status(200).json({ data: {id, username, nombres, apellidos}, tokenSession: token })
       })
     } else {
       res.status(401).json({

@@ -12,7 +12,7 @@ const PORT = 3000
 dotenv.config()
 app.use(cors({
   credentials: true,
-  origin: 'http://localhost:5173'
+  origin: ['http://localhost:5173', 'http://localhost:4200']
 }))
 app.use(cookieParser())
 app.use(express.json())
