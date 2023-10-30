@@ -11,15 +11,14 @@ export function RenderUsuarios () {
   const toggleComponent = (ev) => {
     setShowComponent(!showComponent)
     const User = (ev.id)
-
     const sendUser = () => {
+      // eslint-disable-next-line eqeqeq
       const newUser = user.filter((i) => i.cedula == User)
       setSendUserRender(newUser)
     }
-
     sendUser()
   }
-  
+
   useEffect(() => {
     axios.get('http://localhost:3000/clientes')
       .then(data => {
@@ -32,6 +31,10 @@ export function RenderUsuarios () {
         throw error
       })
   }, [])
+
+  const uniqueUsers = user.filter((value, index, self) => {
+    return self.findIndex((t) => t.cedula === value.cedula) === index
+  })
 
   return (
     <>
@@ -52,8 +55,8 @@ export function RenderUsuarios () {
 
           <tbody className='text-center'>
             {user.length > 0
-              ? user.map(index => (
-                <tr key={index.value}>
+              ? uniqueUsers.map(index => (
+                <tr key={index.cedula}>
                   <td>{index.nombre}</td>
                   <td>{index.cedula}</td>
                   <td>{index.telefono}</td>
