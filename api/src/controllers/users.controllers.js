@@ -12,9 +12,10 @@ const bcryptSalt = bcrypt.genSaltSync(10)
 export const getUser = async (req, res) => {
   const token = req.cookies?.token
   if (token) {
-    jwt.verify(token, JWT_SECRET, { expiresIn: '5h' }, (err, userData) => {
+    jwt.verify(token, JWT_SECRET, {}, (err, userData) => {
       if (err) throw err
       res.json(userData)
+      console.log(userData)
     })
   } else {
     res.status(401).json('No Token')
@@ -34,7 +35,7 @@ export const getLogin = async (req, res) => {
     if (passOk) {
       jwt.sign({ id, username, nombres, apellidos }, JWT_SECRET, {}, (err, token) => {
         if (err) throw err
-        res.cookie('token', token, { sameSite: 'none', secure: 'true' }).status(200).json({ user: { id, username, nombres, apellidos }, tokenSession: token })
+        res.cookie('token', token, { sameSite: 'none', secure: 'true' }).status(200).json({ id, username, nombres, apellidos })
       })
     } else {
       res.status(401).json({

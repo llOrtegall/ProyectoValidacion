@@ -33,7 +33,7 @@ export function NewUserCreate ({ user, fun }) {
   const UsuarioCreado = () => {
     setTimeout(() => {
       CloseComponent()
-      location.reload()
+      window.location.reload()
     }, 3000)
     return <div className='text-green-500 pt-2 absolute bottom-0 pb-4 right-auto font-bold '> Usuarios Creado Correctamente !!!</div>
   }

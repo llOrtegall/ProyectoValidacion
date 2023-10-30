@@ -1,9 +1,13 @@
+import { useContext } from 'react'
+import { AuthContext } from '../auth/AuthContext'
 import { CloseSession, UserIcon } from './IconsSvg'
 
 // eslint-disable-next-line react/prop-types
-export function LoginUserComponent ({ usuario }) {
+export function LoginUserComponent () {
   // eslint-disable-next-line react/prop-types
-  const { id, lastName, name, user } = usuario
+  const { user } = useContext(AuthContext)
+  const { name, lastname, id, usuario } = user
+  const { logout } = useContext(AuthContext)
 
   return (
     <section className=' '>
@@ -11,15 +15,15 @@ export function LoginUserComponent ({ usuario }) {
         <figure className='flex items-center'>
           <UserIcon />
           <section>
-            <h3 className='font-semibold text-xl'>Bienvenido <span>{name}</span><span>{lastName}</span></h3>
+            <h3 className='font-semibold text-xl'>Bienvenido <span>{name}</span><span>{lastname}</span></h3>
             <div className='flex '>
-              <p style={{ fontSize: '10px' }}>{user}</p>
+              <p style={{ fontSize: '10px' }}>{usuario}</p>
               <p className='pl-2' style={{ fontSize: '10px' }}>{id}</p>
             </div>
           </section>
         </figure>
 
-        <button id='close session' className='flex flex-col items-center text-center'>
+        <button id='close session' className='flex flex-col items-center text-center' onClick={logout}>
           <CloseSession />
           <p>Cerrar Session</p>
         </button>

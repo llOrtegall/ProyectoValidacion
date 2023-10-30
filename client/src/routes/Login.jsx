@@ -1,5 +1,5 @@
+import { useState, useContext } from 'react'
 import axios from 'axios'
-import { useContext, useState } from 'react'
 import { AuthContext } from '../auth/AuthContext'
 
 export const Login = () => {
@@ -7,25 +7,19 @@ export const Login = () => {
   const [user, setUser] = useState('')
   const [password, setPassword] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
-
-  const { setUser: setUserWithLogin, setName, setLastName, setId } = useContext(AuthContext)
+  const { setUser: setAuthUser } = useContext(AuthContext)
 
   async function iniciarSession (ev) {
     ev.preventDefault()
-    await axios.post('/login', { user, password })
-      .then(response => {
-        const { apellidos, id, nombres, username } = response.data.user
-        setUserWithLogin(username)
-        setName(nombres)
-        setLastName(apellidos)
-        setId(id)
-      }).catch((err) => {
-        setErrorMessage(err.response.data.detalle)
-      })
 
-    setTimeout(() => {
-      setErrorMessage('')
-    }, 8000)
+    axios.post('/login', { user, password })
+      .then(data => {
+        const { apellidos, id, nombres, username } = data.data
+        setAuthUser({ name: nombres, lastName: apellidos, id, usuario: username })
+      })
+      .catch(error => {
+        setErrorMessage(error)
+      })
   }
 
   return (
