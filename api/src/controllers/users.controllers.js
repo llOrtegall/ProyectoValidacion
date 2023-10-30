@@ -15,7 +15,6 @@ export const getUser = async (req, res) => {
     jwt.verify(token, JWT_SECRET, {}, (err, userData) => {
       if (err) throw err
       res.json(userData)
-      console.log(userData)
     })
   } else {
     res.status(401).json('No Token')

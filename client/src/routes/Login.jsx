@@ -13,12 +13,16 @@ export const Login = () => {
     ev.preventDefault()
 
     axios.post('/login', { user, password })
-      .then(data => {
-        const { apellidos, id, nombres, username } = data.data
-        setAuthUser({ name: nombres, lastName: apellidos, id, usuario: username })
+      .then(response => {
+        if (response.status === 200) {
+          const { apellidos, id, nombres, username } = response.data
+          setAuthUser({ name: nombres, lastName: apellidos, id, usuario: username })
+        } else {
+          setErrorMessage(response.data)
+        }
       })
-      .catch(error => {
-        setErrorMessage(error)
+      .catch(res => {
+        setErrorMessage(res.response.data.error)
       })
   }
 

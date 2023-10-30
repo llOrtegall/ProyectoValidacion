@@ -6,7 +6,7 @@ import { CloseSession, UserIcon } from './IconsSvg'
 export function LoginUserComponent () {
   // eslint-disable-next-line react/prop-types
   const { user } = useContext(AuthContext)
-  const { name, lastname, id, usuario } = user
+  const { name, lastName, id, usuario } = user
   const { logout } = useContext(AuthContext)
 
   return (
@@ -15,7 +15,7 @@ export function LoginUserComponent () {
         <figure className='flex items-center'>
           <UserIcon />
           <section>
-            <h3 className='font-semibold text-xl'>Bienvenido <span>{name}</span><span>{lastname}</span></h3>
+            <h3 className='font-semibold text-xl'>Bienvenido <span>{name}</span><span>{lastName}</span></h3>
             <div className='flex '>
               <p style={{ fontSize: '10px' }}>{usuario}</p>
               <p className='pl-2' style={{ fontSize: '10px' }}>{id}</p>
