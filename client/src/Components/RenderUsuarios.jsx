@@ -38,9 +38,9 @@ export function RenderUsuarios () {
 
   return (
     <>
-      <section className='flex flex-col p-2' style={{ maxHeight: '350px', overflowY: 'auto' }}>
+      <section className='flex flex-col p-2' style={{ maxHeight: '550px', overflowY: 'auto' }}>
         <h1 className='p-3 text-white rounded-t-xl text-xl font-semibold bg-blue-500 text-center'>Usuarios Registrados Por Chat Boot</h1>
-        <table>
+        <table className=''>
           <thead className=''>
             <tr>
               <th>Nombres</th>

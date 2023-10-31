@@ -1,11 +1,11 @@
 import express from 'express'
 import { routerUser } from './routes/users.routes.js'
 import { chatBootClient } from './routes/chatBoot.routes.js'
-import { routerCF } from "./routes/clienteFiel.routes.js";
+import { routerCF } from './routes/clienteFiel.routes.js'
 import cors from 'cors'
 import cookieParser from 'cookie-parser'
 
-import dotenv from "dotenv";
+import dotenv from 'dotenv'
 
 const app = express()
 const PORT = 3000
@@ -21,7 +21,7 @@ app.get('http://localhost:3000', (req, res) => {
   res.status(200).send('Ok Test')
 })
 
-//TODO: Metodos Cliente Fiel
+// TODO: Metodos Cliente Fiel
 app.use(routerCF)
 
 // TODO: Metodos En Chat Boot DB

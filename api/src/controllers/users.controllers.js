@@ -1,11 +1,11 @@
-import { connectMysql } from "../db.js";
+import { connectMysql } from '../db.js'
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcryptjs'
-import dotenv from "dotenv";
+import dotenv from 'dotenv'
 
 dotenv.config()
 
-const JWT_SECRET = process.env.JWT_SECRET;
+const JWT_SECRET = process.env.JWT_SECRET
 const bcryptSalt = bcrypt.genSaltSync(10)
 
 // TODO: /profile
@@ -38,21 +38,20 @@ export const getLogin = async (req, res) => {
       })
     } else {
       res.status(401).json({
-        "error": "Acceso no autorizado",
-        "detalle": "La clave del usuario no coinciden"
+        error: 'Acceso no autorizado',
+        detalle: 'La clave del usuario no coinciden'
       })
     }
   } else {
     res.status(404).json({
-      "error": "Usuario No encontrado y/o Registrado",
-      "detalle": `El usuario: ${user}, No existe en el sistema.`
+      error: 'Usuario No encontrado y/o Registrado',
+      detalle: `El usuario: ${user}, No existe en el sistema.`
     })
   }
 }
 
 // TODO: /register
 export const createUser = async (req, res) => {
-
   const { names, document, lastNames } = req.body
 
   const [result] = await connectMysql.query(`SELECT * FROM login WHERE documento = '${document}'`)
@@ -62,7 +61,7 @@ export const createUser = async (req, res) => {
     const [UserCreado] = await connectMysql.query(`INSERT INTO login (username, password, nombres, apellidos, documento) 
     VALUES ('${username}', '${hashedPassword}', '${names} ', '${lastNames}', '${document}')`)
 
-    //TODO: si el usuario es creado correctamente genera el token
+    // TODO: si el usuario es creado correctamente genera el token
     if (UserCreado.affectedRows === 1) {
       const [result] = await connectMysql.query(`SELECT BIN_TO_UUID(id) id, username, password, nombres, apellidos FROM login WHERE username = '${username}'`)
 
@@ -84,8 +83,8 @@ export const createUser = async (req, res) => {
     }
   } else {
     res.status(409).json({
-      "error": "El registro de usuario ya existe",
-      "detalle": `Usuario con documento: ${document}, Ya está registrado en el sistema`
+      error: 'El registro de usuario ya existe',
+      detalle: `Usuario con documento: ${document}, Ya está registrado en el sistema`
     })
   }
 }

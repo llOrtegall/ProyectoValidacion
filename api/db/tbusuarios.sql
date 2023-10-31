@@ -1,0 +1,12 @@
+CREATE TABLE tbusuarios (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  login VARCHAR(255) NOT NULL,
+  pass VARCHAR(255) NOT NULL,
+  nombre VARCHAR(255) NOT NULL,
+  perfil VARCHAR(255) NOT NULL,
+  activo INT NOT NULL, values 0 or 1 
+  imei VARCHAR(255) NOT NULL
+  idempresa VARCHAR (255) NOT NULL
+  proceso VARCHAR (255) NOT NULL
+  Cargo VARCHAR (255) NOT NULL
+);
