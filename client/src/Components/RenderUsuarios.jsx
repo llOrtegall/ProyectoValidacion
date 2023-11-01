@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
-import { ListaUsuarioChat } from './ListaUsuariosChat.jsx'
+import { ValidarUsuario } from './ValidarUsuario.jsx'
+import { InfoUserChat } from './InfoUserChat.jsx'
 import axios from 'axios'
 
 export function RenderUsuarios () {
@@ -7,6 +8,25 @@ export function RenderUsuarios () {
   const [user, setUser] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+  const [datoDeValidacion, setDatoDeValidacion] = useState()
+  const [userFiltrado, setUserFiltrado] = useState(null)
+
+  const FiltrarUsuario = () => {
+    const documento = datoDeValidacion
+    const documentoInt = parseInt(documento)
+    const userFiltrado = user.filter((user) => user.cedula === documentoInt)
+    setUserFiltrado(userFiltrado)
+  }
+
+  const manejarDatoDeValidacion = (dato) => {
+    setDatoDeValidacion(dato)
+  }
+
+  useEffect(() => {
+    if (datoDeValidacion) {
+      FiltrarUsuario()
+    }
+  }, [datoDeValidacion])
 
   useEffect(() => {
     // 2. Agregar una variable de estado para manejar el estado de carga de la petición.
@@ -40,12 +60,26 @@ export function RenderUsuarios () {
               <th>Opciones</th>
             </tr>
           </thead>
-          {/* 3. Agregar una clave única a cada elemento de la lista de usuarios para evitar errores de rendimiento. */}
-          <ListaUsuarioChat usuario={user} key={user.map(u => u.id).join(',')} />
+          <tbody className='text-center'>
+            {user.length && user.map((user) => (
+              <tr key={user.id}>
+                <td>{user.nombre}</td>
+                <td>{user.cedula}</td>
+                <td>{user.telefono}</td>
+                <td>{user.correo}</td>
+                <td>{user.telwhats}</td>
+                <ValidarUsuario user={user.cedula} onDatoDeValidacion={manejarDatoDeValidacion} />
+              </tr>
+            ))}
+          </tbody>
         </table>
         {/* 2. Agregar un mensaje de carga y manejo de errores. */}
         {loading && <p>Cargando usuarios...</p>}
         {error && <p>Error al cargar usuarios: {error.message}</p>}
+      </section>
+
+      <section>
+        {userFiltrado && <InfoUserChat user={userFiltrado} />}
       </section>
     </>
   )
