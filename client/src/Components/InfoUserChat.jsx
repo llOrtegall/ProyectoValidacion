@@ -3,7 +3,9 @@ import { InfoIcon } from './IconsSvg'
 import { CrearClienteFiel, EditarClienteChat, EliminarClienteChat } from './OptionsUser.jsx'
 
 export function InfoUserChat ({ user }) {
-  const { cedula, nombres, telefono, correo, telwhats } = user[0]
+  console.log(user[0])
+
+  const { cedula, nombre, telefono, correo, telwhats } = user[0]
   const [activeComponent, setActiveComponent] = useState(null)
 
   const handleButtonClick = (component) => {
@@ -19,10 +21,10 @@ export function InfoUserChat ({ user }) {
       <article className='flex items-center h-full'>
         <div className='flex items-center m-4'>
           <InfoIcon className='text-white' />
-          <h2 className='text-2xl text-white'>{nombres}</h2>
         </div>
 
         <div className='items-center m-4 w-80'>
+          <dd className='text-white '> <span className='text-black font-semibold pr-2'>Nombres: </span>{nombre}</dd>
           <dd className='text-white '><span className='text-black font-semibold pr-2'>N° Documento: </span>{cedula}</dd>
           <dd className='text-white '><span className='text-black font-semibold pr-2'>Tel / Cel: </span>{telefono}</dd>
           <dd className='text-white '><span className='text-black font-semibold pr-2'>Correo: </span>{correo}</dd>
@@ -31,13 +33,13 @@ export function InfoUserChat ({ user }) {
       </article>
 
       <article className='flex flex-col '>
-        <button onClick={() => handleButtonClick(<CrearClienteFiel />)} className='w-44 bg-green-500 p-2 m-2 rounded-xl text-white font-semibold hover:text-black hover:bg-white '>Agregar Usuario</button>
-        <button onClick={() => handleButtonClick(<EditarClienteChat />)} className='w-44 bg-yellow-500 p-2 m-2 rounded-xl text-white font-semibold hover:text-black hover:bg-white '>Editar Usuario</button>
-        <button onClick={() => handleButtonClick(<EliminarClienteChat />)} className='w-44 bg-red-600 p-2 m-2 rounded-xl text-white font-semibold hover:text-black hover:bg-white '>Eliminar Usuario</button>
+        <button onClick={() => handleButtonClick(<CrearClienteFiel client={user[0]} />)} className='w-44 bg-green-500 p-2 m-2 rounded-xl text-white font-semibold hover:text-black hover:bg-white '>Agregar Usuario</button>
+        <button onClick={() => handleButtonClick(<EditarClienteChat client={user[0]} />)} className='w-44 bg-yellow-500 p-2 m-2 rounded-xl text-white font-semibold hover:text-black hover:bg-white '>Editar Usuario</button>
+        <button onClick={() => handleButtonClick(<EliminarClienteChat client={user[0]} />)} className='w-44 bg-red-600 p-2 m-2 rounded-xl text-white font-semibold hover:text-black hover:bg-white '>Eliminar Usuario</button>
       </article>
-      <article>
+      <article className='relative'>
         {activeComponent}
-        {activeComponent && <button onClick={handleCloseComponent} className=''>Cerrar</button>}
+        {activeComponent && <button onClick={handleCloseComponent} className='absolute top-0 right-0'>Cerrar</button>}
       </article>
     </section>
 
