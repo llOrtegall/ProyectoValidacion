@@ -1,7 +1,17 @@
+import { useState } from 'react'
 import { InfoIcon } from './IconsSvg'
+import { CrearClienteFiel, EditarClienteChat, EliminarClienteChat } from './OptionsUser.jsx'
 
 export function InfoUserChat ({ user }) {
   const { cedula, nombres, telefono, correo, telwhats } = user[0]
+  const [activeComponent, setActiveComponent] = useState(null)
+
+  const handleButtonClick = (component) => {
+    setActiveComponent(component)
+  }
+  const handleCloseComponent = () => {
+    setActiveComponent(null)
+  }
 
   return (
     <section className='bg-gray-500 p-8 m-2 rounded-xl flex items-center h-80'>
@@ -21,9 +31,13 @@ export function InfoUserChat ({ user }) {
       </article>
 
       <article className='flex flex-col '>
-        <button className='w-44 bg-green-500 p-2 m-2 rounded-xl text-white font-semibold hover:text-black hover:bg-white '>Agregar Usuario</button>
-        <button className='w-44 bg-yellow-500 p-2 m-2 rounded-xl text-white font-semibold hover:text-black hover:bg-white '>Editar Usuario</button>
-        <button className='w-44 bg-red-600 p-2 m-2 rounded-xl text-white font-semibold hover:text-black hover:bg-white '>Eliminar Usuario</button>
+        <button onClick={() => handleButtonClick(<CrearClienteFiel />)} className='w-44 bg-green-500 p-2 m-2 rounded-xl text-white font-semibold hover:text-black hover:bg-white '>Agregar Usuario</button>
+        <button onClick={() => handleButtonClick(<EditarClienteChat />)} className='w-44 bg-yellow-500 p-2 m-2 rounded-xl text-white font-semibold hover:text-black hover:bg-white '>Editar Usuario</button>
+        <button onClick={() => handleButtonClick(<EliminarClienteChat />)} className='w-44 bg-red-600 p-2 m-2 rounded-xl text-white font-semibold hover:text-black hover:bg-white '>Eliminar Usuario</button>
+      </article>
+      <article>
+        {activeComponent}
+        {activeComponent && <button onClick={handleCloseComponent} className=''>Cerrar</button>}
       </article>
     </section>
 
