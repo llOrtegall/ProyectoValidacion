@@ -63,21 +63,18 @@ export const createUser = async (req, res) => {
 
     // TODO: si el usuario es creado correctamente genera el token
     if (UserCreado.affectedRows === 1) {
+      const username = `CP${document}`
       const [result] = await connectMysql.query(`SELECT BIN_TO_UUID(id) id, username, password, nombres, apellidos FROM login WHERE username = '${username}'`)
 
-      try {
-        const userData = result.find((i) => i)
-        const { id, username, nombres, apellidos } = userData
+      const userData = result.find((i) => i)
+      const { id, username: user, nombres, apellidos } = userData
 
-        jwt.sign({ id, username, nombres, apellidos }, JWT_SECRET, { expiresIn: '5h' }, (err, token) => {
-          if (err) throw err
-          res.cookie('token', token, { sameSite: 'none', secure: 'true' }).status(201).json({
-            id, username, nombres, apellidos
-          })
+      jwt.sign({ id, username: user, nombres, apellidos }, JWT_SECRET, { expiresIn: '5h' }, (err, token) => {
+        if (err) throw err
+        res.cookie('token', token, { sameSite: 'none', secure: 'true' }).status(201).json({
+          id, username: user, nombres, apellidos
         })
-      } catch (error) {
-        throw error
-      }
+      })
     } else {
       res.status(500).json('Error Al Crear El Usuario')
     }

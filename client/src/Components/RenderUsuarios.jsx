@@ -1,31 +1,27 @@
 import { useEffect, useState } from 'react'
 import { ListaUsuarioChat } from './ListaUsuariosChat.jsx'
-import { ValidarUsuario } from './ValidarUsuario.jsx'
-import { InfoUsuario } from './InfoUsuario.jsx'
 import axios from 'axios'
 
 export function RenderUsuarios () {
+  // 1. Agregar manejo de errores en la petición de axios.
   const [user, setUser] = useState([])
-  const [showComponent, setShowComponent] = useState(false)
-  const [sendUserRender, setSendUserRender] = useState({})
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
 
-  const toggleComponent = (ev) => {
-    setShowComponent(!showComponent)
-    const User = (ev.id)
-    const sendUser = () => {
-      // eslint-disable-next-line eqeqeq
-      const newUser = user.filter((i) => i.cedula == User)
-      setSendUserRender(newUser)
-    }
-    sendUser()
-  }
-
-  const fetchClientes = async () => {
-    const response = await axios.get('/clientes')
-    setUser(response.data)
-  }
   useEffect(() => {
-    fetchClientes()
+    // 2. Agregar una variable de estado para manejar el estado de carga de la petición.
+    setLoading(true)
+    setError(null)
+
+    axios.get('/clientes')
+      .then(response => {
+        setUser(response.data)
+        setLoading(false)
+      })
+      .catch(error => {
+        setError(error)
+        setLoading(false)
+      })
   }, [])
 
   return (
@@ -44,13 +40,13 @@ export function RenderUsuarios () {
               <th>Opciones</th>
             </tr>
           </thead>
-          <ListaUsuarioChat usuario={user} />
+          {/* 3. Agregar una clave única a cada elemento de la lista de usuarios para evitar errores de rendimiento. */}
+          <ListaUsuarioChat usuario={user} key={user.map(u => u.id).join(',')} />
         </table>
+        {/* 2. Agregar un mensaje de carga y manejo de errores. */}
+        {loading && <p>Cargando usuarios...</p>}
+        {error && <p>Error al cargar usuarios: {error.message}</p>}
       </section>
-
-      {/* <section className='flex flex-col'>
-        {showComponent && <InfoUsuario inf={sendUserRender} fun={toggleComponent} />}
-      </section> */}
     </>
   )
 }
