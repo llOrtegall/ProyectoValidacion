@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { ListaUsuarioChat } from './ListaUsuariosChat.jsx'
 import { ValidarUsuario } from './ValidarUsuario.jsx'
 import { InfoUsuario } from './InfoUsuario.jsx'
 import axios from 'axios'
@@ -19,26 +20,17 @@ export function RenderUsuarios () {
     sendUser()
   }
 
+  const fetchClientes = async () => {
+    const response = await axios.get('/clientes')
+    setUser(response.data)
+  }
   useEffect(() => {
-    axios.get('http://localhost:3000/clientes')
-      .then(data => {
-        setUser(data.data)
-      })
-      .catch(error => {
-        if (error.response && error.response.status === 404) {
-          console.log(error.response)
-        }
-        throw error
-      })
+    fetchClientes()
   }, [])
-
-  const uniqueUsers = user.filter((value, index, self) => {
-    return self.findIndex((t) => t.cedula === value.cedula) === index
-  })
 
   return (
     <>
-      <section className='flex flex-col p-2' style={{ maxHeight: '550px', overflowY: 'auto' }}>
+      <section className='flex flex-col p-2' style={{ maxHeight: '450px', overflowY: 'auto' }}>
         <h1 className='p-3 text-white rounded-t-xl text-xl font-semibold bg-blue-500 text-center'>Usuarios Registrados Por Chat Boot</h1>
         <table className=''>
           <thead className=''>
@@ -52,27 +44,13 @@ export function RenderUsuarios () {
               <th>Opciones</th>
             </tr>
           </thead>
-
-          <tbody className='text-center'>
-            {user.length > 0
-              ? uniqueUsers.map(index => (
-                <tr key={index.cedula}>
-                  <td>{index.nombre}</td>
-                  <td>{index.cedula}</td>
-                  <td>{index.telefono}</td>
-                  <td>{index.correo}</td>
-                  <td>{index.telwhats}</td>
-                  <ValidarUsuario user={index} fun={toggleComponent} />
-                </tr>
-              ))
-              : null}
-          </tbody>
+          <ListaUsuarioChat usuario={user} />
         </table>
       </section>
 
-      <section className='flex flex-col'>
+      {/* <section className='flex flex-col'>
         {showComponent && <InfoUsuario inf={sendUserRender} fun={toggleComponent} />}
-      </section>
+      </section> */}
     </>
   )
 }
