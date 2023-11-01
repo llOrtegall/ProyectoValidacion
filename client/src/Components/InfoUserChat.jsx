@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { InfoIcon } from './IconsSvg'
+import { CloseIcon, InfoIcon } from './IconsSvg'
 import { CrearClienteFiel, EditarClienteChat, EliminarClienteChat } from './OptionsUser.jsx'
 
 export function InfoUserChat ({ user }) {
@@ -39,7 +39,7 @@ export function InfoUserChat ({ user }) {
       </article>
       <article className='relative'>
         {activeComponent}
-        {activeComponent && <button onClick={handleCloseComponent} className='absolute top-0 right-0'>Cerrar</button>}
+        {activeComponent && <button onClick={handleCloseComponent} className='text-white absolute top-0 right-0 rounded-full hover:bg-red-500'> <CloseIcon /> </button>}
       </article>
     </section>
 
