@@ -1,27 +1,51 @@
 import { createContext, useState, useEffect } from 'react'
-import Cookies from 'js-cookie'
 import axios from 'axios'
 
-export const AuthContext = createContext({})
+export const AuthContext = createContext({
+  user: {
+    name: null,
+    lastName: null,
+    id: null,
+    usuario: null
+  },
+  setUser: () => {},
+  logout: () => {}
+})
 
-// eslint-disable-next-line react/prop-types
 export function AuthContextProvider ({ children }) {
-  const [user, setUser] = useState({ name: null, lastName: null, id: null, usuario: null })
+  const [user, setUser] = useState({
+    name: null,
+    lastName: null,
+    id: null,
+    usuario: null
+  })
 
   const logout = () => {
-    setUser({ name: null, lastName: null, id: null, usuario: null })
-    Cookies.remove('token')
+    setUser({
+      name: null,
+      lastName: null,
+      id: null,
+      usuario: null
+    })
+    document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/'
   }
 
   useEffect(() => {
-    axios.get('/profile')
-      .then(data => {
-        const { apellidos, id, nombres, username } = data.data
-        setUser({ name: nombres, lastName: apellidos, id, usuario: username })
-      })
-      .catch(error => {
+    async function fetchProfile () {
+      try {
+        const { data } = await axios.get('/profile')
+        const { apellidos, id, nombres, username } = data
+        setUser({
+          name: nombres,
+          lastName: apellidos,
+          id,
+          usuario: username
+        })
+      } catch (error) {
         console.error(error)
-      })
+      }
+    }
+    fetchProfile()
   }, [])
 
   return (
