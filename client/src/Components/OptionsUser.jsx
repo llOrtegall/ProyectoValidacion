@@ -11,12 +11,11 @@ export function CrearClienteFiel ({ client }) {
     setLoading(true)
     axios.post('/newCF', { cedula, nombre, telefono, correo })
       .then(res => {
-        setResponseOk(res.data.message)
+        setResponseOk(res.status)
         setLoading(false)
       })
       .catch(err => {
-        setError(err.message)
-        console.log(err)
+        setError(err.response.data.message)
         setLoading(false)
       })
   }
@@ -33,8 +32,8 @@ export function CrearClienteFiel ({ client }) {
             Crea Cliente Fiel
           </button>
           {loading && <p className='text-center'>Creando Usuario ...</p>}
-          {error && <p>Error: {error}</p>}
-          {responseOk && <p>Usuario Creado</p>}
+          {error && <p>Error:{error}</p>}
+          {responseOk && <p className='text-center'> USUARIO CREADO </p>}
         </div>
       </section>
     </article>

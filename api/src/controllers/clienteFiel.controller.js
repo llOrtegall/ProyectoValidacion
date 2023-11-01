@@ -13,13 +13,9 @@ export const getClientFiel = async (req, res) => {
 }
 
 export const createdClientFiel = async (req, res) => {
-  console.log(req.body)
-
-  // Luego puedes llamar a la función en el código que necesites:
   const { cedula, nombre, telefono, correo } = req.body
   const { dia, mes, ano } = obtenerFechaActual()
   const { nombre1, nombre2, apellido1, apellido2 } = separarNombre(nombre)
-
   const result = validateClientUser({ nombre1, nombre2, apellido1, apellido2, telefono, correo, cedula })
 
   if (!result.success) {
@@ -40,12 +36,11 @@ export const createdClientFiel = async (req, res) => {
     await connectOraDb.commit()
 
     if (result.rowsAffected === 1) {
-      res.status(201).json({ success: true, message: 'Commit successfully committed', user: 'Created' })
+      res.status(201).json({ success: true, message: 'Commit successfully committed', user: 'Usuario Creado' })
     } else {
-      res.status(500).json({ success: false, message: 'Commit failed committed', user: 'No Created' })
+      res.status(500).json({ success: false, message: 'Commit failed committed', user: 'Usuario No Creado' })
     }
   } catch (error) {
-    res.status(500).json({ success: false, message: 'Commit error committed' })
-    console.error('Error al insertar datos:', error)
+    res.status(500).json({ success: false, message: 'Commit error committed', err: error })
   }
 }

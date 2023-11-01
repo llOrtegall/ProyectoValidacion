@@ -1,12 +1,34 @@
 export function separarNombre (nombre) {
-  const nombreseparado = nombre.split(' ', 4)
-  const nombre1 = nombreseparado[0]
-  const nombre2 = nombreseparado[1] === undefined ? '' : nombreseparado[1]
-  const apellido1 = nombreseparado[2]
-  const apellido2 = nombreseparado[3] === undefined ? '' : nombreseparado[1]
+  const nombres = nombre.split(' ', 4)
+
+  let nombre1, nombre2, apellido1, apellido2
+
+  switch (nombres.length) {
+    case 2:
+      nombre1 = nombres[0]
+      nombre2 = ''
+      apellido1 = nombres[1]
+      apellido2 = ''
+      break
+    case 3:
+      nombre1 = nombres[0]
+      nombre2 = nombres[1]
+      apellido1 = nombres[2]
+      apellido2 = ''
+      break
+    case 4:
+      nombre1 = nombres[0]
+      nombre2 = nombres[1]
+      apellido1 = nombres[2]
+      apellido2 = nombres[3]
+      break
+    default:
+      console.log('Nombre no válido')
+      break
+  }
+
   return { nombre1, nombre2, apellido1, apellido2 }
 }
-
 export function obtenerFechaActual () {
   const fecha = new Date()
   const dia = String(fecha.getDate()).padStart(2, '0')
