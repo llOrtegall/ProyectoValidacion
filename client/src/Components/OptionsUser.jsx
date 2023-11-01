@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { useState } from 'react'
+import { separarNombre } from '../services/funtionsReutilizables'
 
 export function CrearClienteFiel ({ client }) {
   const { cedula, nombre, telefono, correo } = client
@@ -41,10 +42,47 @@ export function CrearClienteFiel ({ client }) {
 }
 
 export function EditarClienteChat ({ client }) {
-  console.log(client)
+  const { cedula, nombre, telefono, correo } = client
+  const { nombre1, nombre2, apellido1, apellido2 } = separarNombre(nombre)
+  const [updateUser, setUpdateUser] = useState({ nombre1, nombre2, apellido1, apellido2, telefono, correo, cedula })
+
+  const handleChange = (e) => {
+    setUpdateUser({
+      ...updateUser,
+      [e.target.name]: e.target.value
+    })
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    // Aquí puedes hacer la llamada a la API para actualizar la información del usuario
+    axios.put('/cliente', { updateUser })
+      .then(res => console.log(res))
+      .catch(err => console.log(err))
+    console.log(updateUser)
+  }
+
   return (
-    <article>
-      <h1>Editar Cliente Chat</h1>
+    <article className='bg-yellow-500 p-2 m-2 w-full'>
+      <form className='flex' onSubmit={handleSubmit}>
+        <div className='flex flex-col p-2 m-2'>
+          <label> Nombre 1: </label>
+          <input type='text' name='nombre1' defaultValue={nombre1} value={updateUser.nombre1} onChange={handleChange} required />
+          <label> Apellido 1: </label>
+          <input type='text' name='apellido1' defaultValue={apellido1} value={updateUser.apellido1} onChange={handleChange} required />
+          <label> Telefono: </label>
+          <input type='text' name='telefono' defaultValue={telefono} value={updateUser.telefono} onChange={handleChange} />
+        </div>
+        <div className='flex flex-col p-2 m-2'>
+          <label> Nombre 2: </label>
+          <input type='text' name='nombre2' defaultValue={nombre2} value={updateUser.nombre2} onChange={handleChange} />
+          <label> Apellido 2: </label>
+          <input type='text' name='apellido2' defaultValue={apellido2} value={updateUser.apellido2} onChange={handleChange} />
+          <label> Correo: </label>
+          <input type='text' name='correo' defaultValue={correo} value={updateUser.correo} onChange={handleChange} />
+        </div>
+        <button type='submit'>Actualizar</button>
+      </form>
     </article>
   )
 }

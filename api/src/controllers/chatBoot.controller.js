@@ -24,28 +24,31 @@ export const getClient = async (req, res) => {
 
 // TODO: Función que actualiza el cliente en Chat Boot
 export const updateCliente = async (req, res) => {
-  const result = validateUser(req.body.userObject)
+  console.log(req.body)
+  const result = validateUser(req.body.updateUser)
 
-  if (!result.success) {
-    return res.status(400).json({ error: result.error.message })
-  }
+  console.log(result)
 
-  const { names1, names2, names3, names4, tel, email, documen } = result.data
+  // if (!result.success) {
+  //   return res.status(400).json({ error: result.error.message })
+  // }
 
-  const names = `${names1} ${names2} ${names3} ${names4}`
-  const nombresInsert = names.toUpperCase()
+  // const { names1, names2, names3, names4, tel, email, documen } = result.data
 
-  try {
-    const [result] = await connectMysql.query(`SELECT * FROM personayumbo WHERE cedula='${documen}'`)
+  // const names = `${names1} ${names2} ${names3} ${names4}`
+  // const nombresInsert = names.toUpperCase()
 
-    if (result.length > 0) {
-      const query = `UPDATE personayumbo SET nombre='${nombresInsert}', telefono='${tel}', correo='${email}' WHERE cedula='${documen}'`
-      const [result2] = await connectMysql.query(query)
-      res.status(200).json(result2)
-    } else {
-      res.status(404).json({ message: 'Cliente no encontrado' })
-    }
-  } catch (error) {
-    res.status(500).json({ error })
-  }
+  // try {
+  //   const [result] = await connectMysql.query(`SELECT * FROM personayumbo WHERE cedula='${documen}'`)
+
+  //   if (result.length > 0) {
+  //     const query = `UPDATE personayumbo SET nombre='${nombresInsert}', telefono='${tel}', correo='${email}' WHERE cedula='${documen}'`
+  //     const [result2] = await connectMysql.query(query)
+  //     res.status(200).json(result2)
+  //   } else {
+  //     res.status(404).json({ message: 'Cliente no encontrado' })
+  //   }
+  // } catch (error) {
+  //   res.status(500).json({ error })
+  // }
 }
