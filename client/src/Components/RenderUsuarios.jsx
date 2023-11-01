@@ -78,9 +78,8 @@ export function RenderUsuarios () {
         {error && <p>Error al cargar usuarios: {error.message}</p>}
       </section>
 
-      <section>
-        {userFiltrado && <InfoUserChat user={userFiltrado} />}
-      </section>
+      {userFiltrado && <InfoUserChat user={userFiltrado} />}
+
     </>
   )
 }
