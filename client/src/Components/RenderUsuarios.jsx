@@ -8,7 +8,7 @@ export function RenderUsuarios () {
   const [user, setUser] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
-  const [datoDeValidacion, setDatoDeValidacion] = useState()
+  const [datoDeValidacion, setDatoDeValidacion] = useState(null)
   const [userFiltrado, setUserFiltrado] = useState(null)
 
   const FiltrarUsuario = () => {
@@ -21,6 +21,8 @@ export function RenderUsuarios () {
   const fetchData = () => {
     setLoading(true)
     setError(null)
+    setUserFiltrado(null)
+    setDatoDeValidacion(null)
 
     axios.get('/clientes')
       .then(response => {
@@ -46,21 +48,6 @@ export function RenderUsuarios () {
   useEffect(() => {
     fetchData()
   }, [])
-
-  useEffect(() => {
-    setLoading(true)
-    setError(null)
-
-    axios.get('/clientes')
-      .then(response => {
-        setUser(response.data)
-        setLoading(false)
-      })
-      .catch(error => {
-        setError(error)
-        setLoading(false)
-      })
-  }, []) // Agregar el estado reset como dependencia del useEffect
 
   return (
     <>

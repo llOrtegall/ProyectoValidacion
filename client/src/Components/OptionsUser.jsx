@@ -3,13 +3,12 @@ import { useState, useEffect } from 'react'
 import { separarNombre } from '../services/funtionsReutilizables'
 import { CloseIcon } from './IconsSvg'
 
-export function CrearClienteFiel ({ client, fun, fun2 }) {
+export function CrearClienteFiel ({ client, fun }) {
   const { cedula, nombre, telefono, correo } = client
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const [responseOk, setResponseOk] = useState(null)
-  const handleComponentClose = fun
-  const fetchData = fun2
+  const fetchData = fun
 
   const sendCreateClient = () => {
     setLoading(true)
@@ -19,7 +18,6 @@ export function CrearClienteFiel ({ client, fun, fun2 }) {
         setLoading(false)
         setTimeout(() => {
           fetchData()
-          handleComponentClose()
         }, 5000)
       })
       .catch(err => {
@@ -44,20 +42,19 @@ export function CrearClienteFiel ({ client, fun, fun2 }) {
           {responseOk && <p className='text-center'> USUARIO CREADO </p>}
         </div>
       </section>
-      <button className='absolute top-0 right-0 rounded-full hover:bg-red-500 hover:text-white' onClick={handleClick}>
+      <button className='absolute top-0 right-0 rounded-full hover:bg-red-500 hover:text-white'>
         <CloseIcon />
       </button>
     </article>
   )
 }
 
-export function EditarClienteChat ({ client, fun, fun2 }) {
+export function EditarClienteChat ({ client, fun }) {
   const { cedula, nombre, telefono, correo } = client
   const { nombre1, nombre2, apellido1, apellido2 } = separarNombre(nombre)
   const [updateUser, setUpdateUser] = useState({})
   const [status, setStatus] = useState(null)
-  const handleComponentClose = fun
-  const fetchData = fun2
+  const fetchData = fun
 
   function StatusMessage ({ status }) {
     if (status === 'loading') {
@@ -91,7 +88,6 @@ export function EditarClienteChat ({ client, fun, fun2 }) {
         setStatus('success')
         setTimeout(() => {
           fetchData()
-          handleComponentClose()
         }, 3000)
       } else if (res.status === 'error') {
         setStatus('error')
