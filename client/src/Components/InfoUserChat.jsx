@@ -2,9 +2,10 @@ import { useState } from 'react'
 import { InfoIcon } from './IconsSvg'
 import { CrearClienteFiel, EditarClienteChat, EliminarClienteChat } from './OptionsUser.jsx'
 
-export function InfoUserChat ({ user }) {
+export function InfoUserChat ({ user, fun }) {
   const { cedula, nombre, telefono, correo, telwhats } = user[0]
   const [activeComponent, setActiveComponent] = useState(null)
+  const fetchData = fun
 
   const handleButtonClick = (component) => {
     setActiveComponent(component)
@@ -32,9 +33,9 @@ export function InfoUserChat ({ user }) {
       </article>
 
       <article className='flex flex-col '>
-        <button onClick={() => handleButtonClick(<CrearClienteFiel client={user[0]} fun={handleComponentClose} />)} className='w-44 bg-green-500 p-2 m-2 rounded-xl text-white font-semibold hover:text-black hover:bg-white '>Agregar Usuario</button>
-        <button onClick={() => handleButtonClick(<EditarClienteChat client={user[0]} fun={handleComponentClose} />)} className='w-44 bg-yellow-500 p-2 m-2 rounded-xl text-white font-semibold hover:text-black hover:bg-white '>Editar Usuario</button>
-        <button onClick={() => handleButtonClick(<EliminarClienteChat client={user[0]} fun={handleComponentClose} />)} className='w-44 bg-red-600 p-2 m-2 rounded-xl text-white font-semibold hover:text-black hover:bg-white '>Eliminar Usuario</button>
+        <button onClick={() => handleButtonClick(<CrearClienteFiel client={user[0]} fun={handleComponentClose} fun2={fetchData} />)} className='w-44 bg-green-500 p-2 m-2 rounded-xl text-white font-semibold hover:text-black hover:bg-white '>Agregar Usuario</button>
+        <button onClick={() => handleButtonClick(<EditarClienteChat client={user[0]} fun={handleComponentClose} fun2={fetchData} />)} className='w-44 bg-yellow-500 p-2 m-2 rounded-xl text-white font-semibold hover:text-black hover:bg-white '>Editar Usuario</button>
+        <button onClick={() => handleButtonClick(<EliminarClienteChat client={user[0]} fun={handleComponentClose} fun2={fetchData} />)} className='w-44 bg-red-600 p-2 m-2 rounded-xl text-white font-semibold hover:text-black hover:bg-white '>Eliminar Usuario</button>
       </article>
 
       <article>{activeComponent}</article>

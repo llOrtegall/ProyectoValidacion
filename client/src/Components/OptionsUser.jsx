@@ -3,16 +3,13 @@ import { useState, useEffect } from 'react'
 import { separarNombre } from '../services/funtionsReutilizables'
 import { CloseIcon } from './IconsSvg'
 
-export function CrearClienteFiel ({ client, fun }) {
+export function CrearClienteFiel ({ client, fun, fun2 }) {
   const { cedula, nombre, telefono, correo } = client
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const [responseOk, setResponseOk] = useState(null)
   const handleComponentClose = fun
-
-  const handleClick = () => {
-    handleComponentClose(null)
-  }
+  const fetchData = fun2
 
   const sendCreateClient = () => {
     setLoading(true)
@@ -20,6 +17,10 @@ export function CrearClienteFiel ({ client, fun }) {
       .then(res => {
         setResponseOk(res.status)
         setLoading(false)
+        setTimeout(() => {
+          fetchData()
+          handleComponentClose()
+        }, 5000)
       })
       .catch(err => {
         setError(err.response.data.message)
@@ -50,12 +51,13 @@ export function CrearClienteFiel ({ client, fun }) {
   )
 }
 
-export function EditarClienteChat ({ client, fun }) {
+export function EditarClienteChat ({ client, fun, fun2 }) {
   const { cedula, nombre, telefono, correo } = client
   const { nombre1, nombre2, apellido1, apellido2 } = separarNombre(nombre)
   const [updateUser, setUpdateUser] = useState({})
   const [status, setStatus] = useState(null)
   const handleComponentClose = fun
+  const fetchData = fun2
 
   function StatusMessage ({ status }) {
     if (status === 'loading') {
@@ -67,10 +69,6 @@ export function EditarClienteChat ({ client, fun }) {
     } else {
       return null
     }
-  }
-
-  const handleClick = () => {
-    handleComponentClose(null)
   }
 
   useEffect(() => {
@@ -89,9 +87,12 @@ export function EditarClienteChat ({ client, fun }) {
     setStatus('loading')
     try {
       const res = await axios.put('/cliente', { updateUser })
-      console.log(res)
       if (res.status === 200) {
         setStatus('success')
+        setTimeout(() => {
+          fetchData()
+          handleComponentClose()
+        }, 3000)
       } else if (res.status === 'error') {
         setStatus('error')
       }
@@ -121,7 +122,7 @@ export function EditarClienteChat ({ client, fun }) {
         <StatusMessage status={status} />
       </form>
 
-      <button className='absolute top-0 right-0 rounded-full hover:bg-red-500 hover:text-white' onClick={handleClick}>
+      <button className='absolute top-0 right-0 rounded-full hover:bg-red-500 hover:text-white'>
         <CloseIcon />
       </button>
     </>

@@ -18,18 +18,7 @@ export function RenderUsuarios () {
     setUserFiltrado(userFiltrado)
   }
 
-  const manejarDatoDeValidacion = (dato) => {
-    setDatoDeValidacion(dato)
-  }
-
-  useEffect(() => {
-    if (datoDeValidacion) {
-      FiltrarUsuario()
-    }
-  }, [datoDeValidacion])
-
-  useEffect(() => {
-    // 2. Agregar una variable de estado para manejar el estado de carga de la petición.
+  const fetchData = () => {
     setLoading(true)
     setError(null)
 
@@ -42,7 +31,36 @@ export function RenderUsuarios () {
         setError(error)
         setLoading(false)
       })
+  }
+
+  const manejarDatoDeValidacion = (dato) => {
+    setDatoDeValidacion(dato)
+  }
+
+  useEffect(() => {
+    if (datoDeValidacion) {
+      FiltrarUsuario()
+    }
+  }, [datoDeValidacion])
+
+  useEffect(() => {
+    fetchData()
   }, [])
+
+  useEffect(() => {
+    setLoading(true)
+    setError(null)
+
+    axios.get('/clientes')
+      .then(response => {
+        setUser(response.data)
+        setLoading(false)
+      })
+      .catch(error => {
+        setError(error)
+        setLoading(false)
+      })
+  }, []) // Agregar el estado reset como dependencia del useEffect
 
   return (
     <>
@@ -77,9 +95,7 @@ export function RenderUsuarios () {
         {loading && <p>Cargando usuarios...</p>}
         {error && <p>Error al cargar usuarios: {error.message}</p>}
       </section>
-
-      {userFiltrado && <InfoUserChat user={userFiltrado} />}
-
+      {userFiltrado && <InfoUserChat user={userFiltrado} fun={fetchData} />} {/* Llamar a la función handleReset para resetear el componente */}
     </>
   )
 }
