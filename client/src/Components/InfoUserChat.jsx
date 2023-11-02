@@ -14,7 +14,7 @@ export function InfoUserChat ({ user, fun }) {
   return (
     <>
 
-      <section className='bg-gray-500 p-8 m-2 rounded-xl flex items-center h-80'>
+      <section className='bg-gray-500 rounded-xl flex items-center p-2 m-2 h-80'>
 
         <article className='flex items-center h-full'>
           <div className='flex items-center m-4'>
@@ -30,13 +30,13 @@ export function InfoUserChat ({ user, fun }) {
           </div>
         </article>
 
-        <article className='flex flex-col '>
-          <button onClick={() => handleButtonClick(<CrearClienteFiel client={user[0]} />)} className='w-44 bg-green-500 p-2 m-2 rounded-xl text-white font-semibold hover:text-black hover:bg-white '>Agregar Usuario</button>
-          <button onClick={() => handleButtonClick(<EditarClienteChat client={user[0]} fun={fetchData} />)} className='w-44 bg-yellow-500 p-2 m-2 rounded-xl text-white font-semibold hover:text-black hover:bg-white '>Editar Usuario</button>
+        <article className='flex flex-col'>
+          <button onClick={() => handleButtonClick(<CrearClienteFiel client={user[0]} />)} className='bg-green-500 p-2 m-2 rounded-xl text-white font-semibold hover:text-black hover:bg-white '>Agregar Usuario</button>
+          <button onClick={() => handleButtonClick(<EditarClienteChat client={user[0]} fun={fetchData} />)} className=' bg-yellow-500 p-2 m-2 rounded-xl text-white font-semibold hover:text-black hover:bg-white '>Editar Usuario</button>
           <button onClick={() => handleButtonClick(<EliminarClienteChat client={user[0]} fun={fetchData} />)} className='w-44 bg-red-600 p-2 m-2 rounded-xl text-white font-semibold hover:text-black hover:bg-white '>Eliminar Usuario</button>
         </article>
 
-        <article>{activeComponent}</article>
+        <article className='p-4 m-4 w-auto'>{activeComponent}</article>
       </section>
 
     </>
