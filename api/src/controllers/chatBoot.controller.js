@@ -24,31 +24,27 @@ export const getClient = async (req, res) => {
 
 // TODO: Función que actualiza el cliente en Chat Boot
 export const updateCliente = async (req, res) => {
-  console.log(req.body)
-  const result = validateUser(req.body.updateUser)
+  const { updateUser } = req.body
+  const result = validateUser(updateUser)
 
-  console.log(result)
+  if (!result.success) {
+    return res.status(400).json({ error: result.error.message })
+  }
 
-  // if (!result.success) {
-  //   return res.status(400).json({ error: result.error.message })
-  // }
+  const { nombre1, nombre2, apellido1, apellido2, telefono, correo, cedula } = result.data
+  const nombre = `${nombre1} ${nombre2} ${apellido1} ${apellido2}`.trim().toUpperCase()
 
-  // const { names1, names2, names3, names4, tel, email, documen } = result.data
-
-  // const names = `${names1} ${names2} ${names3} ${names4}`
-  // const nombresInsert = names.toUpperCase()
-
-  // try {
-  //   const [result] = await connectMysql.query(`SELECT * FROM personayumbo WHERE cedula='${documen}'`)
-
-  //   if (result.length > 0) {
-  //     const query = `UPDATE personayumbo SET nombre='${nombresInsert}', telefono='${tel}', correo='${email}' WHERE cedula='${documen}'`
-  //     const [result2] = await connectMysql.query(query)
-  //     res.status(200).json(result2)
-  //   } else {
-  //     res.status(404).json({ message: 'Cliente no encontrado' })
-  //   }
-  // } catch (error) {
-  //   res.status(500).json({ error })
-  // }
+  try {
+    const [result] = await connectMysql.execute('SELECT * FROM personayumbo WHERE cedula = ?', [cedula])
+    if (result.length > 0) {
+      const query = 'UPDATE personayumbo SET nombre = ?, telefono = ?, correo = ? WHERE cedula = ?'
+      const [result2] = await connectMysql.execute(query, [nombre, telefono, correo, cedula])
+      res.status(200).json({ message: 'Cliente Actualizado', detalle: result2 })
+    } else {
+      res.status(404).json({ message: 'Cliente no encontrado' })
+    }
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({ error: 'Error al actualizar el cliente' })
+  }
 }
