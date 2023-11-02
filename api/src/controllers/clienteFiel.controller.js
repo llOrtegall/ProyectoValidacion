@@ -21,6 +21,8 @@ export const createdClientFiel = async (req, res) => {
   if (!result.success) {
     return res.status(400).json({ error: result.error.message })
   }
+  console.log(result.data)
+  
   try {
     const result = await connectOraDb.execute(`INSERT INTO gamble.clientes
     (DOCUMENTO, TOTALPUNTOS, USUARIO, FECHASYS, NOMBRES, APELLIDO1, APELLIDO2, FECHANACIMIENTO, TELEFONO, DIRECCION,
@@ -30,7 +32,7 @@ export const createdClientFiel = async (req, res) => {
       VALUES
       ('${cedula}', 'u+#ajÕ', 'JBOSS', to_date('${dia}/${mes}/${ano}','DD/MM/RR'), '${nombre1} ${nombre2}', '${apellido1}', '${apellido2}', to_date('01/01/1997','DD/MM/RR'), '${telefono}', 'Cr4 N° 4 - 51',
       '6', '30', '8', '965', '60', '33', '', '00000', '0' ,'0',
-      '${correo}', '${nombre1}', '${nombre2}', '${telefono}', 'S', 'N', '101010', null, null, null,
+      '${correo}', '${nombre1}', '${nombre2}', '6696901', 'S', 'N', '101010', null, null, null,
       '', to_date('02/1/2015','DD/MM/RR'), null, null, null, null)`)
 
     await connectOraDb.commit()

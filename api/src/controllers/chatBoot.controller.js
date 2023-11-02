@@ -48,3 +48,21 @@ export const updateCliente = async (req, res) => {
     res.status(500).json({ error: 'Error al actualizar el cliente' })
   }
 }
+
+// TODO: Función que elimina el cliente en Chat Boot
+export const deleteCliente = async (req, res) => {
+  const { cedula } = req.body
+  try {
+    const [result] = await connectMysql.query('SELECT * FROM personayumbo WHERE cedula = ?', [cedula])
+    if (result.length > 0) {
+      const query = 'DELETE FROM personayumbo WHERE cedula = ?'
+      const [result2] = await connectMysql.execute(query, [cedula])
+      res.status(200).json({ message: 'Cliente Eliminado', detalle: result2 })
+    } else {
+      res.status(404).json({ message: 'Cliente no encontrado' })
+    }
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({ error: 'Error al eliminar el cliente' })
+  }
+}

@@ -27,13 +27,13 @@ export const Login = () => {
         setErrorMessage(response.data)
         setTimeout(() => {
           setErrorMessage('')
-        }, 8000)
+        }, 3000)
       }
     } catch (error) {
       setErrorMessage(error.response.data.error)
       setTimeout(() => {
         setErrorMessage('')
-      }, 8000)
+      }, 3000)
     }
   }
 

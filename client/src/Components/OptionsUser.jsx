@@ -3,12 +3,11 @@ import { useState, useEffect } from 'react'
 import { separarNombre } from '../services/funtionsReutilizables'
 import { CloseIcon } from './IconsSvg'
 
-export function CrearClienteFiel ({ client, fun }) {
+export function CrearClienteFiel ({ client }) {
   const { cedula, nombre, telefono, correo } = client
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const [responseOk, setResponseOk] = useState(null)
-  const fetchData = fun
 
   const sendCreateClient = () => {
     setLoading(true)
@@ -17,8 +16,8 @@ export function CrearClienteFiel ({ client, fun }) {
         setResponseOk(res.status)
         setLoading(false)
         setTimeout(() => {
-          fetchData()
-        }, 5000)
+          window.location.reload()
+        }, 3000)
       })
       .catch(err => {
         setError(err.response.data.message)
@@ -126,10 +125,48 @@ export function EditarClienteChat ({ client, fun }) {
 }
 
 export function EliminarClienteChat ({ client }) {
-  console.log(client)
+  const { cedula, nombre, telefono, correo } = client
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(null)
+  const [responseOk, setResponseOk] = useState(null)
+
+  const ccString = cedula.toString()
+
+  const sendCreateClient = () => {
+    setLoading(true)
+    axios.post('/deleteClient', { cedula: ccString })
+      .then(res => {
+        setResponseOk(res.status)
+        setLoading(false)
+        setTimeout(() => {
+          window.location.reload()
+        }, 3000)
+      })
+      .catch(err => {
+        setError(err.response.data.message)
+        setLoading(false)
+      })
+  }
+
   return (
-    <article>
-      <h1>Eliminar Cliente Chat</h1>
+    <article className='bg-red-500 relative rounded-lg '>
+      <section className='flex p-8 m-4'>
+        <div className=''>
+          <dd className='text-white '><span className='text-black font-semibold pr-2'>Nombre: </span>{nombre}</dd>
+          <dd className='text-white '><span className='text-black font-semibold pr-2'>N° Documento: </span>{cedula}</dd>
+          <dd className='text-white '><span className='text-black font-semibold pr-2'>Tel / Cel: </span>{telefono}</dd>
+          <dd className='text-white '><span className='text-black font-semibold pr-2'>Correo: </span>{correo}</dd>
+          <button onClick={sendCreateClient} className='bg-blue-500 rounded-md text-white font-semibold w-full p-2 mt-4 hover:bg-white hover:text-black'>
+            Eliminar Cliente Chat Boot
+          </button>
+          {loading && <p className='text-center'>Eliminando Usuario ...</p>}
+          {error && <p>Error:{error}</p>}
+          {responseOk && <p className='text-center'> USUARIO ELIMINADO </p>}
+        </div>
+      </section>
+      <button className='absolute top-0 right-0 rounded-full hover:bg-red-500 hover:text-white'>
+        <CloseIcon />
+      </button>
     </article>
   )
 }
