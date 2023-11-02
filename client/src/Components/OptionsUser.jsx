@@ -1,12 +1,18 @@
 import axios from 'axios'
 import { useState, useEffect } from 'react'
 import { separarNombre } from '../services/funtionsReutilizables'
+import { CloseIcon } from './IconsSvg'
 
-export function CrearClienteFiel ({ client }) {
+export function CrearClienteFiel ({ client, fun }) {
   const { cedula, nombre, telefono, correo } = client
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const [responseOk, setResponseOk] = useState(null)
+  const handleComponentClose = fun
+
+  const handleClick = () => {
+    handleComponentClose(null)
+  }
 
   const sendCreateClient = () => {
     setLoading(true)
@@ -22,14 +28,14 @@ export function CrearClienteFiel ({ client }) {
   }
 
   return (
-    <article className='bg-blue-500 flex w-90 h-full rounded-lg'>
-      <section>
-        <div className='h-full flex flex-col m-8'>
+    <article className='bg-blue-500 relative rounded-lg '>
+      <section className='flex p-8 m-4'>
+        <div className=''>
           <dd className='text-white '><span className='text-black font-semibold pr-2'>Nombre: </span>{nombre}</dd>
           <dd className='text-white '><span className='text-black font-semibold pr-2'>N° Documento: </span>{cedula}</dd>
           <dd className='text-white '><span className='text-black font-semibold pr-2'>Tel / Cel: </span>{telefono}</dd>
           <dd className='text-white '><span className='text-black font-semibold pr-2'>Correo: </span>{correo}</dd>
-          <button onClick={sendCreateClient} className='bg-green-500 rounded-md text-white font-semibold w-full p-2  hover:bg-white hover:text-black'>
+          <button onClick={sendCreateClient} className='bg-green-500 rounded-md text-white font-semibold w-full p-2 mt-4 hover:bg-white hover:text-black'>
             Crea Cliente Fiel
           </button>
           {loading && <p className='text-center'>Creando Usuario ...</p>}
@@ -37,26 +43,34 @@ export function CrearClienteFiel ({ client }) {
           {responseOk && <p className='text-center'> USUARIO CREADO </p>}
         </div>
       </section>
+      <button className='absolute top-0 right-0 rounded-full hover:bg-red-500 hover:text-white' onClick={handleClick}>
+        <CloseIcon />
+      </button>
     </article>
   )
 }
 
-export function EditarClienteChat ({ client }) {
+export function EditarClienteChat ({ client, fun }) {
   const { cedula, nombre, telefono, correo } = client
   const { nombre1, nombre2, apellido1, apellido2 } = separarNombre(nombre)
   const [updateUser, setUpdateUser] = useState({})
   const [status, setStatus] = useState(null)
+  const handleComponentClose = fun
 
   function StatusMessage ({ status }) {
     if (status === 'loading') {
-      return <p>Cargando...</p>
+      return <div className='text-center font-semibold text-blue-700'>Cargando...</div>
     } else if (status === 'success') {
-      return <p>La información del usuario ha sido actualizada.</p>
+      return <div className='text-center ext-center font-semibold text-green-800 '>La información del usuario ha sido actualizada.</div>
     } else if (status === 'error') {
-      return <p>Ha ocurrido un error al actualizar la información del usuario.</p>
+      return <div className='text-center font-semibold text-red-700'>Ha ocurrido un error al actualizar la información del usuario.</div>
     } else {
       return null
     }
+  }
+
+  const handleClick = () => {
+    handleComponentClose(null)
   }
 
   useEffect(() => {
@@ -75,43 +89,42 @@ export function EditarClienteChat ({ client }) {
     setStatus('loading')
     try {
       const res = await axios.put('/cliente', { updateUser })
+      console.log(res)
       if (res.status === 200) {
         setStatus('success')
       } else if (res.status === 'error') {
         setStatus('error')
       }
     } catch (err) {
-      if (err === 400) {
-        setStatus('error')
-      } else {
-        console.log(err)
-      }
+      setStatus('error')
     }
   }
 
   return (
-    <article className='bg-yellow-500 p-2 m-2 w-full'>
-      <form className='flex' onSubmit={handleSubmit}>
-        <div className='flex flex-col p-2 m-2'>
-          <label> Nombre 1: </label>
-          <input type='text' name='nombre1' value={updateUser.nombre1 || ''} onChange={handleChange} required />
-          <label> Apellido 1: </label>
-          <input type='text' name='apellido1' value={updateUser.apellido1 || ''} onChange={handleChange} required />
-          <label> Telefono: </label>
-          <input type='text' name='telefono' value={updateUser.telefono || ''} onChange={handleChange} />
+    <>
+      <form onSubmit={handleSubmit} className='bg-gray-400 p-6 rounded-lg'>
+        <div className='grid grid-cols-4 gap-2'>
+          <label className='px-2 font-semibold'> Nombre 1: </label>
+          <input className='p-2 rounded-md w-28' type='text' name='nombre1' value={updateUser.nombre1 || ''} onChange={handleChange} required />
+          <label className='px-2 font-semibold'> Nombre 2: </label>
+          <input className='p-2 rounded-md w-28' type='text' name='nombre2' value={updateUser.nombre2 || ''} onChange={handleChange} />
+          <label className='px-2 font-semibold'> Apellido 1: </label>
+          <input className='p-2 rounded-md w-28' type='text' name='apellido1' value={updateUser.apellido1 || ''} onChange={handleChange} required />
+          <label className='px-2 font-semibold'> Apellido 2: </label>
+          <input className='p-2 rounded-md w-28' type='text' name='apellido2' value={updateUser.apellido2 || ''} onChange={handleChange} />
+          <label className='px-2 font-semibold'> Correo: </label>
+          <input className='p-2 rounded-md w-52' type='text' name='correo' value={updateUser.correo || ''} onChange={handleChange} />
+          <label className='px-2 font-semibold'> Telefono: </label>
+          <input className='p-2 rounded-md w-28' type='text' name='telefono' value={updateUser.telefono || ''} onChange={handleChange} />
         </div>
-        <div className='flex flex-col p-2 m-2'>
-          <label> Nombre 2: </label>
-          <input type='text' name='nombre2' value={updateUser.nombre2 || ''} onChange={handleChange} />
-          <label> Apellido 2: </label>
-          <input type='text' name='apellido2' value={updateUser.apellido2 || ''} onChange={handleChange} />
-          <label> Correo: </label>
-          <input type='text' name='correo' value={updateUser.correo || ''} onChange={handleChange} />
-        </div>
-        <button type='submit'>Actualizar</button>
+        <button type='submit' className='p-2 bg-green-400 w-40 rounded-md shadow-md'>Actualizar</button>
+        <StatusMessage status={status} />
       </form>
-      <StatusMessage status={status} />
-    </article>
+
+      <button className='absolute top-0 right-0 rounded-full hover:bg-red-500 hover:text-white' onClick={handleClick}>
+        <CloseIcon />
+      </button>
+    </>
   )
 }
 
