@@ -82,7 +82,7 @@ export function RenderUsuarios () {
         {loading && <p>Cargando usuarios...</p>}
         {error && <p>Error al cargar usuarios: {error.message}</p>}
       </section>
-      {userFiltrado && <InfoUserChat user={userFiltrado} fun={fetchData} />} {/* Llamar a la función handleReset para resetear el componente */}
+      {userFiltrado && <InfoUserChat user={userFiltrado} fun={fetchData} />}
     </>
   )
 }

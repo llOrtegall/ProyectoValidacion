@@ -3,11 +3,15 @@ import { useState, useEffect } from 'react'
 import { separarNombre } from '../services/funtionsReutilizables'
 import { CloseIcon } from './IconsSvg'
 
-export function CrearClienteFiel ({ client }) {
+export function CrearClienteFiel ({ client, funClose }) {
   const { cedula, nombre, telefono, correo } = client
   const [loading, setLoading] = useState(false)
   const [messageError, setMessageError] = useState('')
   const [responseOk, setResponseOk] = useState(null)
+
+  const handleClickClose = () => {
+    funClose()
+  }
 
   const sendCreateClient = () => {
     setLoading(true)
@@ -41,14 +45,14 @@ export function CrearClienteFiel ({ client }) {
           {responseOk && <p className='text-center'> USUARIO CREADO </p>}
         </div>
       </section>
-      <button className='absolute top-0 right-0 rounded-full hover:bg-red-500 hover:text-white'>
+      <button className='absolute top-0 right-0 rounded-full hover:bg-red-500 hover:text-white' onClick={handleClickClose}>
         <CloseIcon />
       </button>
     </article>
   )
 }
 
-export function EditarClienteChat ({ client, fun }) {
+export function EditarClienteChat ({ client, fun, funClose }) {
   const { cedula, nombre, telefono, correo } = client
   const { nombre1, nombre2, apellido1, apellido2 } = separarNombre(nombre)
   const [updateUser, setUpdateUser] = useState({})
@@ -65,6 +69,10 @@ export function EditarClienteChat ({ client, fun }) {
     } else {
       return null
     }
+  }
+
+  const handleClickClose = () => {
+    funClose()
   }
 
   useEffect(() => {
@@ -121,20 +129,25 @@ export function EditarClienteChat ({ client, fun }) {
         <StatusMessage status={status} />
       </form>
 
-      <button className='absolute top-0 right-0 rounded-full hover:bg-red-500 hover:text-white'>
+      <button className='absolute top-0 right-0 rounded-full hover:bg-red-500 hover:text-white' onClick={handleClickClose}>
         <CloseIcon />
       </button>
     </article>
   )
 }
 
-export function EliminarClienteChat ({ client }) {
+export function EliminarClienteChat ({ client, funClose }) {
   const { cedula, nombre, telefono, correo } = client
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const [responseOk, setResponseOk] = useState(null)
 
   const ccString = cedula.toString()
+
+  const handleClickClose = () => {
+    funClose()
+  }
+
 
   const sendCreateClient = () => {
     setLoading(true)
@@ -168,7 +181,7 @@ export function EliminarClienteChat ({ client }) {
           {responseOk && <p className='text-center'> USUARIO ELIMINADO </p>}
         </div>
       </section>
-      <button className='absolute top-0 right-0 rounded-full hover:bg-red-500 hover:text-white'>
+      <button className='absolute top-0 right-0 rounded-full hover:bg-red-500 hover:text-white' onClick={handleClickClose}>
         <CloseIcon />
       </button>
     </article>
