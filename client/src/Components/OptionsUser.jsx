@@ -6,7 +6,7 @@ import { CloseIcon } from './IconsSvg'
 export function CrearClienteFiel ({ client }) {
   const { cedula, nombre, telefono, correo } = client
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState(null)
+  const [messageError, setMessageError] = useState('')
   const [responseOk, setResponseOk] = useState(null)
 
   const sendCreateClient = () => {
@@ -20,7 +20,7 @@ export function CrearClienteFiel ({ client }) {
         }, 3000)
       })
       .catch(err => {
-        setError(err.response.data.message)
+        setMessageError(err.response.data.detail)
         setLoading(false)
       })
   }
@@ -37,7 +37,7 @@ export function CrearClienteFiel ({ client }) {
             Crea Cliente Fiel
           </button>
           {loading && <p className='text-center'>Creando Usuario ...</p>}
-          {error && <p>Error:{error}</p>}
+          {messageError && <p className='text-center'> {messageError} </p>}
           {responseOk && <p className='text-center'> USUARIO CREADO </p>}
         </div>
       </section>
