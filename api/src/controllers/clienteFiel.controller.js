@@ -1,4 +1,4 @@
-import { obtenerFechaActual, separarNombre } from '../../../client/src/services/funtionsReutilizables.js'
+import { obtenerFechaActual, separarNombre } from '../services/funtionsReutilizables.js'
 import { validateClientUser } from '../../schemas/userSchema.js'
 import { connectOraDb } from '../db.js'
 
