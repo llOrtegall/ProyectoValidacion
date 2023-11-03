@@ -27,7 +27,7 @@ export const createdClientFiel = async (req, res) => {
   try {
     const result = await connectOraDb.execute(`Insert into GAMBLE.CLIENTES (DOCUMENTO,TOTALPUNTOS,USUARIO,FECHASYS,NOMBRES,APELLIDO1,APELLIDO2,FECHANACIMIENTO,TELEFONO,DIRECCION,TIPO_DEPTO,CODDEPTO,TIPO_MUNICIPIO,CODMUNICIPIO,ENT_SEXO,DAT_DTO_SEXO,DOCALTERNO,NRO_FAVORITO,
       VERSION,CCOSTO,MAIL,NOMBRE1,NOMBRE2,CELULAR,ACEPTAPOLITICATDP,CLIENTEVENDEDOR,CLAVECANAL,TPOTRT_CODIGO_NACION,TRT_CODIGO_NACION,TPOTRT_CODIGO_EXPDOC,TRT_CODIGO_EXPDOC,FECHAEXPDOC,DTO_CODIGO_TPDOC,ENT_CODIGO_TPDOC,IDLOGIN,SECURITY_TOKEN) 
-      values ('${cedula}','u+#ajÕ','CP1118307852',to_date('${dia}/${mes}/${ano}','DD/MM/RR'),'${nombre1} ${nombre2}','${apellido1}','${apellido2}',to_date('27/01/81','DD/MM/RR'),'${telefono}','','6','30','8','965','60','33','${cedula}','00000','0','0','${correo}',null,null,null,null,null,'101010',null,null,null,null,null,null,null,null,null)`)
+      values ('${cedula}','u+#ajÕ','CP1118307852',to_date('${dia}/${mes}/${ano}','DD/MM/RR'),'${nombre1} ${nombre2}','${apellido1}','${apellido2}',to_date('01/01/97','DD/MM/RR'),'6696901','Cra 4 # 4-51','6','30','8','965','60','33','${cedula}','00000','0','0','${correo}',null,null,null,null,null,'101010',null,null,null,null,null,null,null,null,null)`)
 
     await connectOraDb.commit()
 
