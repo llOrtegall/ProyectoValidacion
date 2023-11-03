@@ -36,7 +36,7 @@ export const createdClientFiel = async (req, res) => {
       res.status(500).json({ success: false, message: 'Commit failed committed', user: 'Usuario No Creado' })
     }
   } catch (error) {
-    res.status(500).json({ success: false, message: 'Commit error committed', detail: 'Celular Ya Existe ... Verificar Número' })
+    res.status(500).json({ success: false, message: 'Commit error committed', detail: 'Celular Ya Existe ... Verificar Número, Edite Usuario' })
     console.log(error)
   }
 }
