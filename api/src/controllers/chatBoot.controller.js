@@ -35,7 +35,7 @@ export const updateCliente = async (req, res) => {
   const nombre = `${nombre1} ${nombre2} ${apellido1} ${apellido2}`.trim().toUpperCase()
 
   try {
-    const [result] = await connectMysql.execute('SELECT * FROM personayumbo WHERE cedula = ?', [cedula])
+    const [result] = await connectMysql.execute('SELECT * FROM personayumbo WHERE cedula = ? ', [cedula])
     if (result.length > 0) {
       const query = 'UPDATE personayumbo SET nombre = ?, telefono = ?, correo = ? WHERE cedula = ?'
       const [result2] = await connectMysql.execute(query, [nombre, telefono, correo, cedula])
