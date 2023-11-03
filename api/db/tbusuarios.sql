@@ -10,3 +10,4 @@ CREATE TABLE tbusuarios (
   proceso VARCHAR (255) NOT NULL
   Cargo VARCHAR (255) NOT NULL
 );
+
