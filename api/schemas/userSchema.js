@@ -17,7 +17,8 @@ const userClientSchema = z.object({
   apellido2: z.string(),
   telefono: z.string(),
   correo: z.string(),
-  cedula: z.number()
+  cedula: z.number(),
+  sexoCliente: z.number({ required_error: 'Se Necesita un Sexo' })
 })
 
 export function validateUser (object) {

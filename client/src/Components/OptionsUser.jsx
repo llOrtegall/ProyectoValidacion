@@ -6,43 +6,67 @@ import { CloseIcon } from './IconsSvg'
 export function CrearClienteFiel ({ client, funClose }) {
   const { cedula, nombre, telefono, correo } = client
   const [loading, setLoading] = useState(false)
+  const [userOk, setUserOk] = useState('')
   const [messageError, setMessageError] = useState('')
-  const [responseOk, setResponseOk] = useState(null)
+  const [selectedValue, setSelectedValue] = useState(null)
+
+  const handleChange = (ev) => {
+    setSelectedValue(ev.target.value)
+  }
 
   const handleClickClose = () => {
     funClose()
   }
 
   const sendCreateClient = () => {
+    if (selectedValue === null || selectedValue === ' ') {
+      setMessageError('Por favor, selecciona una opción sexo, antes de continuar.')
+      setTimeout(() => {
+        setMessageError('')
+      }, 3000)
+      return
+    }
     setLoading(true)
-    axios.post('/newCF', { cedula, nombre, telefono, correo })
+    axios.post('/newCF', { cedula, nombre, telefono, correo, sexo: selectedValue })
       .then(res => {
-        setResponseOk(res.status)
+        setUserOk('Usuario creado con exito')
         setLoading(false)
         setTimeout(() => {
           window.location.reload()
         }, 3000)
       })
       .catch(err => {
-        setMessageError(err.response.data.detail)
         setLoading(false)
+        if (err.response.status === 500) {
+          const error = err.response.data.detail
+          setMessageError(error)
+          setTimeout(() => {
+            setMessageError('')
+          }, 3000)
+        }
       })
   }
 
   return (
-    <article className='bg-blue-500 relative rounded-lg '>
+    <article className='bg-blue-400 relative rounded-lg '>
       <section className='p-4 m-4'>
         <div className=''>
-          <dd className='text-white '><span className='text-black font-semibold pr-2'>Nombre: </span>{nombre}</dd>
-          <dd className='text-white '><span className='text-black font-semibold pr-2'>N° Documento: </span>{cedula}</dd>
-          <dd className='text-white '><span className='text-black font-semibold pr-2'>Tel / Cel: </span>{telefono}</dd>
-          <dd className='text-white '><span className='text-black font-semibold pr-2'>Correo: </span>{correo}</dd>
+          <dd className='text-black '><span className='text-black font-bold pr-2'>Nombre: </span>{nombre}</dd>
+          <dd className='text-black '><span className='text-black font-bold pr-2'>N° Documento: </span>{cedula}</dd>
+          <dd className='text-black '><span className='text-black font-bold pr-2'>Tel / Cel: </span>{telefono}</dd>
+          <dd className='text-black '><span className='text-black font-bold pr-2'>Correo: </span>{correo}</dd>
+          <label className='text-white font-bold pr-2'> <span className='text-black font-bold pr-2'>Sexo: </span> </label>
+          <select className='rounded-md bg-gray-300 text-black' value={selectedValue} onChange={handleChange}>
+            <option> </option>
+            <option value='33'>Maculino</option>
+            <option value='34'>Femenino</option>
+          </select>
           <button onClick={sendCreateClient} className='bg-green-500 rounded-md text-white font-semibold w-full p-2 mt-4 hover:bg-white hover:text-black'>
             Crea Cliente Fiel
           </button>
           {loading && <p className='text-center'>Creando Usuario ...</p>}
-          {messageError && <p className='text-center'> {messageError} </p>}
-          {responseOk && <p className='text-center'> USUARIO CREADO </p>}
+          {userOk && <p className='text-center text-green-600 font-bold'> {userOk} </p>}
+          {messageError && <p className='text-center text-red-600 font-semibold'> {messageError} </p>}
         </div>
       </section>
       <button className='absolute top-0 right-0 rounded-full hover:bg-red-500 hover:text-white' onClick={handleClickClose}>
@@ -147,7 +171,6 @@ export function EliminarClienteChat ({ client, funClose }) {
   const handleClickClose = () => {
     funClose()
   }
-
 
   const sendCreateClient = () => {
     setLoading(true)

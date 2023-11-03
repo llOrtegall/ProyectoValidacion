@@ -3,13 +3,9 @@ import { InfoIcon } from './IconsSvg'
 import { CrearClienteFiel, EditarClienteChat, EliminarClienteChat } from './OptionsUser.jsx'
 
 export function InfoUserChat ({ user, fun }) {
-  console.log(user)
-
   const { cedula, nombre, telefono, correo, telwhats } = user[0]
   const [activeComponent, setActiveComponent] = useState(null)
   const fetchData = fun
-
-  console.log(activeComponent)
 
   const handleButtonClick = (component) => {
     setActiveComponent(component)
