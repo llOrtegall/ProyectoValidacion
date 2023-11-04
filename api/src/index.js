@@ -14,7 +14,12 @@ app.disable('x-powered-by')
 dotenv.config()
 app.use(cors(
   {
-    origin: process.env.ORIGENES_ACCES,
+    origin: [
+      'http://localhost:5173',
+      'http://localhost:4000',
+      'http://localhost:8080'
+      // Agrega más URLs según sea necesario
+    ],
     credentials: true
   }
 ))
