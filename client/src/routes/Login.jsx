@@ -18,7 +18,7 @@ export const Login = () => {
     ev.preventDefault()
 
     try {
-      const response = await axios.post('http://localhost:4000/login', { user, password })
+      const response = await axios.post('/login', { user, password })
 
       if (response.status === 200) {
         const { apellidos, id, nombres, username } = response.data

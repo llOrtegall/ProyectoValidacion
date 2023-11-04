@@ -7,13 +7,14 @@ import cookieParser from 'cookie-parser'
 import dotenv from 'dotenv'
 
 const app = express()
+const PORT = process.env.PUERTO_API || 4000
 
 app.disable('x-powered-by')
 
 dotenv.config()
 app.use(cors(
   {
-    origin: ['http://localhost:5173', 'http://localhost:8080'],
+    origin: process.env.ORIGENES_ACCES,
     credentials: true
   }
 ))
@@ -34,6 +35,6 @@ app.use(chatBootClient)
 // TODO: Metodos En Usuarios Login
 app.use(routerUser)
 
-app.listen(4000, () => {
-  console.log('Server On Port http://localhost:4000')
+app.listen(PORT, () => {
+  console.log(`Server Iniciado En El Puerto http://localhost:${PORT}`)
 })
