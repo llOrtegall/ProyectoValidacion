@@ -19,7 +19,6 @@ export const Login = () => {
 
     try {
       const response = await axios.post('/login', { user, password })
-
       if (response.status === 200) {
         const { apellidos, id, nombres, username } = response.data
         setAuthUser({ name: nombres, lastName: apellidos, id, usuario: username })
@@ -27,13 +26,19 @@ export const Login = () => {
         setErrorMessage(response.data)
         setTimeout(() => {
           setErrorMessage('')
-        }, 3000)
+        }, 4000)
       }
     } catch (error) {
-      setErrorMessage(error.response.data.error)
+      if (error.message === 'Network Error' || error.message.includes('net::')) {
+        setErrorMessage('Error de red: no se pudo conectar al servidor')
+      } else if (error.response) {
+        setErrorMessage(error.response.data.error)
+      } else {
+        setErrorMessage('Ocurrió un error desconocido')
+      }
       setTimeout(() => {
         setErrorMessage('')
-      }, 3000)
+      }, 4000)
     }
   }
 
