@@ -33,7 +33,7 @@ export function AuthContextProvider ({ children }) {
   useEffect(() => {
     async function fetchProfile () {
       try {
-        const { data } = await axios.get('/profile')
+        const { data } = await axios.get('http://localhost:4000/profile')
         const { apellidos, id, nombres, username } = data
         setUser({
           name: nombres,

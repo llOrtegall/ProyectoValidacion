@@ -13,7 +13,7 @@ export function ValidarUsuario ({ user, onDatoDeValidacion }) {
   useEffect(() => {
     async function fetchData () {
       try {
-        const { data } = await axios.post('http://localhost:3000/getCF', { cc: user })
+        const { data } = await axios.post('/getCF', { cc: user })
         setIsValid(data.Estado === 'Si Existe')
       } catch (error) {
         if (error.response && error.response.status === 404) {

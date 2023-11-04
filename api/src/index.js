@@ -4,20 +4,24 @@ import { chatBootClient } from './routes/chatBoot.routes.js'
 import { routerCF } from './routes/clienteFiel.routes.js'
 import cors from 'cors'
 import cookieParser from 'cookie-parser'
-
 import dotenv from 'dotenv'
 
 const app = express()
-const PORT = 3000
+
+app.disable('x-powered-by')
+
 dotenv.config()
-app.use(cors({
-  credentials: true,
-  origin: 'http://localhost'
-}))
+app.use(cors(
+  {
+    origin: ['http://localhost:5173', 'http://localhost:8080'],
+    credentials: true
+  }
+))
+
 app.use(cookieParser())
 app.use(express.json())
 
-app.get('http://localhost:3000', (req, res) => {
+app.get('/', (req, res) => {
   res.status(200).send('Ok Test')
 })
 
@@ -30,6 +34,6 @@ app.use(chatBootClient)
 // TODO: Metodos En Usuarios Login
 app.use(routerUser)
 
-app.listen(PORT, () => {
-  console.log(`Server On Port http://localhost:${PORT}`)
+app.listen(4000, () => {
+  console.log('Server On Port http://localhost:4000')
 })
