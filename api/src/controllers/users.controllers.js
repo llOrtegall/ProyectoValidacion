@@ -24,8 +24,11 @@ export const getUser = async (req, res) => {
 // TODO: /login
 export const getLogin = async (req, res) => {
   const { user, password } = req.body
+  console.log(req.body)
+
   const [result] = await connectMysql.query(`SELECT BIN_TO_UUID(id) id, username, password, nombres, apellidos FROM login WHERE username = '${user}'`)
 
+  console.log(result)
   if (result.length > 0) {
     const userData = result.find((i) => i)
     const { username, password: passDb, id, nombres, apellidos } = userData
