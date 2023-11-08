@@ -10,25 +10,27 @@ const bcryptSalt = bcrypt.genSaltSync(10)
 
 // TODO: /profile
 export const getUser = async (req, res) => {
-  const token = req.cookies?.token
-  if (token) {
-    jwt.verify(token, JWT_SECRET, {}, (err, userData) => {
-      if (err) throw err
-      res.json(userData)
-    })
-  } else {
+  try {
+    const token1 = req.headers.authorization
+    const token = token1.split(' ')[1]
+    if (token) {
+      jwt.verify(token, JWT_SECRET, { sameSite: 'none', secure: 'true' }, (err, userData) => {
+        if (err) throw err
+        res.json(userData)
+      })
+    }
+  } catch (error) {
     res.status(401).json('No Token')
   }
+
 }
 
 // TODO: /login
 export const getLogin = async (req, res) => {
   const { user, password } = req.body
-  console.log(req.body)
 
   const [result] = await connectMysql.query(`SELECT BIN_TO_UUID(id) id, username, password, nombres, apellidos FROM login WHERE username = '${user}'`)
 
-  console.log(result)
   if (result.length > 0) {
     const userData = result.find((i) => i)
     const { username, password: passDb, id, nombres, apellidos } = userData
@@ -37,7 +39,7 @@ export const getLogin = async (req, res) => {
     if (passOk) {
       jwt.sign({ id, username, nombres, apellidos }, JWT_SECRET, {}, (err, token) => {
         if (err) throw err
-        res.cookie('token', token, { sameSite: 'none', secure: 'true' }).status(200).json({ id, username, nombres, apellidos })
+        res.cookie('token', token, { sameSite: 'none', secure: 'true' }).status(200).json({ id, username, nombres, apellidos, token })
       })
     } else {
       res.status(401).json({

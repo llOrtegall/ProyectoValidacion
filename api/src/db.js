@@ -2,7 +2,7 @@ import { createPool } from 'mysql2/promise'
 import env from 'dotenv'
 import oracledb from 'oracledb'
 
-oracledb.initOracleClient({ libDir: 'C:/instantclient_11_2' })
+oracledb.initOracleClient({ libDir: '/opt/oracle/instantclient_11_2' })
 env.config()
 
 // TODO: Creando la conecxión Mysql
