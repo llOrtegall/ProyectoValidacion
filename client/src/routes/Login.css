@@ -1,0 +1,11 @@
+.section_main{
+  background-image: url('../../images/fondo.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.article_main{
+  background-image: url('../../images/card.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+}
