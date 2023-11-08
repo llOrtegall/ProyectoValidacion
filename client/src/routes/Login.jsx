@@ -1,68 +1,51 @@
-import { AuthContext } from '../auth/AuthContext'
-import { useState, useContext } from 'react'
-import axios from 'axios'
-import Cookies from 'js-cookie'
+import { useState } from 'react'
+import { LoginForm } from '../Components/LoginForm.jsx'
 
 export const Login = () => {
-  // Estado para los campos de usuario y contraseña
-  const [user, setUser] = useState('')
-  const [password, setPassword] = useState('')
+  const [isLogin, setIsLogin] = useState(true)
 
-  // Estado para el mensaje de error
-  const [errorMessage, setErrorMessage] = useState('')
-
-  // Contexto de autenticación
-  const { setUser: setAuthUser } = useContext(AuthContext)
-
-  // Función para manejar el inicio de sesión
-  async function handleLogin (ev) {
-    ev.preventDefault()
-
-    try {
-      const response = await axios.post('/login', { user, password })
-      if (response.status === 200) {
-        const { apellidos, id, nombres, username } = response.data
-        setAuthUser({ name: nombres, lastName: apellidos, id, usuario: username })
-        Cookies.set('token', response.data.token, { expires: 1 })
-      } else {
-        setErrorMessage(response.data)
-        setTimeout(() => {
-          setErrorMessage('')
-        }, 4000)
-      }
-    } catch (error) {
-      if (error.message === 'Network Error' || error.message.includes('net::')) {
-        setErrorMessage('Error de red: no se pudo conectar al servidor')
-      } else if (error.response) {
-        setErrorMessage(error.response.data.error)
-      } else {
-        setErrorMessage('Ocurrió un error desconocido')
-      }
-      setTimeout(() => {
-        setErrorMessage('')
-      }, 4000)
-    }
+  const RegisterForm = () => {
+    return (
+      <form className='bg-white w-96 h-2/3 rounded-xl p-12 shadow-2xl relative flex flex-col gap-8 justify-between'>
+        <h1 className='text-orange-600 font-bold text-3xl text-center'>ChatBot Validator</h1>
+        <br />
+        {/* // TODO: usuario */}
+        <input type='text' placeholder='Nombres' className='border-b-2 p-2' required />
+        {/* // TODO: contraseña */}
+        <input type='text' placeholder='Apellidos' className='border-b-2 p-2' required />
+        {/* // TODO: documento */}
+        <input type='text' placeholder='N° Documento' className='border-b-2 p-2' required />
+        <button className='bg-orange-400 w-full rounded-lg p-3 text-white text-sm shadow-md hover:bg-green-100 hover:text-black'>Registrarse</button>
+        {/* {errorMessage ? <p className='absolute bottom-24 left-28 text-red-600 font-semibold'>{errorMessage}</p> : null} */}
+        <div className='pt-8'>
+          <p className='text-xs'>¿Ya Estás Registrado? <span className='font-semibold'>Iniciar Sesión</span></p>
+        </div>
+      </form>
+    )
   }
 
   return (
-    <section className='flex justify-center items-center h-screen w-screen bg-blue-200 '>
-      <form className='w-80' onSubmit={handleLogin}>
-        <h1 className='text-center font-semibold pb-4 text-xl'>Iniciar Sesión</h1>
-        <input
-          value={user} onChange={ev => setUser(ev.target.value)} type='text' placeholder='Usuario'
-          className='block w-full rounded-md  border p-2 mb-2' required
-        />
-        <input
-          value={password} onChange={ev => setPassword(ev.target.value)} type='password' placeholder='Contraseña'
-          className='block w-full rounded-md border p-2 mb-2' required
-        />
-        <button className='bg-blue-500 text-white block w-full rounded-md p-2 font-semibold shadow-lg'>
-          Iniciar Sesión
-        </button>
-        <article className='w-auto mt-12 text-center text-red-700 font-medium'>
-          {errorMessage}
+    <>
+      <div className='flex h-full w-full items-center justify-center gap-10 bg-fondo' style={{ 'background-size': 'cover', 'background-repeat': 'no-repeat' }}>
+
+        <article className='bg-white w-96 h-2/3 rounded-xl p-12 shadow-2xl bg-card1 flex flex-col justify-between' style={{ 'background-size': 'cover', 'background-repeat': 'no-repeat' }}>
+          <h1 className='text-orange-600 font-bold text-4xl text-center'>Bienvenidos</h1>
+          <div className='flex gap-2 flex-col'>
+            <p className='pt-48 text-sm pb-2 font-semibold'>Iniciar Sesión | Registrarse </p>
+            <button onClick={() => setIsLogin(true)} className='bg-orange-400 w-full rounded-lg p-2 text-white text-sm shadow-md hover:bg-green-100 hover:text-black'>Iniciar Sesion</button>
+            <button onClick={() => setIsLogin(false)} className='bg-orange-400 w-full rounded-lg p-2 text-white text-sm shadow-md hover:bg-green-100 hover:text-black'>Regristrate</button>
+          </div>
         </article>
-      </form>
-    </section>
+
+        {isLogin
+          ? (
+            <LoginForm />
+            )
+          : (
+            <RegisterForm />
+            )}
+
+      </div>
+    </>
   )
 }
