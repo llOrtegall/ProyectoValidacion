@@ -1,9 +1,14 @@
 import { useState } from 'react'
 import { LoginForm } from '../Components/LoginForm.jsx'
+import bgImage from '../assets/fondo2.png'
 import './Login.css'
 
 export const Login = () => {
   const [isLogin, setIsLogin] = useState(true)
+
+  const styles = {
+    backgroundImage: `url(${bgImage})`
+  }
 
   const RegisterForm = () => {
     return (
@@ -29,7 +34,7 @@ export const Login = () => {
     <>
       <div className='flex h-full w-full items-center justify-center gap-10 section_main'>
 
-        <article className='bg-white w-96 h-2/3 rounded-xl p-12 shadow-2xl bg-card1 flex flex-col justify-between article_main'>
+        <article className='bg-white w-96 h-2/3 rounded-xl p-12 shadow-2xl bg-card1 flex flex-col justify-between fondo_articulo' style={styles}>
           <h1 className='text-orange-600 font-bold text-4xl text-center'>Bienvenidos</h1>
           <div className='flex gap-2 flex-col'>
             <p className='pt-48 text-sm pb-2 font-semibold'>Iniciar Sesión | Registrarse </p>
