@@ -1,6 +1,7 @@
 import { AuthContext } from '../auth/AuthContext'
 import { useState, useContext } from 'react'
 import axios from 'axios'
+import Cookies from 'js-cookie'
 
 export const Login = () => {
   // Estado para los campos de usuario y contraseña
@@ -22,6 +23,7 @@ export const Login = () => {
       if (response.status === 200) {
         const { apellidos, id, nombres, username } = response.data
         setAuthUser({ name: nombres, lastName: apellidos, id, usuario: username })
+        Cookies.set('token', response.data.token, { expires: 1 })
       } else {
         setErrorMessage(response.data)
         setTimeout(() => {

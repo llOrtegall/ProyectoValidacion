@@ -1,4 +1,5 @@
 import { createContext, useState, useEffect } from 'react'
+import Cookies from 'js-cookie'
 import axios from 'axios'
 
 export const AuthContext = createContext({
@@ -32,8 +33,12 @@ export function AuthContextProvider ({ children }) {
 
   useEffect(() => {
     async function fetchProfile () {
+      const token = Cookies.get('token')
+      const headers = {
+        Authorization: `Bearer ${token}` // Usa el token en las cabeceras
+      }
       try {
-        const { data } = await axios.get('/profile')
+        const { data } = await axios.get('/profile', { headers })
         const { apellidos, id, nombres, username } = data
         setUser({
           name: nombres,
