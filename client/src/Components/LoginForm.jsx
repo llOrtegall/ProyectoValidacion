@@ -11,8 +11,6 @@ export const LoginForm = () => {
 
   async function handleSubmit (ev) {
     ev.preventDefault()
-    console.log(user)
-    console.log(password)
     try {
       const response = await axios.post('/login', { user, password })
       if (response.status === 200) {
