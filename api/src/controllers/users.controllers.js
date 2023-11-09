@@ -43,52 +43,48 @@ export const getLogin = async (req, res) => {
       })
     } else {
       res.status(401).json({
-        error: 'Acceso no autorizado',
+        error: 'Contraseña Incorrecta',
         detalle: 'La clave del usuario no coinciden'
       })
     }
   } else {
     res.status(404).json({
-      error: 'Usuario No encontrado y/o Registrado',
+      error: 'Usuario No Registrado',
       detalle: `El usuario: ${user}, No existe en el sistema.`
     })
   }
 }
 
+
 // TODO: /register
 export const createUser = async (req, res) => {
-  const { names, document, lastNames } = req.body
+  const { names, lastNames, document } = req.body
 
-  const [result] = await connectMysql.query(`SELECT * FROM login WHERE documento = '${document}'`)
-  if (!result.length > 0) {
-    const username = `CP${document}`; const pass = `CP${document.slice(-3)}`; const hashedPassword = bcrypt.hashSync(pass, bcryptSalt)
+  try {
+    const [result] = await connectMysql.query(`SELECT * FROM login WHERE documento = '${document}'`)
 
-    const [UserCreado] = await connectMysql.query(`INSERT INTO login (username, password, nombres, apellidos, documento) 
-    VALUES ('${username}', '${hashedPassword}', '${names} ', '${lastNames}', '${document}')`)
+    if (!result.length > 0) {
+      const username = `CP${document}`;
+      const pass = `CP${document.slice(-3)}`;
+      const hashedPassword = bcrypt.hashSync(pass, bcryptSalt)
 
-    // TODO: si el usuario es creado correctamente genera el token
-    if (UserCreado.affectedRows === 1) {
-      const username = `CP${document}`
-      const [result] = await connectMysql.query(`SELECT BIN_TO_UUID(id) id, username, password, nombres, apellidos FROM login WHERE username = '${username}'`)
+      const [UserCreado] = await connectMysql.query(`INSERT INTO login (username, password, nombres, apellidos, documento) 
+      VALUES ('${username}', '${hashedPassword}', '${names} ', '${lastNames}', '${document}')`)
 
-      const userData = result.find((i) => i)
-      const { id, username: user, nombres, apellidos } = userData
-
-      jwt.sign({ id, username: user, nombres, apellidos }, JWT_SECRET, { expiresIn: '5h' }, (err, token) => {
-        if (err) throw err
-        res.cookie('token', token, { sameSite: 'none', secure: 'true' }).status(201).json({
-          id, username: user, nombres, apellidos
-        })
-      })
+      if (UserCreado.affectedRows === 1) {
+        res.status(201).json({ message: 'Usuario Registrado Correctamente' })
+      } else {
+        res.status(500).json({ message: 'Usuario No Creado' })
+      }
     } else {
-      res.status(500).json('Error Al Crear El Usuario')
+      res.status(200).json({ message: 'Usuario Ya Se Encuentra Registrado' })
     }
-  } else {
+  } catch (error) {
     res.status(409).json({
-      error: 'El registro de usuario ya existe',
-      detalle: `Usuario con documento: ${document}, Ya está registrado en el sistema`
+      error: error
     })
   }
+
 }
 
 export const updateUser = (req, res) => {

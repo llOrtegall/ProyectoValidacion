@@ -16,10 +16,8 @@ app.use(cors(
   {
     origin: [// Agrega más URLs según sea necesario
     'http://localhost',
-    'http://localhost/',
-    'http://localhost:80',
-    'http://localhost:80/ChatBot',
-    'http://localhost:5173'
+    'http://172.20.1.191',
+    'http://localhost:5173',
   ],
     credentials: true
   }

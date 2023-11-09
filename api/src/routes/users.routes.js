@@ -7,7 +7,7 @@ routerUser.post('/login', getLogin)
 
 routerUser.get('/profile', getUser)
 
-routerUser.post('/register', createUser)
+routerUser.post('/register', createUser) // http://localhost:3000/register
 
 routerUser.put('/user', deleteUser)
 
