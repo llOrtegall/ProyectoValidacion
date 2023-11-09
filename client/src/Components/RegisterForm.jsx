@@ -1,11 +1,12 @@
 import axios from 'axios'
 import { useState } from 'react'
 
-export function RegisterForm () {
+export function RegisterForm ({ fun }) {
   const [names, setNames] = useState('')
   const [lastNames, setLastNames] = useState('')
   const [document, setDocument] = useState('')
   const [message, setMessage] = useState('')
+  const handleClick = fun
 
   const handleSubmit = async (ev) => {
     ev.preventDefault()
@@ -16,10 +17,12 @@ export function RegisterForm () {
       } else if (response.status === 201) {
         setMessage(response.data.message)
       }
+      setTimeout(() => {
+        handleClick()
+      }, 4200)
     } catch (error) {
       setMessage(error.response.data.error.message)
     }
-
     setTimeout(() => {
       setMessage('')
     }, 4000)
@@ -41,8 +44,8 @@ export function RegisterForm () {
         <p className='text-xs'>¿Ya Estás Registrado? <span className='font-semibold'>Iniciar Sesión</span></p>
       </div>
       {message === 'Usuario Registrado Correctamente'
-        ? <p className='absolute bottom-24 left-28 text-green-600 font-semibold'>{message}</p>
-        : <p className='absolute bottom-24 left-28 text-red-600 font-semibold'>{message} </p>}
+        ? <p className='absolute bottom-20 left-16 text-green-600 font-semibold'>{message}</p>
+        : <p className='absolute bottom-20 left-16 text-red-600 font-semibold'>{message} </p>}
     </form>
   )
 }
