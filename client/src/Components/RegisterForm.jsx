@@ -11,10 +11,18 @@ export function RegisterForm () {
     ev.preventDefault()
     try {
       const response = await axios.post('/register', { names, lastNames, document })
-      setMessage(response.data.message)
+      if (response.status === 200) {
+        setMessage(response.data.message)
+      } else if (response.status === 201) {
+        setMessage(response.data.message)
+      }
     } catch (error) {
-      setMessage(error.response.data.error)
+      setMessage(error.response.data.error.message)
     }
+
+    setTimeout(() => {
+      setMessage('')
+    }, 4000)
   }
 
   return (
@@ -32,7 +40,9 @@ export function RegisterForm () {
       <div className='pt-8'>
         <p className='text-xs'>¿Ya Estás Registrado? <span className='font-semibold'>Iniciar Sesión</span></p>
       </div>
-      {message ? <p className='absolute bottom-24 left-28 text-red-600 font-semibold'>{message}</p> : null}
+      {message === 'Usuario Registrado Correctamente'
+        ? <p className='absolute bottom-24 left-28 text-green-600 font-semibold'>{message}</p>
+        : <p className='absolute bottom-24 left-28 text-red-600 font-semibold'>{message} </p>}
     </form>
   )
 }
