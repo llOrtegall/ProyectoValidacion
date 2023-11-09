@@ -1,10 +1,5 @@
 .section_main{
-  background-image: url('../assets/fondo.jpg');
-  background-size: cover;
-  background-repeat: no-repeat;
-}
-
-.fondo_articulo{
+  background-image: url('../public/fondo.jpg');
   background-size: cover;
   background-repeat: no-repeat;
 }
