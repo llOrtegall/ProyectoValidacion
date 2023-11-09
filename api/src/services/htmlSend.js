@@ -51,6 +51,11 @@ export function htmlSend ({ nombre, cedula, telefono }) {
           color: #000;
           text-align: left;
         }
+        .span1{
+          font-size: 18px;
+          font-weight: bold;
+          color: #000;
+        }
       </style>
     </head>
     <body>
@@ -61,7 +66,7 @@ export function htmlSend ({ nombre, cedula, telefono }) {
           <p class="pnombres"><strong>Nombre:</strong> ${nombre} | <strong>Cedula:</strong> ******${cc3} | <strong>Telefono:</strong> *****${tel3}</p>
     
           <p class="pmain">
-            Estimado(a) ${nombre},
+            Estimado(a) <span class="span1">${nombre}</span>,
           
             Nos complace informarle que su solicitud para crear una cuenta de Cliente Fiel con el Grupo Empresarial Multired SA (Gane Yumbo) ha sido procesada con éxito.
           
