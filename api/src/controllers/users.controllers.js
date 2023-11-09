@@ -22,7 +22,6 @@ export const getUser = async (req, res) => {
   } catch (error) {
     res.status(401).json('No Token')
   }
-
 }
 
 // TODO: /login
@@ -55,7 +54,6 @@ export const getLogin = async (req, res) => {
   }
 }
 
-
 // TODO: /register
 export const createUser = async (req, res) => {
   const { names, lastNames, document } = req.body
@@ -64,8 +62,8 @@ export const createUser = async (req, res) => {
     const [result] = await connectMysql.query(`SELECT * FROM login WHERE documento = '${document}'`)
 
     if (!result.length > 0) {
-      const username = `CP${document}`;
-      const pass = `CP${document.slice(-3)}`;
+      const username = `CP${document}`
+      const pass = `CP${document.slice(-3)}`
       const hashedPassword = bcrypt.hashSync(pass, bcryptSalt)
 
       const [UserCreado] = await connectMysql.query(`INSERT INTO login (username, password, nombres, apellidos, documento) 
@@ -81,16 +79,7 @@ export const createUser = async (req, res) => {
     }
   } catch (error) {
     res.status(409).json({
-      error: error
+      error
     })
   }
-
-}
-
-export const updateUser = (req, res) => {
-  res.send('Actualizando los usuarios')
-}
-
-export const deleteUser = (req, res) => {
-  res.send('Borrando los usuarios')
 }
