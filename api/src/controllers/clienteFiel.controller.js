@@ -1,4 +1,4 @@
-import { obtenerFechaActual, separarNombre } from '../services/funtionsReutilizables.js'
+import { obtenerFechaActual, sendEmail, separarNombre } from '../services/funtionsReutilizables.js'
 import { validateClientUser } from '../../schemas/userSchema.js'
 import { connectOraDb } from '../db.js'
 
@@ -33,7 +33,8 @@ export const createdClientFiel = async (req, res) => {
 
     if (result.rowsAffected === 1) {
       // Aquí Envío De Correo Al Cliente
-
+      const userCreado = { nombre, cedula, telefono, correo }
+      sendEmail({ userCreado })
       res.status(201).json({ success: true, message: 'Commit successfully committed', user: 'Usuario Creado' })
     } else {
       res.status(500).json({ success: false, message: 'Commit failed committed', user: 'Usuario No Creado' })
