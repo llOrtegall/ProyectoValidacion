@@ -15,10 +15,9 @@ dotenv.config()
 app.use(cors(
   {
     origin: [// Agrega más URLs según sea necesario
-    'http://localhost',
-    'http://172.20.1.191',
-    'http://localhost:5173',
-  ],
+      'http://localhost',
+      'http://localhost:5173'
+    ],
     credentials: true
   }
 ))

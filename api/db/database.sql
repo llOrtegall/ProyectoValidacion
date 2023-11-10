@@ -4,9 +4,10 @@ use datauser;
 use clientes;
 
 CREATE TABLE IF NOT EXISTS `login` (
-  `id` BINARY(16) PRIMARY KEY DEFAULT (UUID_TO_BIN(UUID())),
+  `id` int(255) PRIMARY KEY DEFAULT,
   `username` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
+  `documento` int(255) NOT NULL,
   `nombres` varchar(50) NOT NULL,
   `apellidos` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

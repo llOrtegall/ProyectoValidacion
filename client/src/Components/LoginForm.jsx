@@ -14,8 +14,8 @@ export const LoginForm = () => {
     try {
       const response = await axios.post('/login', { user, password })
       if (response.status === 200) {
-        const { apellidos, id, nombres, username } = response.data
-        setAuthUser({ name: nombres, lastName: apellidos, id, usuario: username })
+        const { apellidos, nombres, username } = response.data
+        setAuthUser({ name: nombres, lastName: apellidos, usuario: username })
         Cookies.set('token', response.data.token, { expires: 1 })
       } else {
         setErrorMessage(response.data)

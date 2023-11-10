@@ -19,7 +19,7 @@ export const createdClientFiel = async (req, res) => {
   const { nombre1, nombre2, apellido1, apellido2 } = separarNombre(nombre)
 
   const result = validateClientUser({ nombre1, nombre2, apellido1, apellido2, telefono, correo, cedula, sexoCliente })
-
+  // Response client ok !!!
   if (!result.success) {
     return res.status(400).json({ error: result.error.message })
   }
@@ -32,9 +32,8 @@ export const createdClientFiel = async (req, res) => {
     await connectOraDb.commit()
 
     if (result.rowsAffected === 1) {
-      // Aquí Envío De Correo Al Cliente
       const userCreado = { nombre, cedula, telefono, correo }
-      sendEmail({ userCreado })
+      sendEmail({ userCreado }) // Envío De Correo Al Cliente
       res.status(201).json({ success: true, message: 'Commit successfully committed', user: 'Usuario Creado' })
     } else {
       res.status(500).json({ success: false, message: 'Commit failed committed', user: 'Usuario No Creado' })
