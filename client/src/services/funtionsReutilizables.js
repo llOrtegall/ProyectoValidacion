@@ -29,6 +29,7 @@ export function separarNombre (nombre) {
 
   return { nombre1, nombre2, apellido1, apellido2 }
 }
+
 export function obtenerFechaActual () {
   const fecha = new Date()
   const dia = String(fecha.getDate()).padStart(2, '0')
