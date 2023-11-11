@@ -13,7 +13,7 @@ export function LoginUserComponent () {
           <UserIcon />
           <section>
             <h3 className='font-semibold text-xl'>
-              Bienvenido <span>{name}</span><span>{lastName}</span>
+              Bienvenid@ <span>{name}</span><span>{lastName}</span>
             </h3>
             <div className='flex'>
               <p className='small-text'>{usuario}</p>

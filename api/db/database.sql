@@ -3,14 +3,14 @@ create database datauser;
 use datauser;
 use clientes;
 
-CREATE TABLE IF NOT EXISTS `login` (
-  `id` int(255) PRIMARY KEY DEFAULT,
-  `username` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL,
+CREATE TABLE `login` (
+  `id` BINARY(16) PRIMARY KEY DEFAULT (UUID_TO_BIN(UUID())),
+  `username` varchar(80) NOT NULL,
+  `password` varchar(80) NOT NULL,
   `documento` int(255) NOT NULL,
   `nombres` varchar(50) NOT NULL,
   `apellidos` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+)
 
 INSERT INTO `login`(`username`, `password`, `nombres`, `apellidos`) VALUES (
 	'CP1118307852', 'CP852', 'Ivan', 'Ortega Garzon'
@@ -23,6 +23,7 @@ CREATE TABLE IF NOT EXISTS `cliente` (
   `sexo` int(10) DEFAULT 1, `numerofavorito` int(10), `totalpunto`int(10), `departamento` varchar(255) DEFAULT('Valle'), `municipio` varchar(255) DEFAULT ('Yumbo'),
   `nacionalidad` varchar(255) DEFAULT ('Colombiana'), `correo` varchar(255) NOT NULL, `numerocelular` int(25), `aceptapolicita` int(2) NOT NULL DEFAULT(1)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 CREATE TABLE IF NOT EXISTS `personayumbo` (
   `cedula` int(15) NOT NULL,
   `nombre` varchar(30) NOT NULL,
@@ -30,7 +31,7 @@ CREATE TABLE IF NOT EXISTS `personayumbo` (
   `correo` varchar(30) NOT NULL,
   `telwhats` varchar(14) DEFAULT NULL,
   `fregistro` date DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) 
 
 INSERT INTO `personayumbo` (`cedula`, `nombre`, `telefono`, `correo`, `telwhats`, `fregistro`) VALUES (1118307852, 'Ivan Ortega Garzón', '3202191681', 'IvanOrtega_97@hotmail.com', '573174420518', '2023-09-18');
 
