@@ -4,7 +4,6 @@ import { InfoUserChat } from './InfoUserChat.jsx'
 import axios from 'axios'
 
 export function RenderUsuarios () {
-  // 1. Agregar manejo de errores en la petición de axios.
   const [user, setUser] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)

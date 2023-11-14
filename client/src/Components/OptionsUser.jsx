@@ -227,8 +227,9 @@ export function SolicitarEliminacion ({ client, funClose }) {
 
   const sendCreateClient = () => {
     setLoading(true)
-    axios.post('', {})
+    axios.post('/reportClient', { client, motivo })
       .then(res => {
+        console.log(res)
         setResponseOk(res.status)
         setLoading(false)
         setTimeout(() => {
@@ -238,6 +239,9 @@ export function SolicitarEliminacion ({ client, funClose }) {
       .catch(err => {
         setError(err.response.data.message)
         setLoading(false)
+        setTimeout(() => {
+          setError(null)
+        }, 3000)
       })
   }
 
@@ -253,9 +257,9 @@ export function SolicitarEliminacion ({ client, funClose }) {
           <button onClick={sendCreateClient} className='bg-blue-500 rounded-md text-white font-semibold w-full p-2 mt-4 hover:bg-white hover:text-black'>
             Solicitar Eliminar Registro
           </button>
-          {loading && <p className='text-center'>Eliminando Usuario ...</p>}
-          {error && <p>Error:{error}</p>}
-          {responseOk && <p className='text-center'> USUARIO ELIMINADO </p>}
+          {loading && <p className='text-center'>Enviando Reporte De Usuario ...</p>}
+          {error && <p className='text-white text-center'>Error: <span className='font-semibold'>{error}</span></p>}
+          {responseOk && <p className='text-center'> Reporte Enviado </p>}
         </div>
       </section>
       <button className='absolute top-0 right-0 rounded-full hover:bg-red-500 hover:text-white' onClick={handleClickClose}>
