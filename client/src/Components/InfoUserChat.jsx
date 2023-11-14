@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { InfoIcon } from './IconsSvg'
-import { CrearClienteFiel, EditarClienteChat, EliminarClienteChat } from './OptionsUser.jsx'
+import { CrearClienteFiel, EditarClienteChat, SolicitarEliminacion } from './OptionsUser.jsx'
 
 export function InfoUserChat ({ user, fun }) {
   const { cedula, nombre, telefono, correo, telwhats } = user[0]
@@ -41,7 +41,7 @@ export function InfoUserChat ({ user, fun }) {
         <article className='flex flex-col'>
           <button onClick={() => handleButtonClick(<CrearClienteFiel client={user[0]} funClose={closeComponent} />)} className='bg-green-500 p-2 m-2 rounded-xl text-white font-semibold hover:text-black hover:bg-white '>Agregar Usuario</button>
           <button onClick={() => handleButtonClick(<EditarClienteChat client={user[0]} fun={fetchData} funClose={closeComponent} />)} className=' bg-yellow-500 p-2 m-2 rounded-xl text-white font-semibold hover:text-black hover:bg-white '>Editar Usuario</button>
-          <button onClick={() => handleButtonClick(<EliminarClienteChat client={user[0]} fun={fetchData} funClose={closeComponent} />)} className='w-44 bg-red-600 p-2 m-2 rounded-xl text-white font-semibold hover:text-black hover:bg-white '>Eliminar Usuario</button>
+          <button onClick={() => handleButtonClick(<SolicitarEliminacion client={user[0]} fun={fetchData} funClose={closeComponent} />)} className='w-44 bg-red-500 p-2 m-2 rounded-xl text-white font-semibold hover:text-black hover:bg-white '>Eliminar</button>
         </article>
 
         <article className='p-4 m-4 w-auto'>{activeComponent}</article>
