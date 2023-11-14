@@ -33,7 +33,7 @@ export function CrearClienteFiel ({ client, funClose }) {
         setLoading(false)
         setTimeout(() => {
           window.location.reload()
-        }, 3000)
+        }, 2000)
       })
       .catch(err => {
         setLoading(false)
@@ -42,7 +42,7 @@ export function CrearClienteFiel ({ client, funClose }) {
           setMessageError(error)
           setTimeout(() => {
             setMessageError('')
-          }, 3000)
+          }, 2000)
         }
       })
   }
@@ -119,7 +119,7 @@ export function EditarClienteChat ({ client, fun, funClose }) {
         setStatus('success')
         setTimeout(() => {
           fetchData()
-        }, 3000)
+        }, 2000)
       } else if (res.status === 'error') {
         setStatus('error')
       }
@@ -153,57 +153,6 @@ export function EditarClienteChat ({ client, fun, funClose }) {
         <StatusMessage status={status} />
       </form>
 
-      <button className='absolute top-0 right-0 rounded-full hover:bg-red-500 hover:text-white' onClick={handleClickClose}>
-        <CloseIcon />
-      </button>
-    </article>
-  )
-}
-
-export function EliminarClienteChat ({ client, funClose }) {
-  const { cedula, nombre, telefono, correo } = client
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState(null)
-  const [responseOk, setResponseOk] = useState(null)
-
-  const ccString = cedula.toString()
-
-  const handleClickClose = () => {
-    funClose()
-  }
-
-  const sendCreateClient = () => {
-    setLoading(true)
-    axios.post('/deleteClient', { cedula: ccString })
-      .then(res => {
-        setResponseOk(res.status)
-        setLoading(false)
-        setTimeout(() => {
-          window.location.reload()
-        }, 3000)
-      })
-      .catch(err => {
-        setError(err.response.data.message)
-        setLoading(false)
-      })
-  }
-
-  return (
-    <article className='bg-red-500 relative rounded-lg '>
-      <section className='p-4 m-4'>
-        <div className=''>
-          <dd className='text-white '><span className='text-black font-semibold pr-2'>Nombre: </span>{nombre}</dd>
-          <dd className='text-white '><span className='text-black font-semibold pr-2'>N° Documento: </span>{cedula}</dd>
-          <dd className='text-white '><span className='text-black font-semibold pr-2'>Tel / Cel: </span>{telefono}</dd>
-          <dd className='text-white '><span className='text-black font-semibold pr-2'>Correo: </span>{correo}</dd>
-          <button onClick={sendCreateClient} className='bg-blue-500 rounded-md text-white font-semibold w-full p-2 mt-4 hover:bg-white hover:text-black'>
-            Eliminar Cliente Chat Boot
-          </button>
-          {loading && <p className='text-center'>Eliminando Usuario ...</p>}
-          {error && <p>Error:{error}</p>}
-          {responseOk && <p className='text-center'> USUARIO ELIMINADO </p>}
-        </div>
-      </section>
       <button className='absolute top-0 right-0 rounded-full hover:bg-red-500 hover:text-white' onClick={handleClickClose}>
         <CloseIcon />
       </button>
@@ -260,6 +209,58 @@ export function SolicitarEliminacion ({ client, funClose }) {
           {loading && <p className='text-center'>Enviando Reporte De Usuario ...</p>}
           {error && <p className='text-white text-center'>Error: <span className='font-semibold'>{error}</span></p>}
           {responseOk && <p className='text-center'> Reporte Enviado </p>}
+        </div>
+      </section>
+      <button className='absolute top-0 right-0 rounded-full hover:bg-red-500 hover:text-white' onClick={handleClickClose}>
+        <CloseIcon />
+      </button>
+    </article>
+  )
+}
+
+// TODO: ESTE METODO NO ESTA FUNCIONANDO
+export function EliminarClienteChat ({ client, funClose }) {
+  const { cedula, nombre, telefono, correo } = client
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(null)
+  const [responseOk, setResponseOk] = useState(null)
+
+  const ccString = cedula.toString()
+
+  const handleClickClose = () => {
+    funClose()
+  }
+
+  const sendCreateClient = () => {
+    setLoading(true)
+    axios.post('/deleteClient', { cedula: ccString })
+      .then(res => {
+        setResponseOk(res.status)
+        setLoading(false)
+        setTimeout(() => {
+          window.location.reload()
+        }, 3000)
+      })
+      .catch(err => {
+        setError(err.response.data.message)
+        setLoading(false)
+      })
+  }
+
+  return (
+    <article className='bg-red-500 relative rounded-lg '>
+      <section className='p-4 m-4'>
+        <div className=''>
+          <dd className='text-white '><span className='text-black font-semibold pr-2'>Nombre: </span>{nombre}</dd>
+          <dd className='text-white '><span className='text-black font-semibold pr-2'>N° Documento: </span>{cedula}</dd>
+          <dd className='text-white '><span className='text-black font-semibold pr-2'>Tel / Cel: </span>{telefono}</dd>
+          <dd className='text-white '><span className='text-black font-semibold pr-2'>Correo: </span>{correo}</dd>
+          <button onClick={sendCreateClient} className='bg-blue-500 rounded-md text-white font-semibold w-full p-2 mt-4 hover:bg-white hover:text-black'>
+            Eliminar Cliente Chat Boot
+          </button>
+          {loading && <p className='text-center'>Eliminando Usuario ...</p>}
+          {error && <p>Error:{error}</p>}
+          {responseOk && <p className='text-center'> USUARIO ELIMINADO </p>}
         </div>
       </section>
       <button className='absolute top-0 right-0 rounded-full hover:bg-red-500 hover:text-white' onClick={handleClickClose}>

@@ -4,7 +4,7 @@ import { AuthContext } from './auth/AuthContext'
 import { Dashboard } from './routes/Dashboard'
 import axios from 'axios'
 
-axios.defaults.baseURL = 'http://localhost:4040'
+axios.defaults.baseURL = 'http://172.20.1.160:3000'
 axios.defaults.withCredentials = true
 
 export function App () {
