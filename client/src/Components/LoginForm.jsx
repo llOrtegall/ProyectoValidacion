@@ -14,14 +14,14 @@ export const LoginForm = () => {
     try {
       const response = await axios.post('/login', { user, password })
       if (response.status === 200) {
-        const { apellidos, nombres, username } = response.data
-        setAuthUser({ name: nombres, lastName: apellidos, usuario: username })
+        const { apellidos, nombre, username, correo } = response.data
+        setAuthUser({ user: username, name: nombre, lastName: apellidos, email: correo })
         Cookies.set('token', response.data.token, { expires: 1 })
       } else {
         setErrorMessage(response.data)
         setTimeout(() => {
           setErrorMessage('')
-        }, 4000)
+        }, 2000)
       }
     } catch (error) {
       if (error.message === 'Network Error' || error.message.includes('net::')) {
@@ -33,7 +33,7 @@ export const LoginForm = () => {
       }
       setTimeout(() => {
         setErrorMessage('')
-      }, 4000)
+      }, 2000)
     }
   }
 

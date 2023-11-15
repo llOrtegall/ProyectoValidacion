@@ -4,29 +4,35 @@ import axios from 'axios'
 
 export const AuthContext = createContext({
   user: {
+    user: null,
     name: null,
     lastName: null,
-    id: null,
-    usuario: null
+    email: null,
+    iat: null,
+    proceso: null
   },
-  setUser: () => {},
-  logout: () => {}
+  setUser: () => { },
+  logout: () => { }
 })
 
 export function AuthContextProvider ({ children }) {
   const [user, setUser] = useState({
+    user: null,
     name: null,
     lastName: null,
-    id: null,
-    usuario: null
+    email: null,
+    iat: null,
+    proceso: null
   })
 
   const logout = () => {
     setUser({
+      user: null,
       name: null,
       lastName: null,
-      id: null,
-      usuario: null
+      email: null,
+      iat: null,
+      proceso: null
     })
     document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/'
   }
@@ -38,14 +44,10 @@ export function AuthContextProvider ({ children }) {
         Authorization: `Bearer ${token}` // Usa el token en las cabeceras
       }
       try {
-        const { data } = await axios.get('/profile', { headers })
-        const { apellidos, id, nombres, username } = data
-        setUser({
-          name: nombres,
-          lastName: apellidos,
-          id,
-          usuario: username
-        })
+        const response = await axios.get('/profile', { headers })
+        const { username, nombre, apellidos, correo, iat, proceso } = response.data
+        console.log(response.data)
+        setUser({ user: username, name: nombre, lastName: apellidos, email: correo, iat, proceso })
       } catch (error) {
         console.error(error)
       }
