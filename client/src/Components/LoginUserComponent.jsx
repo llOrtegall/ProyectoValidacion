@@ -4,7 +4,7 @@ import { CloseSession, UserIcon } from './IconsSvg'
 
 export function LoginUserComponent () {
   const { user: User, logout } = useContext(AuthContext)
-  const { user, name, lastName, email, proceso, iat } = User
+  const { user, name, lastName, email } = User
 
   return (
     <section className=''>
@@ -13,11 +13,10 @@ export function LoginUserComponent () {
           <UserIcon />
           <section>
             <h3 className='font-semibold text-xl'>
-              Bienvenid@ <span>{name}</span><span>{lastName}{email}{proceso}</span>
+              Bienvenid@ <span>{name}</span><span> {lastName} </span>
             </h3>
             <div className='flex'>
-              <p className='small-text'>{user}</p>
-              <p className='small-text pl-2'>{iat}</p>
+              <p className='small-text'>Usuario: <span className='font-bold pr-2'>{user}</span>  Correo: <span className='font-semibold lowercase'>{email} </span></p>
             </div>
           </section>
         </figure>
