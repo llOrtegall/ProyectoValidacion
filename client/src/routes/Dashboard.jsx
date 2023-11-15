@@ -1,4 +1,3 @@
-// import { ChangedPassword } from '../Components/ChangedPasword.jsx'
 import { LoginUserComponent } from '../Components/LoginUserComponent.jsx'
 import { RenderUsuarios } from '../Components/RenderUsuarios.jsx'
 
@@ -8,7 +7,6 @@ export function Dashboard () {
     <>
       <LoginUserComponent />
       <RenderUsuarios />
-      {/* <ChangedPassword /> */}
     </>
   )
 }

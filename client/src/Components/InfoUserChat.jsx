@@ -22,7 +22,7 @@ export function InfoUserChat ({ user, fun }) {
   return (
     <>
 
-      <section className='bg-gray-500 rounded-xl flex items-center p-2 m-2 h-80'>
+      <section className='bg-slate-600 rounded-xl flex items-center p-2 m-2 h-80'>
 
         <article className='flex items-center h-full'>
           <div className='flex items-center m-4'>

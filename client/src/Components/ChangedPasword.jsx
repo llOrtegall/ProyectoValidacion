@@ -1,11 +1,14 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import axios from 'axios'
+import { AuthContext } from '../auth/AuthContext'
 
-export function ChangedPassword () {
-  const [username, setUsername] = useState('')
+export function ChangedPassword ({ username }) {
   const [oldPassword, setOldPassword] = useState('')
   const [newPassword, setNewPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
+  const { logout } = useContext(AuthContext)
+  const [error, setError] = useState('')
+  const [message, setMessage] = useState('')
 
   const handleChangePassword = async (event) => {
     event.preventDefault()
@@ -16,22 +19,47 @@ export function ChangedPassword () {
         newPassword,
         confirmPassword
       })
-
-      console.log(response.data)
+      setMessage(response.data.message)
+      setTimeout(() => {
+        setMessage('')
+        logout()
+      }, 3000)
       // Handle the response here
     } catch (error) {
-      console.error(error)
-      // Handle the error here
+      setError(error.response.data.error)
+      setTimeout(() => {
+        setError('')
+      }, 3000)
     }
   }
 
   return (
-    <form onSubmit={handleChangePassword}>
-      <input type='text' value={username} onChange={(e) => setUsername(e.target.value)} placeholder='Username' required />
-      <input type='password' value={oldPassword} onChange={(e) => setOldPassword(e.target.value)} placeholder='Current Password' required />
-      <input type='password' value={newPassword} onChange={(e) => setNewPassword(e.target.value)} placeholder='New Password' required />
-      <input type='password' value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} placeholder='Confirm New Password' required />
-      <button type='submit'>Change Password</button>
-    </form>
+    <section className='bg-slate-600 shadow-2xl w-96 h-96 p-4 rounded-lg flex items-center justify-center '>
+      <form onSubmit={handleChangePassword} className='flex flex-col items-center'>
+        <h2 className='text-center text-xl font-bold uppercase text-white'> Cambiar Contraseña </h2>
+        <p className='py-2 font-bold text-yellow-300'>Usuario: <span className='text-green-400'>{username}</span></p>
+        <input
+          type='password' className='p-2 my-2 rounded-md w-full shadow-md'
+          value={oldPassword} onChange={(e) => setOldPassword(e.target.value)}
+          placeholder='Contraseña Actual' required
+        />
+        <input
+          type='password' className='p-2 my-2 rounded-md w-full shadow-md'
+          value={newPassword} onChange={(e) => setNewPassword(e.target.value)}
+          placeholder='Nueva Contraseña' required
+        />
+        <input
+          type='password' className='p-2 my-2 rounded-md w-full shadow-md'
+          value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}
+          placeholder='Confirmar Contraseña Nueva' required
+        />
+        <button type='submit' className='bg-green-500 p-2 rounded-md shadow-lg text-white font-semibold uppercase mt-4 w-56 hover:text-green-700 hover:bg-white'>
+          Cambiar Contraseña
+        </button>
+
+        {message && <p className='text-green-400 font-semibold absolute bottom-4'>{message}</p>}
+        {error && <p className='text-red-400 font-semibold absolute bottom-4'>{error}</p>}
+      </form>
+    </section>
   )
 }
