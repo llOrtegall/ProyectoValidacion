@@ -23,7 +23,7 @@ export function ChangedPassword ({ username }) {
       setTimeout(() => {
         setMessage('')
         logout()
-      }, 3000)
+      }, 1500)
       // Handle the response here
     } catch (error) {
       setError(error.response.data.error)
