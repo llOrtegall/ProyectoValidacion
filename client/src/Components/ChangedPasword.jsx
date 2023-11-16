@@ -13,7 +13,7 @@ export function ChangedPassword ({ username }) {
   const handleChangePassword = async (event) => {
     event.preventDefault()
     try {
-      const response = await axios.post('http://localhost:3000/changePassword', {
+      const response = await axios.post('/changePassword', {
         username,
         oldPassword,
         newPassword,
