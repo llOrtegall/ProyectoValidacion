@@ -37,18 +37,18 @@ export function CrearClienteFiel ({ client, funClose }) {
       })
       .catch(err => {
         setLoading(false)
-        if (err.response.status === 500) {
-          const error = err.response.data.detail
+        if (err.response.status === 409) {
+          const error = (err.response.data.message)
           setMessageError(error)
           setTimeout(() => {
             setMessageError('')
-          }, 2000)
+          }, 2500)
         }
       })
   }
 
   return (
-    <article className='bg-blue-400 relative rounded-lg '>
+    <article className='bg-blue-400 relative rounded-lg'>
       <section className='p-4 m-4'>
         <div className=''>
           <dd className='text-black '><span className='text-black font-bold pr-2'>Nombre: </span>{nombre}</dd>
@@ -66,7 +66,7 @@ export function CrearClienteFiel ({ client, funClose }) {
           </button>
           {loading && <p className='text-center'>Creando Usuario ...</p>}
           {userOk && <p className='text-center text-green-600 font-bold'> {userOk} </p>}
-          {messageError && <p className='text-center text-red-600 font-semibold'> {messageError} </p>}
+          {messageError && <p className='text-center text-red-300 font-semibold'> {messageError} </p>}
         </div>
       </section>
       <button className='absolute top-0 right-0 rounded-full hover:bg-red-500 hover:text-white' onClick={handleClickClose}>
@@ -85,11 +85,11 @@ export function EditarClienteChat ({ client, fun, funClose }) {
 
   function StatusMessage ({ status }) {
     if (status === 'loading') {
-      return <div className='text-center font-semibold text-blue-700'>Cargando...</div>
+      return <div className='absolute -bottom-11 text-center font-semibold text-blue-300'>Cargando...</div>
     } else if (status === 'success') {
-      return <div className='text-center ext-center font-semibold text-green-800 '>La información del usuario ha sido actualizada.</div>
+      return <div className='absolute -bottom-11 text-center ext-center font-semibold text-green-300 '>La información del usuario ha sido actualizada.</div>
     } else if (status === 'error') {
-      return <div className='text-center font-semibold text-red-700'>Ha ocurrido un error al actualizar la información del usuario.</div>
+      return <div className='absolute -bottom-11 text-center font-semibold text-red-400'>Ha ocurrido un error al actualizar la información del usuario.</div>
     } else {
       return null
     }
@@ -119,7 +119,7 @@ export function EditarClienteChat ({ client, fun, funClose }) {
         setStatus('success')
         setTimeout(() => {
           fetchData()
-        }, 2000)
+        }, 1500)
       } else if (res.status === 'error') {
         setStatus('error')
       }
@@ -129,28 +129,30 @@ export function EditarClienteChat ({ client, fun, funClose }) {
   }
 
   return (
-    <article className='relative'>
-      <form onSubmit={handleSubmit} className='bg-gray-400 rounded-lg flex flex-col'>
-        <div className='flex items-center justify-start mx-4 py-2'>
-          <label className='font-semibold px-4'> Nombre 1: </label>
-          <input className='rounded-md p-2 w-28' type='text' name='nombre1' value={updateUser.nombre1 || ''} onChange={handleChange} required />
-          <label className='px-2 font-semibold'> Nombre 2: </label>
-          <input className='p-2 rounded-md w-28' type='text' name='nombre2' value={updateUser.nombre2 || ''} onChange={handleChange} />
+    <article className='w-full relative'>
+      <form onSubmit={handleSubmit} className='bg-gray-400 rounded-xl p-4 flex flex-col'>
+        <div className='flex items-center'>
+          <label className='w-28 font-semibold p-2 m-2'>Nombre 1:</label>
+          <input className='rounded-md p-2 m-2' type='text' name='nombre1' value={updateUser.nombre1 || ''} onChange={handleChange} required />
+          <label className='w-28 font-semibold p-2 m-2'>Nombre 2:</label>
+          <input className='rounded-md p-2 m-2' type='text' name='nombre2' value={updateUser.nombre2 || ''} onChange={handleChange} />
         </div>
-        <div className='flex items-center justify-start mx-4 py-2'>
-          <label className='font-semibold px-4'> Apellido 1: </label>
-          <input className='rounded-md p-2 w-28' type='text' name='apellido1' value={updateUser.apellido1 || ''} onChange={handleChange} required />
-          <label className='px-2 font-semibold'> Apellido 2: </label>
-          <input className='p-2 rounded-md w-28' type='text' name='apellido2' value={updateUser.apellido2 || ''} onChange={handleChange} />
+        <div className='flex items-center'>
+          <label className='w-28 font-semibold p-2 m-2'>Apellido 1:</label>
+          <input className='rounded-md p-2 m-2' type='text' name='apellido1' value={updateUser.apellido1 || ''} onChange={handleChange} required />
+          <label className='w-28 font-semibold p-2 m-2'>Apellido 2:</label>
+          <input className='rounded-md  p-2 m-2' type='text' name='apellido2' value={updateUser.apellido2 || ''} onChange={handleChange} />
         </div>
-        <div className='flex items-center justify-center mx-4 py-2'>
-          <label className='font-semibold px-4'> Telefono: </label>
-          <input className='rounded-md p-2 w-28' type='text' name='telefono' value={updateUser.telefono || ''} onChange={handleChange} />
-          <label className='px-2 font-semibold'> Correo: </label>
-          <input className='p-2 rounded-md w-60' type='text' name='correo' value={updateUser.correo || ''} onChange={handleChange} />
+        <div className='flex'>
+          <label className='w-28 font-semibold p-2 m-2'>Telefono:</label>
+          <input className='rounded-md p-2 m-2 w-36' type='text' name='telefono' value={updateUser.telefono || ''} onChange={handleChange} />
+          <label className='font-semibold p-2 m-2'>Correo:</label>
+          <input className='rounded-md  p-2 m-2 text-center w-full' type='text' name='correo' value={updateUser.correo || ''} onChange={handleChange} />
         </div>
-        <button type='submit' className='p-2 m-4 ml-44 bg-green-400 w-40 rounded-md shadow-md font-semibold hover:bg-white'>Actualizar</button>
-        <StatusMessage status={status} />
+        <div className='flex justify-center items-center relative'>
+          <button className='px-4 py-3 w-40 bg-green-400 rounded-md shadow-md font-semibold hover:bg-white'>Actualizar</button>
+          <StatusMessage status={status} />
+        </div>
       </form>
 
       <button className='absolute top-0 right-0 rounded-full hover:bg-red-500 hover:text-white' onClick={handleClickClose}>
@@ -195,7 +197,7 @@ export function SolicitarEliminacion ({ client, funClose }) {
   }
 
   return (
-    <article className='bg-red-500 relative rounded-lg '>
+    <article className='bg-red-500 rounded-lg '>
       <section className='p-4 m-4'>
         <div className=''>
           <dd className='text-white '><span className='text-black font-semibold pr-2'>Nombre: </span>{nombre}</dd>
