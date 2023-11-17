@@ -48,26 +48,30 @@ export function CrearClienteFiel ({ client, funClose }) {
   }
 
   return (
-    <article className='bg-blue-400 relative rounded-lg'>
-      <section className='p-4 m-4'>
-        <div className=''>
+    <article className='bg-blue-400 relative rounded-lg p-2'>
+      <section className='p-2 m-2 flex items-center'>
+        <div className='flex flex-col pl-10'>
           <dd className='text-black '><span className='text-black font-bold pr-2'>Nombre: </span>{nombre}</dd>
           <dd className='text-black '><span className='text-black font-bold pr-2'>N° Documento: </span>{cedula}</dd>
           <dd className='text-black '><span className='text-black font-bold pr-2'>Tel / Cel: </span>{telefono}</dd>
           <dd className='text-black '><span className='text-black font-bold pr-2'>Correo: </span>{correo}</dd>
-          <label className='text-white font-bold pr-2'> <span className='text-black font-bold pr-2'>Sexo: </span> </label>
-          <select className='rounded-md bg-gray-300 text-black' value={selectedValue} onChange={handleChange}>
-            <option> </option>
-            <option value='33'>Maculino</option>
-            <option value='34'>Femenino</option>
-          </select>
-          <button onClick={sendCreateClient} className='bg-green-500 rounded-md text-white font-semibold w-full p-2 mt-4 hover:bg-white hover:text-black'>
-            Crea Cliente Fiel
-          </button>
-          {loading && <p className='text-center'>Creando Usuario ...</p>}
-          {userOk && <p className='text-center text-green-600 font-bold'> {userOk} </p>}
-          {messageError && <p className='text-center text-red-300 font-semibold'> {messageError} </p>}
+          <div>
+            <label className='text-white font-bold pr-2'> <span className='text-black font-bold pr-2'>Sexo: </span> </label>
+            <select className='rounded-md bg-gray-300 text-black w-40 text-center p-1' value={selectedValue} onChange={handleChange}>
+              <option> </option>
+              <option value='33'>Maculino</option>
+              <option value='34'>Femenino</option>
+            </select>
+          </div>
         </div>
+        <button onClick={sendCreateClient} className='bg-green-500 rounded-md h-12 ml-24 text-white font-semibold p-2 mt-4 hover:bg-white hover:text-black'>
+          Crea Cliente Fiel
+        </button>
+
+        {loading && <p className='text-center absolute bottom-0 left-40'>Creando Usuario ...</p>}
+        {userOk && <p className='text-center text-green-600 font-bold absolute bottom-0 left-40'> {userOk} </p>}
+        {messageError && <p className='text-center text-red-600 font-semibold absolute bottom-0 left-40'> {messageError} </p>}
+
       </section>
       <button className='absolute top-0 right-0 rounded-full hover:bg-red-500 hover:text-white' onClick={handleClickClose}>
         <CloseIcon />
