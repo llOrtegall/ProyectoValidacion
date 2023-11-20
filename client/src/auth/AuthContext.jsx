@@ -46,10 +46,9 @@ export function AuthContextProvider ({ children }) {
       try {
         const response = await axios.get('/profile', { headers })
         const { username, nombres, apellidos, correo, iat, proceso } = response.data
-        console.log(response.data)
         setUser({ user: username, name: nombres, lastName: apellidos, email: correo, iat, proceso })
       } catch (error) {
-        console.error(error)
+        console.log(error)
       }
     }
     fetchProfile()

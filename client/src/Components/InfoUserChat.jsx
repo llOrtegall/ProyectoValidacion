@@ -2,10 +2,9 @@ import { useState, useEffect } from 'react'
 import { InfoIcon } from './IconsSvg'
 import { CrearClienteFiel, EditarClienteChat, SolicitarEliminacion } from './OptionsUser.jsx'
 
-export function InfoUserChat ({ user, fun }) {
-  const { cedula, nombre, telefono, correo, telwhats } = user[0]
+export function InfoUserChat ({ user }) {
+  const { cedula, nombre, telefono, correo, telwhats } = user
   const [activeComponent, setActiveComponent] = useState(null)
-  const fetchData = fun
 
   const handleButtonClick = (component) => {
     setActiveComponent(component)
@@ -35,9 +34,9 @@ export function InfoUserChat ({ user, fun }) {
       </article>
 
       <article className='flex flex-col w-2/12'>
-        <button onClick={() => handleButtonClick(<EditarClienteChat client={user[0]} fun={fetchData} funClose={closeComponent} />)} className=' bg-yellow-500 p-2 m-2 rounded-xl text-white font-semibold hover:text-black hover:bg-white '>Editar Usuario</button>
-        <button onClick={() => handleButtonClick(<CrearClienteFiel client={user[0]} funClose={closeComponent} />)} className='bg-green-500 p-2 m-2 rounded-xl text-white font-semibold hover:text-black hover:bg-white '>Agregar Usuario</button>
-        <button onClick={() => handleButtonClick(<SolicitarEliminacion client={user[0]} fun={fetchData} funClose={closeComponent} />)} className='bg-red-500 p-2 m-2 rounded-xl text-white font-semibold hover:text-black hover:bg-white '>Eliminar</button>
+        <button onClick={() => handleButtonClick(<EditarClienteChat client={user} funClose={closeComponent} />)} className=' bg-yellow-500 p-2 m-2 rounded-xl text-white font-semibold hover:text-black hover:bg-white '>Editar Usuario</button>
+        <button onClick={() => handleButtonClick(<CrearClienteFiel client={user} funClose={closeComponent} />)} className='bg-green-500 p-2 m-2 rounded-xl text-white font-semibold hover:text-black hover:bg-white '>Agregar Usuario</button>
+        <button onClick={() => handleButtonClick(<SolicitarEliminacion client={user} funClose={closeComponent} />)} className='bg-red-500 p-2 m-2 rounded-xl text-white font-semibold hover:text-black hover:bg-white '>Eliminar</button>
       </article>
 
       <article className='p-4 m-4 w-5/12'>{activeComponent}</article>

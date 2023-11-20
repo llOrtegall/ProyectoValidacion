@@ -1,87 +1,59 @@
-import { useEffect, useState } from 'react'
-import { ValidarUsuario } from './ValidarUsuario.jsx'
-import { InfoUserChat } from './InfoUserChat.jsx'
+import { useState, useEffect, useCallback } from 'react'
+import { UserTable } from './UserTable'
+import { ValidacionUsers } from './ValidacionUsers'
 import axios from 'axios'
+import { InfoUserChat } from './InfoUserChat'
 
 export function RenderUsuarios () {
-  const [user, setUser] = useState([])
-  const [loading, setLoading] = useState(true)
+  const [users, setUsers] = useState([])
+  const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
-  const [datoDeValidacion, setDatoDeValidacion] = useState(null)
-  const [userFiltrado, setUserFiltrado] = useState(null)
 
-  const FiltrarUsuario = () => {
-    const documento = datoDeValidacion
-    const documentoInt = parseInt(documento)
-    const userFiltrado = user.filter((user) => user.cedula === documentoInt)
-    setUserFiltrado(userFiltrado)
+  const [opcUser, setOpcUser] = useState(null)
+  const [user, setUser] = useState(null)
+
+  console.log(user)
+
+  function handleClick (user) {
+    setOpcUser(user)
+    setUser(users.find(u => u.cedula == opcUser.user))
   }
 
-  const fetchData = () => {
+  const fetchData = useCallback(async () => {
     setLoading(true)
-    setError(null)
-    setUserFiltrado(null)
-    setDatoDeValidacion(null)
-
-    axios.get('/clientes')
-      .then(response => {
-        setUser(response.data)
-        setLoading(false)
-      })
-      .catch(error => {
-        setError(error)
-        setLoading(false)
-      })
-  }
-
-  const manejarDatoDeValidacion = (dato) => {
-    setDatoDeValidacion(dato)
-  }
-
-  useEffect(() => {
-    if (datoDeValidacion) {
-      FiltrarUsuario()
+    try {
+      const response = await axios.get('/clientes')
+      setUsers(response.data)
+      setLoading(false)
+    } catch (error) {
+      setError(error)
+      setLoading(false)
     }
-  }, [datoDeValidacion])
+  }, [])
 
   useEffect(() => {
     fetchData()
-  }, [])
+  }, [fetchData])
+
+  if (loading) {
+    return <div>Loading...</div>
+  }
+
+  if (error) {
+    return <div>Error: {error.message}</div>
+  }
 
   return (
     <>
-      <section className='flex flex-col p-2' style={{ maxHeight: '450px', overflowY: 'auto' }}>
-        <h1 className='p-3 text-white rounded-t-xl text-xl font-semibold bg-blue-500 text-center'>Usuarios Registrados Por Chat Boot</h1>
-        <table className=''>
-          <thead className=''>
-            <tr>
-              <th>Nombres</th>
-              <th>Documento</th>
-              <th>Telefono</th>
-              <th>Correo</th>
-              <th>N° Registro</th>
-              <th>RCCF</th>
-              <th>Opciones</th>
-            </tr>
-          </thead>
-          <tbody className='text-center'>
-            {user.length && user.map((user) => (
-              <tr key={user.id}>
-                <td>{user.nombre}</td>
-                <td>{user.cedula}</td>
-                <td>{user.telefono}</td>
-                <td>{user.correo}</td>
-                <td>{user.telwhats}</td>
-                <ValidarUsuario user={user.cedula} onDatoDeValidacion={manejarDatoDeValidacion} />
-              </tr>
-            ))}
-          </tbody>
-        </table>
-        {/* 2. Agregar un mensaje de carga y manejo de errores. */}
-        {loading && <p>Cargando usuarios...</p>}
-        {error && <p>Error al cargar usuarios: {error.message}</p>}
-      </section>
-      {userFiltrado && <InfoUserChat user={userFiltrado} fun={fetchData} />}
+      <main className='p-2 h-96 overflow-auto'>
+        <h1 className='bg-blue-600 py-2 rounded-lg text-center font-semibold text-white text-2xl'>Usuarios Registrados Por Chat Boot</h1>
+        <section className='flex'>
+          <UserTable users={users} />
+          <ValidacionUsers users={users} fun={handleClick} />
+        </section>
+      </main>
+
+      {user ? <InfoUserChat user={user} /> : null}
 
     </>
   )

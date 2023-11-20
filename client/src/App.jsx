@@ -4,12 +4,11 @@ import { AuthContext } from './auth/AuthContext'
 import { Dashboard } from './routes/Dashboard'
 import axios from 'axios'
 
-axios.defaults.baseURL = 'http://172.20.1.160:3000'
+axios.defaults.baseURL = 'http://localhost:4040'
 axios.defaults.withCredentials = true
 
 export function App () {
   const { user } = useContext(AuthContext)
-  console.log(user)
   // Si el usuario está autenticado, mostrar el panel de control
   if (user.user !== null) return <Dashboard />
 
