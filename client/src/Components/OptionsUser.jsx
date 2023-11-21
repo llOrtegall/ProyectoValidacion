@@ -3,12 +3,15 @@ import { useState, useEffect } from 'react'
 import { separarNombre } from '../services/funtionsReutilizables'
 import { CloseIcon } from './IconsSvg'
 
-export function CrearClienteFiel ({ client, funClose }) {
+export function CrearClienteFiel ({ client, funClose, fun2, fun3 }) {
   const { cedula, nombre, telefono, correo } = client
   const [loading, setLoading] = useState(false)
   const [userOk, setUserOk] = useState('')
   const [messageError, setMessageError] = useState('')
   const [selectedValue, setSelectedValue] = useState(null)
+
+  const fetchData = fun2
+  const handleClose = fun3
 
   const handleChange = (ev) => {
     setSelectedValue(ev.target.value)
@@ -32,7 +35,8 @@ export function CrearClienteFiel ({ client, funClose }) {
         setUserOk('Usuario creado con exito')
         setLoading(false)
         setTimeout(() => {
-          window.location.reload()
+          fetchData()
+          handleClose()
         }, 2000)
       })
       .catch(err => {
@@ -80,12 +84,13 @@ export function CrearClienteFiel ({ client, funClose }) {
   )
 }
 
-export function EditarClienteChat ({ client, fun, funClose }) {
+export function EditarClienteChat ({ client, funClose, fun2, fun3 }) {
   const { cedula, nombre, telefono, correo } = client
   const { nombre1, nombre2, apellido1, apellido2 } = separarNombre(nombre)
   const [updateUser, setUpdateUser] = useState({})
   const [status, setStatus] = useState(null)
-  const fetchData = fun
+  const fetchData = fun2
+  const handleClose = fun3
 
   function StatusMessage ({ status }) {
     if (status === 'loading') {
@@ -122,6 +127,8 @@ export function EditarClienteChat ({ client, fun, funClose }) {
       if (res.status === 200) {
         setStatus('success')
         setTimeout(() => {
+          funClose()
+          handleClose()
           fetchData()
         }, 1500)
       } else if (res.status === 'error') {

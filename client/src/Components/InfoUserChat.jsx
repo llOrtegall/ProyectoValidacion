@@ -1,17 +1,26 @@
 import { useState, useEffect } from 'react'
-import { InfoIcon } from './IconsSvg'
 import { CrearClienteFiel, EditarClienteChat, SolicitarEliminacion } from './OptionsUser.jsx'
+import { InfoIcon } from './IconsSvg'
+import { Button } from './Button.jsx'
 
-export function InfoUserChat ({ user }) {
-  const { cedula, nombre, telefono, correo, telwhats } = user
+export function InfoUserChat ({ user, fun2, fun3 }) {
   const [activeComponent, setActiveComponent] = useState(null)
-
-  const handleButtonClick = (component) => {
-    setActiveComponent(component)
-  }
+  const { nombre, cedula, telefono, correo, telwhats } = user
+  const fetchData = fun2
+  const handleClose = fun3
 
   const closeComponent = () => {
     setActiveComponent(null)
+  }
+
+  const components = {
+    EditarClienteChat: <EditarClienteChat client={user} funClose={closeComponent} fun2={fetchData} fun3={handleClose} />,
+    CrearClienteFiel: <CrearClienteFiel client={user} funClose={closeComponent} fun2={fetchData} fun3={handleClose} />,
+    SolicitarEliminacion: <SolicitarEliminacion client={user} funClose={closeComponent} fun2={fetchData} />
+  }
+
+  const handleButtonClick = (componentName) => {
+    setActiveComponent(components[componentName])
   }
 
   useEffect(() => {
@@ -34,9 +43,9 @@ export function InfoUserChat ({ user }) {
       </article>
 
       <article className='flex flex-col w-2/12'>
-        <button onClick={() => handleButtonClick(<EditarClienteChat client={user} funClose={closeComponent} />)} className=' bg-yellow-500 p-2 m-2 rounded-xl text-white font-semibold hover:text-black hover:bg-white '>Editar Usuario</button>
-        <button onClick={() => handleButtonClick(<CrearClienteFiel client={user} funClose={closeComponent} />)} className='bg-green-500 p-2 m-2 rounded-xl text-white font-semibold hover:text-black hover:bg-white '>Agregar Usuario</button>
-        <button onClick={() => handleButtonClick(<SolicitarEliminacion client={user} funClose={closeComponent} />)} className='bg-red-500 p-2 m-2 rounded-xl text-white font-semibold hover:text-black hover:bg-white '>Eliminar</button>
+        <Button color='yellow' onClick={() => handleButtonClick('EditarClienteChat')}>Editar Usuario</Button>
+        <Button color='green' onClick={() => handleButtonClick('CrearClienteFiel')}>Agregar Usuario</Button>
+        <Button color='red' onClick={() => handleButtonClick('SolicitarEliminacion')}>Eliminar</Button>
       </article>
 
       <article className='p-4 m-4 w-5/12'>{activeComponent}</article>

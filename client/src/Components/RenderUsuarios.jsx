@@ -8,8 +8,12 @@ export function RenderUsuarios () {
   const [users, setUsers] = useState([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
-
   const [user, setUser] = useState(null)
+
+  function handleClose() {
+    setUser(null) // Cierra InfoUserChat
+    // Aquí puedes resetear otros estados si es necesario
+  }
 
   const handleClick = async (user) => {
     const foundUser = users.find(u => u.cedula == user.user)
@@ -50,7 +54,7 @@ export function RenderUsuarios () {
         </section>
       </main>
 
-      {user && <InfoUserChat user={user} />}
+      {user && <InfoUserChat user={user} fun2={fetchData} fun3={handleClose} />}
 
     </>
   )
