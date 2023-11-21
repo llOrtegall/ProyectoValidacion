@@ -208,7 +208,7 @@ export function SolicitarEliminacion ({ client, funClose }) {
   }
 
   return (
-    <article className='bg-red-500 rounded-lg '>
+    <article className='bg-red-500 rounded-lg xl:text-xs'>
       <section className='p-4 m-4'>
         <div className=''>
           <dd className='text-white '><span className='text-black font-semibold pr-2'>Nombre: </span>{nombre}</dd>
@@ -261,8 +261,8 @@ export function EliminarClienteChat ({ client, funClose }) {
   }
 
   return (
-    <article className='bg-red-500 relative rounded-lg '>
-      <section className='p-4 m-4'>
+    <>
+      <section className='p-4 m-4 '>
         <div className=''>
           <dd className='text-white '><span className='text-black font-semibold pr-2'>Nombre: </span>{nombre}</dd>
           <dd className='text-white '><span className='text-black font-semibold pr-2'>N° Documento: </span>{cedula}</dd>
@@ -276,9 +276,9 @@ export function EliminarClienteChat ({ client, funClose }) {
           {responseOk && <p className='text-center'> USUARIO ELIMINADO </p>}
         </div>
       </section>
-      <button className='absolute top-0 right-0 rounded-full hover:bg-red-500 hover:text-white' onClick={handleClickClose}>
+      <button className='absolute bottom-0 rounded-full hover:bg-red-500 hover:text-white' onClick={handleClickClose}>
         <CloseIcon />
       </button>
-    </article>
+    </>
   )
 }

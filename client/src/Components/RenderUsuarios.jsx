@@ -47,7 +47,7 @@ export function RenderUsuarios () {
 
   return (
     <>
-      <main className='p-2 h-96 overflow-auto md:h-72 xl:text-base'>
+      <main className='p-2 h-96 overflow-auto md:h-80 xl:text-base lg:text-xl'>
         <h1 className='bg-blue-600 py-2 rounded-lg text-center font-semibold text-white text-2xl md:text-sm'>Usuarios Registrados Por Chat Boot</h1>
         <section className='flex'>
           <UserTable users={users} />
