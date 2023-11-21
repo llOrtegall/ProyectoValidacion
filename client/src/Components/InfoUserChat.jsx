@@ -28,7 +28,7 @@ export function InfoUserChat ({ user, fun2, fun3 }) {
   }, [user])
 
   return (
-    <section className='bg-slate-600 rounded-xl flex items-center justify-around p-2 m-2 h-80'>
+    <section className='bg-slate-600 rounded-xl flex items-center justify-around p-2 m-2 h-80 md:text-xs xl:text-md xl:h-60'>
       <article className='flex w-4/12 items-center'>
         <div className='p-2'>
           <InfoIcon className='text-white' />

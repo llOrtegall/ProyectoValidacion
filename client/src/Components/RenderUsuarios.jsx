@@ -10,12 +10,13 @@ export function RenderUsuarios () {
   const [error, setError] = useState(null)
   const [user, setUser] = useState(null)
 
-  function handleClose() {
+  function handleClose () {
     setUser(null) // Cierra InfoUserChat
     // Aquí puedes resetear otros estados si es necesario
   }
 
   const handleClick = async (user) => {
+    // eslint-disable-next-line eqeqeq
     const foundUser = users.find(u => u.cedula == user.user)
     setUser(foundUser)
   }
@@ -46,8 +47,8 @@ export function RenderUsuarios () {
 
   return (
     <>
-      <main className='p-2 h-96 overflow-auto'>
-        <h1 className='bg-blue-600 py-2 rounded-lg text-center font-semibold text-white text-2xl'>Usuarios Registrados Por Chat Boot</h1>
+      <main className='p-2 h-96 overflow-auto md:h-72 xl:text-base'>
+        <h1 className='bg-blue-600 py-2 rounded-lg text-center font-semibold text-white text-2xl md:text-sm'>Usuarios Registrados Por Chat Boot</h1>
         <section className='flex'>
           <UserTable users={users} />
           <ValidacionUsers users={users} fun={handleClick} />

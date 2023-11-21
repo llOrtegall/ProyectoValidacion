@@ -1,6 +1,6 @@
 export function UserRow ({ user }) {
   return (
-    <tr>
+    <tr className='md:text-xs'>
       <td>{user.nombre}</td>
       <td>{user.cedula}</td>
       <td>{user.telefono}</td>

@@ -48,9 +48,7 @@ export const LoginForm = () => {
       <a className='text-orange-500 text-sm font-semibold text-end pt-2 pb-4'>Olvidaste tu contraseña</a>
       <button className='bg-orange-400 w-full rounded-lg p-3 text-white text-sm shadow-md hover:bg-green-100 hover:text-black'>Iniciar Sesión</button>
       {errorMessage ? <p className='absolute bottom-24 left-28 text-red-600 font-semibold'>{errorMessage}</p> : null}
-      <div className='pt-8'>
-        <p className='text-xs'>¿No tienes una cuenta? <span className='font-semibold'>Regístrate</span></p>
-      </div>
+
     </form>
   )
 }

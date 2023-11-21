@@ -17,7 +17,7 @@ function User ({ user, fun }) {
     return (
       <section className='flex justify-center'>
         <div className='w-full p-2 border bg-red-400'>No Registrado</div>
-        <div className='w-full p-2 border bg-yellow-400' onClick={() => handleClick(user)}>Opc Usuario</div>
+        <div className='w-full p-2 border bg-yellow-400 hover:cursor-pointer hover:bg-blue-400' onClick={() => handleClick(user)}>Opc Usuario</div>
       </section>
     )
   }
@@ -44,7 +44,7 @@ export function ValidacionUsers ({ users, fun }) {
     return <div>Error: {error}</div>
   }
   return (
-    <section className='w-1/3'>
+    <section className='w-1/3 md:text-xs xl:text-base'>
       <div className='flex justify-around p-2 bg-indigo-600 border text-white font-bold'>
         <h3 className='text-center'>User Cliente Fiel</h3>
         <h3 className='text-center'>Opciones Usuario</h3>

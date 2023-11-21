@@ -94,11 +94,11 @@ export function EditarClienteChat ({ client, funClose, fun2, fun3 }) {
 
   function StatusMessage ({ status }) {
     if (status === 'loading') {
-      return <div className='absolute -bottom-11 text-center font-semibold text-blue-300'>Cargando...</div>
+      return <div className='absolute -bottom-11 xl:-bottom-6 text-center font-semibold text-blue-300'>Cargando...</div>
     } else if (status === 'success') {
-      return <div className='absolute -bottom-11 text-center ext-center font-semibold text-green-300 '>La información del usuario ha sido actualizada.</div>
+      return <div className='absolute -bottom-11 xl:-bottom-6 text-center ext-center font-semibold text-green-300 '>La información del usuario ha sido actualizada.</div>
     } else if (status === 'error') {
-      return <div className='absolute -bottom-11 text-center font-semibold text-red-400'>Ha ocurrido un error al actualizar la información del usuario.</div>
+      return <div className='absolute -bottom-11 xl:-bottom-6 text-center font-semibold text-red-400'>Ha ocurrido un error al actualizar la información del usuario.</div>
     } else {
       return null
     }
@@ -140,8 +140,8 @@ export function EditarClienteChat ({ client, funClose, fun2, fun3 }) {
   }
 
   return (
-    <article className='w-full relative'>
-      <form onSubmit={handleSubmit} className='bg-gray-400 rounded-xl p-4 flex flex-col'>
+    <article className='w-full relative md:text-xs xl:text-md '>
+      <form onSubmit={handleSubmit} className='bg-gray-400 rounded-xl p-4 flex flex-col xl:p-2.5'>
         <div className='flex items-center'>
           <label className='w-28 font-semibold p-2 m-2'>Nombre 1:</label>
           <input className='rounded-md p-2 m-2' type='text' name='nombre1' value={updateUser.nombre1 || ''} onChange={handleChange} required />
