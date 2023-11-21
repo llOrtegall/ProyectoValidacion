@@ -9,14 +9,11 @@ export function RenderUsuarios () {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
 
-  const [opcUser, setOpcUser] = useState(null)
   const [user, setUser] = useState(null)
 
-  console.log(user)
-
-  function handleClick (user) {
-    setOpcUser(user)
-    setUser(users.find(u => u.cedula == opcUser.user))
+  const handleClick = async (user) => {
+    const foundUser = users.find(u => u.cedula == user.user)
+    setUser(foundUser)
   }
 
   const fetchData = useCallback(async () => {
@@ -53,7 +50,7 @@ export function RenderUsuarios () {
         </section>
       </main>
 
-      {user ? <InfoUserChat user={user} /> : null}
+      {user && <InfoUserChat user={user} />}
 
     </>
   )
