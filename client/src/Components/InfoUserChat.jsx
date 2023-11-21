@@ -43,7 +43,7 @@ export function InfoUserChat ({ user, fun2, fun3 }) {
       </article>
 
       <article className='flex flex-col w-2/12'>
-        <Button color='yellow' onClick={() => handleButtonClick('EditarClienteChat')}>Editar Usuario</Button>
+        <Button color='blue' onClick={() => handleButtonClick('EditarClienteChat')}>Editar Usuario</Button>
         <Button color='green' onClick={() => handleButtonClick('CrearClienteFiel')}>Agregar Usuario</Button>
         <Button color='red' onClick={() => handleButtonClick('SolicitarEliminacion')}>Eliminar</Button>
       </article>
