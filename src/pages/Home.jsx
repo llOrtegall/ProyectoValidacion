@@ -1,8 +1,8 @@
 export function Home() {
   return (
-    <div style={{background: 'blue'}}>
-      <h1>Home</h1>
+    <section className="w-full bg-gray-300 ">
+      <h1>Bienvenido</h1>
       <p>Home page content</p>
-    </div>
+    </section>
   )
 }
