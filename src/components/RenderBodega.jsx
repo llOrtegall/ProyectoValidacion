@@ -4,8 +4,6 @@ import { useEffect, useState } from "react"
 // eslint-disable-next-line react/prop-types
 export function RenderBodega({ id }) {
   const [bodega, setBodega] = useState('')
-  console.log(id)
-  console.log(bodega)  
 
   useEffect(() => {
     axios.post('/findBodegaWithItems', { itemId: id })
@@ -13,7 +11,7 @@ export function RenderBodega({ id }) {
         setBodega(res.data.nombreBodega)
       })
       .catch(err => console.log(err))
-  }, [])
+  }, [id])
 
   return (
     bodega
