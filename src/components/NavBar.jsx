@@ -13,7 +13,10 @@ export function NavBar() {
           <Link to="/home" className="font-semibold">Home</Link>
         </li>
         <li>
-        <Link to="/items" className="font-semibold">Items</Link>
+          <Link to="/items" className="font-semibold">Items</Link>
+        </li>
+        <li>
+          <Link to="/created-items" className="font-semibold">Created Items</Link>
         </li>
       </ul>
     </nav>
