@@ -1,6 +1,9 @@
+import axios from "axios"
 import { useState } from "react"
 
 export function CreatedBodega() {
+  const [message, setMessage] = useState('')
+  const [error, setError] = useState('')
 
   // nombre, sucursal, direccion
   const [item, setItem] = useState({
@@ -18,7 +21,26 @@ export function CreatedBodega() {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log(item)
+    axios.post('/createBodega', item)
+      .then(res => {
+        setMessage(res.data.message)
+        console.log(res)
+        setItem({
+          nombre: '',
+          sucursal: '',
+          direccion: '',
+        }) // limpiar el formulario
+        setTimeout(() => {
+          setMessage('')
+        }, 4000)
+      })
+      .catch(err => {
+        setError(err.response.data.error)
+        console.log(err)
+        setTimeout(() => {
+          setError('')
+        }, 4000)
+      })
   }
 
   return (
@@ -41,11 +63,13 @@ export function CreatedBodega() {
             placeholder="Cra 4 # 4-56 ... | Calle 5 # 5-67 ..."
             className="px-3 py-2 border border-gray-300 rounded-md" />
         </div>
-       
+
         <button className="text-md p-2 w-44  font-semibold text-white bg-blue-500 rounded-md hover:bg-blue-700">
           Crear
         </button>
       </form>
+      {message && <p className="text-green-500 font-semibold text-center">{message}</p>}
+      {error && <p className="text-red-500 font-semibold text-center">{error}</p>}
     </main>
   )
 
