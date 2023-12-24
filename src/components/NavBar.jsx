@@ -21,6 +21,9 @@ export function NavBar() {
         <li>
           <Link to="/created-bodega" className="font-semibold">Created Bodega</Link>
         </li>
+        <li>
+          <Link to="/asignarItemBodega" className="font-semibold">Asignar Item Bodega</Link>
+        </li>
       </ul>
     </nav>
   )

@@ -1,13 +1,16 @@
+import axios from "axios"
 import { useState } from "react"
 
 export function CreatedItems() {
+  const [message, setMessage] = useState('')
+  const [error, setError] = useState('')
+
   const [item, setItem] = useState({
     nombre: '',
     descripcion: '',
     placa: '',
     serial: '',
-    estado: '',
-    bodega: ''
+    estado: ''
   })
 
   const handleChange = (e) => {
@@ -19,7 +22,28 @@ export function CreatedItems() {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log(item)
+    axios.post('/createItem', item)
+      .then(res => {
+        console.log(res)
+        setItem({
+          nombre: '',
+          descripcion: '',
+          placa: '',
+          serial: '',
+          estado: ''
+        })
+        setMessage(res.data.message)
+        setTimeout(() => {
+          setMessage('')
+        }, 4000)
+      })
+      .catch(err => {
+        console.log(err)
+        setError(err.response.data.error)
+        setTimeout(() => {
+          setError('')
+        }, 4000)
+      })
   }
 
   return (
@@ -58,16 +82,15 @@ export function CreatedItems() {
             <option value="Regular">Regular</option>
           </select>
         </div>
-        <div className="flex flex-col mb-4">
-          <label className="mb-2 font-semibold text-gray-700">Bodega</label>
-          <input type="text" name="bodega" value={item.bodega} onChange={handleChange}
-            placeholder="Bodega 1 / Bodega 2 ..."
-          className="px-3 py-2 border border-gray-300 rounded-md" />
-        </div>
-        <button className="py-2 text-md font-semibold text-white bg-blue-500 rounded-md hover:bg-blue-700">
+        <button className="w-44 h-10 text-md font-semibold text-white bg-blue-500 rounded-md hover:bg-blue-700">
           Crear
         </button>
       </form>
+      <div className="w-full flex items-center justify-center">
+        {message && <p className="text-green-500 font-semibold">{message}</p>}
+        {error && <p className="text-red-500 font-semibold">{error}</p>}
+      </div>
+
     </main>
   )
 }
