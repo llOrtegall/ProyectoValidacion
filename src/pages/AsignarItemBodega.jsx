@@ -86,7 +86,7 @@ export function AsignarItemBodega() {
 
   return (
     <main className="w-ful">
-      <h1 className="text-2xl py-4 text-center">Asignar Item a Bodega</h1>
+      <h1 className="text-2xl py-4 text-center">Asignar Items a Bodega</h1>
 
       <form className="flex justify-around items-center" onSubmit={handleSubmit}>
 
@@ -94,7 +94,7 @@ export function AsignarItemBodega() {
           <p className="">Filtrar: Placa - Serial - Nombre</p>
           <input type="text" value={search} onChange={handleSearchChange} placeholder="Buscar Items..." className="bg-slate-200 w-64 p-2 rounded-md" />
           <select name="itemId" value={item.itemId} onChange={handleChange}
-            className="bg-slate-400 rounded-md shadow-lg p-2 w-96" >
+            className="bg-slate-300 rounded-md shadow-lg p-2 min-w-96" >
             <option value="">Seleccione un item para asignar</option>
             {
               filteredItems.map((item) => {
@@ -112,7 +112,7 @@ export function AsignarItemBodega() {
           <p className="">Filtrar: Sucursal - Serial - Nombre</p>
           <input type="text" value={searchBodega} onChange={handleSearchBodegaChange} placeholder="Buscar bodega..." className="bg-slate-200 w-64 p-2 rounded-md" />
           <select name="sucursal" value={item.sucursal} onChange={handleChange}
-            className="bg-slate-400 rounded-md shadow-lg p-2">
+            className="bg-slate-300 rounded-md shadow-lg p-2 min-w-96">
             <option value="">Seleccione una bodega</option>
             {
               filteredBodegas.map((bodega) => {

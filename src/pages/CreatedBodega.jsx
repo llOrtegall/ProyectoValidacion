@@ -44,8 +44,8 @@ export function CreatedBodega() {
   }
 
   return (
-    <main className="w-full h-full">
-      <form className="flex flex-col items-center p-8 m-8 gap-3 rounded-lg bg-blue-200" onSubmit={handleSubmit}>
+    <main className="w-full h-full flex items-center justify-center">
+      <form className="flex flex-col items-center p-8 m-8 gap-3 rounded-lg bg-blue-200 w-1/2" onSubmit={handleSubmit}>
         <div className="w-full flex flex-col mb-4">
           <label className="mb-2 font-semibold text-gray-700">Nombre Bodega | PDV</label>
           <input type="text" name="nombre" value={item.nombre} onChange={handleChange}
