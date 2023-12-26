@@ -2,14 +2,15 @@ import axios from "axios"
 import { useEffect, useState } from "react"
 
 export function AsignarItemBodega() {
-  const [message, setMessage] = useState('')
-  const [error, setError] = useState('')
-  const [search, setSearch] = useState("");
+  const [searchBodega, setSearchBodega] = useState("");
   const [bodegas, setBodegas] = useState([])
+  const [message, setMessage] = useState('')
+  const [search, setSearch] = useState("");
+  const [error, setError] = useState('')
   const [items, setItems] = useState([])
   const [item, setItem] = useState({
     itemId: '',
-    sucursal: '' 
+    sucursal: ''
   })
 
   useEffect(() => {
@@ -52,13 +53,13 @@ export function AsignarItemBodega() {
         setMessage(res.data.message)
         setTimeout(() => {
           setMessage('')
-        }, 4000)
+        }, 5000)
       })
-      .catch(err => {        
+      .catch(err => {
         setError(err.response.data.error)
         setTimeout(() => {
           setError('')
-        }, 4000)
+        }, 5000)
       })
   }
 
@@ -66,51 +67,72 @@ export function AsignarItemBodega() {
     setSearch(event.target.value);
   }
 
-  const filteredItems = items.filter(item => 
+  const handleSearchBodegaChange = (event) => {
+    setSearchBodega(event.target.value);
+  }
+
+  const filteredItems = items.filter(item =>
     item.nombre.toLowerCase().includes(search.toLowerCase()) ||
     item.placa.toLowerCase().includes(search.toLowerCase()) ||
     item.serial.toLowerCase().includes(search.toLowerCase())
   )
 
+  const filteredBodegas = bodegas.filter(bodega =>
+    bodega.nombre.toLowerCase().includes(searchBodega.toLowerCase()) ||
+    bodega.sucursal.toLowerCase().includes(searchBodega.toLowerCase()) ||
+    bodega.direccion.toLowerCase().includes(searchBodega.toLowerCase())
+  )
+
+
   return (
-    <main className="flex flex-col items-center w-full h-screenbg-slate-100">
-      <h1 className="text-2xl py-4 ">Asignar Item Bodega</h1>
+    <main className="w-ful">
+      <h1 className="text-2xl py-4 text-center">Asignar Item a Bodega</h1>
 
-      <input type="text" value={search} onChange={handleSearchChange} placeholder="Buscar..." />
-      <form className="flex gap-2" onSubmit={handleSubmit}>
-        <select name="itemId" value={item.itemId} onChange={handleChange}
-        className="bg-slate-400 rounded-md shadow-lg p-2" >
-          <option value="">Seleccione un item para asignar</option>
-          {
-            filteredItems.map((item) => {
-              return (
-                <option key={item._id} value={item._id} >
-                  {item.nombre} - {item.placa} - {item.serial}
-                </option>
-              )
-            })
-          }
-        </select>
+      <form className="flex justify-around items-center" onSubmit={handleSubmit}>
 
-        <select name="sucursal" value={item.sucursal} onChange={handleChange}
-        className="bg-slate-400 rounded-md shadow-lg p-2">
-          <option value="">Seleccione una bodega</option>
-          {
-            bodegas.map((bodega) => {
-              return (
-                <option key={bodega._id} value={bodega.sucursal} >
-                  {bodega.nombre} - {bodega.sucursal} - {bodega.direccion}
-                </option>
-              )
-            })
-          }
-        </select>
-        <button className="p-2 bg-blue-400 hover:bg-blue-600 w-44 rounded-lg text-white font-semibold">
+        <article className="flex flex-col gap-4">
+          <p className="">Filtrar: Placa - Serial - Nombre</p>
+          <input type="text" value={search} onChange={handleSearchChange} placeholder="Buscar Items..." className="bg-slate-200 w-64 p-2 rounded-md" />
+          <select name="itemId" value={item.itemId} onChange={handleChange}
+            className="bg-slate-400 rounded-md shadow-lg p-2 w-96" >
+            <option value="">Seleccione un item para asignar</option>
+            {
+              filteredItems.map((item) => {
+                return (
+                  <option key={item._id} value={item._id} >
+                    {item.nombre} - {item.placa} - {item.serial}
+                  </option>
+                )
+              })
+            }
+          </select>
+        </article>
+
+        <article className="flex flex-col gap-4">
+          <p className="">Filtrar: Sucursal - Serial - Nombre</p>
+          <input type="text" value={searchBodega} onChange={handleSearchBodegaChange} placeholder="Buscar bodega..." className="bg-slate-200 w-64 p-2 rounded-md" />
+          <select name="sucursal" value={item.sucursal} onChange={handleChange}
+            className="bg-slate-400 rounded-md shadow-lg p-2">
+            <option value="">Seleccione una bodega</option>
+            {
+              filteredBodegas.map((bodega) => {
+                return (
+                  <option key={bodega._id} value={bodega.sucursal} >
+                    {bodega.nombre} - {bodega.sucursal} - {bodega.direccion}
+                  </option>
+                )
+              })
+            }
+          </select>
+        </article>
+
+        <button className="w-60 h-10 bg-blue-400 hover:bg-blue-600 rounded-lg text-white font-semibold">
           Asignar
         </button>
+
       </form>
-      { message && <p className="text-green-500 font-semibold">{message}</p> }
-      { error && <p className="text-red-500 font-semibold">{error}</p> }
+      {message && <p className="text-green-500 font-semibold text-center mt-4">{message}</p>}
+      {error && <p className="text-red-500 font-semibold text-center mt-4">{error}</p>}
     </main>
   )
 }
