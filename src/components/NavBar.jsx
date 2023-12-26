@@ -24,6 +24,9 @@ export function NavBar() {
         <li>
           <Link to="/asignarItemBodega" className="font-semibold">Asignar Item Bodega</Link>
         </li>
+        <li>
+          <Link to="/bodegas" className="font-semibold">Bodegas</Link>
+        </li>
       </ul>
     </nav>
   )
