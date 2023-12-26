@@ -53,8 +53,7 @@ export function AsignarItemBodega() {
           setMessage('')
         }, 4000)
       })
-      .catch(err => {
-        console.log(err)
+      .catch(err => {        
         setError(err.response.data.error)
         setTimeout(() => {
           setError('')
