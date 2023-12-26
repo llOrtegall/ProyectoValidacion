@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 export function AsignarItemBodega() {
   const [message, setMessage] = useState('')
   const [error, setError] = useState('')
+  const [search, setSearch] = useState("");
   const [bodegas, setBodegas] = useState([])
   const [items, setItems] = useState([])
   const [item, setItem] = useState({
@@ -61,16 +62,27 @@ export function AsignarItemBodega() {
       })
   }
 
+  const handleSearchChange = (event) => {
+    setSearch(event.target.value);
+  }
+
+  const filteredItems = items.filter(item => 
+    item.nombre.toLowerCase().includes(search.toLowerCase()) ||
+    item.placa.toLowerCase().includes(search.toLowerCase()) ||
+    item.serial.toLowerCase().includes(search.toLowerCase())
+  )
+
   return (
     <main className="flex flex-col items-center w-full h-screenbg-slate-100">
       <h1 className="text-2xl py-4 ">Asignar Item Bodega</h1>
 
+      <input type="text" value={search} onChange={handleSearchChange} placeholder="Buscar..." />
       <form className="flex gap-2" onSubmit={handleSubmit}>
         <select name="itemId" value={item.itemId} onChange={handleChange}
         className="bg-slate-400 rounded-md shadow-lg p-2" >
           <option value="">Seleccione un item para asignar</option>
           {
-            items.map((item) => {
+            filteredItems.map((item) => {
               return (
                 <option key={item._id} value={item._id} >
                   {item.nombre} - {item.placa} - {item.serial}
