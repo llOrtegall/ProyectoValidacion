@@ -46,7 +46,7 @@ export function Items() {
 
       <section className="flex flex-col gap-2 pt-2">
         {filteredItems.map(item => (
-          <article key={item._id} className="grid grid-cols-6 text-center p-4 shadow-md rounded-md gap-2 bg-white">
+          <article key={item._id} className="grid grid-cols-6 text-center p-4 shadow-md rounded-md gap-2 bg-white uppercase">
             <p className="font-semibold">{item.nombre}</p>
             <p className="text-gray-500 ">{item.descripcion}</p>
             <p className="text-gray-500 ">{item.serial}</p>

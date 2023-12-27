@@ -26,7 +26,6 @@ export function AsignarItemBodega() {
   useEffect(() => {
     axios.get('/getItems')
       .then((response) => {
-        console.log(response.data);
         setItems(response.data)
       })
       .catch((error) => {
