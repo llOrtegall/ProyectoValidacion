@@ -29,6 +29,9 @@ export function NavBar() {
         <li>
           <Link to="/bodegas" className="font-semibold">Bodegas</Link>
         </li>
+        <li>
+          <Link to="/crearMovimiento" className="font-semibold">Crear Movimiento</Link>
+        </li>
       </ul>
     </nav>
   )
