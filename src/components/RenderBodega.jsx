@@ -15,7 +15,7 @@ export function RenderBodega({ id }) {
 
   return (
     bodega
-      ? <p className="text-gray-500 ">{bodega}</p>
-      : <p className="text-gray-500 ">No hay bodega</p>
+      ? <p className="text-gray-500">{bodega}</p>
+      : <p className="text-gray-500">No hay bodega</p>
   )
 }

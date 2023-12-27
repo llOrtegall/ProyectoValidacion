@@ -45,7 +45,7 @@ export function Bodegas() {
       {
         filteredItems.map(bodega => (
           <section key={bodega._id} className="grid grid-cols-10 border border-gray-400 rounded place-items-center">
-            <article className="col-span-3">
+            <article className="col-span-2">
               <h2 className="font-semibold">{bodega.nombre}</h2>
               <p><span className="font-semibold">Sucursal: </span> {bodega.sucursal}</p>
               <p><span className="font-semibold">Dirección: </span>{bodega.direccion}</p>
