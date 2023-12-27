@@ -29,7 +29,7 @@ export function Items() {
   return (
     <main className="bg-gray-300 p-2">
       <section className="flex flex-col gap-2">
-        <article className="grid grid-cols-6 text-center mb-2 bg-green-300 p-4 shadow-md rounded-md gap-2">
+        <article className="grid grid-cols-6 text-center mb-2 bg-yellow-200 p-4 shadow-lg rounded-md gap-2">
           <p className="text-lg font-semibold">Items</p>
           <p className="text-lg font-semibold">Descripción</p>
           <p className="text-lg font-semibold">Serial</p>
@@ -39,9 +39,9 @@ export function Items() {
         </article>
       </section>
 
-      <section className="flex items-center justify-center gap-6 p-2 bg-blue-400 rounded-md shadow-lg">
+      <section className="flex items-center justify-center gap-6 p-2 bg-blue-500  rounded-md shadow-lg">
         <p className=""><span className="font-semibold pr-2">Filtrar:</span>| Placa | Serial | Nombre |</p>
-        <input type="text" value={search} onChange={handleSearchChange} placeholder="Buscar Items..." className="bg-slate-200 w-64 p-2 rounded-md" />
+        <input type="text" value={search} onChange={handleSearchChange} placeholder="Buscar Items..." className="bg-slate-100 w-64 p-2 rounded-md" />
       </section>
 
       <section className="flex flex-col gap-2 pt-2">

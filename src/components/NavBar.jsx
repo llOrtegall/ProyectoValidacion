@@ -2,13 +2,15 @@ import { Link } from "react-router-dom";
 
 export function NavBar() {
   return (
-    <nav className="w-full bg-blue-400 p-2 shadow-lg">
+    <nav className="w-full bg-blue-400 p-2 shadow-lg min-h-16 items-center flex justify-around">
       <ul className="flex justify-around items-center text-white">
-        <ul>
+        <li>
           <figure>
             <img src="vite.svg" alt="" />
           </figure>
-        </ul>
+        </li>
+      </ul>
+      <ul className="flex justify-around items-center text-white gap-4">
         <li>
           <Link to="/home" className="font-semibold">Home</Link>
         </li>
