@@ -1,18 +1,28 @@
-import axios from "axios"
+import { ItemsInBodega } from "../components/itemsInBodega"
 import { useEffect, useState } from "react"
+import axios from "axios"
 
 export function Bodegas() {
   const [bodegas, setBodegas] = useState([])
   const [search, setSearch] = useState('')
+  const [activeBodegaId, setActiveBodegaId] = useState(null);
 
   const handleSearchChange = (event) => {
     setSearch(event.target.value);
+  }
+
+  const handleActive = (id) => {
+    setActiveBodegaId(id)
   }
 
   const filteredItems = bodegas.filter(item =>
     item.nombre.toLowerCase().includes(search.toLowerCase()) ||
     item.sucursal.toLowerCase().includes(search.toLowerCase())
   )
+
+  const restartActive = () => {
+    setActiveBodegaId(null)
+  }
 
   useEffect(() => {
     axios.get('/getBodegas')
@@ -32,7 +42,7 @@ export function Bodegas() {
       </section>
       {
         filteredItems.map(bodega => (
-          <article key={bodega._id} className="flex justify-between items-center p-4 border border-gray-400 rounded shadow-lg">
+          <article key={bodega._id} className="flex mt-2 justify-around px-4 items-center border border-gray-400 rounded">
             <div>
               <h2 className="font-semibold">{bodega.nombre}</h2>
               <p><span className="font-semibold">Sucursal: </span> {bodega.sucursal}</p>
@@ -42,6 +52,16 @@ export function Bodegas() {
               <p>Items Asignados</p>
               <p className="text-center">{bodega.items.length}</p>
             </div>
+            <div>
+              <button className="p-2 text-white font-semibold rounded-md bg-blue-400 hover:bg-blue-600" onClick={() => handleActive(bodega._id)}>
+                Ver Items Asignados
+              </button>
+            </div>
+            {
+              activeBodegaId === bodega._id ?
+                <ItemsInBodega bodega={bodega} key={bodega._id} fun={restartActive}/>
+                : null
+            }
           </article>
         ))
       }
