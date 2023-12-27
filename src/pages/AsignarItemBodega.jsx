@@ -91,7 +91,7 @@ export function AsignarItemBodega() {
       <form className="flex justify-around items-center" onSubmit={handleSubmit}>
 
         <article className="flex flex-col gap-4">
-          <p className="">Filtrar: Placa - Serial - Nombre</p>
+          <p className=""><span className="font-semibold pr-2">Filtrar:</span>| Placa | Serial | Nombre |</p>
           <input type="text" value={search} onChange={handleSearchChange} placeholder="Buscar Items..." className="bg-slate-200 w-64 p-2 rounded-md" />
           <select name="itemId" value={item.itemId} onChange={handleChange}
             className="bg-slate-300 rounded-md shadow-lg p-2 min-w-96" >
@@ -109,7 +109,7 @@ export function AsignarItemBodega() {
         </article>
 
         <article className="flex flex-col gap-4">
-          <p className="">Filtrar: Sucursal - Serial - Nombre</p>
+          <p className=""><span className="font-semibold pr-2">Filtrar:</span>| Sucursal | Serial | Nombre |</p>
           <input type="text" value={searchBodega} onChange={handleSearchBodegaChange} placeholder="Buscar bodega..." className="bg-slate-200 w-64 p-2 rounded-md" />
           <select name="sucursal" value={item.sucursal} onChange={handleChange}
             className="bg-slate-300 rounded-md shadow-lg p-2 min-w-96">

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react"
 import { RenderBodega } from '../components/RenderBodega.jsx'
 
 export function Items() {
-
+  const [search, setSearch] = useState("")
   const [items, setItems] = useState([])
 
   useEffect(() => {
@@ -13,6 +13,16 @@ export function Items() {
       })
       .catch(err => console.log(err))
   }, [])
+
+  const handleSearchChange = (event) => {
+    setSearch(event.target.value);
+  }
+
+  const filteredItems = items.filter(item =>
+    item.nombre.toLowerCase().includes(search.toLowerCase()) ||
+    item.placa.toLowerCase().includes(search.toLowerCase()) ||
+    item.serial.toLowerCase().includes(search.toLowerCase())
+  )
 
 
 
@@ -28,8 +38,14 @@ export function Items() {
           <p className="text-lg font-semibold">Ubicación</p>
         </article>
       </section>
-      <section className="flex flex-col gap-2">
-        {items.map(item => (
+
+      <section className="flex items-center justify-center gap-6 p-2 bg-blue-400 rounded-md shadow-lg">
+        <p className=""><span className="font-semibold pr-2">Filtrar:</span>| Placa | Serial | Nombre |</p>
+        <input type="text" value={search} onChange={handleSearchChange} placeholder="Buscar Items..." className="bg-slate-200 w-64 p-2 rounded-md" />
+      </section>
+
+      <section className="flex flex-col gap-2 pt-2">
+        {filteredItems.map(item => (
           <article key={item._id} className="grid grid-cols-6 text-center p-4 shadow-md rounded-md gap-2 bg-white">
             <p className="font-semibold">{item.nombre}</p>
             <p className="text-gray-500 ">{item.descripcion}</p>
