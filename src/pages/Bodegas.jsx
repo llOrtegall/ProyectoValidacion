@@ -36,33 +36,37 @@ export function Bodegas() {
 
   return (
     <main>
+
       <section className="flex items-center justify-center gap-6 p-2 bg-blue-500  rounded-md shadow-lg m-2">
         <p className=""><span className="font-semibold pr-2">Filtrar:</span>| Sucursal | Nombre |</p>
         <input type="text" value={search} onChange={handleSearchChange} placeholder="Buscar Bodega..." className="bg-slate-100 w-64 p-2 rounded-md" />
       </section>
+
       {
         filteredItems.map(bodega => (
-          <article key={bodega._id} className="flex mt-2 justify-around px-4 items-center border border-gray-400 rounded">
-            <div>
+          <section key={bodega._id} className="grid grid-cols-10 border border-gray-400 rounded place-items-center">
+            <article className="col-span-3">
               <h2 className="font-semibold">{bodega.nombre}</h2>
               <p><span className="font-semibold">Sucursal: </span> {bodega.sucursal}</p>
               <p><span className="font-semibold">Dirección: </span>{bodega.direccion}</p>
-            </div>
-            <div>
-              <p>Items Asignados</p>
-              <p className="text-center">{bodega.items.length}</p>
-            </div>
-            <div>
-              <button className="p-2 text-white font-semibold rounded-md bg-blue-400 hover:bg-blue-600" onClick={() => handleActive(bodega._id)}>
-                Ver Items Asignados
-              </button>
-            </div>
-            {
-              activeBodegaId === bodega._id ?
-                <ItemsInBodega bodega={bodega} key={bodega._id} fun={restartActive}/>
-                : null
-            }
-          </article>
+            </article>
+
+            <article className="col-span-1">
+              <p>Items Asignados: <span className="font-semibold">{bodega.items.length}</span></p>
+            </article>
+
+            <button className="col-span-2 p-2 h-10  text-white font-semibold rounded-md bg-blue-400 hover:bg-blue-600" onClick={() => handleActive(bodega._id)}>
+              Ver Items Asignados
+            </button>
+            <article className="col-span-4">
+              {
+                activeBodegaId === bodega._id ?
+                  <ItemsInBodega bodega={bodega} key={bodega._id} fun={restartActive} />
+                  : null
+              }
+            </article>
+
+          </section>
         ))
       }
     </main>

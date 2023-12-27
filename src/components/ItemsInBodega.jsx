@@ -5,8 +5,8 @@ export function ItemsInBodega({ bodega, fun }) {
   const restartActive = fun
 
   return (
-    <article className="border-r border-b border-l px-4 border-gray-400 rounded-md">
-      <section className="grid grid-cols-4 border-b-2 font-semibold border-gray-400 py-2 relative">
+    <article className="border-r border-b border-l px-4 border-gray-400 rounded-md text-sm">
+      <section className="grid grid-cols-4 border-b-2 font-semibold border-gray-400 py-2 relative uppercase">
         <p>Nombre Item</p>
         <p>Descripción</p>
         <p>Placa</p>
@@ -18,9 +18,9 @@ export function ItemsInBodega({ bodega, fun }) {
       <section>
 
         {bodega.items.map(item => (
-          <div key={item._id} className="grid grid-cols-4">
-            <p>{item.nombre}</p>
-            <p>{item.descripcion}</p>
+          <div key={item._id} className="grid grid-cols-4 gap-4">
+            <p className='uppercase'>{item.nombre}</p>
+            <p className='uppercase'>{item.descripcion}</p>
             <p>{item.placa}</p>
             <p>{item.serial}</p>
           </div>
