@@ -10,7 +10,13 @@ export function CrearMovimiento() {
   const [items, setItems] = useState([])
 
   const handleAddItem = (ev) => {
-    setItems([...items, ev])
+    setItems(prevItems => {
+      if (!prevItems.includes(ev)) {
+        return [...prevItems, ev];
+      } else {
+        return prevItems;
+      }
+    })
   }
 
   const searchBodegaOrigen = (ev) => {
@@ -74,8 +80,8 @@ export function CrearMovimiento() {
       <section className="grid grid-cols-2 p-2 bg-red-100">
 
         <article className="flex flex-col items-center">
-          
-          <header className="rounded-md p-2 bg-slate-600 text-white grid grid-cols-3 place-items-center mb-2">
+
+          <header className="w-full rounded-md p-2 bg-slate-600 text-white grid grid-cols-3 place-items-center mb-2">
             <h3> <span className="font-bold">Nombre:</span>  {bodegaOrigen?.nombre}</h3>
             <p> <span className="font-bold">Direccion:</span>  {bodegaOrigen?.direccion}</p>
             <p> <span className="font-bold">Sucursal:</span>  {bodegaOrigen?.sucursal}</p>
@@ -92,15 +98,19 @@ export function CrearMovimiento() {
             <p className="font-semibold">Agregar</p>
           </section>
 
-          <div style={{ maxHeight: '450px', overflowY: 'auto' }} className="w-full">
-            {bodegaOrigen?.items.map(producto => (
-              <section key={producto._id} className="grid grid-cols-3 p-2 bg-blue-300 rounded-md mb-2 place-items-center">
-                <p>{producto.nombre}</p>
-                <p>{producto.placa}</p>
-                <button value={producto._id} onClick={ev => handleAddItem(ev.target.value)}> + </button>
-              </section>
-            ))}
-          </div>
+          {bodegaOrigen?.items.map(producto => (
+            <section key={producto._id} className="grid grid-cols-3 p-2 bg-blue-300 rounded-md mb-2 place-items-center">
+              <p>{producto.nombre}</p>
+              <p>{producto.placa}</p>
+              <button
+                value={producto._id}
+                onClick={ev => handleAddItem(ev.target.value)}
+                className={items.includes(producto._id) ? 'added' : ''}
+              >
+                +
+              </button>
+            </section>
+          ))}
 
           <button className="p-2 w-44 bg-green-400 rounded-md" onClick={handleClick}>
             Hacer Traslado

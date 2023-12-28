@@ -27,6 +27,8 @@ export function Bodegas() {
   useEffect(() => {
     axios.get('/getBodegas')
       .then(response => {
+        console.log(response.data)
+        
         setBodegas(response.data)
         // localStorage.setItem('bodegas', JSON.stringify(response.data))
       })
