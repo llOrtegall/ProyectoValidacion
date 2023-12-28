@@ -73,33 +73,36 @@ export function CrearMovimiento() {
 
       <section className="grid grid-cols-2 p-2 bg-red-100">
 
-        <article className="">
-          <header className="rounded-md p-2 bg-slate-600 text-white grid grid-cols-3 place-items-center">
+        <article className="flex flex-col items-center">
+          
+          <header className="rounded-md p-2 bg-slate-600 text-white grid grid-cols-3 place-items-center mb-2">
             <h3> <span className="font-bold">Nombre:</span>  {bodegaOrigen?.nombre}</h3>
             <p> <span className="font-bold">Direccion:</span>  {bodegaOrigen?.direccion}</p>
             <p> <span className="font-bold">Sucursal:</span>  {bodegaOrigen?.sucursal}</p>
           </header>
 
-          <section className="flex items-center justify-center gap-6 bg-yellow-400 rounded-md px-4 py-2 mb-2">
+          <section className="grid grid-cols-2 w-full place-items-center gap-6 bg-yellow-400 rounded-md px-4 py-2 mb-2">
             <p><span className="font-semibold pr-2">Filtrar:</span>| Placa | Serial | Nombre |</p>
             <input type="text" placeholder="Buscar Items..." className="bg-slate-100 w-64 rounded-md p-1" />
           </section>
 
-          <section className="grid grid-cols-3">
+          <section className="grid grid-cols-3 w-full place-items-center p-2 bg-slate-500 rounded-md mb-2">
             <p className="font-semibold">Nombre Item</p>
             <p className="font-semibold">Placa</p>
             <p className="font-semibold">Agregar</p>
           </section>
 
-          {bodegaOrigen?.items.map(producto => (
-            <section key={producto._id} className="grid grid-cols-3">
-              <p>{producto.nombre}</p>
-              <p>{producto.placa}</p>
-              <button value={producto._id} onClick={ev => handleAddItem(ev.target.value)}> + </button>
-            </section>
-          ))}
+          <div style={{ maxHeight: '450px', overflowY: 'auto' }} className="w-full">
+            {bodegaOrigen?.items.map(producto => (
+              <section key={producto._id} className="grid grid-cols-3 p-2 bg-blue-300 rounded-md mb-2 place-items-center">
+                <p>{producto.nombre}</p>
+                <p>{producto.placa}</p>
+                <button value={producto._id} onClick={ev => handleAddItem(ev.target.value)}> + </button>
+              </section>
+            ))}
+          </div>
 
-          <button className="p-2 bg-green-400 rounded-md" onClick={handleClick}>
+          <button className="p-2 w-44 bg-green-400 rounded-md" onClick={handleClick}>
             Hacer Traslado
           </button>
 
