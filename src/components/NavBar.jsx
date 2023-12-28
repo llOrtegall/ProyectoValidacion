@@ -32,6 +32,9 @@ export function NavBar() {
         <li>
           <Link to="/crearMovimiento" className="font-semibold">Crear Movimiento</Link>
         </li>
+        <li>
+          <Link to="/verMovimientos" className="font-semibold">Ver Movimientos</Link>
+        </li>
       </ul>
     </nav>
   )

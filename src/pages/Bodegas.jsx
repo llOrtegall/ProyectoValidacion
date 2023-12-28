@@ -15,7 +15,7 @@ export function Bodegas() {
     setActiveBodegaId(id)
   }
 
-  const filteredItems = bodegas.filter(item =>
+  const filterBodegas = bodegas.filter(item =>
     item.nombre.toLowerCase().includes(search.toLowerCase()) ||
     item.sucursal.toLowerCase().includes(search.toLowerCase())
   )
@@ -28,6 +28,7 @@ export function Bodegas() {
     axios.get('/getBodegas')
       .then(response => {
         setBodegas(response.data)
+        // localStorage.setItem('bodegas', JSON.stringify(response.data))
       })
       .catch(error => {
         console.log(error)
@@ -43,7 +44,7 @@ export function Bodegas() {
       </section>
 
       {
-        filteredItems.map(bodega => (
+        filterBodegas.map(bodega => (
           <section key={bodega._id} className="grid grid-cols-10 border border-gray-400 rounded place-items-center">
             <article className="col-span-2">
               <h2 className="font-semibold">{bodega.nombre}</h2>

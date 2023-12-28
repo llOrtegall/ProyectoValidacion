@@ -11,6 +11,7 @@ import { CreatedBodega } from './pages/createdBodega.jsx'
 import { Bodegas } from './pages/Bodegas.jsx'
 
 import axios from 'axios'
+import { VerMovimientos } from './pages/verMovimientos.jsx'
 
 axios.defaults.baseURL = 'http://localhost:3000'
 
@@ -26,6 +27,7 @@ export function App() {
           <Route path='asignarItemBodega' element={<AsignarItemBodega />}></Route>
           <Route path='bodegas' element={<Bodegas />}></Route>
           <Route path='crearMovimiento' element={<CrearMovimiento />}></Route>
+          <Route path='verMovimientos' element={<VerMovimientos/>}></Route>
         </Route>
         <Route path="*" element={<h1>Not Found</h1>}></Route>
       </Routes>
