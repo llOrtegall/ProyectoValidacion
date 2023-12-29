@@ -166,7 +166,7 @@ export function CrearMovimiento() {
             <p className="font-semibold">Agregar</p>
           </section>
 
-          <div style={{ maxHeight: '300px', overflowY: 'auto' }}>
+          <section style={{ maxHeight: '330px', overflowY: 'auto' }} className='mb-2'>
             {
               bodegaOrigen && (
                 filteredItems.map(p => (
@@ -184,9 +184,9 @@ export function CrearMovimiento() {
                 ))
               )
             }
-          </div>
+          </section>
 
-          <section className="py-4 bg-slate-600 rounded-md text-white">
+          <footer className="py-4 bg-slate-600 rounded-md text-white">
             <form className="grid grid-cols-2 gap-3">
               <label className="flex h-10 items-center ml-3"> <span className="font-semibold w-32">Encargado:</span>
                 <input type="text" className="w-full p-2 rounded-md col-span-1 bg-slate-100 no-underline text-black"
@@ -210,7 +210,7 @@ export function CrearMovimiento() {
                   placeholder="texto para registrar observación ..." />
               </label>
             </form>
-          </section>
+          </footer>
 
           <section className="flex w-full justify-center mt-4">
             <button className="p-2 text-white font-bold w-48 bg-green-600 rounded-md hover:bg-white hover:text-black" onClick={handleClick}>
