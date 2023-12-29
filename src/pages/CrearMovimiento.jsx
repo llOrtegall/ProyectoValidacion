@@ -123,24 +123,24 @@ export function CrearMovimiento() {
   )
 
   return (
-    <main className="w-full bg-blue-200">
+    <main className="w-full">
 
       <section className="grid grid-cols-3 place-items-center py-4">
 
-        <form className="p-2 bg-blue-400 rounded-lg flex flex-col gap-2 text-center col-span-2" onSubmit={searchBodegaOrigen}>
-          <h3 className="font-semibold">Bodega De Origen</h3>
+        <form className="p-2 bg-gray-600 rounded-lg flex flex-col gap-2 text-center col-span-2" onSubmit={searchBodegaOrigen}>
+          <h3 className="font-semibold text-white">Bodega De Origen</h3>
           <input type="text" value={search} onChange={ev => setSearch(ev.target.value)}
             placeholder="40001 | 34545"
             className="bg-slate-100 w-64 p-2 rounded-md" />
-          <button className="bg-green-300 rounded-md p-2 hover:bg-white">Buscar Sucursal</button>
+          <button className="bg-green-600 text-white rounded-md p-2 font-semibold hover:bg-white hover:text-black">Buscar Sucursal</button>
         </form>
 
-        <form className="p-2 bg-blue-400 rounded-lg flex flex-col gap-2 text-center col-span-1" onSubmit={searchBodegaDestino}>
-          <h3 className="font-semibold">Bodega De Destino</h3>
+        <form className="p-2 bg-gray-600 rounded-lg flex flex-col gap-2 text-center col-span-1" onSubmit={searchBodegaDestino}>
+          <h3 className="font-semibold text-white">Bodega De Destino</h3>
           <input type="text" value={search2} onChange={ev => setSearch2(ev.target.value)}
             placeholder="40001 | 34545"
             className="bg-slate-100 w-64 p-2 rounded-md" />
-          <button className="bg-green-300 rounded-md p-2 hover:bg-white">Buscar Sucursal</button>
+          <button className="bg-green-600 text-white rounded-md p-2 font-semibold hover:bg-white hover:text-black">Buscar Sucursal</button>
         </form>
       </section>
 

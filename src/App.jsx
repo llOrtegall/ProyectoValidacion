@@ -17,7 +17,7 @@ axios.defaults.baseURL = 'http://localhost:3000'
 
 export function App() {
   return (
-    <section className='w-screen h-full'>
+    <section className='w-screen h-screen bg-gray-300'>
       <Routes>
         <Route path="/" element={< Layout />}>
           <Route path="home" element={< Home />}></Route>
