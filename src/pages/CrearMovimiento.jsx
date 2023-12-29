@@ -1,4 +1,4 @@
-import { AddIcon, DeleteIcon, WarningIcon } from '../components/Icons.jsx'
+import { AddIcon, DeleteIcon, SuccesIcon, WarningIcon } from '../components/Icons.jsx'
 import { useState } from "react"
 import axios from "axios"
 
@@ -39,7 +39,8 @@ export function CrearMovimiento() {
   function ItemsAgregados({ id }) {
     const item = bodegaOrigen?.items.find(item => item._id === id);
     return (
-      <main key={item._id} className="grid grid-cols-2 place-items-center mb-2 p-2 rounded-md bg-yellow-500">
+      <main key={item._id} className="grid grid-cols-3 place-items-center mb-2 p-2 rounded-md bg-yellow-500">
+        <p>{item?.nombre}</p>
         <p>{item?.placa}</p>
         <button onClick={() => handleRemoveItem(id)} className="hover:bg-red-400 rounded-full p-1 hover:text-white">
           <DeleteIcon />
@@ -225,15 +226,18 @@ export function CrearMovimiento() {
             <p> <span className="font-semibold">Sucursal:</span>  {bodegaDestino?.sucursal}</p>
             <p> <span className="font-semibold">Direccion:</span>  {bodegaDestino?.direccion}</p>
           </header>
-          <main className="">
+          <main>
             <h2 className="text-center py-2 font-semibold bg-green-400 mb-2 rounded-md">Items Que Ingresarán :</h2>
-            {
-              bodegaOrigen && (
-                items?.map((item, index) => (
-                  <ItemsAgregados id={item} key={index} />
-                ))
-              )
-            }
+            <section style={{ maxHeight: '450px', overflowY: 'auto' }}>
+              {
+                bodegaOrigen && (
+                  items?.map((item, index) => (
+                    <ItemsAgregados id={item} key={index} />
+                  ))
+                )
+              }
+            </section>
+
           </main>
         </article>
       </section>
@@ -242,21 +246,21 @@ export function CrearMovimiento() {
         <article className="flex items-center justify-center">
           {message &&
             <div className='flex gap-2'>
-              <figure className='bg-yellow-300 flex items-center justify-center text-center px-2 rounded-md'>
-                <WarningIcon />
+              <figure className='bg-green-600 text-white font-bold flex items-center justify-center text-center px-2 rounded-md'>
+                <SuccesIcon />
               </figure>
-              <p className="text-center bg-green-400 text-white font-semibold p-2 rounded-md">
+              <p className="text-center bg-green-600 text-white font-semibold p-2 rounded-md">
                 {message}
               </p>
             </div>
           }
           {error &&
             <div className='flex gap-2'>
-                <figure className='bg-yellow-300 flex items-center justify-center text-center px-2 rounded-md'>
+              <figure className='bg-red-400 text-white flex items-center justify-center text-center px-2 rounded-md'>
                 <WarningIcon />
               </figure>
               <p className="text-center bg-red-400 text-white font-semibold p-2 rounded-md">
-                {error}                
+                {error}
               </p>
             </div>
           }
