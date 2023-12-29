@@ -39,7 +39,7 @@ export function CrearMovimiento() {
   function ItemsAgregados({ id }) {
     const item = bodegaOrigen?.items.find(item => item._id === id);
     return (
-      <main key={item._id} className="grid grid-cols-3 place-items-center mb-2 p-2 rounded-md bg-orange-400">
+      <main key={item._id} className="grid grid-cols-3 place-items-center mb-2 p-2 rounded-md bg-orange-400 border">
         <p>{item?.nombre}</p>
         <p>{item?.placa}</p>
         <button onClick={() => handleRemoveItem(id)} className="hover:bg-red-400 rounded-full p-1 hover:text-white">
