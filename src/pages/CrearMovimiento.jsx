@@ -39,7 +39,7 @@ export function CrearMovimiento() {
   function ItemsAgregados({ id }) {
     const item = bodegaOrigen?.items.find(item => item._id === id);
     return (
-      <main key={item._id} className="grid grid-cols-3 place-items-center mb-2 p-2 rounded-md bg-yellow-500">
+      <main key={item._id} className="grid grid-cols-3 place-items-center mb-2 p-2 rounded-md bg-orange-400">
         <p>{item?.nombre}</p>
         <p>{item?.placa}</p>
         <button onClick={() => handleRemoveItem(id)} className="hover:bg-red-400 rounded-full p-1 hover:text-white">
@@ -125,9 +125,9 @@ export function CrearMovimiento() {
   return (
     <main className="w-full">
 
-      <section className="grid grid-cols-3 place-items-center py-4">
+      <section className="grid grid-cols-3 py-4 w-full gap-4 p-2">
 
-        <form className="p-2 bg-gray-600 rounded-lg flex flex-col gap-2 text-center col-span-2" onSubmit={searchBodegaOrigen}>
+        <form className="w-full p-2 bg-gray-600 rounded-lg flex items-center gap-2 text-center col-span-2 place-content-center" onSubmit={searchBodegaOrigen}>
           <h3 className="font-semibold text-white">Bodega De Origen</h3>
           <input type="text" value={search} onChange={ev => setSearch(ev.target.value)}
             placeholder="40001 | 34545"
@@ -135,7 +135,7 @@ export function CrearMovimiento() {
           <button className="bg-green-600 text-white rounded-md p-2 font-semibold hover:bg-white hover:text-black">Buscar Sucursal</button>
         </form>
 
-        <form className="p-2 bg-gray-600 rounded-lg flex flex-col gap-2 text-center col-span-1" onSubmit={searchBodegaDestino}>
+        <form className="w-full p-2 bg-gray-600 rounded-lg flex items-center gap-2 text-center col-span-1 place-content-center" onSubmit={searchBodegaDestino}>
           <h3 className="font-semibold text-white">Bodega De Destino</h3>
           <input type="text" value={search2} onChange={ev => setSearch2(ev.target.value)}
             placeholder="40001 | 34545"
@@ -154,12 +154,12 @@ export function CrearMovimiento() {
             <p> <span className="font-bold">Sucursal:</span>  {bodegaOrigen?.sucursal}</p>
           </header>
 
-          <section className="grid grid-cols-2 w-full place-items-center gap-6 bg-yellow-400 rounded-md px-4 py-2 mb-2">
+          <section className="grid grid-cols-2 w-full place-items-center gap-6 bg-slate-600 text-white rounded-md px-4 py-2 mb-2">
             <p><span className="font-semibold pr-2">Filtrar:</span>| Placa | Serial | Nombre |</p>
-            <input type="text" placeholder="Buscar Items..." className="bg-slate-100 w-64 rounded-md p-1" value={filtro} onChange={ev => setFiltro(ev.target.value)} />
+            <input type="text" placeholder="Buscar Items..." className="bg-slate-100 w-64 rounded-md p-1 text-black" value={filtro} onChange={ev => setFiltro(ev.target.value)} />
           </section>
 
-          <section className="grid grid-cols-4 w-full place-items-center p-2 bg-slate-500 rounded-md mb-2">
+          <section className="grid grid-cols-4 w-full place-items-center p-2 bg-slate-600 rounded-md mb-2 text-white">
             <p className="font-semibold">Nombre Item</p>
             <p className="font-semibold">Placa</p>
             <p className="font-semibold">Serial</p>
@@ -170,7 +170,7 @@ export function CrearMovimiento() {
             {
               bodegaOrigen && (
                 filteredItems.map(p => (
-                  <section key={p._id} className="w-full grid grid-cols-4 p-2 bg-blue-600 rounded-md mb-2 place-items-center text-white">
+                  <section key={p._id} className="w-full grid grid-cols-4 p-2 bg-blue-500 rounded-md mb-2 place-items-center text-white">
                     <p>{p.nombre}</p>
                     <p>{p.placa}</p>
                     <p>{p.serial}</p>
@@ -186,10 +186,10 @@ export function CrearMovimiento() {
             }
           </div>
 
-          <section className="py-4">
+          <section className="py-4 bg-slate-600 rounded-md text-white">
             <form className="grid grid-cols-2 gap-3">
               <label className="flex h-10 items-center ml-3"> <span className="font-semibold w-32">Encargado:</span>
-                <input type="text" className="w-full p-2 rounded-md col-span-1"
+                <input type="text" className="w-full p-2 rounded-md col-span-1 bg-slate-100 no-underline text-black"
                   value={encargado}
                   onChange={ev => setEncargado(ev.target.value)}
                   placeholder="Pepito Perez Muñoz" />
@@ -197,14 +197,14 @@ export function CrearMovimiento() {
 
 
               <label className="flex h-10 items-center"> <span className="font-semibold w-32">N° Incidente:</span>
-                <input type="text" className="w-full p-2 rounded-md"
+                <input type="text" className="w-full p-2 rounded-md bg-slate-100 no-underline text-black"
                   value={incidente}
                   onChange={ev => setIncidente(ev.target.value)}
                   placeholder="134564 | 234252 | 634532" />
               </label>
 
               <label className="col-span-3 mx-3"> <span className="font-semibold w-40">Observaciones:</span>
-                <input type="text" className="w-full p-2 rounded-md"
+                <input type="text" className="w-full p-2 rounded-md bg-slate-100 no-underline text-black"
                   value={descripcion}
                   onChange={ev => setDescripcion(ev.target.value)}
                   placeholder="texto para registrar observación ..." />
@@ -212,7 +212,7 @@ export function CrearMovimiento() {
             </form>
           </section>
 
-          <section className="flex w-full justify-center">
+          <section className="flex w-full justify-center mt-4">
             <button className="p-2 text-white font-bold w-48 bg-green-600 rounded-md hover:bg-white hover:text-black" onClick={handleClick}>
               Realizar Movimiento
             </button>
@@ -220,14 +220,14 @@ export function CrearMovimiento() {
 
         </article>
 
-        <article >
-          <header>
-            <h3> <span className="font-semibold">Nombre:</span>  {bodegaDestino?.nombre}</h3>
-            <p> <span className="font-semibold">Sucursal:</span>  {bodegaDestino?.sucursal}</p>
-            <p> <span className="font-semibold">Direccion:</span>  {bodegaDestino?.direccion}</p>
+        <article className=''>
+          <header className='bg-slate-600 mb-2 rounded-md p-3 text-white grid place-content-center'>
+            <h3> <span className="font-bold">Nombre:</span>  {bodegaDestino?.nombre}</h3>
+            <p> <span className="font-bold">Direccion:</span>  {bodegaDestino?.direccion}</p>
+            <p> <span className="font-bold">N° Sucursal:</span>  {bodegaDestino?.sucursal}</p>
           </header>
           <main>
-            <h2 className="text-center py-2 font-semibold bg-green-400 mb-2 rounded-md">Items Que Ingresarán :</h2>
+            <h2 className="text-center py-2 font-semibold bg-slate-600 mb-2 rounded-md text-white">Items Que Ingresarán :</h2>
             <section style={{ maxHeight: '450px', overflowY: 'auto' }}>
               {
                 bodegaOrigen && (
