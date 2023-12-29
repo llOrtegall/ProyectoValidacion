@@ -8,5 +8,7 @@
 }
 
 button.added {
-  background-color: green;
+  background-color: rgb(77, 226, 77);
+  color: white;
+  border-radius: 100%;
 }

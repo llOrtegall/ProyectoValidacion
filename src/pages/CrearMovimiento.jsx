@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { AddIcon, DeleteIcon } from '../components/Icons.jsx'
 import axios from "axios"
 
 export function CrearMovimiento() {
@@ -17,21 +18,36 @@ export function CrearMovimiento() {
 
   const [items, setItems] = useState([])
 
-  const filteredItems = bodegaOrigen?.items.filter(item =>
-    item.nombre.toLowerCase().includes(filtro.toLowerCase()) ||
-    item.placa.toLowerCase().includes(filtro.toLowerCase()) ||
-    item.serial.toLowerCase().includes(filtro.toLowerCase())
-  )
-
-  const handleAddItem = (ev) => {
+  const handleAddItem = (id) => {
     setItems(prevItems => {
-      if (!prevItems.includes(ev)) {
-        return [...prevItems, ev];
+      if (!prevItems.includes(id)) {
+        return [...prevItems, id];
       } else {
         return prevItems;
       }
     })
   }
+
+  const handleRemoveItem = (id) => {
+    setItems(prevItems => {
+      return prevItems.filter(item => item !== id);
+    });
+  }
+
+
+  // eslint-disable-next-line react/prop-types
+  function ItemsAgregados({ id }) {
+    const item = bodegaOrigen?.items.find(item => item._id === id);
+    return (
+      <main key={item._id} className="grid grid-cols-2 place-items-center mb-2 p-2 rounded-md bg-yellow-500">
+        <p>{item?.placa}</p>
+        <button onClick={() => handleRemoveItem(id)} className="hover:bg-red-400 rounded-full p-1 hover:text-white">
+          <DeleteIcon />
+        </button>
+      </main>
+    );
+  }
+
 
   const searchBodegaOrigen = (ev) => {
     ev.preventDefault()
@@ -84,9 +100,11 @@ export function CrearMovimiento() {
       .catch(err => setError(err.response.data.error))
   }
 
-  console.log(message)
-  console.log(error)  
-  
+  const filteredItems = bodegaOrigen?.items.filter(item =>
+    item.nombre.toLowerCase().includes(filtro.toLowerCase()) ||
+    item.placa.toLowerCase().includes(filtro.toLowerCase()) ||
+    item.serial.toLowerCase().includes(filtro.toLowerCase())
+  )
 
   return (
     <main className="w-full bg-yellow-100">
@@ -134,20 +152,21 @@ export function CrearMovimiento() {
 
           <div style={{ maxHeight: '300px', overflowY: 'auto' }}>
             {
-              filteredItems?.map(producto => (
-                <section key={producto._id} className="w-full grid grid-cols-4 p-2 bg-blue-300 rounded-md mb-2 place-items-center">
-                  <p>{producto.nombre}</p>
-                  <p>{producto.placa}</p>
-                  <p>{producto.serial}</p>
-                  <button
-                    value={producto._id}
-                    onClick={ev => handleAddItem(ev.target.value)}
-                    className={items.includes(producto._id) ? 'added' : ''}
-                  >
-                    +
-                  </button>
-                </section>
-              ))
+              bodegaOrigen && (
+                filteredItems.map(p => (
+                  <section key={p._id} className="w-full grid grid-cols-4 p-2 bg-blue-300 rounded-md mb-2 place-items-center">
+                    <p>{p.nombre}</p>
+                    <p>{p.placa}</p>
+                    <p>{p.serial}</p>
+                    <button
+                      onClick={() => handleAddItem(p._id)}
+                      className={items.includes(p._id) ? 'added' : ''}
+                    >
+                      <AddIcon />
+                    </button>
+                  </section>
+                ))
+              )
             }
           </div>
 
@@ -174,9 +193,21 @@ export function CrearMovimiento() {
         </article>
 
         <article className="">
-          <h3> <span className="font-semibold">Nombre:</span>  {bodegaDestino?.nombre}</h3>
-          <p> <span className="font-semibold">Sucursal:</span>  {bodegaDestino?.sucursal}</p>
-          <p> <span className="font-semibold">Direccion:</span>  {bodegaDestino?.direccion}</p>
+          <header>
+            <h3> <span className="font-semibold">Nombre:</span>  {bodegaDestino?.nombre}</h3>
+            <p> <span className="font-semibold">Sucursal:</span>  {bodegaDestino?.sucursal}</p>
+            <p> <span className="font-semibold">Direccion:</span>  {bodegaDestino?.direccion}</p>
+          </header>
+          <main className="">
+            <h2 className="text-center py-2 font-semibold bg-green-400 mb-2 rounded-md">Items Que Ingresarán :</h2>
+            {
+              bodegaOrigen && (
+                items?.map((item, index) => (
+                  <ItemsAgregados id={item} key={index} />
+                ))
+              )
+            }
+          </main>
         </article>
       </section>
     </main>
