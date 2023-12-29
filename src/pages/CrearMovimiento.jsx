@@ -95,6 +95,7 @@ export function CrearMovimiento() {
         setIncidente('')
         setTimeout(() => {
           setMessage('')
+          setError('')
         }, 4000)
       })
       .catch(err => setError(err.response.data.error))
@@ -107,9 +108,9 @@ export function CrearMovimiento() {
   )
 
   return (
-    <main className="w-full bg-yellow-100">
+    <main className="w-full bg-blue-200">
 
-      <section className="grid grid-cols-3 bg-blue-200 place-items-center py-4">
+      <section className="grid grid-cols-3 place-items-center py-4">
 
         <form className="p-2 bg-blue-400 rounded-lg flex flex-col gap-2 text-center col-span-2" onSubmit={searchBodegaOrigen}>
           <h3 className="font-semibold">Bodega De Origen</h3>
@@ -128,7 +129,7 @@ export function CrearMovimiento() {
         </form>
       </section>
 
-      <section className="grid grid-cols-3 p-2 bg-red-100 gap-6">
+      <section className="grid grid-cols-3 p-2 gap-6">
 
         <article className="col-span-2">
 
@@ -154,7 +155,7 @@ export function CrearMovimiento() {
             {
               bodegaOrigen && (
                 filteredItems.map(p => (
-                  <section key={p._id} className="w-full grid grid-cols-4 p-2 bg-blue-300 rounded-md mb-2 place-items-center">
+                  <section key={p._id} className="w-full grid grid-cols-4 p-2 bg-blue-600 rounded-md mb-2 place-items-center text-white">
                     <p>{p.nombre}</p>
                     <p>{p.placa}</p>
                     <p>{p.serial}</p>
@@ -170,29 +171,41 @@ export function CrearMovimiento() {
             }
           </div>
 
-          <section>
-            <form className="grid grid-cols-2">
-              <div>
+          <section className="py-4">
+            <form className="grid grid-cols-2 gap-3">
+              <label className="flex h-10 items-center ml-3"> <span className="font-semibold w-32">Encargado:</span>
+                <input type="text" className="w-full p-2 rounded-md col-span-1"
+                  value={encargado}
+                  onChange={ev => setEncargado(ev.target.value)}
+                  placeholder="Pepito Perez Muñoz" />
+              </label>
 
-              </div>
-              <input type="text" className="w-full p-2 rounded-md" value={encargado} onChange={ev => setEncargado(ev.target.value)}
-                placeholder="Persona Responsable Del Movimiento" />
 
-              <input type="text" className="w-full p-2 rounded-md" value={descripcion} onChange={ev => setDescripcion(ev.target.value)}
-                placeholder="Observaciones" />
+              <label className="flex h-10 items-center"> <span className="font-semibold w-32">N° Incidente:</span>
+                <input type="text" className="w-full p-2 rounded-md"
+                  value={incidente}
+                  onChange={ev => setIncidente(ev.target.value)}
+                  placeholder="134564 | 234252 | 634532" />
+              </label>
 
-              <input type="text" className="w-full p-2 rounded-md" value={incidente} onChange={ev => setIncidente(ev.target.value)}
-                placeholder="N° Incidente" />
+              <label className="col-span-3 mx-3"> <span className="font-semibold w-40">Observaciones:</span>
+                <input type="text" className="w-full p-2 rounded-md"
+                  value={descripcion}
+                  onChange={ev => setDescripcion(ev.target.value)}
+                  placeholder="texto para registrar observación ..." />
+              </label>
             </form>
           </section>
 
-          <button className="p-2 w-44 bg-green-400 rounded-md" onClick={handleClick}>
-            Hacer Traslado
-          </button>
+          <section className="flex w-full justify-center">
+            <button className="p-2 text-white font-bold w-48 bg-green-600 rounded-md hover:bg-white hover:text-black" onClick={handleClick}>
+              Realizar Movimiento
+            </button>
+          </section>
 
         </article>
 
-        <article className="">
+        <article >
           <header>
             <h3> <span className="font-semibold">Nombre:</span>  {bodegaDestino?.nombre}</h3>
             <p> <span className="font-semibold">Sucursal:</span>  {bodegaDestino?.sucursal}</p>
@@ -209,6 +222,11 @@ export function CrearMovimiento() {
             }
           </main>
         </article>
+      </section>
+
+      <section className="flex w-full ">
+        {message && <p className="w-full text-center bg-green-400 text-white font-semibold">{message}</p>}
+        {error && <p className="w-full text-center bg-red-400 text-white font-semibold">{error}</p>}
       </section>
     </main>
   )
