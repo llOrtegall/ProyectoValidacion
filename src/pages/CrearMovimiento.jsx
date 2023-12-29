@@ -1,5 +1,5 @@
+import { AddIcon, DeleteIcon, WarningIcon } from '../components/Icons.jsx'
 import { useState } from "react"
-import { AddIcon, DeleteIcon } from '../components/Icons.jsx'
 import axios from "axios"
 
 export function CrearMovimiento() {
@@ -74,6 +74,14 @@ export function CrearMovimiento() {
   }
 
   const handleClick = () => {
+    if (!bodegaOrigen || !bodegaDestino) {
+      setTimeout(() => {
+        setMessage('')
+        setError('')
+      }, 4000)
+      return setError('Debe Ingresar Una Bodega De Origen y Una De Destino')
+    }
+
     axios.post('/moveItem', {
       bodegaOrigen: bodegaOrigen._id,
       bodegaDestino: bodegaDestino._id,
@@ -98,7 +106,13 @@ export function CrearMovimiento() {
           setError('')
         }, 4000)
       })
-      .catch(err => setError(err.response.data.error))
+      .catch(err => {
+        setError(err.response.data.error)
+        setTimeout(() => {
+          setMessage('')
+          setError('')
+        }, 4000)
+      })
   }
 
   const filteredItems = bodegaOrigen?.items.filter(item =>
@@ -224,9 +238,29 @@ export function CrearMovimiento() {
         </article>
       </section>
 
-      <section className="flex w-full ">
-        {message && <p className="w-full text-center bg-green-400 text-white font-semibold">{message}</p>}
-        {error && <p className="w-full text-center bg-red-400 text-white font-semibold">{error}</p>}
+      <section className='h-10'>
+        <article className="flex items-center justify-center">
+          {message &&
+            <div className='flex gap-2'>
+              <figure className='bg-yellow-300 flex items-center justify-center text-center px-2 rounded-md'>
+                <WarningIcon />
+              </figure>
+              <p className="text-center bg-green-400 text-white font-semibold p-2 rounded-md">
+                {message}
+              </p>
+            </div>
+          }
+          {error &&
+            <div className='flex gap-2'>
+                <figure className='bg-yellow-300 flex items-center justify-center text-center px-2 rounded-md'>
+                <WarningIcon />
+              </figure>
+              <p className="text-center bg-red-400 text-white font-semibold p-2 rounded-md">
+                {error}                
+              </p>
+            </div>
+          }
+        </article>
       </section>
     </main>
   )
