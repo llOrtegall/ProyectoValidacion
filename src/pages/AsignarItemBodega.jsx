@@ -1,5 +1,7 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
+import { AddIcon } from "../components/Icons";
+import { RenderBodega } from "../components/RenderBodega";
 
 export function AsignarItemBodega() {
   const [searchBodega, setSearchBodega] = useState("");
@@ -8,10 +10,8 @@ export function AsignarItemBodega() {
   const [search, setSearch] = useState("");
   const [error, setError] = useState('')
   const [items, setItems] = useState([])
-  const [item, setItem] = useState({
-    itemId: '',
-    sucursal: ''
-  })
+  const [sucursal, setSucursal] = useState('')
+  const [itemsIds, setItemsIds] = useState([])
 
   useEffect(() => {
     axios.get('/getBodegas')
@@ -33,10 +33,13 @@ export function AsignarItemBodega() {
       })
   }, [])
 
-  const handleChange = (e) => {
-    setItem({
-      ...item,
-      [e.target.name]: e.target.value
+  const handleAddItem = (id) => {
+    setItemsIds(prevItems => {
+      if (!prevItems.includes(id)) {
+        return [...prevItems, id];
+      } else {
+        return prevItems;
+      }
     })
   }
 
@@ -46,7 +49,7 @@ export function AsignarItemBodega() {
       .then(res => {
         console.log(res)
         setItem({
-          itemId: '',
+          itemIds: [],
           sucursal: ''
         })
         setMessage(res.data.message)
@@ -92,25 +95,30 @@ export function AsignarItemBodega() {
         <article className="flex flex-col gap-4">
           <p className=""><span className="font-semibold pr-2">Filtrar:</span>| Placa | Serial | Nombre |</p>
           <input type="text" value={search} onChange={handleSearchChange} placeholder="Buscar Items..." className="bg-slate-200 w-64 p-2 rounded-md" />
-          <select name="itemId" value={item.itemId} onChange={handleChange}
+          <section name="itemIds"
             className="bg-slate-300 rounded-md shadow-lg p-2 min-w-96" >
-            <option value="">Seleccione un item para asignar</option>
-            {
-              filteredItems.map((item) => {
-                return (
-                  <option key={item._id} value={item._id} >
-                    {item.nombre} - {item.placa} - {item.serial}
-                  </option>
-                )
-              })
-            }
-          </select>
+            <section className="">
+              {filteredItems.map(item => (
+                <article key={item._id} className="grid grid-cols-4 shadow-md rounded-md bg-slate-200 uppercase text-sm py-2 my-2 text-center">
+                  <p className="font-semibold">{item.nombre}</p>
+                  <p className="text-gray-700">{item.placa}</p>
+                  <RenderBodega id={item._id} />
+                  <button
+                    onClick={() => handleAddItem(item._id)}
+                    className={items.includes(item._id) ? 'added' : ''}
+                  >
+                    <AddIcon />
+                  </button>
+                </article>
+              ))}
+            </section>
+          </section>
         </article>
 
         <article className="flex flex-col gap-4">
           <p className=""><span className="font-semibold pr-2">Filtrar:</span>| Sucursal | Nombre | Dirección </p>
           <input type="text" value={searchBodega} onChange={handleSearchBodegaChange} placeholder="Buscar bodega..." className="bg-slate-200 w-64 p-2 rounded-md" />
-          <select name="sucursal" value={item.sucursal} onChange={handleChange}
+          <select name="sucursal"
             className="bg-slate-300 rounded-md shadow-lg p-2 min-w-96">
             <option value="">Seleccione una bodega</option>
             {
