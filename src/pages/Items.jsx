@@ -42,18 +42,18 @@ export function Items() {
         <p className="font-semibold">Ubicación</p>
       </article>
 
-      <section className="">
-        {filteredItems.map(item => (
-          <article key={item._id} className="grid grid-cols-6 shadow-md rounded-md bg-slate-200 uppercase text-sm py-2 my-2 text-center">
-            <p className="font-semibold">{item.nombre}</p>
-            <p className="text-gray-500">{item.descripcion}</p>
-            <p className="text-gray-500">{item.serial}</p>
-            <p className="text-gray-700">{item.placa}</p>
-            <p className="text-gray-500">{item.estado}</p>
-            <RenderBodega id={item._id} />
-          </article>
-        ))}
-      </section>
+      {filteredItems.map(item => (
+        <article key={item._id} className="grid grid-cols-6 shadow-md rounded-md bg-slate-200 uppercase text-sm py-2 my-2 text-center">
+          <p className="font-semibold">{item.nombre}</p>
+          <p className="text-gray-500">{item.descripcion}</p>
+          <p className="text-gray-500">{item.serial}</p>
+          <p className="text-gray-700">{item.placa}</p>
+          <p className="text-gray-500">{item.estado}</p>
+          <RenderBodega id={item._id} />
+        </article>
+      ))}
+
+
 
     </main>
   )
