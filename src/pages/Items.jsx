@@ -5,6 +5,16 @@ import { RenderBodega } from '../components/RenderBodega.jsx'
 export function Items() {
   const [search, setSearch] = useState("")
   const [items, setItems] = useState([])
+  const [itembodega, setItemBodega] = useState([])
+
+  useEffect(() => {
+    axios.get('/findBodegaWithItems')
+      .then(res => {
+        setItemBodega(res.data)
+        localStorage.setItem('bodega', JSON.stringify(res.data))
+      })
+      .catch(err => console.log(err))
+  }, [])
 
   useEffect(() => {
     axios.get('/getItems')
@@ -49,12 +59,9 @@ export function Items() {
           <p className="text-gray-500">{item.serial}</p>
           <p className="text-gray-700">{item.placa}</p>
           <p className="text-gray-500">{item.estado}</p>
-          <RenderBodega id={item._id} />
+          <RenderBodega id={item._id} bodega={itembodega}/>
         </article>
       ))}
-
-
-
     </main>
   )
 }

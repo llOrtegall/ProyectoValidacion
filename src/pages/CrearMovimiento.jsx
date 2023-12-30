@@ -106,7 +106,6 @@ export function CrearMovimiento() {
           setMessage('')
           setError('')
         }, 4000)
-        localStorage.removeItem('bodega')
       })
       .catch(err => {
         setError(err.response.data.error)
