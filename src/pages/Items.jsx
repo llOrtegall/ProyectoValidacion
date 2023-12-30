@@ -10,6 +10,7 @@ export function Items() {
     axios.get('/getItems')
       .then(res => {
         setItems(res.data)
+        localStorage.setItem('items', JSON.stringify(res.data))
       })
       .catch(err => console.log(err))
   }, [])

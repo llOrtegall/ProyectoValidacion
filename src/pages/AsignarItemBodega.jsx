@@ -1,7 +1,6 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
 import { AddIcon } from "../components/Icons";
-import { RenderBodega } from "../components/RenderBodega";
 
 export function AsignarItemBodega() {
   const [searchBodega, setSearchBodega] = useState("");
@@ -10,7 +9,7 @@ export function AsignarItemBodega() {
   const [search, setSearch] = useState("");
   const [error, setError] = useState('')
   const [items, setItems] = useState([])
-  const [sucursal, setSucursal] = useState('')
+
   const [itemsIds, setItemsIds] = useState([])
 
   useEffect(() => {
@@ -24,14 +23,21 @@ export function AsignarItemBodega() {
   }, [])
 
   useEffect(() => {
-    axios.get('/getItems')
-      .then((response) => {
-        setItems(response.data)
-      })
-      .catch((error) => {
-        console.log(error)
-      })
+    if (localStorage.getItem('items')) {
+      console.log('items en localstorage')
+      setItems(JSON.parse(localStorage.getItem('items')))
+    } else {
+      console.log('items en db')
+      axios.get('/getItems')
+        .then((response) => {
+          setItems(response.data)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    }
   }, [])
+
 
   const handleAddItem = (id) => {
     setItemsIds(prevItems => {
@@ -87,35 +93,34 @@ export function AsignarItemBodega() {
 
 
   return (
-    <main className="w-ful">
-      <h1 className="text-2xl py-4 text-center">Asignar Items a Bodega</h1>
+    <main className="w-ful flex flex-col">
 
-      <form className="flex justify-around items-center" onSubmit={handleSubmit}>
+      <form className="flex justify-around" onSubmit={handleSubmit}>
 
-        <article className="flex flex-col gap-4">
+        <article className="">
           <p className=""><span className="font-semibold pr-2">Filtrar:</span>| Placa | Serial | Nombre |</p>
           <input type="text" value={search} onChange={handleSearchChange} placeholder="Buscar Items..." className="bg-slate-200 w-64 p-2 rounded-md" />
           <section name="itemIds"
-            className="bg-slate-300 rounded-md shadow-lg p-2 min-w-96" >
-            <section className="">
-              {filteredItems.map(item => (
-                <article key={item._id} className="grid grid-cols-4 shadow-md rounded-md bg-slate-200 uppercase text-sm py-2 my-2 text-center">
-                  <p className="font-semibold">{item.nombre}</p>
-                  <p className="text-gray-700">{item.placa}</p>
-                  <RenderBodega id={item._id} />
+            className="bg-slate-300 rounded-md shadow-lg p-2 min-w-96">
+
+            {
+              filteredItems.map((item) => (
+                <div key={item._id} className="flex items-center justify-between">
+                  <p>{item.nombre} - {item.placa}</p>
                   <button
                     onClick={() => handleAddItem(item._id)}
                     className={items.includes(item._id) ? 'added' : ''}
                   >
                     <AddIcon />
                   </button>
-                </article>
-              ))}
-            </section>
+                </div>
+              ))
+            }
+
           </section>
         </article>
 
-        <article className="flex flex-col gap-4">
+        <article className="flex flex-col gap-4 items-center">
           <p className=""><span className="font-semibold pr-2">Filtrar:</span>| Sucursal | Nombre | Dirección </p>
           <input type="text" value={searchBodega} onChange={handleSearchBodegaChange} placeholder="Buscar bodega..." className="bg-slate-200 w-64 p-2 rounded-md" />
           <select name="sucursal"
@@ -131,15 +136,17 @@ export function AsignarItemBodega() {
               })
             }
           </select>
+          <button className="w-60 h-10 bg-blue-400 hover:bg-blue-600 rounded-lg text-white font-semibold">
+            Asignar
+          </button>
         </article>
 
-        <button className="w-60 h-10 bg-blue-400 hover:bg-blue-600 rounded-lg text-white font-semibold">
-          Asignar
-        </button>
-
       </form>
-      {message && <p className="text-green-500 font-semibold text-center mt-4">{message}</p>}
-      {error && <p className="text-red-500 font-semibold text-center mt-4">{error}</p>}
+
+      <footer>
+        {message && <p className="text-green-500 font-semibold text-center mt-4">{message}</p>}
+        {error && <p className="text-red-500 font-semibold text-center mt-4">{error}</p>}
+      </footer>
     </main>
   )
 }
