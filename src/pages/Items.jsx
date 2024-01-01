@@ -1,5 +1,5 @@
 import { RenderBodega } from '../components/RenderBodega.jsx'
-import { fetchData } from '../utils/fetchData.js'
+import { ItemsData } from '../utils/FetchItemsData.js'
 import { useEffect, useState } from 'react'
 
 export function Items () {
@@ -8,7 +8,7 @@ export function Items () {
   const [itembodega, setItemBodega] = useState([])
 
   useEffect(() => {
-    fetchData()
+    ItemsData()
       .then(data => {
         setItemBodega(data.bodega)
         setItems(data.items)

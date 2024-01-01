@@ -1,50 +1,36 @@
-import axios from "axios"
-import { useEffect, useState } from "react"
-import { AddIcon } from "../components/Icons";
+import axios from 'axios'
+import { useEffect, useState } from 'react'
+import { AddIcon } from '../components/Icons'
+import { BodegaData, ItemsData } from '../utils/FetchItemsData'
+import { Items } from './Items'
 
-export function AsignarItemBodega() {
-  const [searchBodega, setSearchBodega] = useState("");
+export function AsignarItemBodega () {
+  const [searchBodega, setSearchBodega] = useState('')
   const [bodegas, setBodegas] = useState([])
   const [message, setMessage] = useState('')
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState('')
   const [error, setError] = useState('')
+
   const [items, setItems] = useState([])
 
   const [itemsIds, setItemsIds] = useState([])
 
   useEffect(() => {
-    axios.get('/getBodegas')
-      .then((response) => {
-        setBodegas(response.data)
-      })
-      .catch((error) => {
-        console.log(error)
-      })
+    // Traer bodegas de la base de datos
+    BodegaData().then(data => setBodegas(data))
+    ItemsData().then(data => {
+      setItems(data.bodega)
+    })
   }, [])
 
-  useEffect(() => {
-    if (localStorage.getItem('items')) {
-      console.log('items en localstorage')
-      setItems(JSON.parse(localStorage.getItem('items')))
-    } else {
-      console.log('items en db')
-      axios.get('/getItems')
-        .then((response) => {
-          setItems(response.data)
-        })
-        .catch((error) => {
-          console.log(error)
-        })
-    }
-  }, [])
-
+  console.log(Items)
 
   const handleAddItem = (id) => {
     setItemsIds(prevItems => {
       if (!prevItems.includes(id)) {
-        return [...prevItems, id];
+        return [...prevItems, id]
       } else {
-        return prevItems;
+        return prevItems
       }
     })
   }
@@ -72,11 +58,11 @@ export function AsignarItemBodega() {
   }
 
   const handleSearchChange = (event) => {
-    setSearch(event.target.value);
+    setSearch(event.target.value)
   }
 
   const handleSearchBodegaChange = (event) => {
-    setSearchBodega(event.target.value);
+    setSearchBodega(event.target.value)
   }
 
   const filteredItems = items.filter(item =>
@@ -90,7 +76,6 @@ export function AsignarItemBodega() {
     bodega.sucursal.toLowerCase().includes(searchBodega.toLowerCase()) ||
     bodega.direccion.toLowerCase().includes(searchBodega.toLowerCase())
   )
-
 
   return (
     <main className="w-ful flex flex-col">
