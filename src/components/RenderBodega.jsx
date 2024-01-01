@@ -1,11 +1,9 @@
-// eslint-disable-next-line react/prop-types
-export function RenderBodega({ id, bodega}) {
-  // eslint-disable-next-line react/prop-types
-  const nameBodega = bodega.filter(bodega => bodega.itemId === id)
+export function RenderBodega ({ id, bodega }) {
+  const nameBodega = bodega.filter(b => b.itemId === id)
 
   return (
-    nameBodega.map(bodega => (
-      <p className="text-gray-500" key={bodega.itemId}>{bodega.nombreBodega}</p>
+    nameBodega.map(b => (
+      <p className="text-gray-500" key={b.itemId}>{b.nombreBodega}</p>
     ))
   )
 }

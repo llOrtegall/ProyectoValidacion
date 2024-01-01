@@ -1,38 +1,26 @@
-import axios from "axios"
-import { useEffect, useState } from "react"
 import { RenderBodega } from '../components/RenderBodega.jsx'
+import { fetchData } from '../utils/fetchData.js'
+import { useEffect, useState } from 'react'
 
-export function Items() {
-  const [search, setSearch] = useState("")
+export function Items () {
+  const [search, setSearch] = useState('')
   const [items, setItems] = useState([])
   const [itembodega, setItemBodega] = useState([])
 
   useEffect(() => {
-    axios.get('/findBodegaWithItems')
-      .then(res => {
-        setItemBodega(res.data)
-        localStorage.setItem('bodega', JSON.stringify(res.data))
+    fetchData()
+      .then(data => {
+        setItemBodega(data.bodega)
+        setItems(data.items)
+        localStorage.setItem('items', JSON.stringify(data.items))
+        localStorage.setItem('bodega', JSON.stringify(data.bodega))
       })
-      .catch(err => console.log(err))
   }, [])
 
-  useEffect(() => {
-    axios.get('/getItems')
-      .then(res => {
-        setItems(res.data)
-        localStorage.setItem('items', JSON.stringify(res.data))
-      })
-      .catch(err => console.log(err))
-  }, [])
-
-  const handleSearchChange = (event) => {
-    setSearch(event.target.value);
-  }
-
-  const filteredItems = items.filter(item =>
-    item.nombre.toLowerCase().includes(search.toLowerCase()) ||
-    item.placa.toLowerCase().includes(search.toLowerCase()) ||
-    item.serial.toLowerCase().includes(search.toLowerCase())
+  const filteredItems = items.filter(({ nombre, placa, serial }) =>
+    nombre.toLowerCase().includes(search.toLowerCase()) ||
+    placa.toLowerCase().includes(search.toLowerCase()) ||
+    serial.toLowerCase().includes(search.toLowerCase())
   )
 
   return (
@@ -40,7 +28,8 @@ export function Items() {
 
       <section className="flex items-center justify-center gap-6 bg-blue-500  rounded-md shadow-lg py-1 mb-2">
         <p><span className="font-semibold pr-2">Filtrar:</span>| Placa | Serial | Nombre |</p>
-        <input type="text" value={search} onChange={handleSearchChange} placeholder="Teclado | 343543 | S/N:312412412" className="bg-slate-100 w-64 rounded-md p-1" />
+        <input type="text" value={search} onChange={ev => setSearch(ev.target.value)}
+          placeholder="Teclado | 343543 | S/N:312412412" className="bg-slate-100 w-64 rounded-md p-1" />
       </section>
 
       <article className="flex justify-around text-center bg-blue-400 shadow-lg rounded-md py-2 mb-2">
@@ -59,7 +48,7 @@ export function Items() {
           <p className="text-gray-500">{item.serial}</p>
           <p className="text-gray-700">{item.placa}</p>
           <p className="text-gray-500">{item.estado}</p>
-          <RenderBodega id={item._id} bodega={itembodega}/>
+          <RenderBodega id={item._id} bodega={itembodega} />
         </article>
       ))}
     </main>
