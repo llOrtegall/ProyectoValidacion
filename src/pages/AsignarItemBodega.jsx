@@ -6,6 +6,9 @@ export function AsignarItemBodega () {
   const [items, setItems] = useState([])
   const [itemsConBodega, setItemsConBodega] = useState([])
 
+  // const [message, setMessage] = useState('')
+  // const [error, setError] = useState('')
+
   useEffect(() => {
     if (localStorage.getItem('itemsConBodega')) {
       setItemsConBodega(JSON.parse(localStorage.getItem('itemsConBodega')))
@@ -34,16 +37,15 @@ export function AsignarItemBodega () {
       })
   }, [])
 
-  const ItemsSinBodega = () => {
-    const itemsIds = items.map(item => item._id)
+  const ItemsSinBodega = ({ arrayItems }) => {
     const itemsSinBodega = itemsConBodega.filter(item => item.nombreBodega === 'N/A')
-
-    console.log(itemsIds)
-    console.log(itemsSinBodega)
+    const itemsResultantes = arrayItems.filter(item =>
+      itemsSinBodega.some(bodegaItem => bodegaItem.itemId === item._id)
+    )
+    return itemsResultantes
   }
 
-  ItemsSinBodega()
-
+  const ItemsRender = ItemsSinBodega({ arrayItems: items })
   /*
 
   const handleAddItem = (id) => {
@@ -92,13 +94,12 @@ export function AsignarItemBodega () {
             className="bg-slate-300 rounded-md shadow-lg p-2 min-w-96">
             <option value="">Seleccione un item</option>
             {
-              itemsConBodega.map(item => (
+              ItemsRender.map(item => (
                 <option key={item._id} value={item._id} className='justify-normal'>
-                  {item.placa}
+                  {item.placa} | {item.nombre}
                 </option>
               ))
             }
-
           </select>
         </article>
 
