@@ -1,29 +1,50 @@
-import axios from 'axios'
+import { BodegaData, ItemsWthitBodegas, ItemsData } from '../utils/FetchItemsData'
 import { useEffect, useState } from 'react'
-import { AddIcon } from '../components/Icons'
-import { BodegaData, ItemsData } from '../utils/FetchItemsData'
-import { Items } from './Items'
 
 export function AsignarItemBodega () {
-  const [searchBodega, setSearchBodega] = useState('')
   const [bodegas, setBodegas] = useState([])
-  const [message, setMessage] = useState('')
-  const [search, setSearch] = useState('')
-  const [error, setError] = useState('')
-
   const [items, setItems] = useState([])
-
-  const [itemsIds, setItemsIds] = useState([])
+  const [itemsConBodega, setItemsConBodega] = useState([])
 
   useEffect(() => {
-    // Traer bodegas de la base de datos
-    BodegaData().then(data => setBodegas(data))
-    ItemsData().then(data => {
-      setItems(data.bodega)
-    })
+    if (localStorage.getItem('itemsConBodega')) {
+      setItemsConBodega(JSON.parse(localStorage.getItem('itemsConBodega')))
+    } else {
+      ItemsWthitBodegas()
+        .then(data => {
+          setItemsConBodega(data)
+          localStorage.setItem('itemsConBodega', JSON.stringify(data))
+        })
+    }
+
+    if (localStorage.getItem('items')) {
+      setItems(JSON.parse(localStorage.getItem('items')))
+    } else {
+      ItemsData()
+        .then(data => {
+          setItems(data)
+          localStorage.setItem('items', JSON.stringify(data))
+        })
+    }
+
+    BodegaData()
+      .then(data => {
+        setBodegas(data)
+        localStorage.setItem('bodegas', JSON.stringify(data))
+      })
   }, [])
 
-  console.log(Items)
+  const ItemsSinBodega = () => {
+    const itemsIds = items.map(item => item._id)
+    const itemsSinBodega = itemsConBodega.filter(item => item.nombreBodega === 'N/A')
+
+    console.log(itemsIds)
+    console.log(itemsSinBodega)
+  }
+
+  ItemsSinBodega()
+
+  /*
 
   const handleAddItem = (id) => {
     setItemsIds(prevItems => {
@@ -57,68 +78,42 @@ export function AsignarItemBodega () {
       })
   }
 
-  const handleSearchChange = (event) => {
-    setSearch(event.target.value)
-  }
-
-  const handleSearchBodegaChange = (event) => {
-    setSearchBodega(event.target.value)
-  }
-
-  const filteredItems = items.filter(item =>
-    item.nombre.toLowerCase().includes(search.toLowerCase()) ||
-    item.placa.toLowerCase().includes(search.toLowerCase()) ||
-    item.serial.toLowerCase().includes(search.toLowerCase())
-  )
-
-  const filteredBodegas = bodegas.filter(bodega =>
-    bodega.nombre.toLowerCase().includes(searchBodega.toLowerCase()) ||
-    bodega.sucursal.toLowerCase().includes(searchBodega.toLowerCase()) ||
-    bodega.direccion.toLowerCase().includes(searchBodega.toLowerCase())
-  )
+  */
 
   return (
     <main className="w-ful flex flex-col">
 
-      <form className="flex justify-around" onSubmit={handleSubmit}>
+      <form className="flex justify-around">
 
         <article className="">
           <p className=""><span className="font-semibold pr-2">Filtrar:</span>| Placa | Serial | Nombre |</p>
-          <input type="text" value={search} onChange={handleSearchChange} placeholder="Buscar Items..." className="bg-slate-200 w-64 p-2 rounded-md" />
-          <section name="itemIds"
+          <input type="text" placeholder="Buscar Items..." className="bg-slate-200 w-64 p-2 rounded-md" />
+          <select name="itemIds"
             className="bg-slate-300 rounded-md shadow-lg p-2 min-w-96">
-
+            <option value="">Seleccione un item</option>
             {
-              filteredItems.map((item) => (
-                <div key={item._id} className="flex items-center justify-between">
-                  <p>{item.nombre} - {item.placa}</p>
-                  <button
-                    onClick={() => handleAddItem(item._id)}
-                    className={items.includes(item._id) ? 'added' : ''}
-                  >
-                    <AddIcon />
-                  </button>
-                </div>
+              itemsConBodega.map(item => (
+                <option key={item._id} value={item._id} className='justify-normal'>
+                  {item.placa}
+                </option>
               ))
             }
 
-          </section>
+          </select>
         </article>
 
         <article className="flex flex-col gap-4 items-center">
           <p className=""><span className="font-semibold pr-2">Filtrar:</span>| Sucursal | Nombre | Dirección </p>
-          <input type="text" value={searchBodega} onChange={handleSearchBodegaChange} placeholder="Buscar bodega..." className="bg-slate-200 w-64 p-2 rounded-md" />
+          <input type="text" placeholder="Buscar bodega..." className="bg-slate-200 w-64 p-2 rounded-md" />
           <select name="sucursal"
             className="bg-slate-300 rounded-md shadow-lg p-2 min-w-96">
             <option value="">Seleccione una bodega</option>
             {
-              filteredBodegas.map((bodega) => {
-                return (
-                  <option key={bodega._id} value={bodega.sucursal} >
-                    {bodega.nombre} - {bodega.sucursal} - {bodega.direccion}
-                  </option>
-                )
-              })
+              bodegas.map(bodega => (
+                <option key={bodega._id} value={bodega._id} className='justify-normal'>
+                  {bodega.sucursal} | {bodega.nombre}
+                </option>
+              ))
             }
           </select>
           <button className="w-60 h-10 bg-blue-400 hover:bg-blue-600 rounded-lg text-white font-semibold">
@@ -128,10 +123,10 @@ export function AsignarItemBodega () {
 
       </form>
 
-      <footer>
+      {/* <footer>
         {message && <p className="text-green-500 font-semibold text-center mt-4">{message}</p>}
         {error && <p className="text-red-500 font-semibold text-center mt-4">{error}</p>}
-      </footer>
+      </footer> */}
     </main>
   )
 }

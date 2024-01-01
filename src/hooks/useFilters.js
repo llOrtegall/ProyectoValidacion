@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react'
 
-export function useFilter (initialItems) {
+export function useFilters (initialItems) {
   const [search, setSearch] = useState('')
   const filteredItems = useMemo(() => {
     return initialItems.filter(({ nombre, placa, serial }) =>
@@ -11,4 +11,17 @@ export function useFilter (initialItems) {
   }, [search, initialItems])
 
   return { search, setSearch, filteredItems }
+}
+
+export function useFiltersBodegas (initialBodegas) {
+  const [searchBodega, setSearchBodega] = useState('')
+  const filteredBodegas = useMemo(() => {
+    return initialBodegas.filter(({ nombre, sucursal, direccion }) =>
+      nombre.toLowerCase().includes(searchBodega.toLowerCase()) ||
+      sucursal.toLowerCase().includes(searchBodega.toLowerCase()) ||
+      direccion.toLowerCase().includes(searchBodega.toLowerCase())
+    )
+  }, [searchBodega, initialBodegas])
+
+  return { searchBodega, setSearchBodega, filteredBodegas }
 }
