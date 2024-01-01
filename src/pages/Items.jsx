@@ -1,27 +1,26 @@
+import { ItemsData, ItemsWthitBodegas } from '../utils/FetchItemsData.js'
 import { RenderBodega } from '../components/RenderBodega.jsx'
-import { ItemsData } from '../utils/FetchItemsData.js'
+import { useFilter } from '../hooks/useFilters.js'
 import { useEffect, useState } from 'react'
 
 export function Items () {
-  const [search, setSearch] = useState('')
   const [items, setItems] = useState([])
   const [itembodega, setItemBodega] = useState([])
+  const { search, setSearch, filteredItems } = useFilter(items)
 
   useEffect(() => {
     ItemsData()
       .then(data => {
-        setItemBodega(data.bodega)
-        setItems(data.items)
-        localStorage.setItem('items', JSON.stringify(data.items))
-        localStorage.setItem('bodega', JSON.stringify(data.bodega))
+        setItems(data)
+        localStorage.setItem('items', JSON.stringify(data))
+      })
+
+    ItemsWthitBodegas()
+      .then(data => {
+        setItemBodega(data)
+        localStorage.setItem('items', JSON.stringify(data))
       })
   }, [])
-
-  const filteredItems = items.filter(({ nombre, placa, serial }) =>
-    nombre.toLowerCase().includes(search.toLowerCase()) ||
-    placa.toLowerCase().includes(search.toLowerCase()) ||
-    serial.toLowerCase().includes(search.toLowerCase())
-  )
 
   return (
     <main className="w-full px-2">
