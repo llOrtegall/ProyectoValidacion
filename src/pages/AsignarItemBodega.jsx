@@ -1,10 +1,13 @@
 import { BodegaData, ItemsWthitBodegas, ItemsData } from '../utils/FetchItemsData'
+import { useFiltersBodegas } from '../hooks/useFilters'
 import { useEffect, useState } from 'react'
 
 export function AsignarItemBodega () {
   const [bodegas, setBodegas] = useState([])
   const [items, setItems] = useState([])
   const [itemsConBodega, setItemsConBodega] = useState([])
+
+  const { searchBodega, setSearchBodega, filteredBodegas } = useFiltersBodegas(bodegas)
 
   // const [message, setMessage] = useState('')
   // const [error, setError] = useState('')
@@ -46,8 +49,8 @@ export function AsignarItemBodega () {
   }
 
   const ItemsRender = ItemsSinBodega({ arrayItems: items })
-  /*
 
+  /*
   const handleAddItem = (id) => {
     setItemsIds(prevItems => {
       if (!prevItems.includes(id)) {
@@ -89,7 +92,8 @@ export function AsignarItemBodega () {
 
         <article className="">
           <p className=""><span className="font-semibold pr-2">Filtrar:</span>| Placa | Serial | Nombre |</p>
-          <input type="text" placeholder="Buscar Items..." className="bg-slate-200 w-64 p-2 rounded-md" />
+          <input type="text" placeholder="Buscar Items..."
+          className="bg-slate-200 w-64 p-2 rounded-md" />
           <select name="itemIds"
             className="bg-slate-300 rounded-md shadow-lg p-2 min-w-96">
             <option value="">Seleccione un item</option>
@@ -105,12 +109,14 @@ export function AsignarItemBodega () {
 
         <article className="flex flex-col gap-4 items-center">
           <p className=""><span className="font-semibold pr-2">Filtrar:</span>| Sucursal | Nombre | Dirección </p>
-          <input type="text" placeholder="Buscar bodega..." className="bg-slate-200 w-64 p-2 rounded-md" />
+          <input type="text" placeholder="Buscar bodega..." value={searchBodega}
+            onChange={ev => setSearchBodega(ev.target.value)}
+            className="bg-slate-200 w-64 p-2 rounded-md" />
           <select name="sucursal"
             className="bg-slate-300 rounded-md shadow-lg p-2 min-w-96">
             <option value="">Seleccione una bodega</option>
             {
-              bodegas.map(bodega => (
+              filteredBodegas.map(bodega => (
                 <option key={bodega._id} value={bodega._id} className='justify-normal'>
                   {bodega.sucursal} | {bodega.nombre}
                 </option>

@@ -15,6 +15,9 @@ export function useFilters (initialItems) {
 
 export function useFiltersBodegas (initialBodegas) {
   const [searchBodega, setSearchBodega] = useState('')
+
+  console.log(initialBodegas)
+
   const filteredBodegas = useMemo(() => {
     return initialBodegas.filter(({ nombre, sucursal, direccion }) =>
       nombre.toLowerCase().includes(searchBodega.toLowerCase()) ||
