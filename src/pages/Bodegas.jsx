@@ -38,7 +38,7 @@ export function Bodegas () {
 
       {
         filteredBodegas.map(bodega => (
-          <section key={bodega._id} className="flex h-auto bg-green-200 m-2 rounded-md p-2 items-center justify-around">
+          <section key={bodega._id} className="flex h-auto bg-slate-300 m-2 rounded-md p-2 items-center justify-around">
 
             <article className="w-72">
               <h2 className="font-semibold">{bodega.nombre}</h2>

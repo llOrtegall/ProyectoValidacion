@@ -11,7 +11,8 @@ import { CreatedBodega } from './pages/createdBodega.jsx'
 import { Bodegas } from './pages/Bodegas.jsx'
 
 import axios from 'axios'
-import { VerMovimientos } from './pages/verMovimientos.jsx'
+import { VerMovimientos } from './pages/VerMovimientos.jsx'
+import { MovimientoDetalle } from './pages/MovimientoDetalle.jsx'
 
 axios.defaults.baseURL = 'http://localhost:3000'
 
@@ -28,6 +29,7 @@ export function App () {
           <Route path='bodegas' element={<Bodegas />}></Route>
           <Route path='crearMovimiento' element={<CrearMovimiento />}></Route>
           <Route path='verMovimientos' element={<VerMovimientos/>}></Route>
+          <Route path="/movimiento/:id" element={<MovimientoDetalle/>} />
         </Route>
         <Route path="*" element={<h1>Not Found</h1>}></Route>
       </Routes>
