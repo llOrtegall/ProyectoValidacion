@@ -3,13 +3,13 @@ import { useState } from 'react'
 import axios from 'axios'
 
 export function CrearMovimiento () {
-  const [bodegaOrigen, setBodegaOrigen] = useState(null)
   const [bodegaDestino, setBodegaDestino] = useState(null)
+  const [bodegaOrigen, setBodegaOrigen] = useState(null)
   const [search2, setSearch2] = useState('')
   const [search, setSearch] = useState('')
 
-  const [encargado, setEncargado] = useState('')
   const [descripcion, setDescripcion] = useState('')
+  const [encargado, setEncargado] = useState('')
   const [incidente, setIncidente] = useState('')
   const [filtro, setFiltro] = useState('')
 

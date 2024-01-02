@@ -1,7 +1,7 @@
 import { CloseIcon } from '../components/Icons.jsx'
 
 // eslint-disable-next-line react/prop-types
-export function ItemsInBodega({ bodega, fun }) {
+export function ItemsInBodega ({ bodega, fun }) {
   const restartActive = fun
 
   return (
@@ -15,8 +15,8 @@ export function ItemsInBodega({ bodega, fun }) {
           <CloseIcon />
         </button>
       </section>
-      <section>
 
+      <section style={{ height: '110px', overflow: 'auto' }}>
         {bodega.items.map(item => (
           <div key={item._id} className="grid grid-cols-4 gap-4">
             <p className='uppercase'>{item.nombre}</p>
