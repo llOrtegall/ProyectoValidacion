@@ -2,14 +2,17 @@ import { BodegaData, ItemsWthitBodegas, ItemsData } from '../utils/FetchItemsDat
 import { useFiltersBodegas, useFiltersItems } from '../hooks/useFilters'
 import { useEffect, useState } from 'react'
 import { AddIcon, DeleteIcon } from '../components/Icons'
+import axios from 'axios'
 
 export function AsignarItemBodega () {
-  // const [message, setMessage] = useState('')
-  // const [error, setError] = useState('')
+  const [message, setMessage] = useState('')
+  const [error, setError] = useState('')
   const [bodegas, setBodegas] = useState([])
   const [items, setItems] = useState([])
   const [carItems, setCarItems] = useState([])
   const [itemsConBodega, setItemsConBodega] = useState([])
+
+  const [sendBodega, setSendBodega] = useState('')
 
   useEffect(() => {
     if (localStorage.getItem('itemsConBodega')) {
@@ -37,7 +40,7 @@ export function AsignarItemBodega () {
         setBodegas(data)
         localStorage.setItem('bodegas', JSON.stringify(data))
       })
-  }, [])
+  }, [message])
 
   const ItemsSinBodega = ({ arrayItems }) => {
     const itemsSinBodega = itemsConBodega.filter(item => item.nombreBodega === 'N/A')
@@ -84,7 +87,24 @@ export function AsignarItemBodega () {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log('evento submit')
+    axios.post('/addItemsToBodega', { sucursal: sendBodega, itemIds: carItems })
+      .then(res => {
+        setMessage(res.data.message)
+        setCarItems([])
+        setItemsConBodega([])
+        setBodegas([])
+        setItems([])
+        localStorage.removeItem('itemsConBodega')
+        localStorage.removeItem('bodegas')
+        localStorage.removeItem('items')
+        setTimeout(() => {
+          setMessage('')
+        }, 4000)
+      })
+      .catch(err => {
+        console.log(err)
+        setError(err.response.data.error)
+      })
   }
 
   return (
@@ -128,12 +148,12 @@ export function AsignarItemBodega () {
         <input type="text" placeholder="Buscar bodega..." value={searchBodega}
           onChange={ev => setSearchBodega(ev.target.value)}
           className="bg-slate-200 w-64 p-2 rounded-md" />
-        <select name="sucursal"
+        <select name="sucursal" id="sucursal" value={sendBodega} onChange={ev => setSendBodega(ev.target.value)}
           className="bg-slate-300 rounded-md shadow-lg p-2 min-w-96">
           <option value="">Seleccione una bodega</option>
           {
             filteredBodegas.map(bodega => (
-              <option key={bodega._id} value={bodega._id} className='justify-normal'>
+              <option key={bodega._id} value={bodega.sucursal} className='justify-normal'>
                 {bodega.sucursal} | {bodega.nombre}
               </option>
             ))
@@ -147,10 +167,10 @@ export function AsignarItemBodega () {
         </form>
       </article>
 
-      {/* <footer>
+      <footer>
         {message && <p className="text-green-500 font-semibold text-center mt-4">{message}</p>}
         {error && <p className="text-red-500 font-semibold text-center mt-4">{error}</p>}
-      </footer> */}
+      </footer>
     </main>
   )
 }
