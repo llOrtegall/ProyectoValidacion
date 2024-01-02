@@ -1,16 +1,11 @@
 import { BodegaData, ItemsWthitBodegas, ItemsData } from '../utils/FetchItemsData'
-import { useFiltersBodegas } from '../hooks/useFilters'
+import { useFiltersBodegas, useFiltersItems } from '../hooks/useFilters'
 import { useEffect, useState } from 'react'
 
 export function AsignarItemBodega () {
   const [bodegas, setBodegas] = useState([])
   const [items, setItems] = useState([])
   const [itemsConBodega, setItemsConBodega] = useState([])
-
-  const { searchBodega, setSearchBodega, filteredBodegas } = useFiltersBodegas(bodegas)
-
-  // const [message, setMessage] = useState('')
-  // const [error, setError] = useState('')
 
   useEffect(() => {
     if (localStorage.getItem('itemsConBodega')) {
@@ -49,6 +44,14 @@ export function AsignarItemBodega () {
   }
 
   const ItemsRender = ItemsSinBodega({ arrayItems: items })
+
+  const { searchBodega, setSearchBodega, filteredBodegas } = useFiltersBodegas(bodegas)
+  const { search, setSearch, filteredItems } = useFiltersItems(ItemsRender)
+
+  // const [message, setMessage] = useState('')
+  // const [error, setError] = useState('')
+
+
 
   /*
   const handleAddItem = (id) => {
@@ -92,13 +95,13 @@ export function AsignarItemBodega () {
 
         <article className="">
           <p className=""><span className="font-semibold pr-2">Filtrar:</span>| Placa | Serial | Nombre |</p>
-          <input type="text" placeholder="Buscar Items..."
+          <input type="text" placeholder="Buscar Items..." value={search} onChange={ev => setSearch(ev.target.value)}
           className="bg-slate-200 w-64 p-2 rounded-md" />
           <select name="itemIds"
             className="bg-slate-300 rounded-md shadow-lg p-2 min-w-96">
             <option value="">Seleccione un item</option>
             {
-              ItemsRender.map(item => (
+              filteredItems.map(item => (
                 <option key={item._id} value={item._id} className='justify-normal'>
                   {item.placa} | {item.nombre}
                 </option>

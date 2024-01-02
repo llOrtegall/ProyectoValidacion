@@ -1,12 +1,12 @@
 import { ItemsData, ItemsWthitBodegas } from '../utils/FetchItemsData.js'
 import { RenderBodega } from '../components/RenderBodega.jsx'
-import { useFilters } from '../hooks/useFilters.js'
+import { useFiltersItems } from '../hooks/useFilters.js'
 import { useEffect, useState } from 'react'
 
 export function Items () {
   const [items, setItems] = useState([])
   const [itembodega, setItemBodega] = useState([])
-  const { search, setSearch, filteredItems } = useFilters(items)
+  const { search, setSearch, filteredItems } = useFiltersItems(items)
 
   useEffect(() => {
     ItemsData()
