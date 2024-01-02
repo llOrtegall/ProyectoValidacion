@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react'
 import { AddIcon, DeleteIcon } from '../components/Icons'
 
 export function AsignarItemBodega () {
+  // const [message, setMessage] = useState('')
+  // const [error, setError] = useState('')
   const [bodegas, setBodegas] = useState([])
   const [items, setItems] = useState([])
   const [carItems, setCarItems] = useState([])
@@ -80,48 +82,14 @@ export function AsignarItemBodega () {
     )
   }
 
-  // const [message, setMessage] = useState('')
-  // const [error, setError] = useState('')
-
-  /*
-  const handleAddItem = (id) => {
-    setItemsIds(prevItems => {
-      if (!prevItems.includes(id)) {
-        return [...prevItems, id]
-      } else {
-        return prevItems
-      }
-    })
-  }
-
   const handleSubmit = (e) => {
     e.preventDefault()
-    axios.post('/addItemToBodega', item)
-      .then(res => {
-        console.log(res)
-        setItem({
-          itemIds: [],
-          sucursal: ''
-        })
-        setMessage(res.data.message)
-        setTimeout(() => {
-          setMessage('')
-        }, 5000)
-      })
-      .catch(err => {
-        setError(err.response.data.error)
-        setTimeout(() => {
-          setError('')
-        }, 5000)
-      })
+    console.log('evento submit')
   }
 
-  */
-
   return (
-    <main className="w-ful flex flex-col">
-
-      <article className="">
+    <main className="w-ful flex justify-around">
+      <article className="flex flex-col gap-4 items-center">
         <p className=""><span className="font-semibold pr-2">Filtrar:</span>| Placa | Serial | Nombre |</p>
         <input type="text" placeholder="Buscar Items..." value={search} onChange={ev => setSearch(ev.target.value)}
           className="bg-slate-200 w-64 p-2 rounded-md" />
@@ -129,11 +97,11 @@ export function AsignarItemBodega () {
           className="bg-slate-300 rounded-md shadow-lg p-2 min-w-96">
           {
             filteredItems.map(item => (
-              <article key={item._id} value={item._id} className='justify-normal'>
+              <article key={item._id} value={item._id} className='flex justify-between'>
                 {item.placa} | {item.nombre}
                 <button
                   onClick={() => handleAddItem(item._id)}
-                  className={carItems.includes(item) ? 'added' : ''}
+                  className={carItems.includes(item._id) ? 'added' : ''}
                 >
                   <AddIcon />
                 </button>
@@ -142,7 +110,8 @@ export function AsignarItemBodega () {
           }
         </section>
 
-        <section>
+        <section className='w-full flex flex-col'>
+          <h2 className='text-xl font-semibold'>Items Seleccionados para mover</h2>
           {
             carItems && (
               carItems?.map((item, index) => (
@@ -170,9 +139,12 @@ export function AsignarItemBodega () {
             ))
           }
         </select>
-        <button className="w-60 h-10 bg-blue-400 hover:bg-blue-600 rounded-lg text-white font-semibold">
-          Asignar
-        </button>
+
+        <form onSubmit={handleSubmit} className="flex flex-col gap-4 items-center">
+          <button className="w-60 h-10 bg-blue-400 hover:bg-blue-600 rounded-lg text-white font-semibold">
+            Asignar
+          </button>
+        </form>
       </article>
 
       {/* <footer>
