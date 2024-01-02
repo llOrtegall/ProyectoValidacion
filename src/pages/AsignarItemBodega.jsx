@@ -1,10 +1,12 @@
 import { BodegaData, ItemsWthitBodegas, ItemsData } from '../utils/FetchItemsData'
 import { useFiltersBodegas, useFiltersItems } from '../hooks/useFilters'
 import { useEffect, useState } from 'react'
+import { AddIcon, DeleteIcon } from '../components/Icons'
 
 export function AsignarItemBodega () {
   const [bodegas, setBodegas] = useState([])
   const [items, setItems] = useState([])
+  const [carItems, setCarItems] = useState([])
   const [itemsConBodega, setItemsConBodega] = useState([])
 
   useEffect(() => {
@@ -48,10 +50,38 @@ export function AsignarItemBodega () {
   const { searchBodega, setSearchBodega, filteredBodegas } = useFiltersBodegas(bodegas)
   const { search, setSearch, filteredItems } = useFiltersItems(ItemsRender)
 
+  const handleAddItem = (id) => {
+    setCarItems(prevItems => {
+      if (!prevItems.includes(id)) {
+        return [...prevItems, id]
+      } else {
+        return prevItems
+      }
+    })
+  }
+
+  const handleRemoveItem = (id) => {
+    setCarItems(prevItems => {
+      return prevItems.filter(item => item !== id)
+    })
+  }
+
+  // eslint-disable-next-line react/prop-types
+  function ItemsAgregados ({ id }) {
+    const item = items?.find(item => item._id === id)
+    return (
+      <main key={item._id} className="grid grid-cols-3 place-items-center mb-2 p-2 rounded-md bg-orange-400 border">
+        <p>{item?.nombre}</p>
+        <p>{item?.placa}</p>
+        <button onClick={() => handleRemoveItem(id)} className="hover:bg-red-400 rounded-full p-1 hover:text-white">
+          <DeleteIcon />
+        </button>
+      </main>
+    )
+  }
+
   // const [message, setMessage] = useState('')
   // const [error, setError] = useState('')
-
-
 
   /*
   const handleAddItem = (id) => {
@@ -91,47 +121,59 @@ export function AsignarItemBodega () {
   return (
     <main className="w-ful flex flex-col">
 
-      <form className="flex justify-around">
-
-        <article className="">
-          <p className=""><span className="font-semibold pr-2">Filtrar:</span>| Placa | Serial | Nombre |</p>
-          <input type="text" placeholder="Buscar Items..." value={search} onChange={ev => setSearch(ev.target.value)}
+      <article className="">
+        <p className=""><span className="font-semibold pr-2">Filtrar:</span>| Placa | Serial | Nombre |</p>
+        <input type="text" placeholder="Buscar Items..." value={search} onChange={ev => setSearch(ev.target.value)}
           className="bg-slate-200 w-64 p-2 rounded-md" />
-          <select name="itemIds"
-            className="bg-slate-300 rounded-md shadow-lg p-2 min-w-96">
-            <option value="">Seleccione un item</option>
-            {
-              filteredItems.map(item => (
-                <option key={item._id} value={item._id} className='justify-normal'>
-                  {item.placa} | {item.nombre}
-                </option>
-              ))
-            }
-          </select>
-        </article>
+        <section name="itemIds"
+          className="bg-slate-300 rounded-md shadow-lg p-2 min-w-96">
+          {
+            filteredItems.map(item => (
+              <article key={item._id} value={item._id} className='justify-normal'>
+                {item.placa} | {item.nombre}
+                <button
+                  onClick={() => handleAddItem(item._id)}
+                  className={carItems.includes(item) ? 'added' : ''}
+                >
+                  <AddIcon />
+                </button>
+              </article>
+            ))
+          }
+        </section>
 
-        <article className="flex flex-col gap-4 items-center">
-          <p className=""><span className="font-semibold pr-2">Filtrar:</span>| Sucursal | Nombre | Dirección </p>
-          <input type="text" placeholder="Buscar bodega..." value={searchBodega}
-            onChange={ev => setSearchBodega(ev.target.value)}
-            className="bg-slate-200 w-64 p-2 rounded-md" />
-          <select name="sucursal"
-            className="bg-slate-300 rounded-md shadow-lg p-2 min-w-96">
-            <option value="">Seleccione una bodega</option>
-            {
-              filteredBodegas.map(bodega => (
-                <option key={bodega._id} value={bodega._id} className='justify-normal'>
-                  {bodega.sucursal} | {bodega.nombre}
-                </option>
+        <section>
+          {
+            carItems && (
+              carItems?.map((item, index) => (
+                <ItemsAgregados id={item} key={index} />
               ))
-            }
-          </select>
-          <button className="w-60 h-10 bg-blue-400 hover:bg-blue-600 rounded-lg text-white font-semibold">
-            Asignar
-          </button>
-        </article>
+            )
+          }
+        </section>
 
-      </form>
+      </article>
+
+      <article className="flex flex-col gap-4 items-center">
+        <p className=""><span className="font-semibold pr-2">Filtrar:</span>| Sucursal | Nombre | Dirección </p>
+        <input type="text" placeholder="Buscar bodega..." value={searchBodega}
+          onChange={ev => setSearchBodega(ev.target.value)}
+          className="bg-slate-200 w-64 p-2 rounded-md" />
+        <select name="sucursal"
+          className="bg-slate-300 rounded-md shadow-lg p-2 min-w-96">
+          <option value="">Seleccione una bodega</option>
+          {
+            filteredBodegas.map(bodega => (
+              <option key={bodega._id} value={bodega._id} className='justify-normal'>
+                {bodega.sucursal} | {bodega.nombre}
+              </option>
+            ))
+          }
+        </select>
+        <button className="w-60 h-10 bg-blue-400 hover:bg-blue-600 rounded-lg text-white font-semibold">
+          Asignar
+        </button>
+      </article>
 
       {/* <footer>
         {message && <p className="text-green-500 font-semibold text-center mt-4">{message}</p>}

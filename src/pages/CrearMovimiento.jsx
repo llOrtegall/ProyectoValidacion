@@ -1,8 +1,8 @@
 import { AddIcon, DeleteIcon, SuccesIcon, WarningIcon } from '../components/Icons.jsx'
-import { useState } from "react"
-import axios from "axios"
+import { useState } from 'react'
+import axios from 'axios'
 
-export function CrearMovimiento() {
+export function CrearMovimiento () {
   const [bodegaOrigen, setBodegaOrigen] = useState(null)
   const [bodegaDestino, setBodegaDestino] = useState(null)
   const [search2, setSearch2] = useState('')
@@ -21,23 +21,22 @@ export function CrearMovimiento() {
   const handleAddItem = (id) => {
     setItems(prevItems => {
       if (!prevItems.includes(id)) {
-        return [...prevItems, id];
+        return [...prevItems, id]
       } else {
-        return prevItems;
+        return prevItems
       }
     })
   }
 
   const handleRemoveItem = (id) => {
     setItems(prevItems => {
-      return prevItems.filter(item => item !== id);
-    });
+      return prevItems.filter(item => item !== id)
+    })
   }
 
-
   // eslint-disable-next-line react/prop-types
-  function ItemsAgregados({ id }) {
-    const item = bodegaOrigen?.items.find(item => item._id === id);
+  function ItemsAgregados ({ id }) {
+    const item = bodegaOrigen?.items.find(item => item._id === id)
     return (
       <main key={item._id} className="grid grid-cols-3 place-items-center mb-2 p-2 rounded-md bg-orange-400 border">
         <p>{item?.nombre}</p>
@@ -46,9 +45,8 @@ export function CrearMovimiento() {
           <DeleteIcon />
         </button>
       </main>
-    );
+    )
   }
-
 
   const searchBodegaOrigen = (ev) => {
     ev.preventDefault()
@@ -194,7 +192,6 @@ export function CrearMovimiento() {
                   onChange={ev => setEncargado(ev.target.value)}
                   placeholder="Pepito Perez Muñoz" />
               </label>
-
 
               <label className="flex h-10 items-center"> <span className="font-semibold w-32">N° Incidente:</span>
                 <input type="text" className="w-full p-2 rounded-md bg-slate-100 no-underline text-black"
