@@ -1,7 +1,7 @@
-import axios from "axios"
-import { useEffect, useState } from "react"
+import axios from 'axios'
+import { useEffect, useState } from 'react'
 
-export function VerMovimientos (){
+export function VerMovimientos () {
   const [movimientos, setMovimientos] = useState([])
 
   useEffect(() => {
@@ -12,7 +12,7 @@ export function VerMovimientos (){
       .catch(err => console.log(err))
   }, [])
 
-  return(
+  return (
     <main className="w-full">
       <section className="flex justify-around mt-2 ">
         <h1>Ver Movimientos</h1>
@@ -26,9 +26,9 @@ export function VerMovimientos (){
           <p><span className="font-semibold pr-2">N° Incidente:</span>{m.incidente}</p>
           <p><span className="font-semibold pr-2">Bodega Origen:</span>{m.bodegaOrigen?.nombre}</p>
           <p><span className="font-semibold pr-2">Bodega Destino:</span>{m.bodegaDestino?.nombre}</p>
-          <p><span  className="font-semibold pr-2">Cantidad Items Movidos</span>{m.items.length}</p>
+          <p><span className="font-semibold pr-2">Cantidad Items Movidos</span>{m.items.length}</p>
           <p><span className="font-semibold pr-2">Descripción Motivo</span>{m.descripcion}</p>
-        </article>       
+        </article>
       ))
     }
 

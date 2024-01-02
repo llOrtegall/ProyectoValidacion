@@ -1,14 +1,14 @@
-import { ItemsInBodega } from "../components/itemsInBodega"
-import { useEffect, useState } from "react"
-import axios from "axios"
+import { ItemsInBodega } from '../components/itemsInBodega'
+import { useEffect, useState } from 'react'
+import axios from 'axios'
 
-export function Bodegas() {
+export function Bodegas () {
   const [bodegas, setBodegas] = useState([])
   const [search, setSearch] = useState('')
-  const [activeBodegaId, setActiveBodegaId] = useState(null);
+  const [activeBodegaId, setActiveBodegaId] = useState(null)
 
   const handleSearchChange = (event) => {
-    setSearch(event.target.value);
+    setSearch(event.target.value)
   }
 
   const handleActive = (id) => {
@@ -28,7 +28,7 @@ export function Bodegas() {
     axios.get('/getBodegas')
       .then(response => {
         console.log(response.data)
-        
+
         setBodegas(response.data)
         // localStorage.setItem('bodegas', JSON.stringify(response.data))
       })
@@ -63,8 +63,8 @@ export function Bodegas() {
             </button>
             <article className="col-span-4">
               {
-                activeBodegaId === bodega._id ?
-                  <ItemsInBodega bodega={bodega} key={bodega._id} fun={restartActive} />
+                activeBodegaId === bodega._id
+                  ? <ItemsInBodega bodega={bodega} key={bodega._id} fun={restartActive} />
                   : null
               }
             </article>

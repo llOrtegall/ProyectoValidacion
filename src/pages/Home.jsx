@@ -1,4 +1,4 @@
-export function Home() {
+export function Home () {
   return (
     <section className="w-full bg-gray-300 ">
       <h1>Bienvenido</h1>

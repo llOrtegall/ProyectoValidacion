@@ -1,7 +1,7 @@
 import { BodegaData, ItemsWthitBodegas, ItemsData } from '../utils/FetchItemsData'
 import { useFiltersBodegas, useFiltersItems } from '../hooks/useFilters'
-import { useEffect, useState } from 'react'
 import { AddIcon, DeleteIcon } from '../components/Icons'
+import { useEffect, useState } from 'react'
 import axios from 'axios'
 
 export function AsignarItemBodega () {

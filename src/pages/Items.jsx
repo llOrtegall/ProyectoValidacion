@@ -23,7 +23,7 @@ export function Items () {
   }, [])
 
   return (
-    <main className="w-full px-2">
+    <main className="w-full h-screen px-2">
 
       <section className="flex items-center justify-center gap-6 bg-blue-500  rounded-md shadow-lg py-1 mb-2">
         <p><span className="font-semibold pr-2">Filtrar:</span>| Placa | Serial | Nombre |</p>

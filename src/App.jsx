@@ -15,9 +15,9 @@ import { VerMovimientos } from './pages/verMovimientos.jsx'
 
 axios.defaults.baseURL = 'http://localhost:3000'
 
-export function App() {
+export function App () {
   return (
-    <section className='w-screen h-screen bg-gray-300'>
+    <section className=''>
       <Routes>
         <Route path="/" element={< Layout />}>
           <Route path="home" element={< Home />}></Route>

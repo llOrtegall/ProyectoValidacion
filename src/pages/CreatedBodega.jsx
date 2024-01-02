@@ -1,8 +1,8 @@
-import { SuccesIcon, WarningIcon } from "../components/Icons.jsx"
-import { useState } from "react"
-import axios from "axios"
+import { SuccesIcon, WarningIcon } from '../components/Icons.jsx'
+import { useState } from 'react'
+import axios from 'axios'
 
-export function CreatedBodega() {
+export function CreatedBodega () {
   const [message, setMessage] = useState('')
   const [error, setError] = useState('')
 
@@ -10,7 +10,7 @@ export function CreatedBodega() {
   const [item, setItem] = useState({
     nombre: '',
     sucursal: '',
-    direccion: '',
+    direccion: ''
   })
 
   const handleChange = (e) => {
@@ -29,7 +29,7 @@ export function CreatedBodega() {
         setItem({
           nombre: '',
           sucursal: '',
-          direccion: '',
+          direccion: ''
         }) // limpiar el formulario
         setTimeout(() => {
           setMessage('')
@@ -93,5 +93,4 @@ export function CreatedBodega() {
       </footer>
     </main>
   )
-
 }
