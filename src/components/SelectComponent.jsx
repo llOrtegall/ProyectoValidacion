@@ -1,4 +1,4 @@
-import Select from 'react-select';
+import Select from 'react-select'
 
 const options = [
   { value: 'Impresora TMU USB/LPT', label: 'Impresora TMU | USB' },
@@ -10,6 +10,7 @@ const options = [
   { value: 'Cámara', label: 'Cámara' },
   { value: 'Proyector', label: 'Proyector' },
   { value: 'NVR', label: 'NVR' },
+  { value: 'Portátil', label: 'Portátil' },
   { value: 'Lector De Barras', label: 'Lector De Barras' },
   { value: 'Lector De Biometríco', label: 'Lector De Biometríco' },
   { value: 'UPS', label: 'UPS' },
@@ -18,8 +19,8 @@ const options = [
   { value: 'Batería', label: 'Batería' },
   { value: 'Inversor', label: 'Inversor' },
   { value: 'Televisor', label: 'Televisor' },
-  { value: 'Proyector', label: 'Proyector' },
-];
+  { value: 'Proyector', label: 'Proyector' }
+]
 
 const customStyles = {
   menuList: (provided) => ({
@@ -27,12 +28,12 @@ const customStyles = {
     display: 'grid',
     gridTemplateColumns: 'repeat(2, 1fr)',
     gridColumnGap: '10px',
-    cursor: 'pointer',
-  }),
-};
- 
+    cursor: 'pointer'
+  })
+}
+
 // eslint-disable-next-line react/prop-types
-export function SelectComponent({ fun }) {
+export function SelectComponent ({ fun }) {
   const handleChange = fun
   const handleSelectChange = (selectedOption) => {
     const e = {
@@ -45,5 +46,5 @@ export function SelectComponent({ fun }) {
   }
   return (
     <Select options={options} styles={customStyles} onChange={handleSelectChange} />
-  );
+  )
 }

@@ -1,6 +1,6 @@
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom'
 
-export function NavBar() {
+export function NavBar () {
   return (
     <nav className="bg-blue-400 p-2 shadow-lg min-h-16 items-center flex justify-around mb-2">
       <ul className="flex justify-around items-center ">
@@ -18,10 +18,10 @@ export function NavBar() {
           <Link to="/items" className="font-semibold">Items</Link>
         </li>
         <li className="hover:text-white">
-          <Link to="/created-items" className="font-semibold">Created Items</Link>
+          <Link to="/created-items" className="font-semibold">Crear Items</Link>
         </li>
         <li className="hover:text-white">
-          <Link to="/created-bodega" className="font-semibold">Created Bodega</Link>
+          <Link to="/created-bodega" className="font-semibold">Crear Bodega</Link>
         </li>
         <li className="hover:text-white">
           <Link to="/asignarItemBodega" className="font-semibold">Asignar Item Bodega</Link>
