@@ -108,11 +108,15 @@ export function AsignarItemBodega () {
   }
 
   return (
-    <main className="w-ful flex justify-around">
+    <main className="w-full flex justify-around">
+
       <article className="flex flex-col gap-4 items-center">
-        <p className=""><span className="font-semibold pr-2">Filtrar:</span>| Placa | Serial | Nombre |</p>
-        <input type="text" placeholder="Buscar Items..." value={search} onChange={ev => setSearch(ev.target.value)}
-          className="bg-slate-200 w-64 p-2 rounded-md" />
+        <section className='flex items-center pt-10 gap-5'>
+          <p className=""><span className="font-semibold pr-2">Filtrar:</span>| Placa | Serial | Nombre |</p>
+          <input type="text" placeholder="Buscar Items..." value={search} onChange={ev => setSearch(ev.target.value)}
+            className="bg-slate-200 w-64 p-2 rounded-md" />
+        </section>
+
         <section name="itemIds"
           className="bg-slate-300 rounded-md shadow-lg p-2 min-w-96">
           {
@@ -131,7 +135,7 @@ export function AsignarItemBodega () {
         </section>
 
         <section className='w-full flex flex-col'>
-          <h2 className='text-xl font-semibold'>Items Seleccionados para mover</h2>
+          <h2 className='text-xl font-semibold text-center pb-4'>Items Seleccionados Para Asignación: </h2>
           {
             carItems && (
               carItems?.map((item, index) => (
@@ -140,14 +144,15 @@ export function AsignarItemBodega () {
             )
           }
         </section>
-
       </article>
 
       <article className="flex flex-col gap-4 items-center">
-        <p className=""><span className="font-semibold pr-2">Filtrar:</span>| Sucursal | Nombre | Dirección </p>
-        <input type="text" placeholder="Buscar bodega..." value={searchBodega}
-          onChange={ev => setSearchBodega(ev.target.value)}
-          className="bg-slate-200 w-64 p-2 rounded-md" />
+        <section className='flex items-center pt-10 gap-5'>
+          <p className=""><span className="font-semibold pr-2">Filtrar:</span>| Sucursal | Nombre | Dirección </p>
+          <input type="text" placeholder="Buscar bodega..." value={searchBodega}
+            onChange={ev => setSearchBodega(ev.target.value)}
+            className="bg-slate-200 w-64 p-2 rounded-md" />
+        </section>
         <select name="sucursal" id="sucursal" value={sendBodega} onChange={ev => setSendBodega(ev.target.value)}
           className="bg-slate-300 rounded-md shadow-lg p-2 min-w-96">
           <option value="">Seleccione una bodega</option>
@@ -165,12 +170,12 @@ export function AsignarItemBodega () {
             Asignar
           </button>
         </form>
-      </article>
 
-      <footer>
-        {message && <p className="text-green-500 font-semibold text-center mt-4">{message}</p>}
-        {error && <p className="text-red-500 font-semibold text-center mt-4">{error}</p>}
-      </footer>
+        <footer>
+          {message && <p className="text-green-500 font-semibold text-center mt-4">{message}</p>}
+          {error && <p className="text-red-500 font-semibold text-center mt-4">{error}</p>}
+        </footer>
+      </article>
     </main>
   )
 }
