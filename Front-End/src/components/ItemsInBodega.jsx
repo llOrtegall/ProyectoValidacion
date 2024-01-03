@@ -1,4 +1,4 @@
-import { CloseIcon } from '../components/Icons.jsx'
+import { CloseIcon } from './Icons.jsx'
 
 // eslint-disable-next-line react/prop-types
 export function ItemsInBodega ({ bodega, fun }) {

@@ -1,4 +1,4 @@
-import { DeleteIcon } from '../components/Icons'
+import { DeleteIcon } from './Icons'
 
 // eslint-disable-next-line react/prop-types
 export function ItemsAgregados ({ id, items, handleRemoveItem }) {

@@ -1,4 +1,4 @@
-import { SuccesIcon, WarningIcon } from '../components/Icons'
+import { SuccesIcon, WarningIcon } from './Icons'
 
 // eslint-disable-next-line react/prop-types
 export function MessageDisplay ({ message, error }) {
