@@ -1,9 +1,11 @@
-import { mongoDB } from './src/Routes/MongoDB.routes.js'
+import { ItemsMongoDB } from './src/Routes/Items.Routes.js'
+import { BodegasMongoDB } from './src/Routes/Bodegas.Routes.js'
 
 import express from 'express'
 import dotenv from 'dotenv'
 import morgan from 'morgan'
 import cors from 'cors'
+import { MovimientosMongoDB } from './src/Routes/Movimientos.Routes.js'
 
 dotenv.config()
 
@@ -14,19 +16,16 @@ const ACCEPTED_ORIGINS = [
 ]
 
 const app = express()
-
 app.disable('x-powered-by')
 const PORT = process.env.PUERTO_API || 4000
 
-app.use(cors({
-  origin: ACCEPTED_ORIGINS
-}))
-
+app.use(cors({ origin: ACCEPTED_ORIGINS }))
 app.use(morgan('dev'))
 app.use(express.json())
 
-// TODO: Metodos En Mongo DB
-app.use(mongoDB)
+app.use(ItemsMongoDB)
+app.use(BodegasMongoDB)
+app.use(MovimientosMongoDB)
 
 app.listen(PORT, () => {
   console.log(`Server Iniciado En El Puerto http://localhost:${PORT}`)
