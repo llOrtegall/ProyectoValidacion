@@ -1,5 +1,6 @@
 import { BodegaData, ItemsWthitBodegas, ItemsData } from '../utils/FetchItemsData'
 import { useFiltersBodegas, useFiltersItems } from '../hooks/useFilters'
+import { MessageDisplay } from '../components/MessageDisplay.jsx'
 import { ItemsAgregados } from '../components/ItemsAgregados'
 import { useCarItems } from '../hooks/useCartItems'
 import { AddIcon } from '../components/Icons'
@@ -84,74 +85,73 @@ export function AsignarItemBodega () {
   }
 
   return (
-    <main className="w-full flex justify-around">
+    <main className="w-full flex justify-around flex-col">
 
-      <article className="flex flex-col gap-4 items-center">
-        <section className='flex items-center pt-10 gap-5'>
-          <p className=""><span className="font-semibold pr-2">Filtrar:</span>| Placa | Serial | Nombre |</p>
-          <input type="text" placeholder="Buscar Items..." value={search} onChange={ev => setSearch(ev.target.value)}
-            className="bg-slate-200 w-64 p-2 rounded-md" />
-        </section>
+      <section className='flex justify-around'>
+        <article className="flex flex-col gap-4 items-center">
+          <section className='flex items-center pt-10 gap-5'>
+            <p className=""><span className="font-semibold pr-2">Filtrar:</span>| Placa | Serial | Nombre |</p>
+            <input type="text" placeholder="Buscar Items..." value={search} onChange={ev => setSearch(ev.target.value)}
+              className="bg-slate-200 w-64 p-2 rounded-md" />
+          </section>
 
-        <section name="itemIds"
-          className="bg-slate-300 rounded-md shadow-lg p-2 min-w-96">
-          {
-            filteredItems.map(item => (
-              <article key={item._id} value={item._id} className='flex justify-between'>
-                {item.placa} | {item.nombre}
-                <button
-                  onClick={() => handleAddItem(item._id)}
-                  className={carItems.includes(item._id) ? 'added' : ''}
-                >
-                  <AddIcon />
-                </button>
-              </article>
-            ))
-          }
-        </section>
-
-        <section className='w-full flex flex-col'>
-          <h2 className='text-xl font-semibold text-center pb-4'>Items Seleccionados Para Asignación: </h2>
-          {
-            carItems && (
-              carItems?.map(item => (
-                <ItemsAgregados id={item} key={item} items={items} handleRemoveItem={handleRemoveItem} />
+          <section name="itemIds"
+            className="bg-slate-300 rounded-md shadow-lg p-2 min-w-96">
+            {
+              filteredItems.map(item => (
+                <article key={item._id} value={item._id} className='flex justify-between'>
+                  {item.placa} | {item.nombre}
+                  <button
+                    onClick={() => handleAddItem(item._id)}
+                    className={carItems.includes(item._id) ? 'added' : ''}
+                  >
+                    <AddIcon />
+                  </button>
+                </article>
               ))
-            )
-          }
-        </section>
-      </article>
+            }
+          </section>
 
-      <article className="flex flex-col gap-4 items-center">
-        <section className='flex items-center pt-10 gap-5'>
-          <p className=""><span className="font-semibold pr-2">Filtrar:</span>| Sucursal | Nombre | Dirección </p>
-          <input type="text" placeholder="Buscar bodega..." value={searchBodega}
-            onChange={ev => setSearchBodega(ev.target.value)}
-            className="bg-slate-200 w-64 p-2 rounded-md" />
-        </section>
-        <select name="sucursal" id="sucursal" value={sendBodega} onChange={ev => setSendBodega(ev.target.value)}
-          className="bg-slate-300 rounded-md shadow-lg p-2 min-w-96">
-          <option value="">Seleccione una bodega</option>
-          {
-            filteredBodegas.map(bodega => (
-              <option key={bodega._id} value={bodega.sucursal} className='justify-normal'>
-                {bodega.sucursal} | {bodega.nombre}
-              </option>
-            ))
-          }
-        </select>
+          <section className='w-full flex flex-col'>
+            <h2 className='text-xl font-semibold text-center pb-4'>Items Seleccionados Para Asignación: </h2>
+            {
+              carItems && (
+                carItems?.map(item => (
+                  <ItemsAgregados id={item} key={item} items={items} handleRemoveItem={handleRemoveItem} />
+                ))
+              )
+            }
+          </section>
+        </article>
 
-        <form onSubmit={handleSubmit} className="flex flex-col gap-4 items-center">
-          <button className="w-60 h-10 bg-blue-400 hover:bg-blue-600 rounded-lg text-white font-semibold">
-            Asignar
-          </button>
-        </form>
+        <article className="flex flex-col gap-4 items-center">
+          <section className='flex items-center pt-10 gap-5'>
+            <p className=""><span className="font-semibold pr-2">Filtrar:</span>| Sucursal | Nombre | Dirección </p>
+            <input type="text" placeholder="Buscar bodega..." value={searchBodega}
+              onChange={ev => setSearchBodega(ev.target.value)}
+              className="bg-slate-200 w-64 p-2 rounded-md" />
+          </section>
+          <select name="sucursal" id="sucursal" value={sendBodega} onChange={ev => setSendBodega(ev.target.value)}
+            className="bg-slate-300 rounded-md shadow-lg p-2 min-w-96">
+            <option value="">Seleccione una bodega</option>
+            {
+              filteredBodegas.map(bodega => (
+                <option key={bodega._id} value={bodega.sucursal} className='justify-normal'>
+                  {bodega.sucursal} | {bodega.nombre}
+                </option>
+              ))
+            }
+          </select>
 
-        <footer>
-          {message && <p className="text-green-500 font-semibold text-center mt-4">{message}</p>}
-          {error && <p className="text-red-500 font-semibold text-center mt-4">{error}</p>}
-        </footer>
-      </article>
+          <form onSubmit={handleSubmit} className="flex flex-col gap-4 items-center">
+            <button className="w-60 h-10 bg-blue-400 hover:bg-blue-600 rounded-lg text-white font-semibold">
+              Asignar
+            </button>
+          </form>
+        </article>
+      </section>
+
+      <MessageDisplay message={message} error={error} />
     </main>
   )
 }

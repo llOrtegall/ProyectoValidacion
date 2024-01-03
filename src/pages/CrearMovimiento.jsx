@@ -1,9 +1,10 @@
-import { AddIcon, SuccesIcon, WarningIcon } from '../components/Icons.jsx'
+import { AddIcon } from '../components/Icons.jsx'
 import { ItemsAgregados } from '../components/ItemsAgregados.jsx'
 import { useFiltersItems } from '../hooks/useFilters.js'
 import { useCarItems } from '../hooks/useCartItems.js'
 import { useState } from 'react'
 import axios from 'axios'
+import { MessageDisplay } from '../components/MessageDisplay.jsx'
 
 export function CrearMovimiento () {
   const [bodegaDestino, setBodegaDestino] = useState(null)
@@ -210,30 +211,7 @@ export function CrearMovimiento () {
         </article>
       </section>
 
-      <section className='h-10'>
-        <article className="flex items-center justify-center">
-          {message &&
-            <div className='flex gap-2'>
-              <figure className='bg-green-600 text-white font-bold flex items-center justify-center text-center px-2 rounded-md'>
-                <SuccesIcon />
-              </figure>
-              <p className="text-center bg-green-600 text-white font-semibold p-2 rounded-md">
-                {message}
-              </p>
-            </div>
-          }
-          {error &&
-            <div className='flex gap-2'>
-              <figure className='bg-red-400 text-white flex items-center justify-center text-center px-2 rounded-md'>
-                <WarningIcon />
-              </figure>
-              <p className="text-center bg-red-400 text-white font-semibold p-2 rounded-md">
-                {error}
-              </p>
-            </div>
-          }
-        </article>
-      </section>
+      <MessageDisplay message={message} error={error} />
     </main>
   )
 }
