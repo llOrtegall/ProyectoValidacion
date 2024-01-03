@@ -1,6 +1,8 @@
 import { BodegaData, ItemsWthitBodegas, ItemsData } from '../utils/FetchItemsData'
 import { useFiltersBodegas, useFiltersItems } from '../hooks/useFilters'
-import { AddIcon, DeleteIcon } from '../components/Icons'
+import { ItemsAgregados } from '../components/ItemsAgregados'
+import { useCarItems } from '../hooks/useCartItems'
+import { AddIcon } from '../components/Icons'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 
@@ -9,7 +11,6 @@ export function AsignarItemBodega () {
   const [error, setError] = useState('')
   const [bodegas, setBodegas] = useState([])
   const [items, setItems] = useState([])
-  const [carItems, setCarItems] = useState([])
   const [itemsConBodega, setItemsConBodega] = useState([])
 
   const [sendBodega, setSendBodega] = useState('')
@@ -54,57 +55,31 @@ export function AsignarItemBodega () {
 
   const { searchBodega, setSearchBodega, filteredBodegas } = useFiltersBodegas(bodegas)
   const { search, setSearch, filteredItems } = useFiltersItems(ItemsRender)
+  const { carItems, handleAddItem, handleRemoveItem } = useCarItems()
 
-  const handleAddItem = (id) => {
-    setCarItems(prevItems => {
-      if (!prevItems.includes(id)) {
-        return [...prevItems, id]
-      } else {
-        return prevItems
-      }
-    })
-  }
-
-  const handleRemoveItem = (id) => {
-    setCarItems(prevItems => {
-      return prevItems.filter(item => item !== id)
-    })
-  }
-
-  // eslint-disable-next-line react/prop-types
-  function ItemsAgregados ({ id }) {
-    const item = items?.find(item => item._id === id)
-    return (
-      <main key={item._id} className="grid grid-cols-3 place-items-center mb-2 p-2 rounded-md bg-orange-400 border">
-        <p>{item?.nombre}</p>
-        <p>{item?.placa}</p>
-        <button onClick={() => handleRemoveItem(id)} className="hover:bg-red-400 rounded-full p-1 hover:text-white">
-          <DeleteIcon />
-        </button>
-      </main>
-    )
-  }
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    axios.post('/addItemsToBodega', { sucursal: sendBodega, itemIds: carItems })
-      .then(res => {
-        setMessage(res.data.message)
-        setCarItems([])
-        setItemsConBodega([])
-        setBodegas([])
-        setItems([])
-        localStorage.removeItem('itemsConBodega')
-        localStorage.removeItem('bodegas')
-        localStorage.removeItem('items')
-        setTimeout(() => {
-          setMessage('')
-        }, 4000)
-      })
-      .catch(err => {
-        console.log(err)
-        setError(err.response.data.error)
-      })
+    try {
+      const res = await axios.post('/addItemsToBodega',
+        { sucursal: sendBodega, itemIds: carItems }
+      )
+      setMessage(res.data.message)
+      setItemsConBodega([])
+      setBodegas([])
+      setItems([])
+      localStorage.removeItem('itemsConBodega')
+      localStorage.removeItem('bodegas')
+      localStorage.removeItem('items')
+      setTimeout(() => {
+        setMessage('')
+      }, 4000)
+    } catch (err) {
+      console.log(err)
+      setError(err.response?.data?.error || 'An error occurred')
+      setTimeout(() => {
+        setError('')
+      }, 4000)
+    }
   }
 
   return (
@@ -138,8 +113,8 @@ export function AsignarItemBodega () {
           <h2 className='text-xl font-semibold text-center pb-4'>Items Seleccionados Para Asignación: </h2>
           {
             carItems && (
-              carItems?.map((item, index) => (
-                <ItemsAgregados id={item} key={index} />
+              carItems?.map(item => (
+                <ItemsAgregados id={item} key={item} items={items} handleRemoveItem={handleRemoveItem} />
               ))
             )
           }

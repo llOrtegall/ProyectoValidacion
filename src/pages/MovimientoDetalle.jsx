@@ -26,13 +26,13 @@ export function MovimientoDetalle () {
     movimiento &&
     <section className='flex flex-col gap-4 m-2'>
       <article className='border bg-slate-200'>
-        <section>
+        <section className='border-t border-l border-r border-black'>
           <h1 className="text-lg text-center bg-gradient-to-b from-cyan-200 to-blue-300 p-1 font-semibold">Movimiento:
             <span className='font-semibold pl-2'>{movimientoId}</span>
           </h1>
         </section>
 
-        <section className='grid grid-cols-2 p-2'>
+        <section className='grid grid-cols-2 p-2 border border-black'>
           <p className="text-blue-800 font-medium">Fecha: <span className='font-semibold text-black'>{formatFecha(fecha)}</span></p>
           <p className="text-blue-800 font-medium">Nombre Bodega Origen: <span className='font-semibold text-black'>{bodegaOrigen.nombre}</span></p>
           <p className="text-blue-800 font-medium">Encargado: <span className='font-semibold text-black'>{encargado}</span></p>
@@ -43,6 +43,13 @@ export function MovimientoDetalle () {
           <p className="text-blue-800 font-medium">Sucursal Destino: <span className='font-semibold text-black'>{bodegaDestino.sucursal}</span> </p>
         </section>
       </article>
+
+      <section className='border border-black h-auto '>
+          <header>
+            <h3 className='p-1 bg-yellow-100 border-black text-center font-medium border-b'>Motivo / Descripción Movimiento</h3>
+          </header>
+          <p className='py-2 pl-1'>{descripcion}</p>
+        </section>
 
       <article className='w-full flex flex-col gap-2 '>
         <table className="table-auto w-full">
@@ -69,12 +76,6 @@ export function MovimientoDetalle () {
             }
           </tbody>
         </table>
-        <section className='border border-black h-auto '>
-          <header>
-            <h3 className='p-2 bg-yellow-100 border-b-2 border-black text-center font-medium'>Motivo / Descripción Movimiento</h3>
-          </header>
-          <p className='py-2 pl-1'>{descripcion}</p>
-        </section>
       </article>
 
     </section>

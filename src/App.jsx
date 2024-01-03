@@ -1,17 +1,19 @@
+// TODO: Librerías externas
+import axios from 'axios'
 import { Routes, Route } from 'react-router-dom'
+
+// TODO: Componentes de diseño
 import { Layout } from './components/Layout.jsx'
 
-import { CreatedItems } from './pages/CreatedItems.jsx'
-import { Items } from './pages/Items.jsx'
+// TODO: Páginas
 import { Home } from './pages/Home.jsx'
-
-import { AsignarItemBodega } from './pages/AsignarItemBodega.jsx'
-import { CrearMovimiento } from './pages/CrearMovimiento.jsx'
-import { CreatedBodega } from './pages/createdBodega.jsx'
+import { Items } from './pages/Items.jsx'
 import { Bodegas } from './pages/Bodegas.jsx'
-
-import axios from 'axios'
+import { CreatedItems } from './pages/CreatedItems.jsx'
+import { CreatedBodega } from './pages/createdBodega.jsx'
 import { VerMovimientos } from './pages/VerMovimientos.jsx'
+import { CrearMovimiento } from './pages/CrearMovimiento.jsx'
+import { AsignarItemBodega } from './pages/AsignarItemBodega.jsx'
 import { MovimientoDetalle } from './pages/MovimientoDetalle.jsx'
 
 axios.defaults.baseURL = 'http://localhost:3000'

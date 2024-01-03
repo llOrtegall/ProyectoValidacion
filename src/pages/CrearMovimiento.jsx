@@ -1,57 +1,29 @@
-import { AddIcon, DeleteIcon, SuccesIcon, WarningIcon } from '../components/Icons.jsx'
+import { AddIcon, SuccesIcon, WarningIcon } from '../components/Icons.jsx'
+import { ItemsAgregados } from '../components/ItemsAgregados.jsx'
 import { useState } from 'react'
 import axios from 'axios'
+import { useCarItems } from '../hooks/useCartItems.js'
+import { useFiltersItems } from '../hooks/useFilters.js'
 
 export function CrearMovimiento () {
   const [bodegaDestino, setBodegaDestino] = useState(null)
   const [bodegaOrigen, setBodegaOrigen] = useState(null)
-  const [search2, setSearch2] = useState('')
-  const [search, setSearch] = useState('')
+  const [searchBodegaOrigen, setSearchBodegaOrigen] = useState('')
+  const [searchBodegaDestino, setSearchBodegaDestino] = useState('')
 
   const [descripcion, setDescripcion] = useState('')
   const [encargado, setEncargado] = useState('')
   const [incidente, setIncidente] = useState('')
-  const [filtro, setFiltro] = useState('')
 
   const [message, setMessage] = useState('')
   const [error, setError] = useState('')
 
   const [items, setItems] = useState([])
 
-  const handleAddItem = (id) => {
-    setItems(prevItems => {
-      if (!prevItems.includes(id)) {
-        return [...prevItems, id]
-      } else {
-        return prevItems
-      }
-    })
-  }
-
-  const handleRemoveItem = (id) => {
-    setItems(prevItems => {
-      return prevItems.filter(item => item !== id)
-    })
-  }
-
-  // eslint-disable-next-line react/prop-types
-  function ItemsAgregados ({ id }) {
-    const item = bodegaOrigen?.items.find(item => item._id === id)
-    return (
-      <main key={item._id} className="grid grid-cols-3 place-items-center mb-2 p-2 rounded-md bg-orange-400 border">
-        <p>{item?.nombre}</p>
-        <p>{item?.placa}</p>
-        <button onClick={() => handleRemoveItem(id)} className="hover:bg-red-400 rounded-full p-1 hover:text-white">
-          <DeleteIcon />
-        </button>
-      </main>
-    )
-  }
-
-  const searchBodegaOrigen = (ev) => {
+  const searchOrigen = (ev) => {
     ev.preventDefault()
 
-    axios.get(`/getBodega/${search}`)
+    axios.get(`/getBodega/${searchBodegaOrigen}`)
       .then(response => {
         setBodegaOrigen(response.data)
       })
@@ -60,10 +32,10 @@ export function CrearMovimiento () {
       })
   }
 
-  const searchBodegaDestino = (ev) => {
+  const searchDestino = (ev) => {
     ev.preventDefault()
 
-    axios.get(`/getBodega/${search2}`)
+    axios.get(`/getBodega/${searchBodegaDestino}`)
       .then(response => {
         setBodegaDestino(response.data)
       })
@@ -114,28 +86,28 @@ export function CrearMovimiento () {
       })
   }
 
-  const filteredItems = bodegaOrigen?.items.filter(item =>
-    item.nombre.toLowerCase().includes(filtro.toLowerCase()) ||
-    item.placa.toLowerCase().includes(filtro.toLowerCase()) ||
-    item.serial.toLowerCase().includes(filtro.toLowerCase())
-  )
+  const itemsOrigen = bodegaOrigen?.items || []
+  console.log(itemsOrigen)
+
+  const { carItems, handleAddItem, handleRemoveItem } = useCarItems()
+  const { search, setSearch, filteredItems } = useFiltersItems(itemsOrigen)
 
   return (
     <main className="w-full">
 
       <section className="grid grid-cols-3 py-4 w-full gap-4 p-2">
 
-        <form className="w-full p-2 bg-gray-600 rounded-lg flex items-center gap-2 text-center col-span-2 place-content-center" onSubmit={searchBodegaOrigen}>
+        <form className="w-full p-2 bg-gray-600 rounded-lg flex items-center gap-2 text-center col-span-2 place-content-center" onSubmit={searchOrigen}>
           <h3 className="font-semibold text-white">Bodega De Origen</h3>
-          <input type="text" value={search} onChange={ev => setSearch(ev.target.value)}
+          <input type="text" value={searchBodegaOrigen} onChange={ev => setSearchBodegaOrigen(ev.target.value)}
             placeholder="40001 | 34545"
             className="bg-slate-100 w-64 p-2 rounded-md" />
           <button className="bg-green-600 text-white rounded-md p-2 font-semibold hover:bg-white hover:text-black">Buscar Sucursal</button>
         </form>
 
-        <form className="w-full p-2 bg-gray-600 rounded-lg flex items-center gap-2 text-center col-span-1 place-content-center" onSubmit={searchBodegaDestino}>
+        <form className="w-full p-2 bg-gray-600 rounded-lg flex items-center gap-2 text-center col-span-1 place-content-center" onSubmit={searchDestino}>
           <h3 className="font-semibold text-white">Bodega De Destino</h3>
-          <input type="text" value={search2} onChange={ev => setSearch2(ev.target.value)}
+          <input type="text" value={searchBodegaDestino} onChange={ev => setSearchBodegaDestino(ev.target.value)}
             placeholder="40001 | 34545"
             className="bg-slate-100 w-64 p-2 rounded-md" />
           <button className="bg-green-600 text-white rounded-md p-2 font-semibold hover:bg-white hover:text-black">Buscar Sucursal</button>
@@ -154,7 +126,8 @@ export function CrearMovimiento () {
 
           <section className="grid grid-cols-2 w-full place-items-center gap-6 bg-slate-600 text-white rounded-md px-4 py-2 mb-2">
             <p><span className="font-semibold pr-2">Filtrar:</span>| Placa | Serial | Nombre |</p>
-            <input type="text" placeholder="Buscar Items..." className="bg-slate-100 w-64 rounded-md p-1 text-black" value={filtro} onChange={ev => setFiltro(ev.target.value)} />
+            <input type="text" placeholder="Buscar Items..." className="bg-slate-100 w-64 rounded-md p-1 text-black"
+             value={search} onChange={ev => setSearch(ev.target.value)} />
           </section>
 
           <section className="grid grid-cols-4 w-full place-items-center p-2 bg-slate-600 rounded-md mb-2 text-white">
@@ -174,7 +147,7 @@ export function CrearMovimiento () {
                     <p>{p.serial}</p>
                     <button
                       onClick={() => handleAddItem(p._id)}
-                      className={items.includes(p._id) ? 'added' : ''}
+                      className={carItems.includes(p._id) ? 'added' : ''}
                     >
                       <AddIcon />
                     </button>
@@ -227,9 +200,9 @@ export function CrearMovimiento () {
             <h2 className="text-center py-2 font-semibold bg-slate-600 mb-2 rounded-md text-white">Items Que Ingresarán :</h2>
             <section style={{ maxHeight: '450px', overflowY: 'auto' }}>
               {
-                bodegaOrigen && (
-                  items?.map((item, index) => (
-                    <ItemsAgregados id={item} key={index} />
+                carItems && (
+                  carItems?.map(item => (
+                    <ItemsAgregados id={item} key={item} items={items} handleRemoveItem={handleRemoveItem} />
                   ))
                 )
               }
