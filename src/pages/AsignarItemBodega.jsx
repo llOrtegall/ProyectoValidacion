@@ -55,7 +55,7 @@ export function AsignarItemBodega () {
 
   const { searchBodega, setSearchBodega, filteredBodegas } = useFiltersBodegas(bodegas)
   const { search, setSearch, filteredItems } = useFiltersItems(ItemsRender)
-  const { carItems, handleAddItem, handleRemoveItem } = useCarItems()
+  const { carItems, handleAddItem, handleRemoveItem, setCarItems } = useCarItems()
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -67,6 +67,7 @@ export function AsignarItemBodega () {
       setItemsConBodega([])
       setBodegas([])
       setItems([])
+      setCarItems([])
       localStorage.removeItem('itemsConBodega')
       localStorage.removeItem('bodegas')
       localStorage.removeItem('items')

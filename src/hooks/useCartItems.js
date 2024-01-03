@@ -19,5 +19,5 @@ export function useCarItems (initialItems = []) {
     })
   }, [])
 
-  return { carItems, handleAddItem, handleRemoveItem }
+  return { carItems, handleAddItem, handleRemoveItem, setCarItems }
 }

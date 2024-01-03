@@ -1,9 +1,9 @@
 import { AddIcon, SuccesIcon, WarningIcon } from '../components/Icons.jsx'
 import { ItemsAgregados } from '../components/ItemsAgregados.jsx'
+import { useFiltersItems } from '../hooks/useFilters.js'
+import { useCarItems } from '../hooks/useCartItems.js'
 import { useState } from 'react'
 import axios from 'axios'
-import { useCarItems } from '../hooks/useCartItems.js'
-import { useFiltersItems } from '../hooks/useFilters.js'
 
 export function CrearMovimiento () {
   const [bodegaDestino, setBodegaDestino] = useState(null)
@@ -14,11 +14,10 @@ export function CrearMovimiento () {
   const [descripcion, setDescripcion] = useState('')
   const [encargado, setEncargado] = useState('')
   const [incidente, setIncidente] = useState('')
+  const [items, setItems] = useState([])
 
   const [message, setMessage] = useState('')
   const [error, setError] = useState('')
-
-  const [items, setItems] = useState([])
 
   const searchOrigen = (ev) => {
     ev.preventDefault()
@@ -26,6 +25,7 @@ export function CrearMovimiento () {
     axios.get(`/getBodega/${searchBodegaOrigen}`)
       .then(response => {
         setBodegaOrigen(response.data)
+        setItems(response.data.items)
       })
       .catch(error => {
         console.log(error)
@@ -44,6 +44,11 @@ export function CrearMovimiento () {
       })
   }
 
+  const itemsOrigen = bodegaOrigen?.items || []
+
+  const { carItems, handleAddItem, handleRemoveItem, setCarItems } = useCarItems()
+  const { search, setSearch, filteredItems } = useFiltersItems(itemsOrigen)
+
   const handleClick = () => {
     if (!bodegaOrigen || !bodegaDestino) {
       setTimeout(() => {
@@ -56,7 +61,7 @@ export function CrearMovimiento () {
     axios.post('/moveItem', {
       bodegaOrigen: bodegaOrigen._id,
       bodegaDestino: bodegaDestino._id,
-      itemsIds: items,
+      itemsIds: carItems,
       encargado,
       descripcion,
       incidente
@@ -66,9 +71,8 @@ export function CrearMovimiento () {
         // resetea los estados
         setBodegaOrigen(null)
         setBodegaDestino(null)
-        setSearch('')
-        setSearch2('')
         setItems([])
+        setCarItems([])
         setEncargado('')
         setDescripcion('')
         setIncidente('')
@@ -85,12 +89,6 @@ export function CrearMovimiento () {
         }, 4000)
       })
   }
-
-  const itemsOrigen = bodegaOrigen?.items || []
-  console.log(itemsOrigen)
-
-  const { carItems, handleAddItem, handleRemoveItem } = useCarItems()
-  const { search, setSearch, filteredItems } = useFiltersItems(itemsOrigen)
 
   return (
     <main className="w-full">
@@ -127,7 +125,7 @@ export function CrearMovimiento () {
           <section className="grid grid-cols-2 w-full place-items-center gap-6 bg-slate-600 text-white rounded-md px-4 py-2 mb-2">
             <p><span className="font-semibold pr-2">Filtrar:</span>| Placa | Serial | Nombre |</p>
             <input type="text" placeholder="Buscar Items..." className="bg-slate-100 w-64 rounded-md p-1 text-black"
-             value={search} onChange={ev => setSearch(ev.target.value)} />
+              value={search} onChange={ev => setSearch(ev.target.value)} />
           </section>
 
           <section className="grid grid-cols-4 w-full place-items-center p-2 bg-slate-600 rounded-md mb-2 text-white">
@@ -140,14 +138,14 @@ export function CrearMovimiento () {
           <section style={{ maxHeight: '330px', overflowY: 'auto' }} className='mb-2'>
             {
               bodegaOrigen && (
-                filteredItems.map(p => (
-                  <section key={p._id} className="w-full grid grid-cols-4 p-2 bg-blue-500 rounded-md mb-2 place-items-center text-white">
-                    <p>{p.nombre}</p>
-                    <p>{p.placa}</p>
-                    <p>{p.serial}</p>
+                filteredItems.map(item => (
+                  <section key={item._id} className="w-full grid grid-cols-4 p-2 bg-blue-500 rounded-md mb-2 place-items-center text-white">
+                    <p>{item.nombre}</p>
+                    <p>{item.placa}</p>
+                    <p>{item.serial}</p>
                     <button
-                      onClick={() => handleAddItem(p._id)}
-                      className={carItems.includes(p._id) ? 'added' : ''}
+                      onClick={() => handleAddItem(item._id)}
+                      className={carItems.includes(item._id) ? 'added' : ''}
                     >
                       <AddIcon />
                     </button>
