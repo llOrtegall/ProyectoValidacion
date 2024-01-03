@@ -25,45 +25,50 @@ export function MovimientoDetalle () {
 
     movimiento &&
     <section className='flex flex-col gap-4 m-2'>
-      <h1 className="text-2xl font-semibold text-center">Movimiento # : {movimientoId}</h1>
-      <article className='flex justify-around'>
-        <div>
-          <p className="text-xl font-semibold">Fecha: {formatFecha(fecha)}</p>
-          <p className="text-xl font-semibold">Encargado: {encargado}</p>
-          <p className="text-xl font-semibold">Incidente: {incidente}</p>
-        </div>
-        <div>
-          <p className="text-xl font-semibold">Bodega Origen: {bodegaOrigen.nombre}</p>
-          <p className="text-xl font-semibold">Bodega Destino: {bodegaDestino.nombre}</p>
-          <p className="text-xl font-semibold">Cantidad de Items: {items.length}</p>
-        </div>
+      <article className='border bg-slate-200'>
+        <section>
+          <h1 className="text-lg text-center bg-gradient-to-b from-cyan-200 to-blue-300 p-1 font-semibold">Movimiento:
+            <span className='font-semibold pl-2'>{movimientoId}</span>
+          </h1>
+        </section>
+
+        <section className='grid grid-cols-2 place-items-center p-2'>
+          <p className="text-blue-800 font-medium">Fecha: <span className='font-semibold text-black'>{formatFecha(fecha)}</span></p>
+          <p className="text-blue-800 font-medium">Encargado: <span className='font-semibold text-black'>{encargado}</span></p>
+          <p className="text-blue-800 font-medium">Incidente: <span className='font-semibold text-black'>{incidente}</span></p>
+          <p className="text-blue-800 font-medium">Bodega Origen:<span className='font-semibold text-black'>{bodegaOrigen.nombre}</span></p>
+          <p className="text-blue-800 font-medium">Cantidad De Items Movidos: <span className='font-semibold text-black'>{items.length}</span> </p>
+          <p className="text-blue-800 font-medium">Bodega Destino: <span className='font-semibold text-black'>{bodegaDestino.nombre}</span> </p>
+        </section>
       </article>
 
-      <h2 className="text-xl font-semibold text-center">Items Movidos</h2>
-      <table className="table-auto">
-        <thead>
-          <tr>
-            <th className="border px-4 py-2">Item</th>
-            <th className="border px-4 py-2">Descripción</th>
-            <th className='border px-4 py-2'>N° Placa</th>
-            <th className="border px-4 py-2">Serial</th>
-            <th className="border px-4 py-2">Cantidad</th>
-          </tr>
-        </thead>
-        <tbody>
-          {
-            items.map(item => (
-              <tr key={item._id}>
-                <td className="border px-4 py-2">{item.nombre}</td>
-                <td className="border px-4 py-2">{item.descripcion}</td>
-                <td className='border px-4 py-2 uppercase text-center'>{item.placa}</td>
-                <td className='border px-4 py-2 uppercase text-center'>{item.serial}</td>
-                <td className="border px-4 py-2 text-center">1</td>
-              </tr>
-            ))
-          }
-        </tbody>
-      </table>
+      <article className='w-full'>
+        <table className="table-auto w-full">
+          <thead>
+            <tr className='bg-yellow-100'>
+              <th className="border py-1">Item</th>
+              <th className="border py-1">Descripción</th>
+              <th className='border py-1'>N° Placa</th>
+              <th className="border py-1">Serial</th>
+              <th className="border py-1">Cantidad</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              items.map(item => (
+                <tr key={item._id}>
+                  <td className="border text-center">{item.nombre}</td>
+                  <td className="border text-center">{item.descripcion}</td>
+                  <td className='border uppercase text-center'>{item.placa}</td>
+                  <td className='border uppercase text-center'>{item.serial}</td>
+                  <td className="border text-center">1</td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </article>
+
     </section>
 
   )
