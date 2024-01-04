@@ -1,16 +1,18 @@
 import { Router } from 'express'
 import { createItem, deleteItem, getItem, getItems, updateItem } from '../Controllers/Items'
+import { logMiddleware } from '../Middleware/log';
+import { chekJwt } from '../Middleware/session';
 
 const router = Router();
 
-router.get('/:placa', (getItem))
+router.get('/:placa', logMiddleware, (getItem))
 
-router.get('/', (getItems))
+router.get('/', chekJwt, (getItems))
 
 router.post('/', (createItem))
 
-router.put('/:id', (updateItem))
+router.put('/:placa', (updateItem))
 
-router.delete('/:id', (deleteItem))
+router.delete('/:placa', (deleteItem))
 
 export { router }

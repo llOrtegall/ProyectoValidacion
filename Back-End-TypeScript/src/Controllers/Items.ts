@@ -1,8 +1,13 @@
 import { Request, Response } from "express"
 import { handleHttp } from '../utils/Error.handle'
-import { inserItemSer, getItemsSer, getItemSer } from "../Services/ItemService"
+import { inserItemSer, getItemsSer, getItemSer, updateItemSer, deleteItemSer } from "../Services/ItemService"
+import { JwtPayload } from "jsonwebtoken"
 
-const getItem = async ({params}: Request, res: Response) => {
+interface RequestExt extends Request {
+  user?: string | JwtPayload
+}
+
+export const getItem = async ({ params }: Request, res: Response) => {
   try {
     const { placa } = params
     const response = await getItemSer(placa)
@@ -12,38 +17,47 @@ const getItem = async ({params}: Request, res: Response) => {
   }
 }
 
-const getItems = async (req: Request, res: Response) => {
+export const getItems = async (req: RequestExt, res: Response) => {
   try {
     const responseItems = await getItemsSer();
-    res.status(200).json(responseItems)
+    res.status(200).json({
+      data: responseItems,
+      user: req?.user
+    })
   } catch (error) {
     handleHttp(res, 'Error getting items', error)
   }
 }
 
-const createItem = async ({ body }: Request, res: Response) => {
+export const createItem = async ({ body }: Request, res: Response) => {
   try {
     const responseItem = await inserItemSer(body)
-    res.send(body)
+    res.status(201).json(responseItem)
   } catch (error) {
     handleHttp(res, 'Error creating item', error)
   }
 }
 
-const updateItem = (req: Request, res: Response) => {
-  try {
+export const updateItem = async ({ params, body }: Request, res: Response) => {
+  console.log(params);
+  console.log(body);
 
+  try {
+    const { placa } = params
+    const responseItem = await updateItemSer(placa, body)
+    res.status(200).json(responseItem)
   } catch (error) {
-    handleHttp(res, 'Error update item')
+    handleHttp(res, 'Error update item', error)
   }
 }
 
-const deleteItem = (req: Request, res: Response) => {
+export const deleteItem = async ({ params }: Request, res: Response) => {
+  console.log(params);
   try {
-
+    const { placa } = params
+    const responseItem = await deleteItemSer(placa)
+    res.status(200).json(responseItem)
   } catch (error) {
-    handleHttp(res, 'Error delete item')
+    handleHttp(res, 'Error delete item', error)
   }
 }
-
-export { getItem, getItems, createItem, updateItem, deleteItem };

@@ -12,6 +12,16 @@ export const getItemsSer = async () => {
 }
 
 export const getItemSer = async (placa: String) => {
-  const responseItem = await ItemModel.findOne({ placa }); 
+  const responseItem = await ItemModel.findOne({ placa });
+  return responseItem
+}
+
+export const updateItemSer = async (placa: String, data: Item) => {
+  const responseItem = await ItemModel.findOneAndUpdate({ placa }, data, { new: true, runValidators: true });
+  return responseItem
+}
+
+export const deleteItemSer = async (placa: String) => {
+  const responseItem = await ItemModel.findOneAndDelete({ placa });
   return responseItem
 }
