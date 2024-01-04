@@ -1,6 +1,6 @@
-import { Request, Response } from "express"
-import { handleHttp } from '../utils/Error.handle'
 import { inserItemSer, getItemsSer, getItemSer, updateItemSer, deleteItemSer } from "../Services/ItemService"
+import { handleHttp } from '../utils/Error.handle'
+import { Request, Response } from "express"
 
 export const getItem = async ({ params }: Request, res: Response) => {
   try {
@@ -24,9 +24,21 @@ export const getItems = async (req: Request, res: Response) => {
 }
 
 export const createItem = async ({ body }: Request, res: Response) => {
+  const { nombre, descripcion, placa, serial, estado } = body
+
+  if (!nombre || !descripcion || !placa || !serial || !estado) {
+    return res.status(400).json({
+      error: 'Faltan Datos Requeridos'
+    })
+  }
+
   try {
     const responseItem = await inserItemSer(body)
-    res.status(201).json(responseItem)
+    if (responseItem && responseItem._id) {
+      return res.status(201).json({
+        message: 'Item Creado Correctamente',
+      })
+    }
   } catch (error) {
     handleHttp(res, 'Error creating item', error)
   }
