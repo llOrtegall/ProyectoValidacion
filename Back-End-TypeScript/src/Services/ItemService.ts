@@ -1,5 +1,6 @@
 import { ItemModel } from '../Models/Item.Model'
 import { Item } from '../Interfaces/Item.Interface'
+import { BodegaModel } from '../Models/Bodega.Model'
 
 export const inserItemSer = async (item: Item) => {
   const responseInsert = await ItemModel.create(item)  
@@ -24,4 +25,17 @@ export const updateItemSer = async (placa: String, data: Item) => {
 export const deleteItemSer = async (placa: String) => {
   const responseItem = await ItemModel.findOneAndDelete({ placa });
   return responseItem
+}
+
+export const getItemsWithBodegasSer = async () => {
+  const items = await ItemModel.find()
+  const itemsWithBodegas = await Promise.all(items.map(async (item) => {
+    const bodega = await BodegaModel.findOne({ items: item._id })
+    return {
+      itemId: item._id,
+      nombreBodega: bodega ? bodega.nombre : 'N/A'
+    }
+  }))
+  
+  return itemsWithBodegas
 }

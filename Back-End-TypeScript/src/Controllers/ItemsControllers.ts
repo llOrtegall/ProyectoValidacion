@@ -1,4 +1,4 @@
-import { inserItemSer, getItemsSer, getItemSer, updateItemSer, deleteItemSer } from "../Services/ItemService"
+import { inserItemSer, getItemsSer, getItemSer, updateItemSer, deleteItemSer, getItemsWithBodegasSer } from "../Services/ItemService"
 import { handleHttp } from '../utils/Error.handle'
 import { Request, Response } from "express"
 
@@ -68,5 +68,14 @@ export const deleteItem = async ({ params }: Request, res: Response) => {
     })
   } catch (error) {
     handleHttp(res, 'Error delete item', error)
+  }
+}
+
+export const getItemsWithBodegas = async (req: Request, res: Response) => {
+  try {
+    const reponseItemsWithBodegas = await getItemsWithBodegasSer()
+    res.status(200).json(reponseItemsWithBodegas)
+  } catch (error) {
+    handleHttp(res, 'Error getting items with bodegas', error)
   }
 }
