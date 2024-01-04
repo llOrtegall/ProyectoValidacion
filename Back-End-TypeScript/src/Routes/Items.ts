@@ -1,4 +1,4 @@
-import { createItem, deleteItem, getItem, getItems, updateItem } from '../Controllers/Items'
+import { createItem, deleteItem, getItem, getItems, updateItem } from '../Controllers/ItemsControllers'
 import { Router } from 'express'
 
 export const router = Router();
