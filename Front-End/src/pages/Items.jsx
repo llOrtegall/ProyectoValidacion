@@ -1,25 +1,21 @@
-import { ItemsData, ItemsWthitBodegas } from '../utils/FetchItemsData.js'
-import { RenderBodega } from '../components/RenderBodega.jsx'
+import { fechtItemsBodegas } from '../utils/FetchItemsData.js'
 import { useFiltersItems } from '../hooks/useFilters.js'
 import { useEffect, useState } from 'react'
 
-export function Items () {
-  const [items, setItems] = useState([])
-  const [itembodega, setItemBodega] = useState([])
-  const { search, setSearch, filteredItems } = useFiltersItems(items)
+export function Items() {
+  const [ItemsWthitBodegas, setItemBodega] = useState([])
+  const { search, setSearch, filteredItems } = useFiltersItems(ItemsWthitBodegas)
 
   useEffect(() => {
-    ItemsData()
-      .then(data => {
-        setItems(data)
-        localStorage.setItem('items', JSON.stringify(data))
-      })
-
-    ItemsWthitBodegas()
-      .then(data => {
-        setItemBodega(data)
-        localStorage.setItem('itemsConBodega', JSON.stringify(data))
-      })
+    if (localStorage.getItem('ItemsConBodega')) {
+      setItemBodega(JSON.parse(localStorage.getItem('ItemsConBodega')))
+    } else {
+      fechtItemsBodegas()
+        .then(data => {
+          setItemBodega(data)
+          localStorage.setItem('ItemsConBodega', JSON.stringify(data))
+        })
+    }
   }, [])
 
   return (
@@ -27,7 +23,8 @@ export function Items () {
 
       <section className="flex items-center justify-center gap-6 bg-blue-500  rounded-md shadow-lg py-1 mb-2">
         <p><span className="font-semibold pr-2">Filtrar:</span>| Placa | Serial | Nombre |</p>
-        <input type="text" value={search} onChange={ev => setSearch(ev.target.value)}
+        <input type="text"
+          value={search} onChange={ev => setSearch(ev.target.value)}
           placeholder="Teclado | 343543 | S/N:312412412" className="bg-slate-100 w-64 rounded-md p-1" />
       </section>
 
@@ -47,9 +44,11 @@ export function Items () {
           <p className="text-gray-500">{item.serial}</p>
           <p className="text-gray-700">{item.placa}</p>
           <p className="text-gray-500">{item.estado}</p>
-          <RenderBodega id={item._id} bodega={itembodega} />
+          <p className='text-gray-500'>{item.bodega.nombre}</p>
         </article>
       ))}
+      <section className='flex flex-col'>
+      </section>
     </main>
   )
 }

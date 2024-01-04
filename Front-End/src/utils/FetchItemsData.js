@@ -10,9 +10,9 @@ export async function ItemsData () {
   }
 }
 
-export async function ItemsWthitBodegas () {
+export async function fechtItemsBodegas () {
   try {
-    const itemsResponse = await axios.get('/findBodegaWithItems')
+    const itemsResponse = await axios.get('/itemsConBodegas')
     return itemsResponse.data
   } catch (error) {
     console.log(error)

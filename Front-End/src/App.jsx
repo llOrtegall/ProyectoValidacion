@@ -13,7 +13,7 @@ import { CreatedItems } from './pages/CreatedItems.jsx'
 import { CreatedBodega } from './pages/createdBodega.jsx'
 import { VerMovimientos } from './pages/VerMovimientos.jsx'
 import { CrearMovimiento } from './pages/CrearMovimiento.jsx'
-import { AsignarItemBodega } from './pages/AsignarItemBodega.jsx'
+// import { AsignarItemBodega } from './pages/AsignarItemBodega.jsx'
 import { MovimientoDetalle } from './pages/MovimientoDetalle.jsx'
 import { CrearSimcard } from './pages/CrearSimcard.jsx'
 import { VerSimcards } from './pages/VerSimcards.jsx'
@@ -29,7 +29,7 @@ export function App () {
           <Route path="items" element={< Items />} />
           <Route path="created-items" element={< CreatedItems />} />
           <Route path="created-bodega" element={<CreatedBodega />}></Route>
-          <Route path='asignarItemBodega' element={<AsignarItemBodega />} />
+          {/* <Route path='asignarItemBodega' element={<AsignarItemBodega />} /> */}
           <Route path='bodegas' element={<Bodegas />} />
           <Route path='crearMovimiento' element={<CrearMovimiento />} />
           <Route path='verMovimientos' element={<VerMovimientos />} />

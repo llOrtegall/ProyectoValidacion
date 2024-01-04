@@ -52,14 +52,20 @@ export const getBodegaSucursal = async (req, res) => {
 export const findBodegaWithItems = async (req, res) => {
   try {
     await ConnetMongoDB()
-    const items = await ItemModel.find()
 
-    const itemsWithBodegas = await Promise.all(items.map(async (item) => {
-      const bodega = await BodegaModel.findOne({ items: item._id })
-      return {
-        itemId: item._id,
-        nombreBodega: bodega ? bodega.nombre : 'N/A'
-      }
+    const items = await ItemModel.find()
+    const bodegas = await BodegaModel.find().populate('items')
+
+    const bodegasMap = bodegas.reduce((map, bodega) => {
+      bodega.items.forEach(item => {
+        map[item._id.toString()] = { nombre: bodega.nombre, sucursal: bodega.sucursal, _id: bodega._id }
+      })
+      return map
+    }, {})
+
+    const itemsWithBodegas = items.map(item => ({
+      ...item._doc,
+      bodega: bodegasMap[item._id.toString()] || 'N/A'
     }))
 
     res.status(200).json(itemsWithBodegas)

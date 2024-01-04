@@ -1,4 +1,4 @@
-import { SimcardModel } from '../Models/Models.js'
+import { BodegaModel, SimcardModel } from '../Models/Models.js'
 import { ConnetMongoDB } from '../Connections/mongoDb.js'
 
 export const createSimcard = async (req, res) => {
@@ -41,4 +41,25 @@ export const getSimcards = async (req, res) => {
 
 export const getSimcard = async (req, res) => {
 
+}
+
+export const getSimcardWhitBodega = async (req, res) => {
+  try {
+    await ConnetMongoDB()
+
+    const simcards = await SimcardModel.find()
+
+    const simcardsWhitBodega = await Promise.all(simcards.map(async (item) => {
+      const bodega = await BodegaModel.findOne({ items: item._id })
+      return {
+        simcard: item,
+        nombreBodega: bodega ? bodega.nombre : 'N/A'
+      }
+    }))
+
+    res.status(200).json(simcardsWhitBodega)
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({ error: 'Error al obtener los ítems y las bodegas' })
+  }
 }

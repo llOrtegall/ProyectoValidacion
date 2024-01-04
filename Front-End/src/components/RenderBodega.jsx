@@ -1,5 +1,11 @@
-export function RenderBodega ({ id, bodega }) {
-  const nameBodega = bodega.filter(b => b.itemId === id)
+export function RenderBodega ({ item, bodegas }) {
+
+  console.log(item)
+  console.log(bodegas)
+
+  const nameBodega = bodegas.filter(b => b._id === item._id)
+
+  console.log(nameBodega)
 
   return (
     nameBodega.map(b => (

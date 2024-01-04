@@ -9,6 +9,6 @@ BodegasMongoDB.get('/getBodegas', getBodegas)
 
 BodegasMongoDB.get('/getBodega/:sucursal', getBodegaSucursal)
 
-BodegasMongoDB.get('/findBodegaWithItems', findBodegaWithItems)
+BodegasMongoDB.get('/itemsConBodegas', findBodegaWithItems)
 
 BodegasMongoDB.post('/addItemsToBodega', addItemToBodega)
