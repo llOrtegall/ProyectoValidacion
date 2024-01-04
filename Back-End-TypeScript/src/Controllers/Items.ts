@@ -1,11 +1,6 @@
 import { Request, Response } from "express"
 import { handleHttp } from '../utils/Error.handle'
 import { inserItemSer, getItemsSer, getItemSer, updateItemSer, deleteItemSer } from "../Services/ItemService"
-import { JwtPayload } from "jsonwebtoken"
-
-interface RequestExt extends Request {
-  user?: string | JwtPayload
-}
 
 export const getItem = async ({ params }: Request, res: Response) => {
   try {
@@ -17,12 +12,11 @@ export const getItem = async ({ params }: Request, res: Response) => {
   }
 }
 
-export const getItems = async (req: RequestExt, res: Response) => {
+export const getItems = async (req: Request, res: Response) => {
   try {
     const responseItems = await getItemsSer();
     res.status(200).json({
-      data: responseItems,
-      user: req?.user
+      data: responseItems
     })
   } catch (error) {
     handleHttp(res, 'Error getting items', error)

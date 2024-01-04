@@ -1,4 +1,4 @@
-import { Schema, Types, model, Model } from 'mongoose'
+import { Schema, model } from 'mongoose'
 import { Item } from '../Interfaces/Item.interface'
 
 const ItemSchema = new Schema<Item>(
