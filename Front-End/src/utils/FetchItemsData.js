@@ -2,7 +2,7 @@ import axios from 'axios'
 
 export async function ItemsData () {
   try {
-    const itemsResponse = await axios.get('/Items')
+    const itemsResponse = await axios.get('/getItems')
     return itemsResponse.data
   } catch (error) {
     console.log(error)

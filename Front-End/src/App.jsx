@@ -16,7 +16,7 @@ import { CrearMovimiento } from './pages/CrearMovimiento.jsx'
 import { AsignarItemBodega } from './pages/AsignarItemBodega.jsx'
 import { MovimientoDetalle } from './pages/MovimientoDetalle.jsx'
 
-axios.defaults.baseURL = 'http://localhost:3010'
+axios.defaults.baseURL = 'http://localhost:3020'
 
 export function App () {
   return (
