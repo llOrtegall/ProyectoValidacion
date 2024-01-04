@@ -1,8 +1,8 @@
 import { ItemModel } from '../Models/Item.Model'
-import { Item } from '../Interfaces/Item.interface'
+import { Item } from '../Interfaces/Item.Interface'
 
 export const inserItemSer = async (item: Item) => {
-  const responseInsert = await ItemModel.create(item)
+  const responseInsert = await ItemModel.create(item)  
   return responseInsert
 }
 

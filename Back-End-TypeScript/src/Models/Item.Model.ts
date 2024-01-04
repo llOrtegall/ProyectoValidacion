@@ -1,5 +1,5 @@
 import { Schema, model } from 'mongoose'
-import { Item } from '../Interfaces/Item.interface'
+import { Item } from '../Interfaces/Item.Interface'
 
 const enumNombre = ['Computador', 'Monitor', 'Teclado', 'Mouse', 'Impresora', 'Portatil'];
 

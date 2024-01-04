@@ -1,6 +1,10 @@
 import { Response } from "express";
 
-const handleHttp = (res:Response, error: string, errorRaw?: any) => {
+export const handleHttp = (res:Response, error: string, errorRaw?: any) => {
+ 
+  if(errorRaw && errorRaw.message) {
+    return res.status(400).json({ error: errorRaw.message })
+  }
 
   if(errorRaw && errorRaw.errors && errorRaw.errors.nombre && errorRaw.errors.nombre.properties) {
     const properties = errorRaw.errors.nombre.properties;
@@ -20,7 +24,5 @@ const handleHttp = (res:Response, error: string, errorRaw?: any) => {
     return res.status(400).json({ error: properties.message, value: `Valor Recibido: ${properties.value}` })
   }
 
-  res.status(500).send({ error })
+  res.status(500).json({ error })
 }
-
-export { handleHttp };
