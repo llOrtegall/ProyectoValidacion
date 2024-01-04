@@ -1,9 +1,15 @@
-import { Request, Response, Router } from 'express';
+import { Router } from 'express';
+import { createBodega, deleteBodega, getBodega, getBodegas, updateBodega } from '../Controllers/BodegaControllers';
 
-const router = Router()
+export const router = Router()
 
-router.get('/', (req: Request, res: Response) => {
-  res.send('Hello World!')
-})
 
-export { router };
+router.get('/', (getBodegas))
+
+router.get('/:sucursal', (getBodega))
+
+router.post('/', (createBodega))
+
+router.put('/:sucursal', (updateBodega))
+
+router.delete('/:sucursal', (deleteBodega))
