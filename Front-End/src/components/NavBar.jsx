@@ -35,6 +35,12 @@ export function NavBar () {
         <li className="hover:text-white">
           <Link to="/verMovimientos" className="font-semibold">Ver Movimientos</Link>
         </li>
+        <li className="hover:text-white">
+          <Link to="/createSimcard" className="font-semibold">Crear Simcard</Link>
+        </li>
+        <li>
+          <Link to="/verSimcards" className="font-semibold">Ver Simcards</Link>
+        </li>
       </ul>
     </nav>
   )

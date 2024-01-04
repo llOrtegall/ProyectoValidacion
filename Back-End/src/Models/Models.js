@@ -22,7 +22,8 @@ const bodegaSchema = new Schema({
   nombre: { type: String, required: true },
   sucursal: { type: String, required: true, unique: true },
   direccion: { type: String, required: true },
-  items: [{ type: Schema.Types.ObjectId, ref: 'Item' }]
+  items: [{ type: Schema.Types.ObjectId, ref: 'Item' }],
+  simcards: [{ type: Schema.Types.ObjectId, ref: 'simcard' }]
 }, { timestamps: true, versionKey: false })
 
 const movimientoSchema = new Schema({
@@ -32,6 +33,7 @@ const movimientoSchema = new Schema({
   descripcion: { type: String, required: true },
   fecha: { type: Date, required: true },
   items: [{ type: Schema.Types.ObjectId, ref: 'Item' }],
+  simcards: [{ type: Schema.Types.ObjectId, ref: 'simcard' }],
   bodegaOrigen: { type: Schema.Types.ObjectId, ref: 'bodega' },
   bodegaDestino: { type: Schema.Types.ObjectId, ref: 'bodega' }
 }, { timestamps: true, versionKey: false })

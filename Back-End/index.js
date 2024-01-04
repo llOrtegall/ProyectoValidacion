@@ -1,5 +1,6 @@
 import { ItemsMongoDB } from './src/Routes/Items.Routes.js'
 import { BodegasMongoDB } from './src/Routes/Bodegas.Routes.js'
+import { SimcardsMongoDB } from './src/Routes/Simcares.Routes.js'
 
 import express from 'express'
 import dotenv from 'dotenv'
@@ -26,6 +27,7 @@ app.use(express.json())
 app.use(ItemsMongoDB)
 app.use(BodegasMongoDB)
 app.use(MovimientosMongoDB)
+app.use(SimcardsMongoDB)
 
 app.listen(PORT, () => {
   console.log(`Server Iniciado En El Puerto http://localhost:${PORT}`)
