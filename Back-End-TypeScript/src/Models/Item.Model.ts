@@ -1,9 +1,11 @@
 import { Schema, model } from 'mongoose'
 import { Item } from '../Interfaces/Item.interface'
 
+const enumNombre = ['Computador', 'Monitor', 'Teclado', 'Mouse', 'Impresora', 'Portatil'];
+
 const ItemSchema = new Schema<Item>(
   {
-    nombre: { type: String, required: [true, 'El nombre es requerido.'] },
+    nombre: { type: String, required: [true, 'El nombre es requerido.'], enum: enumNombre},
     descripcion: { type: String, required: [true, 'La descripción es requerida.'] },
     placa: {
       type: String, required: [true, 'La placa es requerida.'], unique: true,
