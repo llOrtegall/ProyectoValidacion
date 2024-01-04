@@ -9,7 +9,6 @@ const ItemSchema = new Schema<Item>(
       type: String, required: [true, 'La placa es requerida.'], unique: true,
       validate: {
         validator: function (v: string) {
-          // La expresión regular valida que la placa comienza con "MA-" o "MI-" seguido de al menos 4 números
           return /^(MA-|MI-)\d{4,}$/.test(v);
         },
         message: props => `${props.value} no es una placa válida. Debe comenzar con 'MA-' o 'MI-' seguido de al menos 4 números.`

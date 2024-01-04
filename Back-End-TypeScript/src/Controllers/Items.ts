@@ -1,26 +1,29 @@
 import { Request, Response } from "express"
 import { handleHttp } from '../utils/Error.handle'
-import { inserItem } from "../Services/ItemService"
+import { inserItemSer, getItemsSer, getItemSer } from "../Services/ItemService"
 
-const getItem = (req: Request, res: Response) => {
+const getItem = async ({params}: Request, res: Response) => {
   try {
-
+    const { placa } = params
+    const response = await getItemSer(placa)
+    res.status(200).json(response)
   } catch (error) {
-    handleHttp(res, 'Error getting item')
+    handleHttp(res, 'Error getting item', error)
   }
 }
 
-const getItems = (req: Request, res: Response) => {
+const getItems = async (req: Request, res: Response) => {
   try {
-
+    const responseItems = await getItemsSer();
+    res.status(200).json(responseItems)
   } catch (error) {
-    handleHttp(res, 'Error getting items')
+    handleHttp(res, 'Error getting items', error)
   }
 }
 
 const createItem = async ({ body }: Request, res: Response) => {
   try {
-    const responseItem = await inserItem(body)
+    const responseItem = await inserItemSer(body)
     res.send(body)
   } catch (error) {
     handleHttp(res, 'Error creating item', error)

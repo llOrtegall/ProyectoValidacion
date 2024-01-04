@@ -3,9 +3,9 @@ import { createItem, deleteItem, getItem, getItems, updateItem } from '../Contro
 
 const router = Router();
 
-router.get('/', (getItem))
+router.get('/:placa', (getItem))
 
-router.get('/:id', (getItems))
+router.get('/', (getItems))
 
 router.post('/', (createItem))
 
