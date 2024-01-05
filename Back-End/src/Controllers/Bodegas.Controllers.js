@@ -65,7 +65,7 @@ export const findBodegaWithItems = async (req, res) => {
 
     const itemsWithBodegas = items.map(item => ({
       ...item._doc,
-      bodega: bodegasMap[item._id.toString()] || 'N/A'
+      bodega: bodegasMap[item._id.toString()] || 'No Asignado'
     }))
 
     res.status(200).json(itemsWithBodegas)
