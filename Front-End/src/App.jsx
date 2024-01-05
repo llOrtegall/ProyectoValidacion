@@ -29,13 +29,13 @@ export function App () {
       <Routes>
         <Route path="/" element={< Layout />}>
           <Route index element={<Home />} />
-          <Route path="items" element={< Items />} />
-          <Route path="created-items" element={< CreatedItems />} />
-          <Route path="created-bodega" element={<CreatedBodega />}></Route>
-          <Route path='asignarItemBodega' element={<AsignarItemBodega />} />
-          <Route path='bodegas' element={<Bodegas />} />
-          <Route path='crearMovimiento' element={<CrearMovimiento />} />
-          <Route path='verMovimientos' element={<VerMovimientos />} />
+          <Route path="/items" element={< Items />} />
+          <Route path="/created-items" element={< CreatedItems />} />
+          <Route path="/created-bodega" element={<CreatedBodega />}></Route>
+          <Route path='/asignarItemBodega' element={<AsignarItemBodega />} />
+          <Route path='/bodegas' element={<Bodegas />} />
+          <Route path='/crearMovimiento' element={<CrearMovimiento />} />
+          <Route path='/verMovimientos' element={<VerMovimientos />} />
           <Route path="/movimiento/:id" element={<MovimientoDetalle />} />
           <Route path='/createSimcard' element={<CrearSimcard />} />
           <Route path='/verSimcards' element={<VerSimcards />} />

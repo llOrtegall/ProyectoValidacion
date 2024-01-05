@@ -65,34 +65,35 @@ export function AsignarItemBodega () {
       <article className="w-[550px]">
 
         <section className='flex items-center gap-4 py-6'>
-          <p className=""><span className="font-semibold pr-2">Filtrar:</span>| Placa | Serial | Nombre |</p>
+          <p className=""><span className="font-semibold pr-2">Filtrar:</span>| Placa | Nombre |</p>
           <input type="text" placeholder="Buscar Items..."
             value={search} onChange={ev => setSearch(ev.target.value)}
             className="bg-slate-200 w-64 p-2 rounded-md" />
         </section>
 
+        <h2 className='text-xl font-semibold text-center'>Items Sin Asignar a Bodegas: </h2>
         <section name="itemIds"
-          className="bg-slate-200 rounded-md shadow-lg p-2 min-w-96 flex flex-col gap-2">
+          className="bg-slate-200 rounded-md shadow-lg p-2 min-w-96 flex flex-col gap-2 mb-4" style={{ maxHeight: '250px', overflowY: 'auto' }}>
           {
             filteredItems.map(item => (
               item.bodega === 'No Asignado' && (
-                <article key={item._id} value={item._id} className='flex justify-between bg-slate-300 px-2 py-1 rounded-md hover:bg-blue-200'>
-                  {item.placa} | {item.nombre}
+                <article key={item._id} value={item._id} className='grid grid-cols-6 bg-slate-300 px-2 py-1 rounded-md hover:bg-blue-200'>
+                  <p className='col-span-1'>{item.placa}</p>
+                  <p className='col-span-4 overflow-ellipsis text-center overflow-hidden'>{item.nombre}</p>
                   <button
                     onClick={() => handleAddItem(item._id)}
-                    className={carItems.includes(item._id) ? 'added' : 'hover:bg-green-300 hover:rounded-full'}
+                    className={carItems.includes(item._id) ? 'added col-span-1 w-6' : 'hover:bg-green-300 hover:rounded-full col-span-1 w-6'}
                   >
                     <AddIcon />
                   </button>
                 </article>
               )
-            )
-            )
+            ))
           }
         </section>
 
-        <section style={{ maxHeight: '450px', overflowY: 'auto' }}>
-          <h2 className='text-xl font-semibold text-center'>Items Seleccionados Para Asignación: </h2>
+        <h2 className='text-xl font-semibold text-center'>Items Seleccionados Para Asignación: </h2>
+        <section style={{ maxHeight: '350px', overflowY: 'auto' }} className='bg-slate-200 rounded-md shadow-lg p-2 min-w-96 flex flex-col gap-2 mb-4'>
           {
             carItems && (
               carItems?.map(item => (
