@@ -91,7 +91,7 @@ export const addSimcardToBodega = async (req, res) => {
     bodega.simcards.push(...simcards.map(simcard => simcard._id))
     await bodega.save()
 
-    res.status(200).json({ message: `Ítems agregados correctamente a Bodega: ${sucursal}` })
+    res.status(200).json({ message: `Simcard(s) agregadas correctamente a Bodega: ${sucursal}` })
   } catch (error) {
     console.error(error)
     return res.status(500).json({ error: 'Error al agregar los ítems a bodega', message: error })

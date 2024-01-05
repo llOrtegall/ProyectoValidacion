@@ -4,7 +4,7 @@ import { ItemsAgregados } from '../../components/ItemsAgregados.jsx'
 import { useCarItems } from '../../hooks/useCartItems.js'
 import { AddIcon } from '../../components/Icons.jsx'
 import { useEffect, useState } from 'react'
-import { useFiltersBodegas, useFiltersItems } from '../../hooks/useFilters.js'
+import { useFiltersBodegas, useFilterSimcards } from '../../hooks/useFilters.js'
 import axios from 'axios'
 
 export function AsignarSimcards () {
@@ -14,7 +14,7 @@ export function AsignarSimcards () {
   const [message, setMessage] = useState('')
   const [error, setError] = useState('')
 
-  // const { search, setSearch, filteredItems } = useFiltersItems(itemsConBodega)
+  const { filteredSimcards, searchSimcard, setSearchSimcard } = useFilterSimcards(simConBodega)
   const { filteredBodegas, searchBodega, setSearchBodega } = useFiltersBodegas(bodegas)
   const { handleAddItem, handleRemoveItem, carItems, setCarItems } = useCarItems()
 
@@ -35,27 +35,27 @@ export function AsignarSimcards () {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    // try {
-    //   const res = await axios.post('/addItemsToBodega',
-    //     { sucursal: sendBodega, itemIds: carItems }
-    //   )
-    //   setMessage(res.data.message)
-    //   setItemsConBodega([])
-    //   setBodegas([])
-    //   setSendBodega('')
-    //   setSearch('')
-    //   setSearchBodega('')
-    //   setCarItems([])
-    //   setTimeout(() => {
-    //     setMessage('')
-    //   }, 4000)
-    // } catch (err) {
-    //   console.log(err)
-    //   setError(err.response?.data?.error || 'An error occurred')
-    //   setTimeout(() => {
-    //     setError('')
-    //   }, 4000)
-    // }
+    try {
+      const res = await axios.post('/addSimcardToBodega',
+        { sucursal: sendBodega, simcardIds: carItems }
+      )
+      setMessage(res.data.message)
+      setSimConBodega([])
+      setBodegas([])
+      setSendBodega('')
+      setSearchSimcard('')
+      setSearchBodega('')
+      setCarItems([])
+      setTimeout(() => {
+        setMessage('')
+      }, 4000)
+    } catch (err) {
+      console.log(err)
+      setError(err.response?.data?.error || 'An error occurred')
+      setTimeout(() => {
+        setError('')
+      }, 4000)
+    }
   }
 
   return (
@@ -66,7 +66,7 @@ export function AsignarSimcards () {
         <section className='flex items-center gap-4 py-6'>
           <p className=""><span className="font-semibold pr-2">Filtrar:</span>| Placa | Nombre |</p>
           <input type="text" placeholder="Buscar Items..."
-            // value={search} onChange={ev => setSearch(ev.target.value)}
+            value={searchSimcard} onChange={ev => setSearchSimcard(ev.target.value)}
             className="bg-slate-200 w-64 p-2 rounded-md" />
         </section>
 
@@ -74,7 +74,7 @@ export function AsignarSimcards () {
         <section name="itemIds"
           className="bg-slate-200 rounded-md shadow-lg p-2 min-w-96 flex flex-col gap-2 mb-4" style={{ maxHeight: '250px', overflowY: 'auto' }}>
           {
-            simConBodega.map(item => (
+            filteredSimcards.map(item => (
               item.bodega === 'No Asignado' && (
                 <article key={item._id} value={item._id} className='grid grid-cols-7 bg-slate-300 px-2 py-1 rounded-md hover:bg-blue-200'>
                   <p className='col-span-2'>{item.serial.slice(-7)}</p>
