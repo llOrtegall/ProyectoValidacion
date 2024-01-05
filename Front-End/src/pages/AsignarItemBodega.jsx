@@ -5,8 +5,9 @@ import { useCarItems } from '../hooks/useCartItems.js'
 import { AddIcon } from '../components/Icons.jsx'
 import { useEffect, useState } from 'react'
 import { useFiltersBodegas, useFiltersItems } from '../hooks/useFilters.js'
+import axios from 'axios'
 
-export function AsignarItemBodega() {
+export function AsignarItemBodega () {
   const [itemsConBodega, setItemsConBodega] = useState([])
   const [bodegas, setBodegas] = useState([])
 
@@ -15,7 +16,7 @@ export function AsignarItemBodega() {
 
   const { search, setSearch, filteredItems } = useFiltersItems(itemsConBodega)
   const { filteredBodegas, searchBodega, setSearchBodega } = useFiltersBodegas(bodegas)
-  const { handleAddItem, handleRemoveItem, carItems } = useCarItems()
+  const { handleAddItem, handleRemoveItem, carItems, setCarItems } = useCarItems()
 
   const [sendBodega, setSendBodega] = useState('')
 
@@ -37,22 +38,27 @@ export function AsignarItemBodega() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    // try {
-    //   const res = await axios.post('/addItemsToBodega',
-    //     { sucursal: sendBodega, itemIds: carItems }
-    //   )
-    //   setMessage(res.data.message)
-    //   setItemsConBodega([])
-    //   setTimeout(() => {
-    //     setMessage('')
-    //   }, 4000)
-    // } catch (err) {
-    //   console.log(err)
-    //   setError(err.response?.data?.error || 'An error occurred')
-    //   setTimeout(() => {
-    //     setError('')
-    //   }, 4000)
-    // }
+    try {
+      const res = await axios.post('/addItemsToBodega',
+        { sucursal: sendBodega, itemIds: carItems }
+      )
+      setMessage(res.data.message)
+      setItemsConBodega([])
+      setBodegas([])
+      setSendBodega('')
+      setSearch('')
+      setSearchBodega('')
+      setCarItems([])
+      setTimeout(() => {
+        setMessage('')
+      }, 4000)
+    } catch (err) {
+      console.log(err)
+      setError(err.response?.data?.error || 'An error occurred')
+      setTimeout(() => {
+        setError('')
+      }, 4000)
+    }
   }
 
   return (
