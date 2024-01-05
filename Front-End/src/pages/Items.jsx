@@ -2,21 +2,16 @@ import { fechtItemsBodegas } from '../utils/FetchItemsData.js'
 import { useFiltersItems } from '../hooks/useFilters.js'
 import { useEffect, useState } from 'react'
 
-export function Items() {
-  const [ItemsWthitBodegas, setItemBodega] = useState([])
-  const { search, setSearch, filteredItems } = useFiltersItems(ItemsWthitBodegas)
-
+export function Items () {
   useEffect(() => {
-    if (localStorage.getItem('ItemsConBodega')) {
-      setItemBodega(JSON.parse(localStorage.getItem('ItemsConBodega')))
-    } else {
-      fechtItemsBodegas()
-        .then(data => {
-          setItemBodega(data)
-          localStorage.setItem('ItemsConBodega', JSON.stringify(data))
-        })
-    }
+    fechtItemsBodegas()
+      .then(data => setItemBodega(data))
+      .catch(err => console.log(err))
   }, [])
+
+  const [ItemsWthitBodegas, setItemBodega] = useState([])
+
+  const { search, setSearch, filteredItems } = useFiltersItems(ItemsWthitBodegas)
 
   return (
     <main className="w-full h-screen px-2">
@@ -36,17 +31,20 @@ export function Items() {
         <p className="font-semibold">Estado</p>
         <p className="font-semibold">Ubicación</p>
       </article>
-
-      {filteredItems.map(item => (
-        <article key={item._id} className="grid grid-cols-6 shadow-md rounded-md bg-slate-200 uppercase text-sm py-2 my-2 text-center">
-          <p className="font-semibold">{item.nombre}</p>
-          <p className="text-gray-500">{item.descripcion}</p>
-          <p className="text-gray-500">{item.serial}</p>
-          <p className="text-gray-700">{item.placa}</p>
-          <p className="text-gray-500">{item.estado}</p>
-          <p className='text-gray-500'>{item.bodega.nombre}</p>
-        </article>
-      ))}
+      {
+        ItemsWthitBodegas?.length > 0
+          ? filteredItems?.map(item => (
+            <article key={item._id} className="grid grid-cols-6 shadow-md rounded-md bg-slate-200 uppercase text-sm py-2 my-2 text-center">
+              <p className="font-semibold">{item.nombre}</p>
+              <p className="text-gray-500">{item.descripcion}</p>
+              <p className="text-gray-500">{item.serial}</p>
+              <p className="text-gray-700">{item.placa}</p>
+              <p className="text-gray-500">{item.estado}</p>
+              <p className='text-gray-500'>{item.bodega.nombre}</p>
+            </article>
+          ))
+          : <p className='text-center text-2xl font-semibold'>No Existen Items</p>
+      }
       <section className='flex flex-col'>
       </section>
     </main>
