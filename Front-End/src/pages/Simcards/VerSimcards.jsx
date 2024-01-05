@@ -1,18 +1,15 @@
-import axios from 'axios'
 import { useEffect, useState } from 'react'
+import { simcardsBodegas } from '../../utils/FetchItemsData.js'
 
 export function VerSimcards () {
   const [simcardsConBodega, setSimcardsConBodega] = useState([])
 
   useEffect(() => {
-    axios.get('/simcardWhitBodega')
-      .then((res) => {
-        console.log(res.data)
-        setSimcardsConBodega(res.data)
+    simcardsBodegas()
+      .then(data => {
+        setSimcardsConBodega(data)
       })
-      .catch((err) => {
-        console.log(err)
-      })
+      .catch(err => console.log(err))
   }, [])
 
   return (

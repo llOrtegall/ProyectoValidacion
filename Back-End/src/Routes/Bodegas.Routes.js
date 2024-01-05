@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { createBodega, getBodegaSucursal, getBodegas, findBodegaWithItems, addItemToBodega } from '../Controllers/Bodegas.Controllers.js'
+import { createBodega, getBodegaSucursal, getBodegas, findBodegaWithItems, addItemToBodega, getBodegasSim } from '../Controllers/Bodegas.Controllers.js'
 
 export const BodegasMongoDB = Router()
 
@@ -12,3 +12,5 @@ BodegasMongoDB.get('/getBodega/:sucursal', getBodegaSucursal)
 BodegasMongoDB.get('/itemsConBodegas', findBodegaWithItems)
 
 BodegasMongoDB.post('/addItemsToBodega', addItemToBodega)
+
+BodegasMongoDB.get('/getBodegasSim', getBodegasSim)

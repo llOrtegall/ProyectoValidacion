@@ -36,6 +36,17 @@ export const getBodegas = async (req, res) => {
   }
 }
 
+export const getBodegasSim = async (req, res) => {
+  try {
+    await ConnetMongoDB()
+    const bodegas = await BodegaModel.find().populate('simcards')
+    res.status(200).json(bodegas)
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({ error: 'Error al obtener las bodegas' })
+  }
+}
+
 export const getBodegaSucursal = async (req, res) => {
   console.log(req.params)
   const { sucursal } = req.params
