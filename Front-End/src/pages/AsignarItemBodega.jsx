@@ -26,7 +26,7 @@ export function AsignarItemBodega () {
         setItemsConBodega(data)
       })
       .catch(err => console.log(err))
-  }, [])
+  }, [message])
 
   useEffect(() => {
     BodegaData()
