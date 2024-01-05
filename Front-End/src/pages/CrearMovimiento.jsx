@@ -140,13 +140,13 @@ export function CrearMovimiento () {
             {
               bodegaOrigen && (
                 filteredItems.map(item => (
-                  <section key={item._id} className="w-full grid grid-cols-4 p-2 bg-blue-500 rounded-md mb-2 place-items-center text-white">
+                  <section key={item._id} className="w-full grid grid-cols-4 p-2 bg-blue-500 rounded-md mb-2 place-items-center text-white transition-colors hover:text-black hover:bg-slate-200 cursor-default">
                     <p>{item.nombre}</p>
                     <p>{item.placa}</p>
                     <p>{item.serial}</p>
                     <button
                       onClick={() => handleAddItem(item._id)}
-                      className={carItems.includes(item._id) ? 'added' : ''}
+                      className={carItems.includes(item._id) ? 'added' : 'rounded-full transition-colors hover:bg-green-300  hover:text-black'}
                     >
                       <AddIcon />
                     </button>

@@ -6,7 +6,7 @@ export function ItemsAgregados ({ id, items, handleRemoveItem }) {
   const item = items?.find(item => item._id === id)
   const { _id, nombre, placa } = item || {}
   return (
-    <main key={_id} className="grid grid-cols-3 place-items-center mb-2 p-2 rounded-md bg-orange-400 border">
+    <main key={_id} className="grid grid-cols-3 place-items-center mb-2 p-2 rounded-md bg-orange-300 border">
       <p>{nombre}</p>
       <p>{placa}</p>
       <button onClick={() => handleRemoveItem(id)} className="hover:bg-red-400 rounded-full p-1 hover:text-white">

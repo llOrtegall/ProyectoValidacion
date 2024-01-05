@@ -72,15 +72,15 @@ export function AsignarItemBodega () {
           </section>
 
           <section name="itemIds"
-            className="bg-slate-300 rounded-md shadow-lg p-2 min-w-96">
+            className="bg-slate-200 rounded-md shadow-lg p-2 min-w-96 flex flex-col gap-2">
             {
               filteredItems.map(item => (
                 item.bodega === 'No Asignado' && (
-                  <article key={item._id} value={item._id} className='flex justify-between'>
+                  <article key={item._id} value={item._id} className='flex justify-between bg-slate-300 px-2 py-1 rounded-md hover:bg-blue-200'>
                     {item.placa} | {item.nombre}
                     <button
                       onClick={() => handleAddItem(item._id)}
-                      className={carItems.includes(item._id) ? 'added' : ''}
+                      className={carItems.includes(item._id) ? 'added' : 'hover:bg-green-300 hover:rounded-full'}
                     >
                       <AddIcon />
                     </button>

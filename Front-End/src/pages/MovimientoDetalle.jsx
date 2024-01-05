@@ -24,7 +24,7 @@ export function MovimientoDetalle () {
   return (
 
     movimiento &&
-    <section className='flex flex-col gap-4 m-2'>
+    <main className='flex flex-col gap-4 m-2 '>
       <article className='border bg-slate-200'>
         <section className='border-t border-l border-r border-black'>
           <h1 className="text-lg text-center bg-gradient-to-b from-cyan-200 to-blue-300 p-1 font-semibold">Movimiento:
@@ -53,7 +53,7 @@ export function MovimientoDetalle () {
 
       <article className='w-full flex flex-col gap-2 '>
         <table className="table-auto w-full">
-          <thead>
+          <thead >
             <tr className='bg-yellow-100'>
               <th className="border py-1">Item</th>
               <th className="border py-1">Descripción</th>
@@ -78,7 +78,7 @@ export function MovimientoDetalle () {
         </table>
       </article>
 
-    </section>
+    </main>
 
   )
 }
