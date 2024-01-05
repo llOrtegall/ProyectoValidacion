@@ -7,16 +7,19 @@ import { Layout } from './components/Layout.jsx'
 
 // TODO: Páginas
 import { Home } from './pages/Home.jsx'
-import { Items } from './pages/Items.jsx'
-import { Bodegas } from './pages/Bodegas.jsx'
-import { CreatedItems } from './pages/CreatedItems.jsx'
-import { CreatedBodega } from './pages/createdBodega.jsx'
-import { VerMovimientos } from './pages/VerMovimientos.jsx'
-import { CrearMovimiento } from './pages/CrearMovimiento.jsx'
-import { AsignarItemBodega } from './pages/AsignarItemBodega.jsx'
-import { MovimientoDetalle } from './pages/MovimientoDetalle.jsx'
-import { CrearSimcard } from './pages/CrearSimcard.jsx'
-import { VerSimcards } from './pages/VerSimcards.jsx'
+import { Items } from './pages/Items/Items.jsx'
+import { CreatedItems } from './pages/Items/CreatedItems.jsx'
+import { AsignarItemBodega } from './pages/Items/AsignarItemBodega.jsx'
+
+import { CreatedBodega } from './pages/Bodegas/CreatedBodega.jsx'
+import { Bodegas } from './pages/Bodegas/Bodegas.jsx'
+
+import { CrearMovimiento } from './pages/Movimientos/CrearMovimiento.jsx'
+import { VerMovimientos } from './pages/Movimientos/VerMovimientos.jsx'
+import { MovimientoDetalle } from './pages/Movimientos/MovimientoDetalle.jsx'
+
+import { CrearSimcard } from './pages/Simcards/CrearSimcard.jsx'
+import { VerSimcards } from './pages/Simcards/VerSimcards.jsx'
 
 axios.defaults.baseURL = 'http://localhost:4000'
 
@@ -25,7 +28,7 @@ export function App () {
     <section className=''>
       <Routes>
         <Route path="/" element={< Layout />}>
-          <Route path="home" element={< Home />} />
+          <Route index element={<Home />} />
           <Route path="items" element={< Items />} />
           <Route path="created-items" element={< CreatedItems />} />
           <Route path="created-bodega" element={<CreatedBodega />}></Route>

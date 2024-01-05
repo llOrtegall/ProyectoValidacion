@@ -1,5 +1,5 @@
-import { useFilterMovimientos } from '../hooks/useFilters.js'
-import { formatFecha } from '../utils/funtions.js'
+import { useFilterMovimientos } from '../../hooks/useFilters.js'
+import { formatFecha } from '../../utils/funtions.js'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'

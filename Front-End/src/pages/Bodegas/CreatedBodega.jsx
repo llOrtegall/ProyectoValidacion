@@ -1,4 +1,4 @@
-import { SuccesIcon, WarningIcon } from '../components/Icons.jsx'
+import { SuccesIcon, WarningIcon } from '../../components/Icons.jsx'
 import { useState } from 'react'
 import axios from 'axios'
 

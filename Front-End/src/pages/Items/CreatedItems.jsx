@@ -1,5 +1,5 @@
-import { SelectComponent } from '../components/SelectComponent'
-import { MessageDisplay } from '../components/MessageDisplay'
+import { SelectComponent } from '../../components/SelectComponent'
+import { MessageDisplay } from '../../components/MessageDisplay'
 import { useState } from 'react'
 import axios from 'axios'
 
