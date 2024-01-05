@@ -1,9 +1,10 @@
 import axios from 'axios'
 import { useState } from 'react'
+import { MessageDisplay } from '../../components/MessageDisplay'
 
 export function CrearSimcard () {
-  // const [error, setError] = useState('')
-  // const [message, setMessage] = useState('')
+  const [error, setError] = useState('')
+  const [message, setMessage] = useState('')
   const [simcard, setSimcard] = useState({
     numero: '',
     operador: '',
@@ -20,14 +21,31 @@ export function CrearSimcard () {
     axios.post('/createSimcard', simcard)
       .then((res) => {
         console.log(res)
+        setMessage(res.data.message || 'Simcard Creada')
+        setSimcard({
+          numero: '',
+          operador: '',
+          estado: '',
+          serial: '',
+          apn: '',
+          user: '',
+          pass: ''
+        })
+        setTimeout(() => {
+          setMessage('')
+        }, 4000)
       })
       .catch((err) => {
         console.log(err)
+        setError(err.response?.data?.error || 'An error occurred')
+        setTimeout(() => {
+          setError('')
+        }, 4000)
       })
   }
 
   return (
-    <main className='w-full flex items-center justify-center'>
+    <main className='w-full flex flex-col items-center justify-center'>
       <form className='bg-blue-600 m-4 p-8 rounded-md grid grid-cols-2 gap-2 place-items-center' onSubmit={handleSubmit}>
         <div className="flex flex-col">
           <label htmlFor="numero">Numero</label>
@@ -61,6 +79,9 @@ export function CrearSimcard () {
           <button type="submit">Crear Simcard</button>
         </div>
       </form>
+
+      <MessageDisplay message={message} error={error} />
+
     </main>
 
   )

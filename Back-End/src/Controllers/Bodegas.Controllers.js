@@ -78,6 +78,11 @@ export const findBodegaWithItems = async (req, res) => {
 export const addItemToBodega = async (req, res) => {
   const { sucursal, itemIds } = req.body
 
+  if (!sucursal || !itemIds) {
+    res.status(400).json({ error: 'Faltan campos requeridos' })
+    return
+  }
+
   try {
     await ConnetMongoDB()
 
