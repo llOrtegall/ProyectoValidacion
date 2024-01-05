@@ -31,10 +31,11 @@ export function VerMovimientos () {
   })
 
   return (
-    <main className="w-full">
-      <section className='p-2'>
-        <label className='pr-2 font-semibold'>Filtro: N° Incidente - Encargado: </label>
-        <input type="text" value={searchMovimiento} onChange={ev => setSearchMovimiento(ev.target.value)} placeholder="Buscar Movimiento..." className="bg-slate-100 w-64 p-2 rounded-md" />
+    <main className="w-full h-[100vh] bg-gray-300">
+      <section className='p-2 bg-blue-300 mb-2'>
+        <label className='pr-2 font-semibold'>Filtro: N° Incidente | Encargado : </label>
+        <input type="text" value={searchMovimiento} onChange={ev => setSearchMovimiento(ev.target.value)} placeholder="Buscar Movimiento..."
+          className="bg-slate-100 w-64 p-2 rounded-md border border-black" />
       </section>
       <article className='grid grid-cols-7 py-2 gap-4 place-content-center place-items-center border mx-2 border-black bg-gradient-to-b from-cyan-200 to-blue-300 font-semibold'>
         <span className="overflow-ellipsis overflow-hidden cursor-pointer hover:underline"
@@ -51,7 +52,7 @@ export function VerMovimientos () {
         movimientos && sortedMovimientos.map(m => (
           <Link to={`/movimiento/${m._id}`} key={m._id}>
             <article
-              className="grid grid-cols-7 place-content-center text-center gap-4 items-stretch h-7 mx-2 border-b-2 border-r-2 border-l-2 border-black cursor-pointer hover:bg-yellow-100">
+              className="grid grid-cols-7 place-content-center text-center gap-4 items-stretch h-7 mx-2 border-b-2 border-r-2 border-l-2 border-black cursor-pointer hover:bg-yellow-100 bg-slate-200">
               <span className="overflow-ellipsis overflow-hidden font-medium">{m.movimientoId}</span>
               <span className="overflow-ellipsis overflow-hidden text-blue-800 font-medium">{formatFecha(m.fecha)}</span>
               <span className="overflow-ellipsis overflow-hidden font-medium">{m.incidente}</span>

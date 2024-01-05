@@ -48,8 +48,9 @@ export function NavBar () {
       document.body.removeEventListener('click', handleClickOutside)
     }
   }, [])
+
   return (
-    <nav className="bg-blue-400 p-2 shadow-lg min-h-16 items-center flex justify-around mb-2">
+    <nav className="bg-blue-400 p-2 shadow-xl min-h-16 items-center flex justify-around">
       <ul className="flex justify-around items-center ">
         <li>
           <figure>

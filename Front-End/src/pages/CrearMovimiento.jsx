@@ -1,10 +1,10 @@
-import { AddIcon } from '../components/Icons.jsx'
+import { MessageDisplay } from '../components/MessageDisplay.jsx'
 import { ItemsAgregados } from '../components/ItemsAgregados.jsx'
 import { useFiltersItems } from '../hooks/useFilters.js'
 import { useCarItems } from '../hooks/useCartItems.js'
+import { AddIcon } from '../components/Icons.jsx'
 import { useState } from 'react'
 import axios from 'axios'
-import { MessageDisplay } from '../components/MessageDisplay.jsx'
 
 export function CrearMovimiento () {
   const [bodegaDestino, setBodegaDestino] = useState(null)
@@ -92,7 +92,7 @@ export function CrearMovimiento () {
   }
 
   return (
-    <main className="w-full">
+    <main className="w-full bg-gray-300 h-[100vh]">
 
       <section className="grid grid-cols-3 py-4 w-full gap-4 p-2">
 
@@ -140,13 +140,13 @@ export function CrearMovimiento () {
             {
               bodegaOrigen && (
                 filteredItems.map(item => (
-                  <section key={item._id} className="w-full grid grid-cols-4 p-2 bg-blue-500 rounded-md mb-2 place-items-center text-white">
+                  <section key={item._id} className="w-full grid grid-cols-4 p-2 bg-blue-500 rounded-md mb-2 place-items-center text-white transition-colors hover:text-black hover:bg-slate-200 cursor-default">
                     <p>{item.nombre}</p>
                     <p>{item.placa}</p>
                     <p>{item.serial}</p>
                     <button
                       onClick={() => handleAddItem(item._id)}
-                      className={carItems.includes(item._id) ? 'added' : ''}
+                      className={carItems.includes(item._id) ? 'added' : 'rounded-full transition-colors hover:bg-green-300  hover:text-black'}
                     >
                       <AddIcon />
                     </button>
@@ -182,7 +182,7 @@ export function CrearMovimiento () {
           </footer>
 
           <section className="flex w-full justify-center mt-4">
-            <button className="p-2 text-white font-bold w-48 bg-green-600 rounded-md hover:bg-white hover:text-black" onClick={handleClick}>
+            <button className="p-2 text-white font-bold w-48 bg-green-600 rounded-md hover:bg-white  hover:text-black" onClick={handleClick}>
               Realizar Movimiento
             </button>
           </section>

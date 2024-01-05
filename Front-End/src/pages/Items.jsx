@@ -40,7 +40,7 @@ export function Items () {
               <p className="text-gray-500">{item.serial}</p>
               <p className="text-gray-700">{item.placa}</p>
               <p className="text-gray-500">{item.estado}</p>
-              <p className='text-gray-500'>{item.bodega.nombre}</p>
+              <p className='text-gray-500'>{item.bodega.nombre || item.bodega}</p>
             </article>
           ))
           : <p className='text-center text-2xl font-semibold'>No Existen Items</p>
