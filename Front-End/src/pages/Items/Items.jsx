@@ -1,5 +1,5 @@
-import { fechtItemsBodegas } from '../utils/FetchItemsData.js'
-import { useFiltersItems } from '../hooks/useFilters.js'
+import { fechtItemsBodegas } from '../../utils/FetchItemsData.js'
+import { useFiltersItems } from '../../hooks/useFilters.js'
 import { useEffect, useState } from 'react'
 
 export function Items () {

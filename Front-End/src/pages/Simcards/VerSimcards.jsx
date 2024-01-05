@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
-import { RenderBodega } from '../components/RenderBodega'
+import { RenderBodega } from '../../components/RenderBodega'
 
 export function VerSimcards () {
   const [simcards, setSimcards] = useState([])

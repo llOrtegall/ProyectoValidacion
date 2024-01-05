@@ -1,8 +1,8 @@
-import { MessageDisplay } from '../components/MessageDisplay.jsx'
-import { ItemsAgregados } from '../components/ItemsAgregados.jsx'
-import { useFiltersItems } from '../hooks/useFilters.js'
-import { useCarItems } from '../hooks/useCartItems.js'
-import { AddIcon } from '../components/Icons.jsx'
+import { MessageDisplay } from '../../components/MessageDisplay.jsx'
+import { ItemsAgregados } from '../../components/ItemsAgregados.jsx'
+import { useFiltersItems } from '../../hooks/useFilters.js'
+import { useCarItems } from '../../hooks/useCartItems.js'
+import { AddIcon } from '../../components/Icons.jsx'
 import { useState } from 'react'
 import axios from 'axios'
 

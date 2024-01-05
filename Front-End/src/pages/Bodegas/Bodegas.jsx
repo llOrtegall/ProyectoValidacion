@@ -1,5 +1,5 @@
-import { ItemsInBodega } from '../components/itemsInBodega.jsx'
-import { useFiltersBodegas } from '../hooks/useFilters.js'
+import { ItemsInBodega } from '../../components/itemsInBodega.jsx'
+import { useFiltersBodegas } from '../../hooks/useFilters.js'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 
