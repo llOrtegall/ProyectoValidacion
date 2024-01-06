@@ -1,21 +1,12 @@
-import { ItemsInBodega } from '../../components/itemsInBodega.jsx'
 import { useFiltersBodegas } from '../../hooks/useFilters.js'
 import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import axios from 'axios'
 
 export function Bodegas () {
   const [bodegas, setBodegas] = useState([])
-  const [activeBodegaId, setActiveBodegaId] = useState(null)
 
   const { setSearchBodega, filteredBodegas, searchBodega } = useFiltersBodegas(bodegas)
-
-  const handleActive = (id) => {
-    setActiveBodegaId(id)
-  }
-
-  const restartActive = () => {
-    setActiveBodegaId(null)
-  }
 
   useEffect(() => {
     axios.get('/getBodegas')
@@ -50,18 +41,13 @@ export function Bodegas () {
               <p>Items Asignados: <span className="font-semibold">{bodega.items.length}</span></p>
             </article>
 
-            <button className="p-2 text-white font-semibold rounded-md bg-blue-400 hover:bg-blue-600" onClick={() => handleActive(bodega._id)}>
-              Ver Items Asignados
-            </button>
-
             <article className="">
-              {
-                activeBodegaId === bodega._id
-                  ? <ItemsInBodega bodega={bodega} key={bodega._id} fun={restartActive} />
-                  : null
-              }
+              <p>Simcards Asignadas: <span className="font-semibold">{bodega.simcards.length}</span></p>
             </article>
 
+            <Link className="p-2 text-white font-semibold rounded-md bg-blue-400 hover:bg-blue-600" to={`/DetalleBodega/${bodega._id}`} key={bodega._id}>
+              Ver Detalle Bodega
+            </Link>
           </section>
         ))
       }
