@@ -61,30 +61,26 @@ export function NavBar () {
   }, [])
 
   return (
-    <nav className="bg-blue-400 p-2 shadow-xl min-h-16 items-center flex justify-around">
+    <nav className="bg-blue-400 p-2 shadow-xl min-h-14 items-center flex justify-around xl:text-xs 2xl:text-sm">
       <ul className="flex justify-around items-center ">
         <li>
-          <figure>
-            <img src="gane.png" alt="logo gane yumbo" width={90} />
+          <figure className='w-16'>
+            <img src="gane.png" alt="logo gane yumbo" className='' />
           </figure>
         </li>
       </ul>
 
-      <ul className='flex gap-2 cursor-pointer'>
+      <ul className='flex items-center gap-6'>
 
         <section className='font-semibold'>
-          <ul>
-            <li>
-              <Link to='/verMovimientos' className='hover:text-yellow-200 hover:underline'>Ver Movimientos</Link>
-            </li>
-          </ul>
+          <Link to='/verMovimientos' className='hover:text-yellow-200 hover:underline'>Ver Movimientos</Link>
         </section>
 
-        <section className='relative font-semibold mx-4' onClick={handleClickArticles}>
+        <section className='relative font-semibold cursor-pointer' onClick={handleClickArticles}>
           <span className='hover:text-yellow-200 hover:underline'> Articulos | Items</span>
           {
             activeArticles &&
-            <ul className='absolute bg-blue-400 p-2 shadow-lg top-11 -right-20 rounded-b-md'>
+            <ul className='absolute bg-blue-400 top-9 -right-10'>
               {
                 links2.map(link => (
                   <li key={link.to} className='w-48 text-center font-semibold hover:text-blue-100 my-2'>
@@ -96,11 +92,11 @@ export function NavBar () {
           }
         </section>
 
-        <section className='relative font-semibold mx-4' onClick={handleClickMovements}>
+        <section className='relative font-semibold cursor-pointer' onClick={handleClickMovements}>
           <span className='hover:text-yellow-200 hover:underline'> Bodegas | PDV </span>
           {
             activeMovements &&
-            <ul className='absolute bg-blue-400 p-2 shadow-lg top-11 -right-20 rounded-b-md'>
+            <ul className='absolute bg-blue-400 top-9 -right-10'>
               {
                 links1.map(link => (
                   <li key={link.to} className='w-48 text-center font-semibold hover:text-blue-100 my-2'>
@@ -112,11 +108,11 @@ export function NavBar () {
           }
         </section>
 
-        <section className='relative font-semibold mx-4' onClick={handleClickSimcards}>
+        <section className='relative font-semibold cursor-pointer' onClick={handleClickSimcards}>
           <span className='hover:text-yellow-200 hover:underline'> SimCards</span>
           {
             activeSimcards &&
-            <ul className='absolute bg-blue-400 p-2 shadow-lg top-11 -right-20 rounded-b-md'>
+            <ul className='absolute bg-blue-400 top-9 -right-10'>
               {
                 links3.map(link => (
                   <li key={link.to} className='w-48 text-center font-semibold hover:text-blue-100 my-2'>
@@ -128,10 +124,11 @@ export function NavBar () {
           }
         </section>
 
-        <Link to="/" className='hover:text-yellow-200 hover:underline'>
-          <HomeIcon />
-        </Link>
-
+        <section className='font-semibold'>
+          <Link to="/" className='hover:text-yellow-200'>
+            <HomeIcon />
+          </Link>
+        </section>
       </ul>
     </nav>
   )
