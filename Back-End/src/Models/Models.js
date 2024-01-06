@@ -20,7 +20,7 @@ const ItemSchema = new Schema({
 
 const bodegaSchema = new Schema({
   nombre: { type: String, required: true },
-  sucursal: { type: Number, required: true, unique: true, min: 1, max: 999999 },
+  sucursal: { type: Number, required: true, unique: true },
   direccion: { type: String, required: true },
   items: [{ type: Schema.Types.ObjectId, ref: 'Item' }],
   simcards: [{ type: Schema.Types.ObjectId, ref: 'simcard' }]
