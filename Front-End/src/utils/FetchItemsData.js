@@ -29,3 +29,23 @@ export async function BodegaData () {
     return error
   }
 }
+
+export async function BodegaDataSims () {
+  try {
+    const bodegaResponse = await axios.get('/getBodegasSim')
+    return bodegaResponse.data
+  } catch (error) {
+    console.log(error)
+    return error
+  }
+}
+
+export async function simcardsBodegas () {
+  try {
+    const simcardsResponse = await axios.get('/simcardWhitBodega')
+    return simcardsResponse.data
+  } catch (error) {
+    console.log(error)
+    return error
+  }
+}

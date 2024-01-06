@@ -1,48 +1,46 @@
-import axios from 'axios'
 import { useEffect, useState } from 'react'
-import { RenderBodega } from '../../components/RenderBodega'
+import { simcardsBodegas } from '../../utils/FetchItemsData.js'
 
 export function VerSimcards () {
-  const [simcards, setSimcards] = useState([])
+  const [simcardsConBodega, setSimcardsConBodega] = useState([])
 
   useEffect(() => {
-    axios.get('/simcardWhitBodega')
-      .then((res) => {
-        setSimcards(res.data)
+    simcardsBodegas()
+      .then(data => {
+        setSimcardsConBodega(data)
       })
-      .catch((err) => {
-        console.log(err)
-      })
+      .catch(err => console.log(err))
   }, [])
 
-  console.log(simcards)
-
-  const itemsSimcard = simcards?.map(simcard => simcard.simcard)
-
   return (
-    <div className='mx-2'>
-      <article className='grid grid-cols-8 place-items-center bg-blue-400 p-1'>
-        <h2>Numero</h2>
-        <h2>Operador</h2>
-        <h2>Estado</h2>
-        <h2>Serial</h2>
-        <h2>Apn</h2>
-        <h2>User</h2>
-        <h2>Pass</h2>
-        <h2>Bodega</h2>
+    <main className='px-2 mt-2'>
+      <article className="grid grid-cols-8 text-center bg-blue-400 shadow-lg rounded-md py-2 mb-2">
+        <p className="font-semibold">Número</p>
+        <p className="font-semibold">Operador</p>
+        <p className="font-semibold">Estado</p>
+        <p className="font-semibold">Serial</p>
+        <p className="font-semibold">APN</p>
+        <p className="font-semibold">User</p>
+        <p className="font-semibold">Pass</p>
+        <p className="font-semibold">Ubicación</p>
+
       </article>
-      {simcards && itemsSimcard.map(simcard => (
-        <article key={simcard._id} className='grid grid-cols-8 place-items-center bg-slate-400 p-1'>
-          <h2>{simcard.numero}</h2>
-          <p>{simcard.operador}</p>
-          <p>{simcard.estado}</p>
-          <p>{simcard.serial}</p>
-          <p>{simcard.apn}</p>
-          <p>{simcard.user}</p>
-          <p>{simcard.pass}</p>
-          <RenderBodega id={simcard._id} bodega={simcards} />
-        </article>
-      ))}
-    </div>
+      {
+        simcardsConBodega?.length > 0
+          ? simcardsConBodega?.map(item => (
+            <article key={item._id} className="grid grid-cols-8 rounded-md bg-slate-200 uppercase text-sm py-2 my-2 text-center shadow-lg">
+              <p className="font-semibold">{item.numero}</p>
+              <p className="text-gray-500">{item.operador}</p>
+              <p className="text-gray-500">{item.estado}</p>
+              <p className="text-gray-700 overflow-ellipsis text-start overflow-hidden">{item.serial}</p>
+              <p className="text-gray-700 overflow-ellipsis text-start overflow-hidden">{item.apn}</p>
+              <p className="text-gray-500">{item.user}</p>
+              <p className="text-gray-500">{item.pass}</p>
+              <p className='text-gray-700 font-semibold text-xs'>{item.bodega.nombre || item.bodega}</p>
+            </article>
+          ))
+          : <p className='text-center text-2xl font-semibold'>No Existen Items</p>
+      }
+    </main>
   )
 }

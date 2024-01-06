@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
+import { HomeIcon } from './Icons'
 import { Link } from 'react-router-dom'
-
-// { to: '/home', text: 'Home' },
 
 const links1 = [
   { to: '/bodegas', text: 'Ver Bodegas' },
@@ -15,30 +14,42 @@ const links2 = [
   { to: '/asignarItemBodega', text: 'Asig. Item Bodega' }
 ]
 
-// const links3 = [
-//   { to: '/createSimcard', text: 'Crear Simcard' },
-//   { to: '/verSimcards', text: 'Ver Simcards' }
-// ]
+const links3 = [
+  { to: '/createSimcard', text: 'Crear Simcard' },
+  { to: '/verSimcards', text: 'Ver Simcards' },
+  { to: '/addSimcards', text: 'Asig. SIM Bodega' }
+]
 
 export function NavBar () {
   const [activeArticles, setActiveArticles] = useState(false)
   const [activeMovements, setActiveMovements] = useState(false)
+  const [activeSimcards, setActiveSimcards] = useState(false)
+
+  const handleClickSimcards = (event) => {
+    event.stopPropagation()
+    setActiveSimcards(!activeSimcards)
+    setActiveMovements(false)
+    setActiveArticles(false)
+  }
 
   const handleClickArticles = (event) => {
     event.stopPropagation()
     setActiveArticles(!activeArticles)
     setActiveMovements(false)
+    setActiveSimcards(false)
   }
 
   const handleClickMovements = (event) => {
     event.stopPropagation()
     setActiveMovements(!activeMovements)
     setActiveArticles(false)
+    setActiveSimcards(false)
   }
 
   const handleClickOutside = () => {
     setActiveArticles(false)
     setActiveMovements(false)
+    setActiveSimcards(false)
   }
 
   useEffect(() => {
@@ -60,7 +71,16 @@ export function NavBar () {
       </ul>
 
       <ul className='flex gap-2 cursor-pointer'>
-        <section className='relative font-semibold  mx-4 ' onClick={handleClickArticles}>
+
+        <section className='font-semibold'>
+          <ul>
+            <li>
+              <Link to='/verMovimientos' className='hover:text-yellow-200 hover:underline'>Ver Movimientos</Link>
+            </li>
+          </ul>
+        </section>
+
+        <section className='relative font-semibold mx-4' onClick={handleClickArticles}>
           <span className='hover:text-yellow-200 hover:underline'> Articulos | Items</span>
           {
             activeArticles &&
@@ -75,6 +95,7 @@ export function NavBar () {
             </ul>
           }
         </section>
+
         <section className='relative font-semibold mx-4' onClick={handleClickMovements}>
           <span className='hover:text-yellow-200 hover:underline'> Bodegas | PDV </span>
           {
@@ -90,13 +111,27 @@ export function NavBar () {
             </ul>
           }
         </section>
-        <section className='font-semibold'>
-          <ul>
-            <li>
-              <Link to='/verMovimientos' className='hover:text-yellow-200 hover:underline'>Ver Movimientos</Link>
-            </li>
-          </ul>
+
+        <section className='relative font-semibold mx-4' onClick={handleClickSimcards}>
+          <span className='hover:text-yellow-200 hover:underline'> SimCards</span>
+          {
+            activeSimcards &&
+            <ul className='absolute bg-blue-400 p-2 shadow-lg top-11 -right-20 rounded-b-md'>
+              {
+                links3.map(link => (
+                  <li key={link.to} className='w-48 text-center font-semibold hover:text-blue-100 my-2'>
+                    <Link to={link.to}>{link.text}</Link>
+                  </li>
+                ))
+              }
+            </ul>
+          }
         </section>
+
+        <Link to="/" className='hover:text-yellow-200 hover:underline'>
+          <HomeIcon />
+        </Link>
+
       </ul>
     </nav>
   )

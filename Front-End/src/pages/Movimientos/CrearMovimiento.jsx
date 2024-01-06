@@ -92,7 +92,7 @@ export function CrearMovimiento () {
   }
 
   return (
-    <main className="w-full bg-gray-300 h-[100vh]">
+    <main className="w-full bg-gray-300 min-h-[93vh]">
 
       <section className="grid grid-cols-3 py-4 w-full gap-4 p-2">
 

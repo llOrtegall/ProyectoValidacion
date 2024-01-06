@@ -21,6 +21,7 @@ export const createBodega = async (req, res) => {
       return res.status(400)
         .json({ error: `Error: ${Code}, La Bodega Con N° Sucursal: ${Value} Ya Existe ¡¡¡` })
     }
+    console.error(error)
     res.status(500).json({ error: 'Error al crear la bodega' })
   }
 }
@@ -28,7 +29,18 @@ export const createBodega = async (req, res) => {
 export const getBodegas = async (req, res) => {
   try {
     await ConnetMongoDB()
-    const bodegas = await BodegaModel.find().populate('items')
+    const bodegas = await BodegaModel.find()
+    res.status(200).json(bodegas)
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({ error: 'Error al obtener las bodegas' })
+  }
+}
+
+export const getBodegasSim = async (req, res) => {
+  try {
+    await ConnetMongoDB()
+    const bodegas = await BodegaModel.find().populate('simcards')
     res.status(200).json(bodegas)
   } catch (error) {
     console.error(error)
@@ -37,7 +49,6 @@ export const getBodegas = async (req, res) => {
 }
 
 export const getBodegaSucursal = async (req, res) => {
-  console.log(req.params)
   const { sucursal } = req.params
   try {
     await ConnetMongoDB()
@@ -78,6 +89,11 @@ export const findBodegaWithItems = async (req, res) => {
 export const addItemToBodega = async (req, res) => {
   const { sucursal, itemIds } = req.body
 
+  if (!sucursal || !itemIds) {
+    res.status(400).json({ error: 'Faltan campos requeridos' })
+    return
+  }
+
   try {
     await ConnetMongoDB()
 
@@ -108,5 +124,19 @@ export const addItemToBodega = async (req, res) => {
     res.status(200).json({ message: `Ítems agregados correctamente a Bodega: ${sucursal}` })
   } catch (error) {
     return res.status(500).json({ error: 'Error al agregar los ítems a bodega', message: error })
+  }
+}
+
+export const getBodegaSucursalItemsSimcards = async (req, res) => {
+  const { id } = req.params
+  console.log(id)
+  try {
+    await ConnetMongoDB()
+    const bodega = await BodegaModel.findById(id).populate('items').populate('simcards')
+    console.log(bodega)
+    res.status(200).json(bodega)
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({ error: 'Error al obtener la bodega' })
   }
 }

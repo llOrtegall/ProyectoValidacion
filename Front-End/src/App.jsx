@@ -20,6 +20,8 @@ import { MovimientoDetalle } from './pages/Movimientos/MovimientoDetalle.jsx'
 
 import { CrearSimcard } from './pages/Simcards/CrearSimcard.jsx'
 import { VerSimcards } from './pages/Simcards/VerSimcards.jsx'
+import { AsignarSimcards } from './pages/Simcards/AsignarSimcards.jsx'
+import { DetalleBodega } from './pages/Bodegas/DetallesBodegas.jsx'
 
 axios.defaults.baseURL = 'http://localhost:4000'
 
@@ -29,16 +31,18 @@ export function App () {
       <Routes>
         <Route path="/" element={< Layout />}>
           <Route index element={<Home />} />
-          <Route path="items" element={< Items />} />
-          <Route path="created-items" element={< CreatedItems />} />
-          <Route path="created-bodega" element={<CreatedBodega />}></Route>
-          <Route path='asignarItemBodega' element={<AsignarItemBodega />} />
-          <Route path='bodegas' element={<Bodegas />} />
-          <Route path='crearMovimiento' element={<CrearMovimiento />} />
-          <Route path='verMovimientos' element={<VerMovimientos />} />
+          <Route path="/items" element={< Items />} />
+          <Route path="/created-items" element={< CreatedItems />} />
+          <Route path="/created-bodega" element={<CreatedBodega />}></Route>
+          <Route path='/asignarItemBodega' element={<AsignarItemBodega />} />
+          <Route path='/bodegas' element={<Bodegas />} />
+          <Route path='/crearMovimiento' element={<CrearMovimiento />} />
+          <Route path='/verMovimientos' element={<VerMovimientos />} />
           <Route path="/movimiento/:id" element={<MovimientoDetalle />} />
           <Route path='/createSimcard' element={<CrearSimcard />} />
           <Route path='/verSimcards' element={<VerSimcards />} />
+          <Route path='/addSimcards' element={<AsignarSimcards />} />
+          <Route path='/DetalleBodega/:id' element={<DetalleBodega />} />
         </Route>
         <Route path="*" element={<h1>Not Found</h1>}></Route>
       </Routes>

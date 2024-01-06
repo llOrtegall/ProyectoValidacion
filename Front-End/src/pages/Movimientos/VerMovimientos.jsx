@@ -31,7 +31,7 @@ export function VerMovimientos () {
   })
 
   return (
-    <main className="w-full h-[100vh] bg-gray-300">
+    <main className="w-full h-[93vh] bg-gray-300">
       <section className='p-2 bg-blue-300 mb-2'>
         <label className='pr-2 font-semibold'>Filtro: N° Incidente | Encargado : </label>
         <input type="text" value={searchMovimiento} onChange={ev => setSearchMovimiento(ev.target.value)} placeholder="Buscar Movimiento..."
