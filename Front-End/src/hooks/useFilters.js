@@ -19,7 +19,7 @@ export function useFiltersBodegas (initialBodegas) {
   const filteredBodegas = useMemo(() => {
     return initialBodegas.filter(({ nombre, sucursal, direccion }) =>
       nombre.toLowerCase().includes(searchBodega.toLowerCase()) ||
-      sucursal.toLowerCase().includes(searchBodega.toLowerCase()) ||
+      sucursal.toString().toLowerCase().includes(searchBodega.toLowerCase()) ||
       direccion.toLowerCase().includes(searchBodega.toLowerCase())
     )
   }, [searchBodega, initialBodegas])

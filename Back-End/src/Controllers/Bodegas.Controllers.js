@@ -21,6 +21,7 @@ export const createBodega = async (req, res) => {
       return res.status(400)
         .json({ error: `Error: ${Code}, La Bodega Con N° Sucursal: ${Value} Ya Existe ¡¡¡` })
     }
+    console.error(error)
     res.status(500).json({ error: 'Error al crear la bodega' })
   }
 }

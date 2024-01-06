@@ -20,9 +20,16 @@ export function CreatedBodega () {
     })
   }
 
+  const itemToSend = {
+    ...item,
+    sucursal: Number(item.sucursal)
+  }
+
+  console.log(itemToSend)
+
   const handleSubmit = (e) => {
     e.preventDefault()
-    axios.post('/createBodega', item)
+    axios.post('/createBodega', itemToSend)
       .then(res => {
         setMessage(res.data.message)
         console.log(res)
