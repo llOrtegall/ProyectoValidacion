@@ -26,7 +26,7 @@ export function DetalleBodega () {
   }, [id])
 
   return (
-    <main className='w-full h-[93vh] bg-slate-200'>
+    <main className='w-full min-h-[93vh] bg-slate-200'>
       <section >
         <h1 className='text-center p-2 bg-slate-700 text-white text-lg'>Detalle Bodega Con UUID: <span className='uppercase font-semibold'>{bodega._id}</span></h1>
         <article className='bg-blue-200 grid grid-cols-2 place-items-center py-4 px-4'>
@@ -67,7 +67,7 @@ export function DetalleBodega () {
               {
                 Array.isArray(bodega.items) && bodega.items.length !== 0
                   ? (bodega.items.map(item => (
-                    <article key={item._id} className='grid grid-cols-6 shadow-md rounded-md bg-slate-200 uppercase text-sm py-2 my-2 text-center'>
+                    <article key={item._id} className='grid grid-cols-6 shadow-md rounded-md bg-slate-100 uppercase text-sm py-2 my-2 text-center'>
                       <p>{item.nombre}</p>
                       <p>{item.descripcion}</p>
                       <p>{item.placa}</p>
