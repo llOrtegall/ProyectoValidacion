@@ -30,6 +30,15 @@ export async function BodegaData () {
   }
 }
 
+export const createBodega = async (itemToSend) => {
+  try {
+    const res = await axios.post('/createBodega', itemToSend)
+    return { data: res.data, error: null }
+  } catch (err) {
+    return { data: null, error: err.response.data.error }
+  }
+}
+
 export async function BodegaDataSims () {
   try {
     const bodegaResponse = await axios.get('/getBodegasSim')

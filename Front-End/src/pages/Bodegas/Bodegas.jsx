@@ -1,7 +1,7 @@
+import { BodegaData } from '../../utils/FetchItemsData.js'
 import { useFiltersBodegas } from '../../hooks/useFilters.js'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import axios from 'axios'
 
 export function Bodegas () {
   const [bodegas, setBodegas] = useState([])
@@ -9,13 +9,9 @@ export function Bodegas () {
   const { setSearchBodega, filteredBodegas, searchBodega } = useFiltersBodegas(bodegas)
 
   useEffect(() => {
-    axios.get('/getBodegas')
-      .then(response => {
-        setBodegas(response.data)
-      })
-      .catch(error => {
-        console.log(error)
-      })
+    BodegaData()
+      .then(data => setBodegas(data))
+      .catch(err => console.log(err))
   }, [])
 
   return (

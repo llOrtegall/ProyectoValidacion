@@ -1,6 +1,6 @@
 import { SuccesIcon, WarningIcon } from '../../components/Icons.jsx'
+import { createBodega } from '../../utils/FetchItemsData.js'
 import { useState } from 'react'
-import axios from 'axios'
 
 export function CreatedBodega () {
   const [message, setMessage] = useState('')
@@ -25,32 +25,28 @@ export function CreatedBodega () {
     sucursal: Number(item.sucursal)
   }
 
-  console.log(itemToSend)
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    axios.post('/createBodega', itemToSend)
-      .then(res => {
-        setMessage(res.data.message)
-        console.log(res)
-        setItem({
-          nombre: '',
-          sucursal: '',
-          direccion: ''
-        }) // limpiar el formulario
-        setTimeout(() => {
-          setMessage('')
-        }, 4000)
-      })
-      .catch(err => {
-        setError(err.response.data.error)
-        console.log(err)
-        setTimeout(() => {
-          setError('')
-        }, 4000)
-      })
+    const { data, error } = await createBodega(itemToSend)
+    if (data) {
+      setMessage(data.message)
+      console.log(data)
+      setItem({
+        nombre: '',
+        sucursal: '',
+        direccion: ''
+      }) // limpiar el formulario
+      setTimeout(() => {
+        setMessage('')
+      }, 4000)
+    } else if (error) {
+      setError(error)
+      console.log(error)
+      setTimeout(() => {
+        setError('')
+      }, 4000)
+    }
   }
-
   return (
     <main className="w-full h-full flex flex-col items-center justify-center">
       <form className="flex flex-col items-center p-8 m-8 gap-3 rounded-lg bg-blue-400 w-1/2" onSubmit={handleSubmit}>
