@@ -3,7 +3,7 @@ import { Schema, model } from 'mongoose'
 const SimcardSchema = new Schema({
   numero: { type: String, unique: true },
   operador: { type: String, required: true, enum: ['Claro', 'Movistar', 'Tigo'] },
-  estado: { type: String, required: true, enum: ['Activa', 'Inactiva', 'DeBaja'] },
+  estado: { type: String, required: true, enum: ['Activa', 'Inactiva', 'DeBaja', 'Reposición'] },
   serial: { type: String, required: true, unique: true },
   apn: { type: String, required: true },
   user: { type: String },

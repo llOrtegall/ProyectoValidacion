@@ -23,7 +23,7 @@ import { VerSimcards } from './pages/Simcards/VerSimcards.jsx'
 import { AsignarSimcards } from './pages/Simcards/AsignarSimcards.jsx'
 import { DetalleBodega } from './pages/Bodegas/DetallesBodegas.jsx'
 
-axios.defaults.baseURL = 'http://localhost:4000'
+axios.defaults.baseURL = 'http://localhost:3030'
 
 export function App () {
   return (
