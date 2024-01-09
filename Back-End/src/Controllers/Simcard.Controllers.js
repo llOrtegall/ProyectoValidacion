@@ -2,7 +2,6 @@ import { BodegaModel, SimcardModel } from '../Models/Models.js'
 import { ConnetMongoDB } from '../Connections/mongoDb.js'
 
 export const createSimcard = async (req, res) => {
-  console.log(req.body)
   const { numero, operador, estado, serial, apn, user, pass } = req.body
 
   if (!numero || !operador || !estado || !serial || !user || !pass) {

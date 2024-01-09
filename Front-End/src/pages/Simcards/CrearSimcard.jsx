@@ -55,13 +55,24 @@ export function CrearSimcard() {
         </div>
         <div className='flex items-center'>
           <label htmlFor="operador" className='w-28 text-center'>Operador</label>
-          <input type="text" name="operador" id="operador" className='p-2 rounded-md min-w-72 outline-none' placeholder='Claro | Movistar | Tigo'
-            value={simcard.operador} onChange={(e) => setSimcard({ ...simcard, operador: e.target.value })} />
+          <select name="operador" id="operador" className='p-2 rounded-md min-w-72 outline-none'
+            value={simcard.operador} onChange={(e) => setSimcard({ ...simcard, operador: e.target.value })}>
+            <option value="">Selecciona un operador</option>
+            <option value="Claro">Claro</option>
+            <option value="Movistar">Movistar</option>
+            <option value="Tigo">Tigo</option>
+          </select>
         </div>
         <div className='flex items-center'>
           <label htmlFor="estado" className='w-28 text-center'>Estado</label>
-          <input type="text" name="estado" id="estado" className='p-2 rounded-md min-w-72 outline-none' placeholder='Activo | Inactiva | Reposición | DeBaja'
-            value={simcard.estado} onChange={(e) => setSimcard({ ...simcard, estado: e.target.value })} />
+          <select name="estado" id="estado" className='p-2 rounded-md min-w-72 outline-none'
+            value={simcard.estado} onChange={(e) => setSimcard({ ...simcard, estado: e.target.value })}>
+            <option value="">Selecciona un estado</option>
+            <option value="Activa">Activa</option>
+            <option value="Inactiva">Inactiva</option>
+            <option value="Reposición">Reposición</option>
+            <option value="DeBaja">DeBaja</option>
+          </select>
         </div>
         <div className='flex items-center'>
           <label htmlFor="serial" className='w-28 text-center'>Serial</label>

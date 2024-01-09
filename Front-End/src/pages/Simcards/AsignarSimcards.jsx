@@ -1,10 +1,10 @@
+import { useFiltersBodegas, useFilterSimcards } from '../../hooks/useFilters.js'
 import { BodegaDataSims, simcardsBodegas } from '../../utils/FetchItemsData.js'
 import { MessageDisplay } from '../../components/MessageDisplay.jsx'
 import { ItemsAgregados } from '../../components/ItemsAgregados.jsx'
 import { useCarItems } from '../../hooks/useCartItems.js'
 import { AddIcon } from '../../components/Icons.jsx'
 import { useEffect, useState } from 'react'
-import { useFiltersBodegas, useFilterSimcards } from '../../hooks/useFilters.js'
 import axios from 'axios'
 
 export function AsignarSimcards () {
@@ -64,13 +64,13 @@ export function AsignarSimcards () {
       <article className="w-[550px]">
 
         <section className='flex items-center gap-4 py-6'>
-          <p className=""><span className="font-semibold pr-2">Filtrar:</span>| Placa | Nombre |</p>
-          <input type="text" placeholder="Buscar Items..."
+          <p className=""><span className="font-semibold pr-2">Filtrar:</span>| Operador | Serial | Número</p>
+          <input type="text" placeholder="Buscar simcards..."
             value={searchSimcard} onChange={ev => setSearchSimcard(ev.target.value)}
             className="bg-slate-200 w-64 p-2 rounded-md" />
         </section>
 
-        <h2 className='text-xl font-semibold text-center'>Simcards Sin Asignar a Bodegas: </h2>
+        <h2 className='text-xl font-semibold text-center pb-4'>Simcards Sin Asignar a Bodegas: </h2>
         <section name="itemIds"
           className="bg-slate-200 rounded-md shadow-lg p-2 min-w-96 flex flex-col gap-2 mb-4" style={{ maxHeight: '250px', overflowY: 'auto' }}>
           {

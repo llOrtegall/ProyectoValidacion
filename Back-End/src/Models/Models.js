@@ -8,7 +8,7 @@ const SimcardSchema = new Schema({
   apn: { type: String, required: true },
   user: { type: String },
   pass: { type: String }
-})
+}, { timestamps: true, versionKey: false })
 
 const ItemSchema = new Schema({
   nombre: { type: String, required: true },

@@ -129,11 +129,9 @@ export const addItemToBodega = async (req, res) => {
 
 export const getBodegaSucursalItemsSimcards = async (req, res) => {
   const { id } = req.params
-  console.log(id)
   try {
     await ConnetMongoDB()
     const bodega = await BodegaModel.findById(id).populate('items').populate('simcards')
-    console.log(bodega)
     res.status(200).json(bodega)
   } catch (error) {
     console.error(error)
