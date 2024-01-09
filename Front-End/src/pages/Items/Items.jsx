@@ -1,3 +1,4 @@
+import { BottonExportItems } from '../../components/BotonExcelDefault.jsx'
 import { fechtItemsBodegas } from '../../utils/FetchItemsData.js'
 import { useFiltersItems } from '../../hooks/useFilters.js'
 import { useEffect, useState } from 'react'
@@ -16,11 +17,12 @@ export function Items () {
   return (
     <main className="w-full h-screen px-2">
 
-      <section className="flex items-center justify-center gap-6 bg-blue-500  rounded-md shadow-lg py-1 mb-2">
+      <section className="flex items-center justify-center gap-6 bg-blue-500  rounded-md shadow-lg py-2 mb-2">
         <p><span className="font-semibold pr-2">Filtrar:</span>| Placa | Serial | Nombre |</p>
         <input type="text"
           value={search} onChange={ev => setSearch(ev.target.value)}
-          placeholder="Teclado | 343543 | S/N:312412412" className="bg-slate-100 w-64 rounded-md p-1" />
+          placeholder="Teclado | 343543 | S/N:312412412" className="bg-slate-100 w-64 rounded-md p-1 outline-none" />
+        <BottonExportItems datos={filteredItems} />
       </section>
 
       <article className="flex justify-around text-center bg-blue-400 shadow-lg rounded-md py-2 mb-2">
