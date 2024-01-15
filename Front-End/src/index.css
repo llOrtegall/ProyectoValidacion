@@ -18,3 +18,7 @@ button.deleted {
   color: black;
   border-radius: 100%;
 }
+
+input:focus {
+  outline: none;
+}

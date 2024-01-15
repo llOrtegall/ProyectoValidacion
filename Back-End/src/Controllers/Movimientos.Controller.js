@@ -91,41 +91,32 @@ export const moveItems = async (req, res) => {
 }
 
 export const moveSimcards = async (req, res) => {
-  const { itemsIds, bodegaOrigen, bodegaDestino, encargado, incidente, descripcion } = req.body
-  // console.log(itemsIds); console.log(bodegaOrigen); console.log(bodegaDestino); console.log(encargado); console.log(incidente); console.log(descripcion)
+  const { simsIds, bodegas, encargado, incidente, descripcion } = req.body
 
-  if (!itemsIds || !bodegaOrigen || !bodegaDestino || !encargado || !incidente || !descripcion) {
+  console.log(simsIds); console.log(bodegas); console.log(encargado); console.log(incidente); console.log(descripcion)
+
+  if (!simsIds || !bodegas || !encargado || !incidente || !descripcion) {
     return res.status(400).json({ error: 'Faltan campos requeridos' })
   }
 
-  if (itemsIds.length === 0) {
-    return res.status(400).json({ error: 'Debe seleccionar al menos un ítem' })
+  if (simsIds.entran.length === 0) {
+    return res.status(400).json({ error: 'Debe seleccionar al menos un ítem Para El Movimiento' })
   }
 
-  if (bodegaOrigen === bodegaDestino) {
+  if (bodegas.bodegaOrigen === bodegas.bodegaDestino) {
     return res.status(400).json({ error: 'La bodega de Origen y Destino deben ser Diferentes' })
   }
 
   try {
     await ConnetMongoDB()
     // Encuentra las bodegas
-    const sourceBodega = await BodegaModel.findById(bodegaOrigen)
-    const targetBodega = await BodegaModel.findById(bodegaDestino)
-
-    // Verifica si las bodegas existen
-    if (!sourceBodega || !targetBodega) {
-      return res.status(404).json({ error: 'No se encontró una o ambas bodegas' })
-    }
+    const sourceBodega = await BodegaModel.findById(bodegas.bodegaOrigen)
+    const targetBodega = await BodegaModel.findById(bodegas.bodegaDestino)
 
     // Mueve cada ítem del array itemsIdsmoveItems
-    for (const itemId of itemsIds) {
+    for (const itemId of simsIds.entran) {
       // Encuentra el ítem en la bodega original
       const itemIndex = sourceBodega.simcards.findIndex(item => item._id.toString() === itemId)
-
-      // Verifica si el ítem existe en la bodega original
-      if (itemIndex === -1) {
-        return res.status(404).json({ error: `No se encontró el ítem con id ${itemId} en la bodega original` })
-      }
 
       // Elimina el ítem de la bodega original
       const [item] = sourceBodega.simcards.splice(itemIndex, 1)
@@ -134,9 +125,18 @@ export const moveSimcards = async (req, res) => {
       targetBodega.simcards.push(item)
     }
 
+    for (const itemid of simsIds.salen) {
+      // Encuentra el ítem en la bodega original
+      const itemIndex = targetBodega.simcards.findIndex(item => item._id.toString() === itemid)
+
+      // Elimina el ítem de la bodega original
+      const [item] = targetBodega.simcards.splice(itemIndex, 1)
+
+      // Agrega el ítem a la bodega de destino
+      sourceBodega.simcards.push(item)
+    }
     const movimientoId = await MovimientoModel.countDocuments() + 1
 
-    // Crea el movimiento
     const movimiento = new MovimientoModel({
       movimientoId,
       encargado,
@@ -144,11 +144,11 @@ export const moveSimcards = async (req, res) => {
       descripcion,
       fecha: moment().tz('America/Bogota').toDate(),
       items: [],
-      simcards: itemsIds,
-      bodegaOrigen,
-      bodegaDestino
+      simcards: simsIds,
+      bodegaOrigen: bodegas.bodegaOrigen,
+      bodegaDestino: bodegas.bodegaDestino
     })
-    // Guarda el movimiento
+
     await movimiento.save()
 
     // Guarda los cambios en las bodegas

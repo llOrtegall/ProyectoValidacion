@@ -33,9 +33,9 @@ const movimientoSchema = new Schema({
   descripcion: { type: String, required: true },
   fecha: { type: Date, required: true },
   items: [{ type: Schema.Types.ObjectId, ref: 'Item' }],
-  simcards: [{ type: Schema.Types.ObjectId, ref: 'simcard' }],
   bodegaOrigen: { type: Schema.Types.ObjectId, ref: 'bodega' },
-  bodegaDestino: { type: Schema.Types.ObjectId, ref: 'bodega' }
+  bodegaDestino: { type: Schema.Types.ObjectId, ref: 'bodega' },
+  simcards: { entran: [{ type: Schema.Types.ObjectId, ref: 'simcard' }], salen: [{ type: Schema.Types.ObjectId, ref: 'simcard' }] }
 }, { timestamps: true, versionKey: false })
 
 export const ItemModel = model('Item', ItemSchema)
