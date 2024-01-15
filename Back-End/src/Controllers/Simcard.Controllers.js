@@ -96,3 +96,8 @@ export const addSimcardToBodega = async (req, res) => {
     return res.status(500).json({ error: 'Error al agregar los ítems a bodega', message: error })
   }
 }
+
+// TODo: Movimientos de simcards
+export const CrearMovimientoSimcard = async (req, res) => {
+
+}

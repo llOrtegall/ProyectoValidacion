@@ -11,6 +11,7 @@ import { Items } from './pages/Items/Items.jsx'
 import { CreatedItems } from './pages/Items/CreatedItems.jsx'
 import { AsignarItemBodega } from './pages/Items/AsignarItemBodega.jsx'
 
+import { DetalleBodega } from './pages/Bodegas/DetallesBodegas.jsx'
 import { CreatedBodega } from './pages/Bodegas/CreatedBodega.jsx'
 import { Bodegas } from './pages/Bodegas/Bodegas.jsx'
 
@@ -21,7 +22,7 @@ import { MovimientoDetalle } from './pages/Movimientos/MovimientoDetalle.jsx'
 import { CrearSimcard } from './pages/Simcards/CrearSimcard.jsx'
 import { VerSimcards } from './pages/Simcards/VerSimcards.jsx'
 import { AsignarSimcards } from './pages/Simcards/AsignarSimcards.jsx'
-import { DetalleBodega } from './pages/Bodegas/DetallesBodegas.jsx'
+import { Movimientos } from './pages/Simcards/Movimientos.jsx'
 
 axios.defaults.baseURL = 'http://localhost:3030'
 
@@ -43,6 +44,7 @@ export function App () {
           <Route path='/verSimcards' element={<VerSimcards />} />
           <Route path='/addSimcards' element={<AsignarSimcards />} />
           <Route path='/DetalleBodega/:id' element={<DetalleBodega />} />
+          <Route path='/movimientosSimcards' element={<Movimientos />} />
         </Route>
         <Route path="*" element={<h1>Not Found</h1>}></Route>
       </Routes>
