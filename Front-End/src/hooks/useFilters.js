@@ -53,3 +53,17 @@ export function useFilterSimcards (initialSimcards) {
 
   return { searchSimcard, setSearchSimcard, filteredSimcards }
 }
+
+export function useFilterSimcards2 (initialSimcards2) {
+  const [searchSimcard2, setSearchSimcard2] = useState('')
+
+  const filteredSimcards2 = useMemo(() => {
+    return initialSimcards2.filter(({ numero, operador, serial }) =>
+      numero.toLowerCase().includes(searchSimcard2.toLowerCase()) ||
+      operador.toLowerCase().includes(searchSimcard2.toLowerCase()) ||
+      serial.toLowerCase().includes(searchSimcard2.toLowerCase())
+    )
+  }, [searchSimcard2, initialSimcards2])
+
+  return { searchSimcard2, setSearchSimcard2, filteredSimcards2 }
+}

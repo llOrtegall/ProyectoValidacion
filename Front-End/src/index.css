@@ -12,3 +12,9 @@ button.added {
   color: black;
   border-radius: 100%;
 }
+
+button.deleted {
+  background-color: rgb(247, 70, 70);
+  color: black;
+  border-radius: 100%;
+}

@@ -43,3 +43,25 @@ export function useCarSimcards (initialItems = []) {
 
   return { cartSims, handleAddSimcard, handleRemoveItem, setCartSims }
 }
+
+export function useCarSimcards2 (initialItems = []) {
+  const [cartSims2, setCartSims2] = useState(initialItems)
+
+  const handleAddSimcard2 = useCallback((id) => {
+    setCartSims2(prevItems => {
+      if (!prevItems.includes(id)) {
+        return [...prevItems, id]
+      } else {
+        return prevItems
+      }
+    })
+  }, [])
+
+  const handleRemoveItem2 = useCallback((id) => {
+    setCartSims2(prevItems => {
+      return prevItems.filter(item => item !== id)
+    })
+  }, [])
+
+  return { cartSims2, handleAddSimcard2, handleRemoveItem2, setCartSims2 }
+}
