@@ -159,7 +159,7 @@ export function CrearMovimiento () {
           <footer className="py-4 bg-slate-600 rounded-md text-white">
             <form className="grid grid-cols-2 gap-3">
               <label className="flex h-10 items-center ml-3"> <span className="font-semibold w-32">Encargado:</span>
-                <input type="text" className="w-full p-2 rounded-md col-span-1 bg-slate-100 no-underline text-black"
+                <input type="text" className="w-full p-2 rounded-md col-span-1 bg-slate-100 no-underline text-black" readOnly
                   value={encargado}
                   onChange={ev => setEncargado(ev.target.value)}
                   placeholder="Pepito Perez Muñoz" />
