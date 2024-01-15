@@ -60,6 +60,18 @@ export const getBodegaSucursal = async (req, res) => {
   }
 }
 
+export const getBodegaSucursalSimcards = async (req, res) => {
+  const { sucursal } = req.params
+  try {
+    await ConnetMongoDB()
+    const bodega = await BodegaModel.findOne({ sucursal }).populate('simcards')
+    res.status(200).json(bodega)
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({ error: 'Error al obtener la bodega' })
+  }
+}
+
 export const findBodegaWithItems = async (req, res) => {
   try {
     await ConnetMongoDB()
