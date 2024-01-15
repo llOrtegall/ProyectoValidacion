@@ -59,7 +59,7 @@ export function Movimientos () {
       return setError('Debe Ingresar Una Bodega De Origen y Una De Destino')
     }
 
-    axios.post('/moveItem', {
+    axios.post('/moveSimcard', {
       bodegaOrigen: bodegaOrigen._id,
       bodegaDestino: bodegaDestino._id,
       itemsIds: cartSims,
@@ -124,7 +124,7 @@ export function Movimientos () {
           </header>
 
           <section className="grid grid-cols-2 w-full place-items-center gap-6 bg-slate-600 text-white rounded-md px-4 py-2 mb-2">
-            <p><span className="font-semibold pr-2">Filtrar:</span>| Placa | Serial | Nombre |</p>
+            <p><span className="font-semibold pr-2">Filtrar:</span>| Número | Serial | Operador |</p>
             <input type="text" placeholder="Buscar Items..." className="bg-slate-100 w-64 rounded-md p-1 text-black"
               value={searchSimcard} onChange={ev => setSearchSimcard(ev.target.value)} />
           </section>
@@ -159,7 +159,7 @@ export function Movimientos () {
           <footer className="py-4 bg-slate-600 rounded-md text-white">
             <form className="grid grid-cols-2 gap-3">
               <label className="flex h-10 items-center ml-3"> <span className="font-semibold w-32">Encargado:</span>
-                <input type="text" className="w-full p-2 rounded-md col-span-1 bg-slate-100 no-underline text-black" readOnly
+                <input type="text" className="w-full p-2 rounded-md col-span-1 bg-slate-100 no-underline text-black"
                   value={encargado}
                   onChange={ev => setEncargado(ev.target.value)}
                   placeholder="Pepito Perez Muñoz" />
@@ -196,7 +196,7 @@ export function Movimientos () {
             <p> <span className="font-bold">N° Sucursal:</span>  {bodegaDestino?.sucursal}</p>
           </header>
           <main>
-            <h2 className="text-center py-2 font-semibold bg-slate-600 mb-2 rounded-md text-white">Items Que Ingresarán :</h2>
+            <h2 className="text-center py-2 font-semibold bg-slate-600 mb-2 rounded-md text-white">Simcards Que Ingresarán :</h2>
             <section style={{ maxHeight: '450px', overflowY: 'auto' }}>
               {
                 cartSims && (
