@@ -1,7 +1,7 @@
 import { MessageDisplay } from '../../components/MessageDisplay.jsx'
-import { ItemsAgregados } from '../../components/ItemsAgregados.jsx'
-import { useFiltersItems } from '../../hooks/useFilters.js'
-import { useCarItems } from '../../hooks/useCartItems.js'
+import { SimcardAgregadas } from '../../components/SimcardsAgregadas.jsx'
+import { useFilterSimcards } from '../../hooks/useFilters.js'
+import { useCarSimcards } from '../../hooks/useCartItems.js'
 import { AddIcon } from '../../components/Icons.jsx'
 import { useState } from 'react'
 import axios from 'axios'
@@ -9,13 +9,13 @@ import axios from 'axios'
 export function Movimientos () {
   const [bodegaDestino, setBodegaDestino] = useState(null)
   const [bodegaOrigen, setBodegaOrigen] = useState(null)
+
   const [searchBodegaOrigen, setSearchBodegaOrigen] = useState('')
   const [searchBodegaDestino, setSearchBodegaDestino] = useState('')
 
   const [descripcion, setDescripcion] = useState('')
   const [encargado, setEncargado] = useState('')
   const [incidente, setIncidente] = useState('')
-  const [items, setItems] = useState([])
 
   const [message, setMessage] = useState('')
   const [error, setError] = useState('')
@@ -23,10 +23,10 @@ export function Movimientos () {
   const searchOrigen = (ev) => {
     ev.preventDefault()
 
-    axios.get(`/getBodega/${searchBodegaOrigen}`)
+    axios.get(`/getBodegaSimcards/${searchBodegaOrigen}`)
       .then(response => {
         setBodegaOrigen(response.data)
-        setItems(response.data.items)
+        console.log(response.data)
       })
       .catch(error => {
         console.log(error)
@@ -36,7 +36,7 @@ export function Movimientos () {
   const searchDestino = (ev) => {
     ev.preventDefault()
 
-    axios.get(`/getBodega/${searchBodegaDestino}`)
+    axios.get(`/getBodegaSimcards/${searchBodegaDestino}`)
       .then(response => {
         setBodegaDestino(response.data)
       })
@@ -45,10 +45,10 @@ export function Movimientos () {
       })
   }
 
-  const itemsOrigen = bodegaOrigen?.items || []
+  const simCards = bodegaOrigen?.simcards || []
 
-  const { carItems, handleAddItem, handleRemoveItem, setCarItems } = useCarItems()
-  const { search, setSearch, filteredItems } = useFiltersItems(itemsOrigen)
+  const { cartSims, handleAddSimcard, handleRemoveItem, setCartSims } = useCarSimcards()
+  const { filteredSimcards, searchSimcard, setSearchSimcard } = useFilterSimcards(simCards)
 
   const handleClick = () => {
     if (!bodegaOrigen || !bodegaDestino) {
@@ -62,7 +62,7 @@ export function Movimientos () {
     axios.post('/moveItem', {
       bodegaOrigen: bodegaOrigen._id,
       bodegaDestino: bodegaDestino._id,
-      itemsIds: carItems,
+      itemsIds: cartSims,
       encargado,
       descripcion,
       incidente
@@ -72,8 +72,7 @@ export function Movimientos () {
         // resetea los estados
         setBodegaOrigen(null)
         setBodegaDestino(null)
-        setItems([])
-        setCarItems([])
+        setCartSims([])
         setEncargado('')
         setDescripcion('')
         setIncidente('')
@@ -127,12 +126,12 @@ export function Movimientos () {
           <section className="grid grid-cols-2 w-full place-items-center gap-6 bg-slate-600 text-white rounded-md px-4 py-2 mb-2">
             <p><span className="font-semibold pr-2">Filtrar:</span>| Placa | Serial | Nombre |</p>
             <input type="text" placeholder="Buscar Items..." className="bg-slate-100 w-64 rounded-md p-1 text-black"
-              value={search} onChange={ev => setSearch(ev.target.value)} />
+              value={searchSimcard} onChange={ev => setSearchSimcard(ev.target.value)} />
           </section>
 
           <section className="grid grid-cols-4 w-full place-items-center p-2 bg-slate-600 rounded-md mb-2 text-white">
-            <p className="font-semibold">Nombre Item</p>
-            <p className="font-semibold">Placa</p>
+            <p className="font-semibold">Número</p>
+            <p className="font-semibold">Operador</p>
             <p className="font-semibold">Serial</p>
             <p className="font-semibold">Agregar</p>
           </section>
@@ -140,14 +139,14 @@ export function Movimientos () {
           <section style={{ maxHeight: '330px', overflowY: 'auto' }} className='mb-2'>
             {
               bodegaOrigen && (
-                filteredItems.map(item => (
+                filteredSimcards.map(item => (
                   <section key={item._id} className="w-full grid grid-cols-4 p-2 bg-blue-500 rounded-md mb-2 place-items-center text-white transition-colors hover:text-black hover:bg-slate-200 cursor-default">
-                    <p>{item.nombre}</p>
-                    <p>{item.placa}</p>
+                    <p>{item.numero}</p>
+                    <p>{item.operador}</p>
                     <p>{item.serial}</p>
                     <button
-                      onClick={() => handleAddItem(item._id)}
-                      className={carItems.includes(item._id) ? 'added' : 'rounded-full transition-colors hover:bg-green-300  hover:text-black'}
+                      onClick={() => handleAddSimcard(item._id)}
+                      className={cartSims.includes(item._id) ? 'added' : 'rounded-full transition-colors hover:bg-green-300  hover:text-black'}
                     >
                       <AddIcon />
                     </button>
@@ -200,9 +199,9 @@ export function Movimientos () {
             <h2 className="text-center py-2 font-semibold bg-slate-600 mb-2 rounded-md text-white">Items Que Ingresarán :</h2>
             <section style={{ maxHeight: '450px', overflowY: 'auto' }}>
               {
-                carItems && (
-                  carItems?.map(item => (
-                    <ItemsAgregados id={item} key={item} items={items} handleRemoveItem={handleRemoveItem} />
+                cartSims && (
+                  cartSims?.map(sim => (
+                    <SimcardAgregadas id={sim} key={sim} simcards={bodegaOrigen.simcards} handleRemoveItem={handleRemoveItem} />
                   ))
                 )
               }
