@@ -6,7 +6,7 @@ import { AddIcon, DeleteIcon2 } from '../../components/Icons.jsx'
 import { useState } from 'react'
 import axios from 'axios'
 
-export function Movimientos () {
+export function Movimientos() {
   const [bodegaDestino, setBodegaDestino] = useState(null)
   const [bodegaOrigen, setBodegaOrigen] = useState(null)
 
@@ -98,32 +98,21 @@ export function Movimientos () {
   return (
     <main className="w-full min-h-[93vh]">
 
-      <section className="grid grid-cols-4 py-4 w-full gap-4 p-2">
-
-        <form className="w-full p-2 bg-gray-600 rounded-lg flex items-center gap-2 text-center col-span-2 place-content-center" onSubmit={searchOrigen}>
-          <h3 className="font-semibold text-white">Bodega # 1</h3>
-          <input type="text" value={searchBodegaOrigen} onChange={ev => setSearchBodegaOrigen(ev.target.value)}
-            placeholder="40001 | 34545"
-            className="bg-slate-100 w-64 p-2 rounded-md" />
-          <button className="bg-green-600 text-white rounded-md p-2 font-semibold hover:bg-white hover:text-black">Buscar Sucursal</button>
-        </form>
-
-        <form className="w-full p-2 bg-gray-600 rounded-lg flex items-center gap-2 text-center col-span-2 place-content-center" onSubmit={searchDestino}>
-          <h3 className="font-semibold text-white">Bodega # 2</h3>
-          <input type="text" value={searchBodegaDestino} onChange={ev => setSearchBodegaDestino(ev.target.value)}
-            placeholder="40001 | 34545"
-            className="bg-slate-100 w-64 p-2 rounded-md" />
-          <button className="bg-green-600 text-white rounded-md p-2 font-semibold hover:bg-white hover:text-black">Buscar Sucursal</button>
-        </form>
-
-      </section>
-
-      <section className="grid grid-cols-4 p-2 gap-6">
+      <section className="grid grid-cols-4 p-2 gap-2">
 
         {/* //*: Renderizado Bodega Origen */}
-        <article className="col-span-2 text-md">
+        <article className="col-span-2 text-md border-r border-l border-b rounded-md border-black">
 
-          <header className="w-full rounded-md p-2 bg-slate-600 text-white grid grid-cols-3 place-items-center mb-2">
+          <form className="w-full p-2 bg-gray-600 rounded-lg flex items-center gap-2 text-center col-span-2 place-content-center border-t border-r border-l border-black"
+            onSubmit={searchOrigen}>
+            <h3 className="font-semibold text-white">Buscar Bodega Origen</h3>
+            <input type="text" value={searchBodegaOrigen} onChange={ev => setSearchBodegaOrigen(ev.target.value)}
+              placeholder="40001 | 34545"
+              className="bg-slate-100 w-64 p-2 rounded-md" />
+            <button className="bg-green-600 text-white rounded-md p-2 font-semibold hover:bg-white hover:text-black">Buscar Sucursal</button>
+          </form>
+
+          <header className="w-full flex justify-around rounded-md p-2 bg-slate-600 text-white place-items-center mb-2">
             <h3> <span className="font-bold">Nombre:</span>  {bodegaOrigen?.nombre}</h3>
             <p> <span className="font-bold">Direccion:</span>  {bodegaOrigen?.direccion}</p>
             <p> <span className="font-bold">Sucursal:</span>  {bodegaOrigen?.sucursal}</p>
@@ -162,41 +151,19 @@ export function Movimientos () {
             }
           </section>
 
-          {/* <footer className="py-4 bg-slate-600 rounded-md text-white">
-            <form className="grid grid-cols-2 gap-3">
-              <label className="flex h-10 items-center ml-3"> <span className="font-semibold w-32">Encargado:</span>
-                <input type="text" className="w-full p-2 rounded-md col-span-1 bg-slate-100 no-underline text-black"
-                  value={encargado}
-                  onChange={ev => setEncargado(ev.target.value)}
-                  placeholder="Pepito Perez Muñoz" />
-              </label>
-
-              <label className="flex h-10 items-center"> <span className="font-semibold w-32">N° Incidente:</span>
-                <input type="text" className="w-full p-2 rounded-md bg-slate-100 no-underline text-black"
-                  value={incidente}
-                  onChange={ev => setIncidente(ev.target.value)}
-                  placeholder="134564 | 234252 | 634532" />
-              </label>
-
-              <label className="col-span-3 mx-3"> <span className="font-semibold w-40">Observaciones:</span>
-                <input type="text" className="w-full p-2 rounded-md bg-slate-100 no-underline text-black"
-                  value={descripcion}
-                  onChange={ev => setDescripcion(ev.target.value)}
-                  placeholder="texto para registrar observación ..." />
-              </label>
-            </form>
-          </footer> */}
-
-          {/* <section className="flex w-full justify-center mt-4">
-            <button className="p-2 text-white font-bold w-48 bg-green-600 rounded-md hover:bg-white  hover:text-black" onClick={handleClick}>
-              Realizar Movimiento
-            </button>
-          </section> */}
-
         </article>
 
         {/* //*: Renderizado Bodega Destino */}
-        <article className="col-span-2 text-md">
+        <article className="col-span-2 text-md ">
+
+          <form className="w-full p-2 bg-gray-600 rounded-lg flex items-center gap-2 text-center col-span-2 place-content-center "
+            onSubmit={searchDestino}>
+            <h3 className="font-semibold text-white">Buscar Bodega Destino</h3>
+            <input type="text" value={searchBodegaDestino} onChange={ev => setSearchBodegaDestino(ev.target.value)}
+              placeholder="40001 | 34545"
+              className="bg-slate-100 w-64 p-2 rounded-md" />
+            <button className="bg-green-600 text-white rounded-md p-2 font-semibold hover:bg-white hover:text-black">Buscar Sucursal</button>
+          </form>
 
           <header className="w-full flex justify-around rounded-md p-2 bg-slate-600 text-white place-items-center mb-2">
             <h3> <span className='font-bold pr-2'>Nombre:</span>{bodegaDestino?.nombre}</h3>
@@ -236,84 +203,77 @@ export function Movimientos () {
               )
             }
           </section>
-
-          {/* <footer className="py-4 bg-slate-600 rounded-md text-white">
-            <form className="grid grid-cols-2 gap-3">
-              <label className="flex h-10 items-center ml-3"> <span className="font-semibold w-32">Encargado:</span>
-                <input type="text" className="w-full p-2 rounded-md col-span-1 bg-slate-100 no-underline text-black"
-                  value={encargado}
-                  onChange={ev => setEncargado(ev.target.value)}
-                  placeholder="Pepito Perez Muñoz" />
-              </label>
-
-              <label className="flex h-10 items-center"> <span className="font-semibold w-32">N° Incidente:</span>
-                <input type="text" className="w-full p-2 rounded-md bg-slate-100 no-underline text-black"
-                  value={incidente}
-                  onChange={ev => setIncidente(ev.target.value)}
-                  placeholder="134564 | 234252 | 634532" />
-              </label>
-
-              <label className="col-span-3 mx-3"> <span className="font-semibold w-40">Observaciones:</span>
-                <input type="text" className="w-full p-2 rounded-md bg-slate-100 no-underline text-black"
-                  value={descripcion}
-                  onChange={ev => setDescripcion(ev.target.value)}
-                  placeholder="texto para registrar observación ..." />
-              </label>
-            </form>
-          </footer> */}
-
-          {/* <section className="flex w-full justify-center mt-4">
-            <button className="p-2 text-white font-bold w-48 bg-green-600 rounded-md hover:bg-white  hover:text-black" onClick={handleClick}>
-              Realizar Movimiento
-            </button>
-          </section> */}
-
         </article>
-
       </section>
 
-      <section className='mx-2'>
-        {/* Muestra los items que se moverán */}
+      {/* //* Renderizado Movimiento */}
+      <article className='border border-black rounded-md mx-2'>
+        <h1 className='text-xl font-semibold text-center py-2'>Movimiento </h1>
+        <header className='flex justify-around bg-yellow-400 mb-2 rounded-md p-3 text-black '>
+          <h3> <span className="font-bold">Nombre:</span>  {bodegaDestino?.nombre}</h3>
+          <p> <span className="font-bold">Direccion:</span>  {bodegaDestino?.direccion}</p>
+          <p> <span className="font-bold">N° Sucursal:</span>  {bodegaDestino?.sucursal}</p>
+        </header>
 
-        <article >
-          <header className='flex justify-around bg-slate-600 mb-2 rounded-md p-3 text-white '>
-            <h3> <span className="font-bold">Nombre:</span>  {bodegaDestino?.nombre}</h3>
-            <p> <span className="font-bold">Direccion:</span>  {bodegaDestino?.direccion}</p>
-            <p> <span className="font-bold">N° Sucursal:</span>  {bodegaDestino?.sucursal}</p>
-          </header>
-
-          <section className='grid grid-cols-2 gap-4'>
-            <main className='col-span-1'>
-              <h2 className="text-center py-2 font-semibold bg-slate-600 mb-2 rounded-md text-white">Simcards Que Ingresarán :</h2>
-              <section style={{ maxHeight: '450px', overflowY: 'auto' }}>
-                {
-                  cartSims && (
-                    cartSims?.map(sim => (
-                      <SimcardAgregadas id={sim} key={sim} simcards={bodegaOrigen.simcards} handleRemoveItem={handleRemoveItem} />
-                    ))
-                  )
-                }
-              </section>
-            </main>
-            <main className='col-span-1'>
-              <h2 className="text-center py-2 font-semibold bg-slate-600 mb-2 rounded-md text-white">Simcards Retiradas :</h2>
-              <section style={{ maxHeight: '450px', overflowY: 'auto' }}>
-                {
-                  cartSims2 && (
-                    cartSims2?.map(sim => (
-                      <SimcardRetiradas id={sim} key={sim} simcards={bodegaDestino.simcards} handleRemoveItem={handleRemoveItem2} />
-                    ))
-                  )
-                }
-              </section>
-            </main>
-          </section>
-
-        </article>
-
-      </section>
+        <section className='grid grid-cols-2 gap-4'>
+          <main className='col-span-1'>
+            <h2 className="text-center py-2 font-semibold bg-yellow-400 mb-2 rounded-md text-black">Simcards Que Ingresarán :</h2>
+            <section style={{ maxHeight: '450px', overflowY: 'auto' }}>
+              <p className='grid grid-cols-3 place-items-center bg-blue-400 rounded-t-md text-white uppercase'><span>Número</span> <span>Serial</span> <span> - </span></p>
+              {
+                cartSims && (
+                  cartSims?.map(sim => (
+                    <SimcardAgregadas id={sim} key={sim} simcards={bodegaOrigen.simcards} handleRemoveItem={handleRemoveItem} />
+                  ))
+                )
+              }
+            </section>
+          </main>
+          <main className='col-span-1'>
+            <h2 className="text-center py-2 font-semibold bg-yellow-400 mb-2 rounded-md text-black">Simcards Retiradas :</h2>
+            <section style={{ maxHeight: '450px', overflowY: 'auto' }}>
+              <p className='grid grid-cols-3 place-items-center bg-blue-400 rounded-t-md text-white uppercase'><span>Número</span> <span>Serial</span> <span> - </span></p>
+              {
+                cartSims2 && (
+                  cartSims2?.map(sim => (
+                    <SimcardRetiradas id={sim} key={sim} simcards={bodegaDestino.simcards} handleRemoveItem={handleRemoveItem2} />
+                  ))
+                )
+              }
+            </section>
+          </main>
+        </section>
+      </article>
 
       <MessageDisplay message={message} error={error} />
+
+      <footer className="py-4 bg-slate-600 rounded-md text-white">
+        <form className="grid grid-cols-2 gap-3">
+          <label className="flex h-10 items-center ml-3"> <span className="font-semibold w-32">Encargado:</span>
+            <input type="text" className="w-full p-2 rounded-md col-span-1 bg-slate-100 no-underline text-black"
+              value={encargado}
+              onChange={ev => setEncargado(ev.target.value)}
+              placeholder="Pepito Perez Muñoz" />
+          </label>
+          <label className="flex h-10 items-center"> <span className="font-semibold w-32">N° Incidente:</span>
+            <input type="text" className="w-full p-2 rounded-md bg-slate-100 no-underline text-black"
+              value={incidente}
+              onChange={ev => setIncidente(ev.target.value)}
+              placeholder="134564 | 234252 | 634532" />
+          </label>
+          <label className="col-span-3 mx-3"> <span className="font-semibold w-40">Observaciones:</span>
+            <input type="text" className="w-full p-2 rounded-md bg-slate-100 no-underline text-black"
+              value={descripcion}
+              onChange={ev => setDescripcion(ev.target.value)}
+              placeholder="texto para registrar observación ..." />
+          </label>
+        </form>
+      </footer>
+      <section className="flex w-full justify-center mt-4">
+        <button className="p-2 text-white font-bold w-48 bg-green-600 rounded-md hover:bg-white  hover:text-black" onClick={handleClick}>
+          Realizar Movimiento
+        </button>
+      </section>
     </main>
   )
 }
