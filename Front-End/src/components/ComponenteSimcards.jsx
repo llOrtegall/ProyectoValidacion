@@ -1,11 +1,7 @@
 import { SimcardAgregada } from '../components/SimcardAgregada.jsx'
-import { useCarSimcards, useCarSimcards2 } from '../hooks/useCartItems.js'
 
 // eslint-disable-next-line react/prop-types
-export function ComponenteSimcards () {
-  const { cartSims, bodegaOrigen, handleRemoveItem } = useCarSimcards()
-  const { cartSims2, bodegaDestino, handleRemoveItem2 } = useCarSimcards2()
-
+export function ComponenteSimcards ({ bodegaOrigen, bodegaDestino, handleRemoveItem, handleRemoveItem2, cartSims, cartSims2 }) {
   return (
     <section className='grid grid-cols-2'>
       <main className='col-span-1'>
