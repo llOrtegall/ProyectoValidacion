@@ -1,6 +1,7 @@
+import { CloseSessionIcon, HomeIcon } from './Icons'
 import { useEffect, useState } from 'react'
-import { HomeIcon } from './Icons'
 import { Link } from 'react-router-dom'
+import { useAuth } from '../Auth/AuthContext.jsx'
 
 const links1 = [
   { to: '/bodegas', text: 'Ver Bodegas' },
@@ -25,6 +26,8 @@ export function NavBar () {
   const [activeArticles, setActiveArticles] = useState(false)
   const [activeMovements, setActiveMovements] = useState(false)
   const [activeSimcards, setActiveSimcards] = useState(false)
+
+  const { logout } = useAuth()
 
   const handleClickSimcards = (event) => {
     event.stopPropagation()
@@ -71,7 +74,7 @@ export function NavBar () {
         </li>
       </ul>
 
-      <ul className='flex items-center gap-6'>
+      <ul className='flex items-center gap-6 '>
 
         <section className='font-semibold'>
           <Link to='/verMovimientos' className='hover:text-yellow-200 hover:underline'>Ver Movimientos</Link>
@@ -125,11 +128,16 @@ export function NavBar () {
           }
         </section>
 
-        <section className='font-semibold'>
+        <section className='font-semibold ' title='Inicio App'>
           <Link to="/" className='hover:text-yellow-200'>
             <HomeIcon />
           </Link>
         </section>
+
+        <button onClick={logout} className='hover:text-yellow-200' title='Cerrar Sesión'>
+          <CloseSessionIcon />
+        </button>
+
       </ul>
     </nav>
   )
