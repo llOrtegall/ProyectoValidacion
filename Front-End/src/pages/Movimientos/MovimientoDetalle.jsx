@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 
-export function MovimientoDetalle() {
+export function MovimientoDetalle () {
   const { id } = useParams()
   const [movimiento, setMovimiento] = useState(null)
 
@@ -47,7 +47,7 @@ export function MovimientoDetalle() {
 
       <section className='border border-black h-auto '>
         <header>
-          <h3 className='p-1 bg-yellow-100 border-black text-center font-medium border-b'>Motivo / Descripción Movimiento</h3>
+          <h3 className='p-1 bg-yellow-200 border-black text-center font-medium border-b'>Motivo / Descripción Movimiento</h3>
         </header>
         <p className='py-2 pl-1'>{descripcion}</p>
       </section>
@@ -55,7 +55,7 @@ export function MovimientoDetalle() {
       <article className='w-full flex flex-col gap-2 '>
         <table className="table-auto w-full">
           <thead >
-            <tr className='bg-yellow-100'>
+            <tr className='bg-yellow-200'>
               <th className="border py-1">Item</th>
               <th className="border py-1">Descripción</th>
               <th className='border py-1'>N° Placa</th>
@@ -84,7 +84,8 @@ export function MovimientoDetalle() {
       <article className='w-full flex flex-col gap-2 '>
         <table className="table-auto w-full">
           <thead >
-            <tr className='bg-yellow-100'>
+            <tr className='bg-yellow-200'>
+            <th className="border py-1">N°</th>
               <th className="border py-1">Número</th>
               <th className="border py-1">Operador</th>
               <th className="border py-1">Serial</th>
@@ -95,11 +96,12 @@ export function MovimientoDetalle() {
           <tbody>
             {
               simcards.entran.length > 0
-                ? simcards.entran.map(sim => (
-                  <tr key={sim._id}>
+                ? simcards.entran.map((sim, index) => (
+                  <tr key={sim._id} className='bg-green-200'>
+                    <td className="border text-center">{index + 1}</td>
                     <td className="border text-center">{sim.numero}</td>
                     <td className="border text-center">{sim.operador}</td>
-                    <td className='border uppercase text-center'>{sim.estado}</td>
+                    <td className='border text-center'>{sim.estado}</td>
                     <td className='border uppercase text-center'>{sim.serial}</td>
                     <td className='border text-center'>Entran</td>
                   </tr>
@@ -109,11 +111,12 @@ export function MovimientoDetalle() {
 
             {
               simcards.salen.length > 0
-                ? simcards.salen.map(sim => (
-                  <tr key={sim._id}>
+                ? simcards.salen.map((sim, index) => (
+                  <tr key={sim._id} className='bg-red-200'>
+                    <td className="border text-center">{index + 1}</td>
                     <td className="border text-center">{sim.numero}</td>
                     <td className="border text-center">{sim.operador}</td>
-                    <td className='border uppercase text-center'>{sim.estado}</td>
+                    <td className='border text-center'>{sim.estado}</td>
                     <td className='border uppercase text-center'>{sim.serial}</td>
                     <td className='border text-center'>Salen</td>
                   </tr>))
