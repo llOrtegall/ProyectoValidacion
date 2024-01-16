@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 
-export function MovimientoDetalle () {
+export function MovimientoDetalle() {
   const { id } = useParams()
   const [movimiento, setMovimiento] = useState(null)
 
@@ -19,7 +19,7 @@ export function MovimientoDetalle () {
     return <div>Loading...</div>
   }
 
-  const { bodegaDestino, bodegaOrigen, encargado, fecha, incidente, movimientoId, items, descripcion } = movimiento
+  const { simcards, bodegaDestino, bodegaOrigen, encargado, fecha, incidente, movimientoId, items, descripcion } = movimiento
 
   return (
 
@@ -41,15 +41,16 @@ export function MovimientoDetalle () {
           <p className="text-blue-800 font-medium">Nombre Bodega Destino: <span className='font-semibold text-black'>{bodegaDestino.nombre}</span> </p>
           <p className="text-blue-800 font-medium">Cantidad De Items Movidos: <span className='font-semibold text-black'>{items.length}</span> </p>
           <p className="text-blue-800 font-medium">Sucursal Destino: <span className='font-semibold text-black'>{bodegaDestino.sucursal}</span> </p>
+          <p className="text-blue-800 font-medium">Cantidad De Simcards Movidas: <span className='font-semibold text-black'>{simcards.entran.length + simcards.salen.length}</span> </p>
         </section>
       </article>
 
       <section className='border border-black h-auto '>
-          <header>
-            <h3 className='p-1 bg-yellow-100 border-black text-center font-medium border-b'>Motivo / Descripción Movimiento</h3>
-          </header>
-          <p className='py-2 pl-1'>{descripcion}</p>
-        </section>
+        <header>
+          <h3 className='p-1 bg-yellow-100 border-black text-center font-medium border-b'>Motivo / Descripción Movimiento</h3>
+        </header>
+        <p className='py-2 pl-1'>{descripcion}</p>
+      </section>
 
       <article className='w-full flex flex-col gap-2 '>
         <table className="table-auto w-full">
@@ -64,15 +65,59 @@ export function MovimientoDetalle () {
           </thead>
           <tbody>
             {
-              items.map(item => (
-                <tr key={item._id}>
-                  <td className="border text-center">{item.nombre}</td>
-                  <td className="border text-center">{item.descripcion}</td>
-                  <td className='border uppercase text-center'>{item.placa}</td>
-                  <td className='border uppercase text-center'>{item.serial}</td>
-                  <td className="border text-center">1</td>
-                </tr>
-              ))
+              items.length > 0
+                ? items.map(item => (
+                  <tr key={item._id}>
+                    <td className="border text-center">{item.nombre}</td>
+                    <td className="border text-center">{item.descripcion}</td>
+                    <td className='border uppercase text-center'>{item.placa}</td>
+                    <td className='border uppercase text-center'>{item.serial}</td>
+                    <td className="border text-center">1</td>
+                  </tr>
+                ))
+                : <tr><td colSpan='5' className='text-center'>No Se Realizaron Movimientos De Items</td></tr>
+            }
+          </tbody>
+        </table>
+      </article>
+
+      <article className='w-full flex flex-col gap-2 '>
+        <table className="table-auto w-full">
+          <thead >
+            <tr className='bg-yellow-100'>
+              <th className="border py-1">Número</th>
+              <th className="border py-1">Operador</th>
+              <th className="border py-1">Serial</th>
+              <th className="border py-1">Estado</th>
+              <th className="border py-1">Movimiento</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              simcards.entran.length > 0
+                ? simcards.entran.map(sim => (
+                  <tr key={sim._id}>
+                    <td className="border text-center">{sim.numero}</td>
+                    <td className="border text-center">{sim.operador}</td>
+                    <td className='border uppercase text-center'>{sim.estado}</td>
+                    <td className='border uppercase text-center'>{sim.serial}</td>
+                    <td className='border text-center'>Entran</td>
+                  </tr>
+                ))
+                : <tr><td colSpan='5' className='text-center'>No Se Realizaron Entrada De Simcards</td></tr>
+            }
+
+            {
+              simcards.salen.length > 0
+                ? simcards.salen.map(sim => (
+                  <tr key={sim._id}>
+                    <td className="border text-center">{sim.numero}</td>
+                    <td className="border text-center">{sim.operador}</td>
+                    <td className='border uppercase text-center'>{sim.estado}</td>
+                    <td className='border uppercase text-center'>{sim.serial}</td>
+                    <td className='border text-center'>Salen</td>
+                  </tr>))
+                : <tr><td colSpan='5' className='text-center'>No Se Realizó Salida De Simcards</td></tr>
             }
           </tbody>
         </table>
