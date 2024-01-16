@@ -1,10 +1,10 @@
-import { SimcardAgregada } from '../../components/SimcardAgregada.jsx'
 import { useFilterSimcards, useFilterSimcards2 } from '../../hooks/useFilters.js'
 import { useCarSimcards, useCarSimcards2 } from '../../hooks/useCartItems.js'
 import { MessageDisplay } from '../../components/MessageDisplay.jsx'
 import { AddIcon, DeleteIcon2 } from '../../components/Icons.jsx'
 import { useState } from 'react'
 import axios from 'axios'
+import { ComponenteSimcards } from '../../components/ComponenteSimcards.jsx'
 
 export function Movimientos () {
   const [bodegaDestino, setBodegaDestino] = useState(null)
@@ -46,8 +46,8 @@ export function Movimientos () {
   const simCards = bodegaOrigen?.simcards || []
   const simCards2 = bodegaDestino?.simcards || []
 
-  const { cartSims, handleAddSimcard, handleRemoveItem, setCartSims } = useCarSimcards()
-  const { cartSims2, handleAddSimcard2, handleRemoveItem2, setCartSims2 } = useCarSimcards2()
+  const { cartSims, handleAddSimcard, setCartSims } = useCarSimcards()
+  const { cartSims2, handleAddSimcard2, setCartSims2 } = useCarSimcards2()
 
   const { filteredSimcards, searchSimcard, setSearchSimcard } = useFilterSimcards(simCards)
   const { filteredSimcards2, searchSimcard2, setSearchSimcard2 } = useFilterSimcards2(simCards2)
@@ -196,36 +196,8 @@ export function Movimientos () {
           <p> <span className="font-bold">N° Sucursal:</span>  {bodegaDestino?.sucursal}</p>
         </header>
 
-        <section className='grid grid-cols-2'>
-          <main className='col-span-1'>
-            <h2 className="text-center py-1 font-semibold bg-green-200 text-black rounded-t-lg">Simcards Que Ingresarán :</h2>
-            <section style={{ maxHeight: '450px', overflowY: 'auto' }}>
-            <p className='grid grid-cols-3 place-items-center bg-green-200 text-black font-semibold'><span>Número</span> <span>Serial</span> <span> - </span></p>
-              {
-                cartSims && (
-                  cartSims?.map(sim => (
-                    // <SimcardAgregadas id={sim} key={sim} simcards={bodegaOrigen.simcards} handleRemoveItem={handleRemoveItem} />
-                    <SimcardAgregada id={sim} key={sim} simcards={bodegaOrigen.simcards} handleRemoveItem={handleRemoveItem} color='green' />
-                  ))
-                )
-              }
-            </section>
-          </main>
-          <main className='col-span-1'>
-            <h2 className="text-center py-1 font-semibold bg-red-200 text-black rounded-t-lg">Simcards Retiradas :</h2>
-            <section style={{ maxHeight: '450px', overflowY: 'auto' }}>
-            <p className='grid grid-cols-3 place-items-center bg-red-200 text-black font-semibold'><span>Número</span> <span>Serial</span> <span> - </span></p>
-              {
-                cartSims2 && (
-                  cartSims2?.map(sim => (
-                    // <SimcardRetiradas id={sim} key={sim} simcards={bodegaDestino.simcards} handleRemoveItem={handleRemoveItem2} />
-                    <SimcardAgregada id={sim} key={sim} simcards={bodegaDestino.simcards} handleRemoveItem={handleRemoveItem2} color='red' />
-                  ))
-                )
-              }
-            </section>
-          </main>
-        </section>
+        <ComponenteSimcards />
+
       </article>
 
       <footer className="py-4 bg-slate-600 rounded-md text-white mx-2 mt-2">
