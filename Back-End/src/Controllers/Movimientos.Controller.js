@@ -5,7 +5,7 @@ import moment from 'moment-timezone'
 export const getMovimientos = async (req, res) => {
   try {
     await ConnetMongoDB()
-    const movimientos = await MovimientoModel.find().populate('items').populate('bodegaOrigen').populate('bodegaDestino')
+    const movimientos = await MovimientoModel.find().populate('items').populate('bodegaOrigen').populate('bodegaDestino').populate('simcards.entran').populate('simcards.salen')
     res.status(200).json(movimientos)
   } catch (error) {
     console.error(error)
@@ -173,7 +173,10 @@ export const getMovimiento = async (req, res) => {
   const { id } = req.params
   try {
     await ConnetMongoDB()
-    const movimiento = await MovimientoModel.findById(id).populate('items').populate('bodegaOrigen').populate('bodegaDestino')
+    const movimiento = await MovimientoModel.findById(id).populate('items')
+      .populate('bodegaOrigen', 'sucursal nombre direccion')
+      .populate('bodegaDestino', 'sucursal nombre direccion')
+      .populate('simcards.entran', 'numero operador serial estado').populate('simcards.salen', 'numero operador serial estado')
     res.status(200).json(movimiento)
   } catch (error) {
     console.error(error)

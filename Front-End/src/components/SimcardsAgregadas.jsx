@@ -7,7 +7,6 @@ export function SimcardAgregadas ({ id, simcards, handleRemoveItem }) {
   const { _id, numero, serial } = simcard || {}
   return (
     <>
-      <p className='grid grid-cols-3 place-items-center bg-green-400 text-black font-semibold'><span>Número</span> <span>Serial</span> <span> - </span></p>
       <main key={_id} className="grid grid-cols-3 place-items-center p-1 bg-green-400 text-black my-1 rounded-lg">
         <p>{numero === undefined ? simcard.numero : numero}</p>
         <p>{serial === undefined ? simcard.serial.slice(-6) : serial}</p>
@@ -27,7 +26,6 @@ export function SimcardRetiradas ({ id, simcards, handleRemoveItem }) {
   const { _id, numero, serial } = simcard || {}
   return (
     <>
-      <p className='grid grid-cols-3 place-items-center bg-red-400 text-black font-semibold'><span>Número</span> <span>Serial</span> <span> - </span></p>
       <main key={_id} className="grid grid-cols-3 place-items-center p-1 bg-red-400 text-black my-1 rounded-lg">
         <p>{numero === undefined ? simcard.numero : numero}</p>
         <p>{serial === undefined ? simcard.serial.slice(-6) : serial}</p>
