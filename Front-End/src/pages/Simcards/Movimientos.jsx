@@ -1,4 +1,4 @@
-import { SimcardAgregadas, SimcardRetiradas } from '../../components/SimcardsAgregadas.jsx'
+import { SimcardAgregada } from '../../components/SimcardAgregada.jsx'
 import { useFilterSimcards, useFilterSimcards2 } from '../../hooks/useFilters.js'
 import { useCarSimcards, useCarSimcards2 } from '../../hooks/useCartItems.js'
 import { MessageDisplay } from '../../components/MessageDisplay.jsx'
@@ -189,8 +189,8 @@ export function Movimientos () {
 
       {/* //* Renderizado Movimiento */}
       <article className='mx-2 rounded-md'>
-        <h1 className='text-xl font-semibold text-center py-1 rounded-t-md bg-blue-500'>Movimiento </h1>
-        <header className='flex justify-around bg-yellow-200 p-1 text-black '>
+        <h1 className='text-xl font-semibold text-center py-1 rounded-t-md bg-blue-400'>Movimiento </h1>
+        <header className='flex justify-around bg-yellow-100 p-1 text-black '>
           <h3> <span className="font-bold">Nombre:</span>  {bodegaDestino?.nombre}</h3>
           <p> <span className="font-bold">Direccion:</span>  {bodegaDestino?.direccion}</p>
           <p> <span className="font-bold">N° Sucursal:</span>  {bodegaDestino?.sucursal}</p>
@@ -198,26 +198,28 @@ export function Movimientos () {
 
         <section className='grid grid-cols-2'>
           <main className='col-span-1'>
-            <h2 className="text-center py-1 font-semibold bg-green-400 text-black rounded-t-lg">Simcards Que Ingresarán :</h2>
+            <h2 className="text-center py-1 font-semibold bg-green-200 text-black rounded-t-lg">Simcards Que Ingresarán :</h2>
             <section style={{ maxHeight: '450px', overflowY: 'auto' }}>
-            <p className='grid grid-cols-3 place-items-center bg-green-400 text-black font-semibold'><span>Número</span> <span>Serial</span> <span> - </span></p>
+            <p className='grid grid-cols-3 place-items-center bg-green-200 text-black font-semibold'><span>Número</span> <span>Serial</span> <span> - </span></p>
               {
                 cartSims && (
                   cartSims?.map(sim => (
-                    <SimcardAgregadas id={sim} key={sim} simcards={bodegaOrigen.simcards} handleRemoveItem={handleRemoveItem} />
+                    // <SimcardAgregadas id={sim} key={sim} simcards={bodegaOrigen.simcards} handleRemoveItem={handleRemoveItem} />
+                    <SimcardAgregada id={sim} key={sim} simcards={bodegaOrigen.simcards} handleRemoveItem={handleRemoveItem} color='green' />
                   ))
                 )
               }
             </section>
           </main>
           <main className='col-span-1'>
-            <h2 className="text-center py-1 font-semibold bg-red-400 text-black rounded-t-lg">Simcards Retiradas :</h2>
+            <h2 className="text-center py-1 font-semibold bg-red-200 text-black rounded-t-lg">Simcards Retiradas :</h2>
             <section style={{ maxHeight: '450px', overflowY: 'auto' }}>
-            <p className='grid grid-cols-3 place-items-center bg-red-400 text-black font-semibold'><span>Número</span> <span>Serial</span> <span> - </span></p>
+            <p className='grid grid-cols-3 place-items-center bg-red-200 text-black font-semibold'><span>Número</span> <span>Serial</span> <span> - </span></p>
               {
                 cartSims2 && (
                   cartSims2?.map(sim => (
-                    <SimcardRetiradas id={sim} key={sim} simcards={bodegaDestino.simcards} handleRemoveItem={handleRemoveItem2} />
+                    // <SimcardRetiradas id={sim} key={sim} simcards={bodegaDestino.simcards} handleRemoveItem={handleRemoveItem2} />
+                    <SimcardAgregada id={sim} key={sim} simcards={bodegaDestino.simcards} handleRemoveItem={handleRemoveItem2} color='red' />
                   ))
                 )
               }
