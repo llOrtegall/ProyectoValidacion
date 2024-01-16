@@ -52,25 +52,22 @@ export function Movimientos () {
 
       <section className="grid grid-cols-4 p-2 gap-2">
         {/* //*: Renderizado Bodega Origen */}
-        <RenderBodegaOrigen bodegaOrigen={bodegaOrigen} setBodegaOrigen={setBodegaOrigen} cartSims={cartSims} handleAddSimcard={handleAddSimcard}/>
+        <RenderBodegaOrigen bodegaOrigen={bodegaOrigen} setBodegaOrigen={setBodegaOrigen} cartSims={cartSims} handleAddSimcard={handleAddSimcard} />
         {/* //*: Renderizado Bodega Destino */}
-        <RenderBodegaDestino bodegaDestino={bodegaDestino} setBodegaDestino={setBodegaDestino} cartSims2={cartSims2} handleAddSimcard2={handleAddSimcard2}/>
+        <RenderBodegaDestino bodegaDestino={bodegaDestino} setBodegaDestino={setBodegaDestino} cartSims2={cartSims2} handleAddSimcard2={handleAddSimcard2} />
       </section>
 
-      {/* //* Renderizado Movimiento */}
       <article className='mx-2 rounded-md'>
+        {/* //* Renderizado Movimiento */}
         <ComponenteSimcards bodegaOrigen={bodegaOrigen} bodegaDestino={bodegaDestino} cartSims={cartSims}
-          cartSims2={cartSims2} handleRemoveItem={handleRemoveItem} handleRemoveItem2={handleRemoveItem2}/>
+          cartSims2={cartSims2} handleRemoveItem={handleRemoveItem} handleRemoveItem2={handleRemoveItem2} />
       </article>
 
-      <FooterMovSim encargado={encargado} setEncargado={setEncargado} incidente={incidente} setIncidente={setIncidente} descripcion={descripcion} setDescripcion={setDescripcion}/>
+      {/* //* Renderizado Footer */}
+      <FooterMovSim encargado={encargado} setEncargado={setEncargado} incidente={incidente} setIncidente={setIncidente}
+        descripcion={descripcion} setDescripcion={setDescripcion} handleClick={handleClick} />
 
-      <section className="flex w-full justify-center mt-4">
-        <button className="p-2 text-white font-bold w-48 bg-green-600 rounded-md hover:bg-white  hover:text-black" onClick={handleClick}>
-          Realizar Movimiento
-        </button>
-      </section>
-
+      {/* //* Renderizado Mensajes Envio o Error */}
       <MessageDisplay message={message} error={error} />
     </main>
   )
