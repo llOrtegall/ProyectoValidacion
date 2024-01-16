@@ -9,7 +9,7 @@ export function VerMovimientos () {
   const [sortOrder, setSortOrder] = useState('asc')
 
   useEffect(() => {
-    axios.get('/getMovimientos')
+    axios.get('http://localhost:3030/getMovimientos')
       .then(res => {
         setMovimientos(res.data)
       })

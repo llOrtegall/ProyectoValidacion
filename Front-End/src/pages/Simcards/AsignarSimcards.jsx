@@ -36,7 +36,7 @@ export function AsignarSimcards () {
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      const res = await axios.post('/addSimcardToBodega',
+      const res = await axios.post('http://localhost:3030/addSimcardToBodega',
         { sucursal: sendBodega, simcardIds: carItems }
       )
       setMessage(res.data.message)

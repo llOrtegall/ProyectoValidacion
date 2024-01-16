@@ -29,7 +29,7 @@ import { useAuth } from './Auth/AuthContext.jsx'
 import { useEffect } from 'react'
 import { LoginForm } from './pages/Login/LoginForm.jsx'
 
-axios.defaults.baseURL = 'http://localhost:3030'
+axios.defaults.headers.common.Authorization = `Bearer ${getCookie('bodega')}`
 
 const ProtectedRoute = ({ children }) => {
   const { user } = useAuth()

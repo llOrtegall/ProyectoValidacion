@@ -46,7 +46,7 @@ export function CrearSimcard () {
 
   return (
     <main className='w-full h-[93vh] bg-slate-200'>
-      <h3 className='text-center py-4 mx-2 my-1 bg-blue-400 font-semibold rounded-md'>CREACIÓN SIMCARDS</h3>
+      <h3 className='text-center text-xl py-2 mx-2 my-1 bg-blue-300 border border-black font-semibold rounded-md'>Creación Simcards</h3>
       <form className='grid grid-cols-2 place-items-center py-4 gap-3 border border-black mx-2 rounded-md mb-2' onSubmit={handleSubmit}>
         <div className='flex items-center'>
           <label htmlFor="numero" className='w-28 text-center'>Numero</label>
