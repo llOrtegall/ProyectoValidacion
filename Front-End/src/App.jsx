@@ -1,6 +1,6 @@
 // TODO: Librerías externas
 import axios from 'axios'
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, Navigate, useNavigate } from 'react-router-dom'
 
 // TODO: Componentes de diseño
 import { Layout } from './components/Layout.jsx'
@@ -24,16 +24,53 @@ import { VerSimcards } from './pages/Simcards/VerSimcards.jsx'
 import { AsignarSimcards } from './pages/Simcards/AsignarSimcards.jsx'
 import { Movimientos } from './pages/Simcards/Movimientos.jsx'
 
+import { getCookie } from './utils/funtions.js'
+import { useAuth } from './Auth/AuthContext.jsx'
+import { useEffect } from 'react'
+import { LoginForm } from './pages/Login/LoginForm.jsx'
+
 axios.defaults.baseURL = 'http://localhost:3030'
 
+const ProtectedRoute = ({ children }) => {
+  const { user } = useAuth()
+  console.log(user.rol)
+  if (user.rol === 'Analista Desarrollo') {
+    return children
+  } else {
+    return <Navigate to='/' />
+  }
+}
+
 export function App () {
+  const { login } = useAuth()
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    const getLoggedIn = async () => {
+      try {
+        const token = getCookie('bodega')
+        const response = await axios.get('http://172.20.1.160:3000/profile', {
+          headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' }
+        })
+        const usuario = await response.data
+        login(usuario.auth, usuario.user)
+        navigate('/')
+      } catch (error) {
+        console.log(error)
+        navigate('/login')
+      }
+    }
+    getLoggedIn()
+  }, [])
+
   return (
     <Routes>
-      <Route path="/" element={< Layout />}>
+      <Route path="/login" element={<LoginForm />} />
+      <Route path='/' element={<Layout />} >
         <Route index element={<Home />} />
-        <Route path="/items" element={< Items />} />
-        <Route path="/created-items" element={< CreatedItems />} />
-        <Route path="/created-bodega" element={<CreatedBodega />}></Route>
+        <Route path="/items" element={<Items />} />
+        <Route path="/created-items" element={<CreatedItems />} />
+        <Route path="/created-bodega" element={<ProtectedRoute> <CreatedBodega /> </ProtectedRoute>} />
         <Route path='/asignarItemBodega' element={<AsignarItemBodega />} />
         <Route path='/bodegas' element={<Bodegas />} />
         <Route path='/crearMovimiento' element={<CrearMovimiento />} />
@@ -45,7 +82,7 @@ export function App () {
         <Route path='/DetalleBodega/:id' element={<DetalleBodega />} />
         <Route path='/movimientosSimcards' element={<Movimientos />} />
       </Route>
-      <Route path="*" element={<h1>Not Found</h1>}></Route>
+      <Route path="*" element={<h1>Not Found</h1>} />
     </Routes>
   )
 }

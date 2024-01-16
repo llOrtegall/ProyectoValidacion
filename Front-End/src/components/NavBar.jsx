@@ -15,8 +15,8 @@ const links2 = [
 ]
 
 const links3 = [
-  { to: '/createSimcard', text: 'Crear Simcard' },
   { to: '/verSimcards', text: 'Ver Simcards' },
+  { to: '/createSimcard', text: 'Crear Simcard' },
   { to: '/addSimcards', text: 'Asig. SIM Bodega' },
   { to: '/movimientosSimcards', text: 'Crear Movimiento SIM' }
 ]
