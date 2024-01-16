@@ -19,8 +19,7 @@ export function ComponenteSimcards ({ bodegaOrigen, bodegaDestino, handleRemoveI
           {
             cartSims && (
               cartSims?.map(sim => (
-                // <SimcardAgregadas id={sim} key={sim} simcards={bodegaOrigen.simcards} handleRemoveItem={handleRemoveItem} />
-                <SimcardAgregada id={sim} key={sim} simcards={bodegaOrigen.simcards} handleRemoveItem={handleRemoveItem} color='green' />
+                <SimcardAgregada id={sim} key={sim} simcards={bodegaOrigen.simcards} handleRemoveItem={handleRemoveItem} color={'bg-green-200'} />
               ))
             )
           }
@@ -33,8 +32,7 @@ export function ComponenteSimcards ({ bodegaOrigen, bodegaDestino, handleRemoveI
           {
             cartSims2 && (
               cartSims2?.map(sim => (
-                // <SimcardRetiradas id={sim} key={sim} simcards={bodegaDestino.simcards} handleRemoveItem={handleRemoveItem2} />
-                <SimcardAgregada id={sim} key={sim} simcards={bodegaDestino.simcards} handleRemoveItem={handleRemoveItem2} color='red' />
+                <SimcardAgregada id={sim} key={sim} simcards={bodegaDestino.simcards} handleRemoveItem={handleRemoveItem2} color={'bg-red-200'} />
               ))
             )
           }

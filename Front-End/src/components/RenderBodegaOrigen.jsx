@@ -12,7 +12,6 @@ export function RenderBodegaOrigen ({ bodegaOrigen, setBodegaOrigen, cartSims, h
     axios.get(`/getBodegaSimcards/${searchBodegaOrigen}`)
       .then(response => {
         setBodegaOrigen(response.data)
-        console.log(response.data)
       })
       .catch(error => {
         console.log(error)

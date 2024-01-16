@@ -1,12 +1,12 @@
-import { useCarSimcards, useCarSimcards2 } from '../../hooks/useCartItems.js'
-import { MessageDisplay } from '../../components/MessageDisplay.jsx'
-import { useState } from 'react'
-import axios from 'axios'
-
 import { ComponenteSimcards } from '../../components/ComponenteSimcards.jsx'
 import { RenderBodegaOrigen } from '../../components/RenderBodegaOrigen.jsx'
 import { RenderBodegaDestino } from '../../components/RenderBodegaDestino.jsx'
 import { FooterMovSim } from '../../components/FooterCompSimcaMov.jsx'
+
+import { useCarSimcards, useCarSimcards2 } from '../../hooks/useCartItems.js'
+import { MessageDisplay } from '../../components/MessageDisplay.jsx'
+import { useState } from 'react'
+import axios from 'axios'
 
 export function Movimientos () {
   const [bodegaDestino, setBodegaDestino] = useState(null)
@@ -63,12 +63,16 @@ export function Movimientos () {
           cartSims2={cartSims2} handleRemoveItem={handleRemoveItem} handleRemoveItem2={handleRemoveItem2} />
       </article>
 
-      {/* //* Renderizado Footer */}
-      <FooterMovSim encargado={encargado} setEncargado={setEncargado} incidente={incidente} setIncidente={setIncidente}
-        descripcion={descripcion} setDescripcion={setDescripcion} handleClick={handleClick} />
+      <section>
+        {/* //* Renderizado Footer */}
+        <FooterMovSim encargado={encargado} setEncargado={setEncargado} incidente={incidente} setIncidente={setIncidente}
+          descripcion={descripcion} setDescripcion={setDescripcion} handleClick={handleClick} />
+      </section>
 
-      {/* //* Renderizado Mensajes Envio o Error */}
-      <MessageDisplay message={message} error={error} />
+      <section>
+        {/* //* Renderizado Mensajes Envio o Error */}
+        <MessageDisplay message={message} error={error} />
+      </section>
     </main>
   )
 }

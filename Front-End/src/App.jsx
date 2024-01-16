@@ -28,26 +28,24 @@ axios.defaults.baseURL = 'http://localhost:3030'
 
 export function App () {
   return (
-    <section className=''>
-      <Routes>
-        <Route path="/" element={< Layout />}>
-          <Route index element={<Home />} />
-          <Route path="/items" element={< Items />} />
-          <Route path="/created-items" element={< CreatedItems />} />
-          <Route path="/created-bodega" element={<CreatedBodega />}></Route>
-          <Route path='/asignarItemBodega' element={<AsignarItemBodega />} />
-          <Route path='/bodegas' element={<Bodegas />} />
-          <Route path='/crearMovimiento' element={<CrearMovimiento />} />
-          <Route path='/verMovimientos' element={<VerMovimientos />} />
-          <Route path="/movimiento/:id" element={<MovimientoDetalle />} />
-          <Route path='/createSimcard' element={<CrearSimcard />} />
-          <Route path='/verSimcards' element={<VerSimcards />} />
-          <Route path='/addSimcards' element={<AsignarSimcards />} />
-          <Route path='/DetalleBodega/:id' element={<DetalleBodega />} />
-          <Route path='/movimientosSimcards' element={<Movimientos />} />
-        </Route>
-        <Route path="*" element={<h1>Not Found</h1>}></Route>
-      </Routes>
-    </section>
+    <Routes>
+      <Route path="/" element={< Layout />}>
+        <Route index element={<Home />} />
+        <Route path="/items" element={< Items />} />
+        <Route path="/created-items" element={< CreatedItems />} />
+        <Route path="/created-bodega" element={<CreatedBodega />}></Route>
+        <Route path='/asignarItemBodega' element={<AsignarItemBodega />} />
+        <Route path='/bodegas' element={<Bodegas />} />
+        <Route path='/crearMovimiento' element={<CrearMovimiento />} />
+        <Route path='/verMovimientos' element={<VerMovimientos />} />
+        <Route path="/movimiento/:id" element={<MovimientoDetalle />} />
+        <Route path='/createSimcard' element={<CrearSimcard />} />
+        <Route path='/verSimcards' element={<VerSimcards />} />
+        <Route path='/addSimcards' element={<AsignarSimcards />} />
+        <Route path='/DetalleBodega/:id' element={<DetalleBodega />} />
+        <Route path='/movimientosSimcards' element={<Movimientos />} />
+      </Route>
+      <Route path="*" element={<h1>Not Found</h1>}></Route>
+    </Routes>
   )
 }
