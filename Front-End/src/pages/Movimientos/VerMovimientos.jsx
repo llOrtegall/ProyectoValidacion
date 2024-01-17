@@ -51,7 +51,7 @@ export function VerMovimientos () {
 
       {
         movimientos && sortedMovimientos.map(m => (
-          <Link to={`/movimiento/${m._id}`} key={m._id}>
+          <Link to={`detalle/${m._id}`} key={m._id}>
             <article
               className="grid grid-cols-8 place-content-center text-center gap-4 items-stretch h-7 mx-2 border-b-2 border-r-2 border-l-2 border-black cursor-pointer hover:bg-yellow-100 bg-slate-200">
               <span className="overflow-ellipsis overflow-hidden font-medium">{m.movimientoId}</span>

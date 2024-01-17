@@ -18,7 +18,7 @@ export function CrearSimcard () {
   const handleSubmit = async (e) => {
     e.preventDefault()
 
-    axios.post('/createSimcard', simcard)
+    axios.post('http://localhost:3030/createSimcard', simcard)
       .then((res) => {
         console.log(res)
         setMessage(res.data.message || 'Simcard Creada')

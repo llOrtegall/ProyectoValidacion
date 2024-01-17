@@ -32,12 +32,12 @@ export function App () {
 
         <Route path="movimientos/*" element={<Layout />}>
           <Route index element={<VerMovimientos />} />
-          <Route path=":id" element={<MovimientoDetalle />} />
+          <Route path="detalle/:id" element={<MovimientoDetalle />} />
         </Route>
 
         <Route path='bodegas/*' element={<Layout />}>
           <Route index element={<Bodegas />} />
-          <Route path=":id" element={<DetalleBodega />} />
+          <Route path="detalle/:id" element={<DetalleBodega />} />
           <Route path="crearBodegas" element={<CreatedBodega />} />
           <Route path='crearMovimientos' element={<CrearMovimiento />} />
         </Route>

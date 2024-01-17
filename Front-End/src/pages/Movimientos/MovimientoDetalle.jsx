@@ -8,7 +8,7 @@ export function MovimientoDetalle () {
   const [movimiento, setMovimiento] = useState(null)
 
   useEffect(() => {
-    axios.get(`/movimiento/${id}`)
+    axios.get(`http://localhost:3030/movimiento/${id}`)
       .then(res => {
         setMovimiento(res.data)
       })

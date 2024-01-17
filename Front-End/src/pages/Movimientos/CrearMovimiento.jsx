@@ -23,7 +23,7 @@ export function CrearMovimiento () {
   const searchOrigen = (ev) => {
     ev.preventDefault()
 
-    axios.get(`/getBodega/${searchBodegaOrigen}`)
+    axios.get(`http://localhost:3030/getBodega/${searchBodegaOrigen}`)
       .then(response => {
         setBodegaOrigen(response.data)
         setItems(response.data.items)
@@ -36,7 +36,7 @@ export function CrearMovimiento () {
   const searchDestino = (ev) => {
     ev.preventDefault()
 
-    axios.get(`/getBodega/${searchBodegaDestino}`)
+    axios.get(`http://localhost:3030/getBodega/${searchBodegaDestino}`)
       .then(response => {
         setBodegaDestino(response.data)
       })
@@ -59,7 +59,7 @@ export function CrearMovimiento () {
       return setError('Debe Ingresar Una Bodega De Origen y Una De Destino')
     }
 
-    axios.post('/moveItem', {
+    axios.post('http://localhost:3030/moveItem', {
       bodegaOrigen: bodegaOrigen._id,
       bodegaDestino: bodegaDestino._id,
       itemsIds: carItems,

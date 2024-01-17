@@ -18,7 +18,7 @@ export function DetalleBodega () {
   }
 
   useEffect(() => {
-    axios.get(`/getBodegasItemsSims/${id}`)
+    axios.get(`http://localhost:3030/getBodegasItemsSims/${id}`)
       .then(res => {
         setBodega(res.data)
       })

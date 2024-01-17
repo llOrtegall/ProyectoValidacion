@@ -41,7 +41,7 @@ export function Bodegas () {
               <p>Simcards Asignadas: <span className="font-semibold">{bodega.simcards.length}</span></p>
             </article>
 
-            <Link className="p-2 text-white font-semibold rounded-md bg-blue-400 hover:bg-blue-600" to={`/DetalleBodega/${bodega._id}`} key={bodega._id}>
+            <Link className="p-2 text-white font-semibold rounded-md bg-blue-400 hover:bg-blue-600" to={`detalle/${bodega._id}`} key={bodega._id}>
               Ver Detalle Bodega
             </Link>
           </section>
