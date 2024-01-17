@@ -1,4 +1,4 @@
-import { CloseSessionIcon, HomeIcon, UsvgDownIcon } from './Icons'
+import { CloseSessionIcon, HomeIcon, LockIcon, UsvgDownIcon } from './Icons'
 import { useAuth } from '../Auth/AuthContext.jsx'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
@@ -22,12 +22,24 @@ const links3 = [
   { to: '/movimientosSimcards', text: 'Crear Movimiento SIM' }
 ]
 
+export function RenderLockIcon ({ rol }) {
+  console.log(rol)
+  return (
+    rol === 'Analista Desarrollo'
+      ? (<div></div>)
+      : (<LockIcon />)
+  )
+}
+
 export function NavBar () {
   const [activeArticles, setActiveArticles] = useState(false)
   const [activeMovements, setActiveMovements] = useState(false)
   const [activeSimcards, setActiveSimcards] = useState(false)
 
-  const { logout } = useAuth()
+  const { logout, user } = useAuth()
+
+  const RolUser = user.rol
+  console.log(RolUser)
 
   const handleClosesession = () => {
     logout()
@@ -97,6 +109,7 @@ export function NavBar () {
                           links2.map(link => (
                             <Link to={link.to} key={link.to} className='block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white'>
                               {link.text}
+                              {/* <RenderLockIcon rol={RolUser} /> */}
                             </Link>
                           ))
                         }

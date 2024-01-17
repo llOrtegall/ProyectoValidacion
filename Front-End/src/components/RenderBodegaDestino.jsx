@@ -9,7 +9,7 @@ export function RenderBodegaDestino ({ bodegaDestino, setBodegaDestino, cartSims
 
   const searchDestino = (ev) => {
     ev.preventDefault()
-    axios.get(`/getBodegaSimcards/${searchBodegaDestino}`)
+    axios.get(`http://localhost:3030/getBodegaSimcards/${searchBodegaDestino}`)
       .then(response => {
         setBodegaDestino(response.data)
       })
