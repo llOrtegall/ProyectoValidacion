@@ -81,7 +81,7 @@ export function CrearSimcard () {
         </div>
         <div className='flex items-center'>
           <label htmlFor="apn" className='w-28 text-center'>APN</label>
-          <input type="text" name="apn" id="apn" className='p-2 rounded-md min-w-72 outline-none' placeholder='codecali.comcel.com.co | movistar...'
+          <input type="text" name="apn" id="apn" className='p-2 rounded-md min-w-72 outline-none' placeholder='claro.apn.com | movistar.apn.com | tigo.apn.com'
             value={simcard.apn} onChange={(e) => setSimcard({ ...simcard, apn: e.target.value })} />
         </div>
         <div className='flex items-center'>
