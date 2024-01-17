@@ -1,5 +1,5 @@
 // TODO: Librerías externas
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, useNavigate } from 'react-router-dom'
 import { Layout } from './components/Layout.jsx'
 
 import { MovimientoDetalle } from './pages/Movimientos/MovimientoDetalle.jsx'
@@ -18,7 +18,33 @@ import { Bodegas } from './pages/Bodegas/Bodegas.jsx'
 import { Items } from './pages/Items/Items.jsx'
 import { Home } from './pages/Home.jsx'
 
+import { useEffect } from 'react'
+import { getCookie } from './utils/funtions.js'
+import { useAuth } from './Auth/AuthContext.jsx'
+import axios from 'axios'
+
 export function App () {
+  const { login } = useAuth()
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    const getLoggedIn = async () => {
+      try {
+        const token = getCookie('bodega')
+        const response = await axios.get('http://172.20.1.160:3000/profile', {
+          headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' }
+        })
+        const usuario = await response.data
+        login(usuario)
+        navigate('/home')
+      } catch (error) {
+        navigate('/login')
+        console.log(error)
+      }
+    }
+    getLoggedIn()
+  }, [])
+
   return (
     <Routes>
 

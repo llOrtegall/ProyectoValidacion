@@ -20,7 +20,7 @@ export const LoginForm = () => {
         document.cookie = `bodega=${data.token}`
         const user = await GetUserCookie(data.token)
         login(data.auth, user)
-        navigate('/')
+        navigate('/home')
       }
     } catch (error) {
       if (error.message === 'Network Error') {
@@ -45,8 +45,6 @@ export const LoginForm = () => {
             onChange={ev => setUsername(ev.target.value)} />
           <input type='password' placeholder='Contraseña | Eje: CP***' className='border-b-2 p-2'
             onChange={ev => setPassword(ev.target.value)} />
-          {/* <Link className='text-orange-500 text-sm font-semibold text-end pt-2 pb-4 hover:underline'
-            to='/chat_bot/forgot-password'> Olvidaste tu contraseña</Link> */}
           <button className='bg-green-400 w-full rounded-lg p-3 text-black font-semibold text-sm shadow-md hover:bg-green-100 hover:text-black'>Iniciar Sesión</button>
 
           {error

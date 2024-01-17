@@ -23,8 +23,6 @@ export function getCookie (name) {
 }
 
 export const GetUserCookie = async (token) => {
-  console.log(token)
-
   const response = await axios.get('http://172.20.1.160:3000/profile', {
     headers: {
       'Content-Type': 'application/json',
