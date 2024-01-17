@@ -36,9 +36,9 @@ export const LoginForm = () => {
 
   return (
     <>
-      <section className='w-full h-screen flex items-center justify-center relative bg-blue-300'>
+      <section className='w-full h-screen flex items-center justify-center relative'>
         <form onSubmit={handleSubmit}
-          className='flex flex-col w-96 h-2/3 bg-slate-200 rounded-2xl shadow-2xl px-10 justify-around'>
+          className='flex flex-col w-96 h-2/3 rounded-2xl shadow-2xl px-10 justify-around'>
           <h1 className='text-green-600 font-bold text-3xl text-center pt-8 pb-6'>App Bodega</h1>
           <input type='text' placeholder='Usuario | Eje: CP1118333444'
             className='border-b-2 p-2'

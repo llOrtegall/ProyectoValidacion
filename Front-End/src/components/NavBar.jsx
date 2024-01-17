@@ -1,4 +1,4 @@
-import { CloseSessionIcon, HomeIcon } from './Icons'
+import { CloseSessionIcon, HomeIcon, UsvgDownIcon } from './Icons'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useAuth } from '../Auth/AuthContext.jsx'
@@ -65,80 +65,89 @@ export function NavBar () {
   }, [])
 
   return (
-    <nav className="bg-blue-400 p-2 shadow-xl min-h-14 items-center flex justify-around xl:text-xs 2xl:text-sm">
-      <ul className="flex justify-around items-center ">
-        <li>
-          <figure className='w-16'>
-            <img src="gane.png" alt="logo gane yumbo" className='' />
-          </figure>
-        </li>
-      </ul>
 
-      <ul className='flex items-center gap-6 '>
+    <nav className="bg-white border-gray-200 dark:bg-gray-900 dark:border-gray-700">
+      <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+        {/* //TODO: logo Gane */}
+        <Link to="/" className="flex items-center space-x-3 rtl:space-x-reverse">
+          <img src="gane.png" className="h-8" alt="Flowbite Logo" />
+          <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white"></span>
+        </Link>
 
-        <section className='font-semibold'>
-          <Link to='/verMovimientos' className='hover:text-yellow-200 hover:underline'>Ver Movimientos</Link>
+        <section className="hidden w-full md:block md:w-auto" id="navbar-dropdown">
+          <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+
+            <Link to="/" title='Inicio App' className="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-white md:p-0 md:dark:text-white md:dark:hover:text-blue-500">
+              <HomeIcon />
+            </Link>
+
+            <li className='flex gap-2'>
+
+              <button className="relative flex items-center justify-between w-full py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:w-auto dark:text-white md:dark:hover:text-blue-500 dark:focus:text-white dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent" onClick={handleClickArticles}>Artículos <UsvgDownIcon />
+                {/* // !! Dropdown menu --> */}
+                {
+                  activeArticles && (
+                    <section className="absolute -bottom-36 -right-10 font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
+                      <ul className="py-2 text-sm text-gray-700 dark:text-gray-400" aria-labelledby="dropdownLargeButton">
+                        {
+                          links2.map(link => (
+                            <Link to={link.to} key={link.to} className='block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white'>
+                              {link.text}
+                            </Link>
+                          ))
+                        }
+                      </ul>
+                    </section>
+                  )
+                }
+              </button>
+
+              <button className="relative flex items-center justify-between w-full py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:w-auto dark:text-white md:dark:hover:text-blue-500 dark:focus:text-white dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent" onClick={handleClickMovements}>Bodegas <UsvgDownIcon />
+                {/* // !! Dropdown menu --> */}
+                {
+                  activeMovements && (
+                    <section className="absolute -bottom-36 -right-10 font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
+                      <ul className="py-2 text-sm text-gray-700 dark:text-gray-400" aria-labelledby="dropdownLargeButton">
+                        {
+                          links1.map(link => (
+                            <Link to={link.to} key={link.to} className='block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white'>
+                              {link.text}
+                            </Link>
+                          ))
+                        }
+                      </ul>
+                    </section>
+                  )
+                }
+              </button>
+
+              <button className="relative flex items-center justify-between w-full py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:w-auto dark:text-white md:dark:hover:text-blue-500 dark:focus:text-white dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent" onClick={handleClickSimcards}>Simcards <UsvgDownIcon />
+                {/* // !! Dropdown menu --> */}
+                {
+                  activeSimcards && (
+                    <section className="absolute -bottom-44 -right-10 font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
+                      <ul className="py-2 text-sm text-gray-700 dark:text-gray-400" aria-labelledby="dropdownLargeButton">
+                        {
+                          links3.map(link => (
+                            <Link to={link.to} key={link.to} className='block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white'>
+                              {link.text}
+                            </Link>
+                          ))
+                        }
+                      </ul>
+                    </section>
+                  )
+                }
+              </button>
+
+              <Link className="block ml-4 py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-white md:p-0 md:dark:text-white md:dark:hover:text-blue-500" title='Cerrar Sesión' onClick={logout()}>
+                <CloseSessionIcon />
+              </Link>
+
+            </li>
+          </ul>
         </section>
-
-        <section className='relative font-semibold cursor-pointer' onClick={handleClickArticles}>
-          <span className='hover:text-yellow-200 hover:underline'> Articulos | Items</span>
-          {
-            activeArticles &&
-            <ul className='absolute bg-blue-400 top-9 -right-10'>
-              {
-                links2.map(link => (
-                  <li key={link.to} className='w-48 text-center font-semibold hover:text-blue-100 my-2'>
-                    <Link to={link.to}>{link.text}</Link>
-                  </li>
-                ))
-              }
-            </ul>
-          }
-        </section>
-
-        <section className='relative font-semibold cursor-pointer' onClick={handleClickMovements}>
-          <span className='hover:text-yellow-200 hover:underline'> Bodegas | PDV </span>
-          {
-            activeMovements &&
-            <ul className='absolute bg-blue-400 top-9 -right-10'>
-              {
-                links1.map(link => (
-                  <li key={link.to} className='w-48 text-center font-semibold hover:text-blue-100 my-2'>
-                    <Link to={link.to}>{link.text}</Link>
-                  </li>
-                ))
-              }
-            </ul>
-          }
-        </section>
-
-        <section className='relative font-semibold cursor-pointer' onClick={handleClickSimcards}>
-          <span className='hover:text-yellow-200 hover:underline'> SimCards</span>
-          {
-            activeSimcards &&
-            <ul className='absolute bg-blue-400 top-9 -right-10'>
-              {
-                links3.map(link => (
-                  <li key={link.to} className='w-48 text-center font-semibold hover:text-blue-100 my-2'>
-                    <Link to={link.to}>{link.text}</Link>
-                  </li>
-                ))
-              }
-            </ul>
-          }
-        </section>
-
-        <section className='font-semibold ' title='Inicio App'>
-          <Link to="/" className='hover:text-yellow-200'>
-            <HomeIcon />
-          </Link>
-        </section>
-
-        <button onClick={logout} className='hover:text-yellow-200' title='Cerrar Sesión'>
-          <CloseSessionIcon />
-        </button>
-
-      </ul>
+      </div>
     </nav>
   )
 }
