@@ -8,12 +8,13 @@ export function AuthProvider ({ children }) {
   const navigate = useNavigate()
   const [user, setUser] = useState({})
 
-  const login = (auth, user) => {
-    if (auth === true) {
+  const login = (usuario) => {
+    if (usuario.auth === true) {
       setLoggedIn(true)
-      setUser(user)
+      setUser(usuario)
     }
   }
+
   const logout = () => {
     setLoggedIn(false)
     setUser({})

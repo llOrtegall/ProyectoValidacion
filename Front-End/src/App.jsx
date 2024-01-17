@@ -33,11 +33,12 @@ axios.defaults.headers.common.Authorization = `Bearer ${getCookie('bodega')}`
 
 const ProtectedRoute = ({ children }) => {
   const { user } = useAuth()
+  console.log(user)
   console.log(user.rol)
   if (user.rol === 'Analista Desarrollo') {
     return children
   } else {
-    return <Navigate to='/' />
+    return <Navigate to='/login' />
   }
 }
 
@@ -53,15 +54,15 @@ export function App () {
           headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' }
         })
         const usuario = await response.data
-        login(usuario.auth, usuario.user)
+        login(usuario)
         navigate('/')
       } catch (error) {
         console.log(error)
-        navigate('/login')
+        navigate('/')
       }
     }
     getLoggedIn()
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
@@ -70,18 +71,22 @@ export function App () {
       <Route path='/' element={<Layout />} >
         <Route index element={<Home />} />
         <Route path="/items" element={<Items />} />
-        <Route path="/created-items" element={<CreatedItems />} />
-        <Route path="/created-bodega" element={<ProtectedRoute> <CreatedBodega /> </ProtectedRoute>} />
-        <Route path='/asignarItemBodega' element={<AsignarItemBodega />} />
-        <Route path='/bodegas' element={<Bodegas />} />
-        <Route path='/crearMovimiento' element={<CrearMovimiento />} />
         <Route path='/verMovimientos' element={<VerMovimientos />} />
-        <Route path="/movimiento/:id" element={<MovimientoDetalle />} />
-        <Route path='/createSimcard' element={<CrearSimcard />} />
-        <Route path='/verSimcards' element={<VerSimcards />} />
-        <Route path='/addSimcards' element={<AsignarSimcards />} />
+        <Route path='/bodegas' element={<Bodegas />} />
         <Route path='/DetalleBodega/:id' element={<DetalleBodega />} />
-        <Route path='/movimientosSimcards' element={<Movimientos />} />
+        <Route path="/movimiento/:id" element={<MovimientoDetalle />} />
+
+        <Route path="/created-items" element={<ProtectedRoute><CreatedItems /></ProtectedRoute>} />
+        <Route path="/created-bodega" element={<ProtectedRoute> <CreatedBodega /> </ProtectedRoute>} />
+        <Route path='/asignarItemBodega' element={<ProtectedRoute><AsignarItemBodega /></ProtectedRoute>} />
+        <Route path='/crearMovimiento' element={<ProtectedRoute><CrearMovimiento /></ProtectedRoute>} />
+
+        <Route path='/addSimcards' element={<ProtectedRoute><AsignarSimcards /></ProtectedRoute>} />
+        <Route path='/createSimcard' element={<ProtectedRoute><CrearSimcard /></ProtectedRoute>} />
+
+        <Route path='/verSimcards' element={<VerSimcards />} />
+
+        <Route path='/movimientosSimcards' element={<ProtectedRoute><Movimientos /></ProtectedRoute>} />
       </Route>
       <Route path="*" element={<h1>Not Found</h1>} />
     </Routes>

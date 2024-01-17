@@ -1,4 +1,4 @@
-import { CloseSessionIcon, HomeIcon, LockIcon, UsvgDownIcon } from './Icons'
+import { CloseSessionIcon, HomeIcon, LockIcon, LoginIcon, UsvgDownIcon } from './Icons'
 import { useAuth } from '../Auth/AuthContext.jsx'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
@@ -38,8 +38,7 @@ export function NavBar () {
 
   const { logout, user } = useAuth()
 
-  const RolUser = user.rol
-  console.log(RolUser)
+  const UserExist = user.auth
 
   const handleClosesession = () => {
     logout()
@@ -99,6 +98,12 @@ export function NavBar () {
 
             <li className='flex gap-2'>
 
+              <Link to="/verMovimientos">
+                <button className="relative flex items-center justify-between w-full py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:w-auto dark:text-white md:dark:hover:text-blue-500 dark:focus:text-white dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent">
+                  Movimientos
+                </button>
+              </Link>
+
               <button className="relative flex items-center justify-between w-full py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:w-auto dark:text-white md:dark:hover:text-blue-500 dark:focus:text-white dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent" onClick={handleClickArticles}>Artículos <UsvgDownIcon />
                 {/* // !! Dropdown menu --> */}
                 {
@@ -157,9 +162,19 @@ export function NavBar () {
                 }
               </button>
 
-              <section onClick={handleClosesession} className="cursor-pointer block ml-4 py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-white md:p-0 md:dark:text-white md:dark:hover:text-blue-500" title='Cerrar Sesión'>
-                <CloseSessionIcon />
-              </section>
+              {
+                UserExist === true
+                  ? (
+                    <section onClick={handleClosesession} className="cursor-pointer block ml-4 py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-white md:p-0 md:dark:text-white md:dark:hover:text-blue-500" title='Cerrar Sesión'>
+                      <CloseSessionIcon />
+                    </section>
+                    )
+                  : (
+                    <section onClick={handleClosesession} className="cursor-pointer block ml-4 py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-white md:p-0 md:dark:text-white md:dark:hover:text-blue-500" title='Iniciar Session'>
+                      <LoginIcon />
+                    </section>
+                    )
+              }
 
             </li>
           </ul>
