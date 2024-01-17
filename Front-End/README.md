@@ -6,3 +6,6 @@
   --> Variables de entorno para iniciar Backend 
   ( MONGODB_URI = "Aquí IP Mongo" ) 
   ( PUERTO_API = "Puerto Disponible que escuchará la API" )
+
+- Mi implementación para validar el login esta desactivada una vez inicializado el proyecto ingresar a
+  * ruta: http://localhost:5173/home
