@@ -1,7 +1,7 @@
 import { CloseSessionIcon, HomeIcon, UsvgDownIcon } from './Icons'
+import { useAuth } from '../Auth/AuthContext.jsx'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { useAuth } from '../Auth/AuthContext.jsx'
 
 const links1 = [
   { to: '/bodegas', text: 'Ver Bodegas' },
@@ -28,6 +28,10 @@ export function NavBar () {
   const [activeSimcards, setActiveSimcards] = useState(false)
 
   const { logout } = useAuth()
+
+  const handleClosesession = () => {
+    logout()
+  }
 
   const handleClickSimcards = (event) => {
     event.stopPropagation()
@@ -140,9 +144,9 @@ export function NavBar () {
                 }
               </button>
 
-              <Link className="block ml-4 py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-white md:p-0 md:dark:text-white md:dark:hover:text-blue-500" title='Cerrar Sesión' onClick={logout()}>
+              <section onClick={handleClosesession} className="cursor-pointer block ml-4 py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-white md:p-0 md:dark:text-white md:dark:hover:text-blue-500" title='Cerrar Sesión'>
                 <CloseSessionIcon />
-              </Link>
+              </section>
 
             </li>
           </ul>
