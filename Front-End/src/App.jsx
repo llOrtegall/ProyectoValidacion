@@ -21,6 +21,7 @@ import { Home } from './pages/Home.jsx'
 import { getCookie, GetUserCookie } from './utils/funtions.js'
 import { useAuth } from './Auth/AuthContext.jsx'
 import { useEffect } from 'react'
+import { NotFound } from './pages/NotFound.jsx'
 
 const ProtectedRoute = ({ children }) => {
   const { user } = useAuth()
@@ -61,6 +62,7 @@ export function App () {
         <Route path="movimientos/*" element={<Layout />}>
           <Route index element={<VerMovimientos />} />
           <Route path="detalle/:id" element={<MovimientoDetalle />} />
+          <Route path="*" element={<NotFound />} />
         </Route>
 
         <Route path='bodegas/*' element={<Layout />}>
@@ -68,12 +70,14 @@ export function App () {
           <Route path="detalle/:id" element={<DetalleBodega />} />
           <Route path="crearBodegas" element={<ProtectedRoute><CreatedBodega /></ProtectedRoute>} />
           <Route path='crearMovimientos' element={<ProtectedRoute><CrearMovimiento /></ProtectedRoute>} />
+          <Route path="*" element={<NotFound />} />
         </Route>
 
         <Route path='items/*' element={<Layout />}>
           <Route index element={<Items />} />
           <Route path="crearItems" element={<ProtectedRoute><CreatedItems /></ProtectedRoute>} />
           <Route path="asignarItems" element={<ProtectedRoute><AsignarItemBodega /></ProtectedRoute>} />
+          <Route path="*" element={<NotFound />} />
         </Route>
 
         <Route path='simcards/*' element={<Layout />}>
@@ -81,11 +85,12 @@ export function App () {
           <Route path="crearSimcards" element={<ProtectedRoute><CrearSimcard /></ProtectedRoute>} />
           <Route path="asignarSimcards" element={<ProtectedRoute><AsignarSimcards /></ProtectedRoute>} />
           <Route path="movimientosSimcards" element={<ProtectedRoute><Movimientos /></ProtectedRoute>} />
+          <Route path="*" element={<NotFound />} />
         </Route>
 
       </Route>
 
-      <Route path="*" element={<h1>Not Found</h1>} />
+      <Route path="*" element={<NotFound />} />
     </Routes>
   )
 }
