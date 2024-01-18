@@ -1,10 +1,14 @@
 import { useEffect, useRef } from 'react'
 
-export function useIdleTimer (logout, timeout = 1000 * 60 * 5) { // * Cierra sesión en 5 minutos por defecto
+export function useIdleTimer (logout, timeout = 1000 * 60 * 5) { // Cierra sesión en 5 minutos por defecto
   const timerRef = useRef(null)
   const resetTimer = () => {
     clearTimeout(timerRef.current)
-    timerRef.current = setTimeout(() => logout(), timeout)
+    timerRef.current = setTimeout(() => {
+      console.log('Temporizador expirado, cerrando sesión...')
+      logout()
+    }, timeout)
+    console.log('Temporizador reiniciado, quedan ' + timeout / 1000 / 60 + ' minutos.')
   }
 
   useEffect(() => {

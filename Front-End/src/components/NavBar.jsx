@@ -1,4 +1,7 @@
 import { CheckOkIcon, CloseSessionIcon, HomeIcon, LockIcon, UsvgDownIcon } from './Icons'
+
+import { useIdleTimer } from '../hooks/useIdleTimer.js'
+
 import { useAuth } from '../Auth/AuthContext.jsx'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
@@ -46,6 +49,8 @@ export function NavBar () {
   const [activeSimcards, setActiveSimcards] = useState(false)
 
   const { logout } = useAuth()
+
+  useIdleTimer(logout)
 
   const handleClosesession = () => {
     logout()

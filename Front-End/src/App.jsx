@@ -22,7 +22,6 @@ import { getCookie, GetUserCookie } from './utils/funtions.js'
 import { useAuth } from './Auth/AuthContext.jsx'
 import { useEffect } from 'react'
 import { NotFound } from './pages/NotFound.jsx'
-import { useIdleTimer } from './hooks/useIdleTimer.js'
 
 const ProtectedRoute = ({ children }) => {
   const { user } = useAuth()
@@ -35,8 +34,6 @@ const ProtectedRoute = ({ children }) => {
 
 export function App () {
   const { login, logout } = useAuth()
-
-  useIdleTimer(logout)
 
   useEffect(() => {
     const token = getCookie('bodega')
