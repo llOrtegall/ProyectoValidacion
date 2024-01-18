@@ -17,7 +17,7 @@ export function VerSimcards () {
   const { filteredSimcards, searchSimcard, setSearchSimcard } = useFilterSimcards(simcardsConBodega)
 
   return (
-    <main className='px-2 mt-2'>
+    <main className="h-[93vh] overflow-auto px-2">
 
       <section className='flex items-center gap-4 py-2'>
         <p className=""><span className="font-semibold pr-2">Filtrar:</span>| Operador | Serial | Número</p>

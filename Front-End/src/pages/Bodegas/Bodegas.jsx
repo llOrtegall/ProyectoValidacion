@@ -15,7 +15,7 @@ export function Bodegas () {
   }, [])
 
   return (
-    <main>
+    <main className="h-[93vh] overflow-auto">
 
       <section className="flex items-center justify-center gap-6 p-2 bg-blue-500  rounded-md shadow-lg m-2">
         <p className=""><span className="font-semibold pr-2">Filtrar:</span>| Sucursal | Nombre |</p>
