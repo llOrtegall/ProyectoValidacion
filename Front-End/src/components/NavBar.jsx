@@ -1,4 +1,4 @@
-import { CloseSessionIcon, HomeIcon, LockIcon, UsvgDownIcon } from './Icons'
+import { CheckOkIcon, CloseSessionIcon, HomeIcon, LockIcon, UsvgDownIcon } from './Icons'
 import { useAuth } from '../Auth/AuthContext.jsx'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
@@ -27,9 +27,17 @@ const RenderBlock = () => {
   const RolUser = user.rol
 
   if (RolUser === 'Analista Desarrollo') {
-    return <div></div>
+    return (
+      <li className='flex items-center w-5 text-green-400'>
+        <CheckOkIcon />
+      </li>
+    )
   }
-  return <LockIcon />
+  return (
+    <li className='flex items-center w-5 text-red-400'>
+      <LockIcon />
+    </li>
+  )
 }
 
 export function NavBar () {
