@@ -48,7 +48,7 @@ export function Movimientos () {
   }
 
   return (
-    <main className="w-full min-h-[93vh] bg-slate-300">
+    <main className="w-full min-h-[93vh] ">
 
       <section className="grid grid-cols-4 p-2 gap-2">
         {/* //*: Renderizado Bodega Origen */}

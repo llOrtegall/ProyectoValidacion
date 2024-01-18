@@ -3,7 +3,7 @@ import { NavBar } from './NavBar.jsx'
 
 export function Layout () {
   return (
-    <section>
+    <section className='bg-slate-400'>
       <NavBar/>
       <Outlet />
     </section>

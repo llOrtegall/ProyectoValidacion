@@ -51,7 +51,7 @@ export function CreatedItems () {
   }
 
   return (
-    <main className="w-full flex flex-col h-full">
+    <main className="h-[93vh] overflow-auto">
 
       <section>
         <form className="grid grid-cols-3 p-8 m-8 gap-3 rounded-lg bg-blue-400 place-items-center" onSubmit={handleSubmit}>
