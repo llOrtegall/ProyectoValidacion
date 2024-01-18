@@ -1,5 +1,5 @@
 // TODO: Librerías externas
-import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'
+import { Routes, Route, Navigate } from 'react-router-dom'
 import { Layout } from './components/Layout.jsx'
 
 import { MovimientoDetalle } from './pages/Movimientos/MovimientoDetalle.jsx'
@@ -33,7 +33,6 @@ const ProtectedRoute = ({ children }) => {
 
 export function App () {
   const { login, logout } = useAuth()
-  const navigate = useNavigate()
 
   useEffect(() => {
     const token = getCookie('bodega')

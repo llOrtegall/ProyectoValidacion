@@ -11,7 +11,6 @@ export function Items () {
   }, [])
 
   const [ItemsWthitBodegas, setItemBodega] = useState([])
-
   const { search, setSearch, filteredItems } = useFiltersItems(ItemsWthitBodegas)
 
   return (
