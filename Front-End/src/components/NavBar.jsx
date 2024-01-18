@@ -1,4 +1,4 @@
-import { CloseSessionIcon, HomeIcon, LockIcon, UnlockIcon, UsvgDownIcon } from './Icons'
+import { CloseSessionIcon, HomeIcon, LockIcon, UsvgDownIcon } from './Icons'
 import { useAuth } from '../Auth/AuthContext.jsx'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
@@ -27,7 +27,7 @@ const RenderBlock = () => {
   const RolUser = user.rol
 
   if (RolUser === 'Analista Desarrollo') {
-    return <UnlockIcon />
+    return <div></div>
   }
   return <LockIcon />
 }
@@ -106,7 +106,7 @@ export function NavBar () {
                 {/* // !! Dropdown menu --> */}
                 {
                   activeArticles && (
-                    <section className="absolute -bottom-36 -right-10 font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
+                    <section className="absolute bottom-[-152px] -right-10 font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
                       <ul className="py-2 text-sm text-gray-700 dark:text-gray-400" aria-labelledby="dropdownLargeButton">
                         {
                           links2.map(link => (
@@ -132,7 +132,7 @@ export function NavBar () {
                 {/* // !! Dropdown menu --> */}
                 {
                   activeMovements && (
-                    <section className="absolute -bottom-36 -right-10 font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
+                    <section className="absolute bottom-[-152px] -right-10 font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
                       <ul className="py-2 text-sm text-gray-700 dark:text-gray-400" aria-labelledby="dropdownLargeButton">
                         {
                           links1.map(link => (

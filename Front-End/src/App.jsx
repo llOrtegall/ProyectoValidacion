@@ -42,11 +42,9 @@ export function App () {
         login(user)
       }).catch(() => {
         logout()
-        navigate('/login')
       })
     } else {
       logout()
-      navigate('/login')
     }
   }, [])
 
