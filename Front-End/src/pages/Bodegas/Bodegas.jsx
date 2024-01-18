@@ -17,10 +17,10 @@ export function Bodegas () {
   return (
     <main className="h-[93vh] overflow-auto">
 
-      <section className="flex items-center justify-center gap-6 p-2 bg-blue-500  rounded-md shadow-lg m-2">
+      <section className="flex items-center justify-center gap-6 p-1 bg-blue-500  rounded-md shadow-lg">
         <p className=""><span className="font-semibold pr-2">Filtrar:</span>| Sucursal | Nombre |</p>
         <input type="text" value={searchBodega} onChange={ev => setSearchBodega(ev.target.value)}
-          placeholder="Buscar Bodega..." className="bg-slate-100 w-64 p-2 rounded-md" />
+          placeholder="Buscar Bodega..." className="bg-slate-100 w-64 p-1.5 rounded-md" />
       </section>
 
       {

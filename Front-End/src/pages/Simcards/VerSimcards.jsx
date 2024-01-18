@@ -17,13 +17,13 @@ export function VerSimcards () {
   const { filteredSimcards, searchSimcard, setSearchSimcard } = useFilterSimcards(simcardsConBodega)
 
   return (
-    <main className="h-[93vh] overflow-auto px-2">
+    <main className="h-[93vh] overflow-auto">
 
-      <section className='flex items-center gap-4 py-2'>
+      <section className='flex items-center gap-4 py-1 bg-blue-500 px-4'>
         <p className=""><span className="font-semibold pr-2">Filtrar:</span>| Operador | Serial | Número</p>
         <input type="text" placeholder="Buscar simcards..."
           value={searchSimcard} onChange={ev => setSearchSimcard(ev.target.value)}
-          className="bg-slate-200 w-64 p-2 rounded-md" />
+          className="bg-slate-200 w-64 p-1.5 rounded-md" />
         <BottonExportSimcards simcards={filteredSimcards} />
       </section>
 
