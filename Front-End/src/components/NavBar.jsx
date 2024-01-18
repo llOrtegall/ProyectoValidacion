@@ -1,34 +1,35 @@
-import { CloseSessionIcon, HomeIcon, LockIcon, LoginIcon, UsvgDownIcon } from './Icons'
+import { CloseSessionIcon, HomeIcon, LockIcon, UnlockIcon, UsvgDownIcon } from './Icons'
 import { useAuth } from '../Auth/AuthContext.jsx'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 const links1 = [
-  { to: '/stock/bodegas', text: 'Ver Bodegas' },
-  { to: '/stock/bodegas/crearBodegas', text: 'Crear Bodega' },
-  { to: '/stock/bodegas/crearMovimientos', text: 'Crear Movimiento' }
+  { to: '/stock/bodegas', text: 'Ver Bodegas', icon: false },
+  { to: '/stock/bodegas/crearBodegas', text: 'Crear Bodega', icon: true },
+  { to: '/stock/bodegas/crearMovimientos', text: 'Crear Movimiento', icon: true }
 ]
 
 const links2 = [
-  { to: '/stock/items', text: 'Ver Artículos' },
-  { to: '/stock/items/crearItems', text: 'Crear Items' },
-  { to: '/stock/items/asignarItems', text: 'Asig. Item Bodega' }
+  { to: '/stock/items', text: 'Ver Artículos', icon: false },
+  { to: '/stock/items/crearItems', text: 'Crear Items', icon: true },
+  { to: '/stock/items/asignarItems', text: 'Asig. Item Bodega', icon: true }
 ]
 
 const links3 = [
-  { to: '/stock/simcards', text: 'Ver Simcards' },
-  { to: '/stock/simcards/crearSimcards', text: 'Crear Simcard' },
-  { to: '/stock/simcards/asignarSimcards', text: 'Asig. SIM Bodega' },
-  { to: '/stock/simcards/movimientosSimcards', text: 'Crear Movimiento SIM' }
+  { to: '/stock/simcards', text: 'Ver Simcards', icon: false },
+  { to: '/stock/simcards/crearSimcards', text: 'Crear Simcard', icon: true },
+  { to: '/stock/simcards/asignarSimcards', text: 'Asig. SIM Bodega', icon: true },
+  { to: '/stock/simcards/movimientosSimcards', text: 'Crear Movimiento SIM', icon: true }
 ]
 
-export function RenderLockIcon ({ rol }) {
-  console.log(rol)
-  return (
-    rol === 'Analista Desarrollo'
-      ? (<div></div>)
-      : (<LockIcon />)
-  )
+const RenderBlock = () => {
+  const { user } = useAuth()
+  const RolUser = user.rol
+
+  if (RolUser === 'Analista Desarrollo') {
+    return <UnlockIcon />
+  }
+  return <LockIcon />
 }
 
 export function NavBar () {
@@ -36,9 +37,7 @@ export function NavBar () {
   const [activeMovements, setActiveMovements] = useState(false)
   const [activeSimcards, setActiveSimcards] = useState(false)
 
-  const { logout, user } = useAuth()
-
-  const UserExist = user.auth
+  const { logout } = useAuth()
 
   const handleClosesession = () => {
     logout()
@@ -111,9 +110,15 @@ export function NavBar () {
                       <ul className="py-2 text-sm text-gray-700 dark:text-gray-400" aria-labelledby="dropdownLargeButton">
                         {
                           links2.map(link => (
-                            <Link to={link.to} key={link.to} className='block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white'>
+                            <Link to={link.to} key={link.to} className='flex items-center justify-between px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white'>
                               {link.text}
-                              {/* <RenderLockIcon rol={RolUser} /> */}
+                              {
+                                link.icon === true
+                                  ? <li className='flex items-center w-5 text-red-400'>
+                                    <RenderBlock />
+                                  </li>
+                                  : ''
+                              }
                             </Link>
                           ))
                         }
@@ -131,8 +136,15 @@ export function NavBar () {
                       <ul className="py-2 text-sm text-gray-700 dark:text-gray-400" aria-labelledby="dropdownLargeButton">
                         {
                           links1.map(link => (
-                            <Link to={link.to} key={link.to} className='block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white'>
+                            <Link to={link.to} key={link.to} className='flex items-center justify-between px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white'>
                               {link.text}
+                              {
+                                link.icon === true
+                                  ? <li className='flex items-center w-5 text-red-400'>
+                                    <RenderBlock />
+                                  </li>
+                                  : ''
+                              }
                             </Link>
                           ))
                         }
@@ -146,12 +158,19 @@ export function NavBar () {
                 {/* // !! Dropdown menu --> */}
                 {
                   activeSimcards && (
-                    <section className="absolute -bottom-44 -right-10 font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
-                      <ul className="py-2 text-sm text-gray-700 dark:text-gray-400" aria-labelledby="dropdownLargeButton">
+                    <section className="absolute top-[43px] -right-10 w-52 font-normal bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600">
+                      <ul className="py-2 text-sm text-gray-700 dark:text-gray-400">
                         {
                           links3.map(link => (
-                            <Link to={link.to} key={link.to} className='block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white'>
+                            <Link to={link.to} key={link.to} className='flex items-center justify-between px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white'>
                               {link.text}
+                              {
+                                link.icon === true
+                                  ? <li className='flex items-center w-5 text-red-400'>
+                                    <RenderBlock />
+                                  </li>
+                                  : ''
+                              }
                             </Link>
                           ))
                         }
@@ -161,20 +180,9 @@ export function NavBar () {
                 }
               </button>
 
-              {
-                UserExist === true
-                  ? (
-                    <section onClick={handleClosesession} className="cursor-pointer block ml-4 py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-white md:p-0 md:dark:text-white md:dark:hover:text-blue-500" title='Cerrar Sesión'>
-                      <CloseSessionIcon />
-                    </section>
-                    )
-                  : (
-                    <section onClick={handleClosesession} className="cursor-pointer block ml-4 py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-white md:p-0 md:dark:text-white md:dark:hover:text-blue-500" title='Iniciar Session'>
-                      <LoginIcon />
-                    </section>
-                    )
-              }
-
+              <section onClick={handleClosesession} className="cursor-pointer block ml-4 py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-white md:p-0 md:dark:text-white md:dark:hover:text-blue-500" title='Cerrar Sesión'>
+                <CloseSessionIcon />
+              </section>
             </li>
           </ul>
         </section>

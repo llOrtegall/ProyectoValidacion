@@ -29,6 +29,6 @@ export const GetUserCookie = async (token) => {
       Authorization: `Bearer ${token}`
     }
   })
-  const { user } = response.data
+  const user = response.data
   return user
 }

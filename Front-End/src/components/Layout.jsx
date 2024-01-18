@@ -4,7 +4,7 @@ import { NavBar } from './NavBar.jsx'
 export function Layout () {
   return (
     <section>
-      <NavBar />
+      <NavBar/>
       <Outlet />
     </section>
   )

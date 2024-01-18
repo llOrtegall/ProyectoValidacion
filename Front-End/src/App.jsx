@@ -1,5 +1,5 @@
 // TODO: Librerías externas
-import { Routes, Route, useNavigate } from 'react-router-dom'
+import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'
 import { Layout } from './components/Layout.jsx'
 
 import { MovimientoDetalle } from './pages/Movimientos/MovimientoDetalle.jsx'
@@ -13,42 +13,47 @@ import { CrearSimcard } from './pages/Simcards/CrearSimcard.jsx'
 import { Movimientos } from './pages/Simcards/Movimientos.jsx'
 import { VerSimcards } from './pages/Simcards/VerSimcards.jsx'
 import { CreatedItems } from './pages/Items/CreatedItems.jsx'
-// import { LoginForm } from './pages/Login/LoginForm.jsx'
+import { LoginForm } from './pages/Login/LoginForm.jsx'
 import { Bodegas } from './pages/Bodegas/Bodegas.jsx'
 import { Items } from './pages/Items/Items.jsx'
 import { Home } from './pages/Home.jsx'
 
-// import { useEffect } from 'react'
-// import { getCookie } from './utils/funtions.js'
-// import { useAuth } from './Auth/AuthContext.jsx'
-// import axios from 'axios'
+import { getCookie, GetUserCookie } from './utils/funtions.js'
+import { useAuth } from './Auth/AuthContext.jsx'
+import { useEffect } from 'react'
+
+const ProtectedRoute = ({ children }) => {
+  const { user } = useAuth()
+  const RolUser = user.rol
+  if (RolUser !== 'Analista Desarrollo') {
+    return <Navigate to='/home' />
+  }
+  return children
+}
 
 export function App () {
-  // const { login } = useAuth()
-  // const navigate = useNavigate()
+  const { login, logout } = useAuth()
+  const navigate = useNavigate()
 
-  // useEffect(() => {
-  //   const getLoggedIn = async () => {
-  //     try {
-  //       const token = getCookie('bodega')
-  //       const response = await axios.get('http://172.20.1.160:3000/profile', {
-  //         headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' }
-  //       })
-  //       const usuario = await response.data
-  //       login(usuario)
-  //       navigate('/home')
-  //     } catch (error) {
-  //       navigate('/login')
-  //       console.log(error)
-  //     }
-  //   }
-  //   getLoggedIn()
-  // }, [])
+  useEffect(() => {
+    const token = getCookie('bodega')
+    if (token) {
+      GetUserCookie(token).then(user => {
+        login(user)
+      }).catch(() => {
+        logout()
+        navigate('/login')
+      })
+    } else {
+      logout()
+      navigate('/login')
+    }
+  }, [])
 
   return (
     <Routes>
 
-      {/* <Route path="/login" element={<LoginForm />} /> */}
+      <Route path="/login" element={<LoginForm />} />
 
       <Route path="/home" element={<Layout />}>
         <Route index element={<Home />} />
@@ -64,21 +69,21 @@ export function App () {
         <Route path='bodegas/*' element={<Layout />}>
           <Route index element={<Bodegas />} />
           <Route path="detalle/:id" element={<DetalleBodega />} />
-          <Route path="crearBodegas" element={<CreatedBodega />} />
-          <Route path='crearMovimientos' element={<CrearMovimiento />} />
+          <Route path="crearBodegas" element={<ProtectedRoute><CreatedBodega /></ProtectedRoute>} />
+          <Route path='crearMovimientos' element={<ProtectedRoute><CrearMovimiento /></ProtectedRoute>} />
         </Route>
 
         <Route path='items/*' element={<Layout />}>
           <Route index element={<Items />} />
-          <Route path="crearItems" element={<CreatedItems />} />
-          <Route path="asignarItems" element={<AsignarItemBodega />} />
+          <Route path="crearItems" element={<ProtectedRoute><CreatedItems /></ProtectedRoute>} />
+          <Route path="asignarItems" element={<ProtectedRoute><AsignarItemBodega /></ProtectedRoute>} />
         </Route>
 
         <Route path='simcards/*' element={<Layout />}>
           <Route index element={<VerSimcards />} />
-          <Route path="crearSimcards" element={<CrearSimcard />} />
-          <Route path="asignarSimcards" element={<AsignarSimcards />} />
-          <Route path="movimientosSimcards" element={<Movimientos />} />
+          <Route path="crearSimcards" element={<ProtectedRoute><CrearSimcard /></ProtectedRoute>} />
+          <Route path="asignarSimcards" element={<ProtectedRoute><AsignarSimcards /></ProtectedRoute>} />
+          <Route path="movimientosSimcards" element={<ProtectedRoute><Movimientos /></ProtectedRoute>} />
         </Route>
 
       </Route>

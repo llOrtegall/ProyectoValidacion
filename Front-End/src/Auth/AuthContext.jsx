@@ -11,7 +11,7 @@ export function AuthProvider ({ children }) {
   const login = (usuario) => {
     if (usuario.auth === true) {
       setLoggedIn(true)
-      setUser(usuario)
+      setUser(usuario.user)
     }
   }
 

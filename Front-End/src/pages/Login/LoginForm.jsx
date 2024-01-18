@@ -16,21 +16,18 @@ export const LoginForm = () => {
     try {
       const response = await axios.post('http://172.20.1.160:3000/login', { user: username, password })
       if (response.status === 200) {
-        const { data } = response
-        document.cookie = `bodega=${data.token}`
-        const user = await GetUserCookie(data.token)
-        login(data.auth, user)
+        document.cookie = `bodega=${response.data.token}`
+        const user = await GetUserCookie(response.data.token)
+        login(user)
         navigate('/home')
       }
     } catch (error) {
+      console.log(error)
+
       if (error.message === 'Network Error') {
         return setError('Servidor No Disponible y/o Error De Conexión, Consulte Con El Administrador')
       }
       setError(error.response.data.error)
-    } finally {
-      setTimeout(() => {
-        setError(null)
-      }, 5000)
     }
   }
 
