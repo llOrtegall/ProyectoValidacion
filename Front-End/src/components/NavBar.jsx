@@ -5,22 +5,22 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 const links1 = [
-  { to: '/stock/bodegas', text: 'Ver Bodegas', icon: false },
-  { to: '/stock/bodegas/crearBodegas', text: 'Crear Bodega', icon: true },
-  { to: '/stock/bodegas/crearMovimientos', text: 'Crear Movimiento', icon: true }
+  { to: '/bodega/stock/bodegas', text: 'Ver Bodegas', icon: false },
+  { to: '/bodega/stock/bodegas/crearBodegas', text: 'Crear Bodega', icon: true },
+  { to: '/bodega/stock/bodegas/crearMovimientos', text: 'Crear Movimiento', icon: true }
 ]
 
 const links2 = [
-  { to: '/stock/items', text: 'Ver Artículos', icon: false },
-  { to: '/stock/items/crearItems', text: 'Crear Items', icon: true },
-  { to: '/stock/items/asignarItems', text: 'Asig. Item Bodega', icon: true }
+  { to: '/bodega/stock/items', text: 'Ver Artículos', icon: false },
+  { to: '/bodega/stock/items/crearItems', text: 'Crear Items', icon: true },
+  { to: '/bodega/stock/items/asignarItems', text: 'Asig. Item Bodega', icon: true }
 ]
 
 const links3 = [
-  { to: '/stock/simcards', text: 'Ver Simcards', icon: false },
-  { to: '/stock/simcards/crearSimcards', text: 'Crear Simcard', icon: true },
-  { to: '/stock/simcards/asignarSimcards', text: 'Asig. SIM Bodega', icon: true },
-  { to: '/stock/simcards/movimientosSimcards', text: 'Crear Movimiento SIM', icon: true }
+  { to: '/bodega/stock/simcards', text: 'Ver Simcards', icon: false },
+  { to: '/bodega/stock/simcards/crearSimcards', text: 'Crear Simcard', icon: true },
+  { to: '/bodega/stock/simcards/asignarSimcards', text: 'Asig. SIM Bodega', icon: true },
+  { to: '/bodega/stock/simcards/movimientosSimcards', text: 'Crear Movimiento SIM', icon: true }
 ]
 
 const RenderBlock = () => {
@@ -92,20 +92,20 @@ export function NavBar () {
     <nav className="bg-white border-gray-200 dark:bg-gray-900 dark:border-gray-700">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         {/* //TODO: logo Gane */}
-        <Link to="/home">
+        <Link to="/bodega/home">
           <img src="../../public/gane.png" className="h-8" alt="Logo" />
         </Link>
 
         <section className="hidden w-full md:block md:w-auto" id="navbar-dropdown">
           <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
 
-            <Link to="/home" title='Inicio App' className="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-white md:p-0 md:dark:text-white md:dark:hover:text-blue-500">
+            <Link to="/bodega/home" title='Inicio App' className="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-white md:p-0 md:dark:text-white md:dark:hover:text-blue-500">
               <HomeIcon />
             </Link>
 
             <li className='flex gap-2'>
 
-              <Link to="/stock/movimientos">
+              <Link to="/bodega/stock/movimientos">
                 <button className="relative flex items-center justify-between w-full py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:w-auto dark:text-white md:dark:hover:text-blue-500 dark:focus:text-white dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent">
                   Movimientos
                 </button>

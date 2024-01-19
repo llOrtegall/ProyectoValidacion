@@ -19,7 +19,7 @@ export const LoginForm = () => {
         document.cookie = `bodega=${response.data.token}`
         const user = await GetUserCookie(response.data.token)
         login(user)
-        navigate('/home')
+        navigate('/bodega/home')
       }
     } catch (error) {
       console.log(error)

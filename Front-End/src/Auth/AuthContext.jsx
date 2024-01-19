@@ -20,7 +20,7 @@ export function AuthProvider ({ children }) {
     setUser({})
     document.cookie = 'bodega=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'
     document.cookie = 'bodega=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/bodega;'
-    navigate('/login')
+    navigate('/bodega/login')
   }
 
   return (

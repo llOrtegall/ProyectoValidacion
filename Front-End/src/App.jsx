@@ -28,7 +28,7 @@ const ProtectedRoute = ({ children }) => {
   const { user } = useAuth()
   const RolUser = user.rol
   if (RolUser !== 'Analista Desarrollo') {
-    return <Navigate to='/home' />
+    return <Navigate to='/bodega/home' />
   }
   return children
 }
@@ -54,13 +54,13 @@ export function App () {
   return (
     <Routes>
 
-      <Route path="/login" element={<LoginForm />} />
+      <Route path="/bodega/login" element={<LoginForm />} />
 
-      <Route path="/home" element={<Layout />}>
+      <Route path="/bodega/home" element={<Layout />}>
         <Route index element={<Home fun={logout}/>} />
       </Route>
 
-      <Route path='stock/*'>
+      <Route path='/bodega/stock/*'>
 
         <Route path="movimientos/*" element={<Layout />}>
           <Route index element={<VerMovimientos fun={logout} />} />
