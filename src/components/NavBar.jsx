@@ -34,6 +34,31 @@ const RenderBlock = () => {
       </li>
     )
   }
+
+  if (RolUser === 'Jefe Tecnología') {
+    return (
+      <li className='flex items-center w-5 text-green-400'>
+        <CheckOkIcon />
+      </li>
+    )
+  }
+
+  if (RolUser === 'Director Tecnologíae') {
+    return (
+      <li className='flex items-center w-5 text-green-400'>
+        <CheckOkIcon />
+      </li>
+    )
+  }
+
+  if (RolUser === 'Analista Desarrollo') {
+    return (
+      <li className='flex items-center w-5 text-green-400'>
+        <CheckOkIcon />
+      </li>
+    )
+  }
+
   return (
     <li className='flex items-center w-5 text-red-400'>
       <LockIcon />

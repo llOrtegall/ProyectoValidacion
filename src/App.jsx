@@ -46,7 +46,7 @@ const ProtectedRoute = ({ children }) => {
   return <Navigate to='/bodega/home' />
 }
 
-axios.defaults.baseURL = 'http://localhost:3000/'
+axios.defaults.baseURL = 'http://172.20.1.160:3000/'
 
 export function App () {
   const { login, logout } = useAuth()
