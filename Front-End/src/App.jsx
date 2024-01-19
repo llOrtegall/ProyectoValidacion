@@ -54,37 +54,37 @@ export function App () {
       <Route path="/login" element={<LoginForm />} />
 
       <Route path="/home" element={<Layout />}>
-        <Route index element={<Home />} />
+        <Route index element={<Home fun={logout}/>} />
       </Route>
 
       <Route path='stock/*'>
 
         <Route path="movimientos/*" element={<Layout />}>
-          <Route index element={<VerMovimientos />} />
+          <Route index element={<VerMovimientos fun={logout} />} />
           <Route path="detalle/:id" element={<MovimientoDetalle />} />
           <Route path="*" element={<NotFound />} />
         </Route>
 
         <Route path='bodegas/*' element={<Layout />}>
-          <Route index element={<Bodegas />} />
+          <Route index element={<Bodegas fun={logout}/>} />
           <Route path="detalle/:id" element={<DetalleBodega />} />
           <Route path="crearBodegas" element={<ProtectedRoute><CreatedBodega /></ProtectedRoute>} />
-          <Route path='crearMovimientos' element={<ProtectedRoute><CrearMovimiento /></ProtectedRoute>} />
+          <Route path='crearMovimientos' element={<ProtectedRoute><CrearMovimiento fun={logout}/></ProtectedRoute>} />
           <Route path="*" element={<NotFound />} />
         </Route>
 
         <Route path='items/*' element={<Layout />}>
-          <Route index element={<Items />} />
+          <Route index element={<Items fun={logout}/>} />
           <Route path="crearItems" element={<ProtectedRoute><CreatedItems /></ProtectedRoute>} />
           <Route path="asignarItems" element={<ProtectedRoute><AsignarItemBodega /></ProtectedRoute>} />
           <Route path="*" element={<NotFound />} />
         </Route>
 
         <Route path='simcards/*' element={<Layout />}>
-          <Route index element={<VerSimcards />} />
+          <Route index element={<VerSimcards fun={logout}/>} />
           <Route path="crearSimcards" element={<ProtectedRoute><CrearSimcard /></ProtectedRoute>} />
           <Route path="asignarSimcards" element={<ProtectedRoute><AsignarSimcards /></ProtectedRoute>} />
-          <Route path="movimientosSimcards" element={<ProtectedRoute><Movimientos /></ProtectedRoute>} />
+          <Route path="movimientosSimcards" element={<ProtectedRoute><Movimientos fun={logout}/></ProtectedRoute>} />
           <Route path="*" element={<NotFound />} />
         </Route>
 

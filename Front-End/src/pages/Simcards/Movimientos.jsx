@@ -7,8 +7,11 @@ import { useCarSimcards, useCarSimcards2 } from '../../hooks/useCartItems.js'
 import { MessageDisplay } from '../../components/MessageDisplay.jsx'
 import { useState } from 'react'
 import axios from 'axios'
+import { useIdleTimer } from '../../hooks/useIdleTimer.js'
 
-export function Movimientos () {
+export function Movimientos ({ fun }) {
+  const logout = fun
+  useIdleTimer(logout, 300000)
   const [bodegaDestino, setBodegaDestino] = useState(null)
   const [bodegaOrigen, setBodegaOrigen] = useState(null)
 

@@ -5,8 +5,11 @@ import { useCarItems } from '../../hooks/useCartItems.js'
 import { AddIcon } from '../../components/Icons.jsx'
 import { useState } from 'react'
 import axios from 'axios'
+import { useIdleTimer } from '../../hooks/useIdleTimer.js'
 
-export function CrearMovimiento () {
+export function CrearMovimiento ({ fun }) {
+  const logout = fun
+  useIdleTimer(logout, 300000)
   const [bodegaDestino, setBodegaDestino] = useState(null)
   const [bodegaOrigen, setBodegaOrigen] = useState(null)
   const [searchBodegaOrigen, setSearchBodegaOrigen] = useState('')

@@ -1,25 +1,23 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useCallback } from 'react'
 
-export function useIdleTimer (logout, timeout = 1000 * 60 * 5) { // Cierra sesión en 5 minutos por defecto
+export function useIdleTimer (logout, timeout = 1000 * 60 * 5) {
   const timerRef = useRef(null)
-  const resetTimer = () => {
+
+  const resetTimer = useCallback(() => {
     clearTimeout(timerRef.current)
     timerRef.current = setTimeout(() => {
-      console.log('Temporizador expirado, cerrando sesión...')
       logout()
     }, timeout)
-    console.log('Temporizador reiniciado, quedan ' + timeout / 1000 / 60 + ' minutos.')
-  }
+    console.log('Reset timer')
+  }, [logout, timeout])
 
   useEffect(() => {
-    window.addEventListener('mousemove', resetTimer)
-    window.addEventListener('keypress', resetTimer)
+    resetTimer() // Reinicia el temporizador cuando el componente se monta
 
     return () => {
-      window.removeEventListener('mousemove', resetTimer)
-      window.removeEventListener('keypress', resetTimer)
+      clearTimeout(timerRef.current) // Limpia el temporizador cuando el componente se desmonta
     }
-  }, [])
+  }, [resetTimer])
 
   return resetTimer
 }

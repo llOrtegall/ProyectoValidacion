@@ -2,10 +2,12 @@ import { useEffect, useState } from 'react'
 import { simcardsBodegas } from '../../utils/FetchItemsData.js'
 import { useFilterSimcards } from '../../hooks/useFilters.js'
 import { BottonExportSimcards } from '../../components/BotonExcelDefault.jsx'
+import { useIdleTimer } from '../../hooks/useIdleTimer.js'
 
-export function VerSimcards () {
+export function VerSimcards ({ fun }) {
   const [simcardsConBodega, setSimcardsConBodega] = useState([])
-
+  const logout = fun
+  useIdleTimer(logout, 300000)
   useEffect(() => {
     simcardsBodegas()
       .then(data => {

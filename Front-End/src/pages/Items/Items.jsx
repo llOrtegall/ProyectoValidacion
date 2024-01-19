@@ -2,8 +2,12 @@ import { BottonExportItems } from '../../components/BotonExcelDefault.jsx'
 import { fechtItemsBodegas } from '../../utils/FetchItemsData.js'
 import { useFiltersItems } from '../../hooks/useFilters.js'
 import { useEffect, useState } from 'react'
+import { useIdleTimer } from '../../hooks/useIdleTimer.js'
 
-export function Items () {
+export function Items ({ fun }) {
+  const logout = fun
+  useIdleTimer(logout, 300000)
+
   useEffect(() => {
     fechtItemsBodegas()
       .then(data => setItemBodega(data))

@@ -3,10 +3,14 @@ import { formatFecha } from '../../utils/funtions.js'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
+import { useIdleTimer } from '../../hooks/useIdleTimer.js'
 
-export function VerMovimientos () {
+export function VerMovimientos ({ fun }) {
   const [movimientos, setMovimientos] = useState([])
   const [sortOrder, setSortOrder] = useState('asc')
+  const logout = fun
+
+  useIdleTimer(logout, 300000)
 
   useEffect(() => {
     axios.get('http://localhost:3030/getMovimientos')
@@ -39,7 +43,7 @@ export function VerMovimientos () {
       </section>
       <article className='grid grid-cols-8 py-2 gap-4 place-content-center  place-items-center border mx-2  border-black bg-gradient-to-b from-cyan-200 to-blue-300 font-semibold'>
         <span className="overflow-ellipsis overflow-hidden cursor-pointer hover:underline"
-          onClick={toggleSortOrder}>N° Mov. Generado <span>{sortOrder === 'asc' ? '▼' : '▲' }</span></span>
+          onClick={toggleSortOrder}>N° Mov. Generado <span>{sortOrder === 'asc' ? '▼' : '▲'}</span></span>
         <span className="overflow-ellipsis overflow-hidden">Fecha Movimiento:</span>
         <span className="overflow-ellipsis overflow-hidden">N° Incidente:</span>
         <span className="overflow-ellipsis overflow-hidden">Encargado:</span>
