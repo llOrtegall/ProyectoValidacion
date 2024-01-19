@@ -69,43 +69,28 @@ export function App () {
 
       <Route path="/bodega/login" element={<LoginForm />} />
 
-      <Route path="/bodega/home" element={<Layout />}>
-        <Route index element={<Home fun={logout} />} />
-      </Route>
+      <Route path='/bodega/*' element={<Layout />}>
 
-      <Route path='/bodega/stock/*'>
+        <Route path='home' element={<Home fun={logout} />} />
+        <Route path='stock/movimientos' element={<VerMovimientos fun={logout} />} />
+        <Route path="stock/movimientos/detalle/:id" element={<MovimientoDetalle />} />
 
-        <Route path="movimientos/*" element={<Layout />}>
-          <Route index element={<VerMovimientos fun={logout} />} />
-          <Route path="detalle/:id" element={<MovimientoDetalle />} />
-          <Route path="*" element={<NotFound />} />
-        </Route>
+        <Route path="stock/bodegas" element={<Bodegas fun={logout} />} />
+        <Route path="stock/bodegas/detalle/:id" element={<DetalleBodega />} />
+        <Route path="stock/bodegas/crearBodegas" element={<ProtectedRoute><CreatedBodega /></ProtectedRoute>} />
+        <Route path='stock/bodegas/crearMovimientos' element={<ProtectedRoute><CrearMovimiento fun={logout} /></ProtectedRoute>} />
 
-        <Route path='bodegas/*' element={<Layout />}>
-          <Route index element={<Bodegas fun={logout} />} />
-          <Route path="detalle/:id" element={<DetalleBodega />} />
-          <Route path="crearBodegas" element={<ProtectedRoute><CreatedBodega /></ProtectedRoute>} />
-          <Route path='crearMovimientos' element={<ProtectedRoute><CrearMovimiento fun={logout} /></ProtectedRoute>} />
-          <Route path="*" element={<NotFound />} />
-        </Route>
+        <Route path="stock/items" element={<Items fun={logout} />} />
+        <Route path="stock/items/crearItems" element={<ProtectedRoute><CreatedItems /></ProtectedRoute>} />
+        <Route path="stock/items/asignarItems" element={<ProtectedRoute><AsignarItemBodega /></ProtectedRoute>} />
 
-        <Route path='items/*' element={<Layout />}>
-          <Route index element={<Items fun={logout} />} />
-          <Route path="crearItems" element={<ProtectedRoute><CreatedItems /></ProtectedRoute>} />
-          <Route path="asignarItems" element={<ProtectedRoute><AsignarItemBodega /></ProtectedRoute>} />
-          <Route path="*" element={<NotFound />} />
-        </Route>
-
-        <Route path='simcards/*' element={<Layout />}>
-          <Route index element={<VerSimcards fun={logout} />} />
-          <Route path="crearSimcards" element={<ProtectedRoute><CrearSimcard /></ProtectedRoute>} />
-          <Route path="asignarSimcards" element={<ProtectedRoute><AsignarSimcards /></ProtectedRoute>} />
-          <Route path="movimientosSimcards" element={<ProtectedRoute><Movimientos fun={logout} /></ProtectedRoute>} />
-          <Route path="*" element={<NotFound />} />
-        </Route>
+        <Route path='stock/simcards' element={<VerSimcards fun={logout} />} />
+        <Route path="stock/simcards/crearSimcards" element={<ProtectedRoute><CrearSimcard /></ProtectedRoute>} />
+        <Route path="stock/simcards/asignarSimcards" element={<ProtectedRoute><AsignarSimcards /></ProtectedRoute>} />
+        <Route path="stock/simcards/movimientosSimcards" element={<ProtectedRoute><Movimientos fun={logout} /></ProtectedRoute>} />
+        <Route path="*" element={<NotFound />} />
 
       </Route>
-
       <Route path="*" element={<NotFound />} />
     </Routes>
   )
