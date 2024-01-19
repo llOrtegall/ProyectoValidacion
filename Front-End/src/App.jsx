@@ -27,13 +27,17 @@ import axios from 'axios'
 const ProtectedRoute = ({ children }) => {
   const { user } = useAuth()
   const RolUser = user.rol
-  if (RolUser !== 'Analista Desarrollo') {
+  if (
+    RolUser !== 'Coordinador Soporte' ||
+    RolUser !== 'Jefe Tecnología' ||
+    RolUser !== 'Analista Desarrollo' ||
+    RolUser !== 'Director Tecnología') {
     return <Navigate to='/bodega/home' />
   }
   return children
 }
 
-axios.defaults.baseURL = 'http://localhost:3080/'
+axios.defaults.baseURL = 'http://172.20.1.160:3000/'
 
 export function App () {
   const { login, logout } = useAuth()
@@ -57,7 +61,7 @@ export function App () {
       <Route path="/bodega/login" element={<LoginForm />} />
 
       <Route path="/bodega/home" element={<Layout />}>
-        <Route index element={<Home fun={logout}/>} />
+        <Route index element={<Home fun={logout} />} />
       </Route>
 
       <Route path='/bodega/stock/*'>
@@ -69,25 +73,25 @@ export function App () {
         </Route>
 
         <Route path='bodegas/*' element={<Layout />}>
-          <Route index element={<Bodegas fun={logout}/>} />
+          <Route index element={<Bodegas fun={logout} />} />
           <Route path="detalle/:id" element={<DetalleBodega />} />
           <Route path="crearBodegas" element={<ProtectedRoute><CreatedBodega /></ProtectedRoute>} />
-          <Route path='crearMovimientos' element={<ProtectedRoute><CrearMovimiento fun={logout}/></ProtectedRoute>} />
+          <Route path='crearMovimientos' element={<ProtectedRoute><CrearMovimiento fun={logout} /></ProtectedRoute>} />
           <Route path="*" element={<NotFound />} />
         </Route>
 
         <Route path='items/*' element={<Layout />}>
-          <Route index element={<Items fun={logout}/>} />
+          <Route index element={<Items fun={logout} />} />
           <Route path="crearItems" element={<ProtectedRoute><CreatedItems /></ProtectedRoute>} />
           <Route path="asignarItems" element={<ProtectedRoute><AsignarItemBodega /></ProtectedRoute>} />
           <Route path="*" element={<NotFound />} />
         </Route>
 
         <Route path='simcards/*' element={<Layout />}>
-          <Route index element={<VerSimcards fun={logout}/>} />
+          <Route index element={<VerSimcards fun={logout} />} />
           <Route path="crearSimcards" element={<ProtectedRoute><CrearSimcard /></ProtectedRoute>} />
           <Route path="asignarSimcards" element={<ProtectedRoute><AsignarSimcards /></ProtectedRoute>} />
-          <Route path="movimientosSimcards" element={<ProtectedRoute><Movimientos fun={logout}/></ProtectedRoute>} />
+          <Route path="movimientosSimcards" element={<ProtectedRoute><Movimientos fun={logout} /></ProtectedRoute>} />
           <Route path="*" element={<NotFound />} />
         </Route>
 
