@@ -8,7 +8,7 @@ export function MovimientoDetalle () {
   const [movimiento, setMovimiento] = useState(null)
 
   useEffect(() => {
-    axios.get(`http://localhost:3030/movimiento/${id}`)
+    axios.get(`/movimiento/${id}`)
       .then(res => {
         setMovimiento(res.data)
       })
@@ -24,15 +24,15 @@ export function MovimientoDetalle () {
   return (
 
     movimiento &&
-    <main className='flex flex-col gap-4 m-2 '>
-      <article className='border bg-slate-200'>
+    <main className='flex flex-col gap-4 h-[93vh] px-2'>
+      <article className='border bg-slate-200 mt-4'>
         <section className='border-t border-l border-r border-black'>
           <h1 className="text-lg text-center bg-gradient-to-b from-cyan-200 to-blue-300 p-1 font-semibold">Movimiento:
             <span className='font-semibold pl-2'>{movimientoId}</span>
           </h1>
         </section>
 
-        <section className='grid grid-cols-2 p-2 border border-black'>
+        <section className='grid grid-cols-2 px-4 py-2 border border-black '>
           <p className="text-blue-800 font-medium">Fecha: <span className='font-semibold text-black'>{formatFecha(fecha)}</span></p>
           <p className="text-blue-800 font-medium">Nombre Bodega Origen: <span className='font-semibold text-black'>{bodegaOrigen.nombre}</span></p>
           <p className="text-blue-800 font-medium">Encargado: <span className='font-semibold text-black'>{encargado}</span></p>
@@ -49,11 +49,11 @@ export function MovimientoDetalle () {
         <header>
           <h3 className='p-1 bg-yellow-200 border-black text-center font-medium border-b'>Motivo / Descripción Movimiento</h3>
         </header>
-        <p className='py-2 pl-1'>{descripcion}</p>
+        <p className='py-2 pl-1 bg-slate-200'>{descripcion}</p>
       </section>
 
       <article className='w-full flex flex-col gap-2 '>
-        <table className="table-auto w-full">
+        <table className="table-auto w-full bg-slate-200">
           <thead >
             <tr className='bg-yellow-200'>
               <th className="border py-1">Item</th>
@@ -81,8 +81,8 @@ export function MovimientoDetalle () {
         </table>
       </article>
 
-      <article className='w-full flex flex-col gap-2 '>
-        <table className="table-auto w-full">
+      <article className='w-full flex flex-col gap-2 bg-slate-200'>
+        <table className="table-auto w-full ">
           <thead >
             <tr className='bg-yellow-200'>
             <th className="border py-1">N°</th>

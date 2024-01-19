@@ -48,7 +48,7 @@ export function CreatedBodega () {
     }
   }
   return (
-    <main className="h-[93vh] overflow-auto">
+    <main className="h-[93vh] overflow-auto flex items-center justify-center pb-20">
       <form className="flex h-auto flex-col items-center p-8 m-8 gap-3 rounded-lg bg-blue-400 w-1/2 " onSubmit={handleSubmit}>
         <div className="w-full flex flex-col mb-4">
           <label className="mb-2 font-semibold text-gray-700">Nombre Bodega | PDV</label>

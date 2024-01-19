@@ -23,7 +23,7 @@ export function getCookie (name) {
 }
 
 export const GetUserCookie = async (token) => {
-  const response = await axios.get('http://localhost:3050/profile', {
+  const response = await axios.get('/profile', {
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`

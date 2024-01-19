@@ -33,7 +33,7 @@ export function Movimientos ({ fun }) {
       }, 4000)
       return setError('Debe Ingresar Una Bodega De Origen y Una De Destino')
     }
-    axios.post('http://localhost:3030/moveSimcard', {
+    axios.post('/moveSimcard', {
       bodegas: { bodegaOrigen: bodegaOrigen._id, bodegaDestino: bodegaDestino._id },
       simsIds: { entran: cartSims, salen: cartSims2 },
       encargado,

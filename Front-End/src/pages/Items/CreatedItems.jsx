@@ -24,7 +24,7 @@ export function CreatedItems () {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    axios.post('http://localhost:3030/createItem', item)
+    axios.post('/createItem', item)
       .then(res => {
         console.log(res)
         setItem({

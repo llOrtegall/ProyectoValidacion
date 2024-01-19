@@ -93,7 +93,7 @@ export function AsignarSimcards () {
         </section>
 
         <h2 className='text-xl font-semibold text-center'>Simcards Seleccionadas Para Asignación: </h2>
-        <section style={{ maxHeight: '350px', overflowY: 'auto' }} className='bg-slate-200 rounded-md shadow-lg p-2 min-w-96 flex flex-col gap-2 mb-4'>
+        <section style={{ maxHeight: '350px', overflowY: 'auto' }} className='bg-slate-200 rounded-md shadow-lg p-2 min-w-96 flex flex-col gap-2'>
           {
             carItems && (
               carItems?.map(item => (

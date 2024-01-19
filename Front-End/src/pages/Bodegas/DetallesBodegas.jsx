@@ -18,7 +18,7 @@ export function DetalleBodega () {
   }
 
   useEffect(() => {
-    axios.get(`http://localhost:3030/getBodegasItemsSims/${id}`)
+    axios.get(`/getBodegasItemsSims/${id}`)
       .then(res => {
         setBodega(res.data)
       })
@@ -55,7 +55,7 @@ export function DetalleBodega () {
         </h3>
         {isExpanded && (
           <>
-            <article className="flex justify-around text-center bg-blue-400 shadow-lg rounded-md py-2 mb-2 text-sm">
+            <article className="flex justify-around text-center bg-blue-400 shadow-lg py-2 mb-2 text-sm">
               <p className="font-semibold">Items</p>
               <p className="font-semibold">Descripción</p>
               <p className="font-semibold">Serial</p>
@@ -91,7 +91,7 @@ export function DetalleBodega () {
 
         {
           isExpandedSim && (<>
-            <article className="grid grid-cols-7 text-center bg-blue-400 shadow-lg rounded-md py-2 mb-2 text-sm">
+            <article className="grid grid-cols-7 text-center bg-blue-400 shadow-lg py-2 mb-2 text-sm">
               <p className="font-semibold">Número</p>
               <p className="font-semibold">Operador</p>
               <p className="font-semibold">Estado</p>
@@ -101,11 +101,11 @@ export function DetalleBodega () {
               <p className="font-semibold">Pass</p>
             </article>
 
-            <article>
+            <article className=''>
               {
                 Array.isArray(bodega.simcards) && bodega.simcards.length !== 0
                   ? (bodega.simcards.map(item => (
-                    <article key={item._id} className="grid grid-cols-7 rounded-md bg-slate-200 uppercase text-sm py-2 my-2 text-center shadow-lg">
+                    <article key={item._id} className="grid grid-cols-7 rounded-md bg-slate-100 uppercase text-sm py-2 my-2 text-center shadow-lg">
                       <p className="font-semibold">{item.numero}</p>
                       <p className="text-gray-500">{item.operador}</p>
                       <p className="text-gray-500">{item.estado}</p>

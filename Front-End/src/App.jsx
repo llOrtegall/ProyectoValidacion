@@ -22,6 +22,7 @@ import { getCookie, GetUserCookie } from './utils/funtions.js'
 import { useAuth } from './Auth/AuthContext.jsx'
 import { useEffect } from 'react'
 import { NotFound } from './pages/NotFound.jsx'
+import axios from 'axios'
 
 const ProtectedRoute = ({ children }) => {
   const { user } = useAuth()
@@ -31,6 +32,8 @@ const ProtectedRoute = ({ children }) => {
   }
   return children
 }
+
+axios.defaults.baseURL = 'http://localhost:3080/'
 
 export function App () {
   const { login, logout } = useAuth()

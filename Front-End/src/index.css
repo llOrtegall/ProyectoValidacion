@@ -22,3 +22,7 @@ button.deleted {
 input:focus {
   outline: none;
 }
+
+th, td, tr{
+  border: black 1px solid;
+}

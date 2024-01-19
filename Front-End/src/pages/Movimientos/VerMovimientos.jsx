@@ -13,7 +13,7 @@ export function VerMovimientos ({ fun }) {
   useIdleTimer(logout, 600000)
 
   useEffect(() => {
-    axios.get('http://localhost:3030/getMovimientos')
+    axios.get('/getMovimientos')
       .then(res => {
         setMovimientos(res.data)
       })
@@ -35,7 +35,7 @@ export function VerMovimientos ({ fun }) {
   })
 
   return (
-    <main className="w-full h-[93vh]  xl:text-xs 2xl:text-sm">
+    <main className="w-full h-[93vh] overflow-auto xl:text-xs 2xl:text-sm">
       <section className='p-2 bg-blue-500 mb-2'>
         <label className='pr-2 font-semibold'>Filtro: N° Incidente | Encargado : </label>
         <input type="text" value={searchMovimiento} onChange={ev => setSearchMovimiento(ev.target.value)} placeholder="Buscar Movimiento..."
@@ -57,7 +57,7 @@ export function VerMovimientos ({ fun }) {
         movimientos && sortedMovimientos.map(m => (
           <Link to={`detalle/${m._id}`} key={m._id}>
             <article
-              className="grid grid-cols-8 place-content-center text-center gap-4 items-stretch h-7 mx-2 border-b-2 border-r-2 border-l-2 border-black cursor-pointer hover:bg-yellow-100 bg-slate-200">
+              className="grid grid-cols-8 place-content-center text-center gap-4 items-stretch h-7 mx-2 border border-black mt-0.5 cursor-pointer hover:bg-yellow-100 bg-slate-200">
               <span className="overflow-ellipsis overflow-hidden font-medium">{m.movimientoId}</span>
               <span className="overflow-ellipsis overflow-hidden text-blue-800 font-medium">{formatFecha(m.fecha)}</span>
               <span className="overflow-ellipsis overflow-hidden font-medium">{m.incidente}</span>

@@ -62,7 +62,7 @@ export function CrearMovimiento ({ fun }) {
       return setError('Debe Ingresar Una Bodega De Origen y Una De Destino')
     }
 
-    axios.post('http://localhost:3030/moveItem', {
+    axios.post('/moveItem', {
       bodegaOrigen: bodegaOrigen._id,
       bodegaDestino: bodegaDestino._id,
       itemsIds: carItems,

@@ -14,7 +14,7 @@ export const LoginForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      const response = await axios.post('http://localhost:3050/login', { user: username, password })
+      const response = await axios.post('/login', { user: username, password })
       if (response.status === 200) {
         document.cookie = `bodega=${response.data.token}`
         const user = await GetUserCookie(response.data.token)

@@ -37,7 +37,7 @@ export function AsignarItemBodega () {
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      const res = await axios.post('http://localhost:3030/addItemsToBodega',
+      const res = await axios.post('/addItemsToBodega',
         { sucursal: sendBodega, itemIds: carItems }
       )
       setMessage(res.data.message)
