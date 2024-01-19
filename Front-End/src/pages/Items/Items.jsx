@@ -6,7 +6,7 @@ import { useIdleTimer } from '../../hooks/useIdleTimer.js'
 
 export function Items ({ fun }) {
   const logout = fun
-  useIdleTimer(logout, 300000)
+  useIdleTimer(logout, 600000)
 
   useEffect(() => {
     fechtItemsBodegas()

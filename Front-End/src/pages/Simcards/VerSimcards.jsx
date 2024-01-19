@@ -7,7 +7,7 @@ import { useIdleTimer } from '../../hooks/useIdleTimer.js'
 export function VerSimcards ({ fun }) {
   const [simcardsConBodega, setSimcardsConBodega] = useState([])
   const logout = fun
-  useIdleTimer(logout, 300000)
+  useIdleTimer(logout, 600000)
   useEffect(() => {
     simcardsBodegas()
       .then(data => {

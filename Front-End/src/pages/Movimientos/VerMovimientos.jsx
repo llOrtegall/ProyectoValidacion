@@ -10,7 +10,7 @@ export function VerMovimientos ({ fun }) {
   const [sortOrder, setSortOrder] = useState('asc')
   const logout = fun
 
-  useIdleTimer(logout, 300000)
+  useIdleTimer(logout, 600000)
 
   useEffect(() => {
     axios.get('http://localhost:3030/getMovimientos')

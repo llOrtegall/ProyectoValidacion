@@ -8,7 +8,7 @@ export function Bodegas ({ fun }) {
   const [bodegas, setBodegas] = useState([])
   const logout = fun
 
-  useIdleTimer(logout, 300000)
+  useIdleTimer(logout, 600000)
 
   const { setSearchBodega, filteredBodegas, searchBodega } = useFiltersBodegas(bodegas)
 

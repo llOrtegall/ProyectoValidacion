@@ -11,7 +11,7 @@ import { useIdleTimer } from '../../hooks/useIdleTimer.js'
 
 export function Movimientos ({ fun }) {
   const logout = fun
-  useIdleTimer(logout, 300000)
+  useIdleTimer(logout, 600000)
   const [bodegaDestino, setBodegaDestino] = useState(null)
   const [bodegaOrigen, setBodegaOrigen] = useState(null)
 
