@@ -27,17 +27,26 @@ import axios from 'axios'
 const ProtectedRoute = ({ children }) => {
   const { user } = useAuth()
   const RolUser = user.rol
-  if (
-    RolUser !== 'Coordinador Soporte' ||
-    RolUser !== 'Jefe Tecnología' ||
-    RolUser !== 'Analista Desarrollo' ||
-    RolUser !== 'Director Tecnología') {
-    return <Navigate to='/bodega/home' />
+  if (RolUser === 'Analista Desarrollo') {
+    return children
   }
-  return children
+
+  if (RolUser === 'Jefe Tecnología') {
+    return children
+  }
+
+  if (RolUser === 'Coordinador Soporte') {
+    return children
+  }
+
+  if (RolUser === 'Director Tecnología') {
+    return children
+  }
+
+  return <Navigate to='/bodega/home' />
 }
 
-axios.defaults.baseURL = 'http://172.20.1.160:3000/'
+axios.defaults.baseURL = 'http://localhost:3000/'
 
 export function App () {
   const { login, logout } = useAuth()
