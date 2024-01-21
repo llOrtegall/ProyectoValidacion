@@ -150,20 +150,22 @@ export function NavBar () {
                   activeArticles && (
                     <section className="absolute bottom-[-144px] -right-10 font-normal divide-y rounded-lg shadow w-44 bg-gray-700 ">
                       <ul className="py-2 text-sm  text-gray-400" >
-                        {
-                          links2.map(link => (
-                            <Link to={link.to} key={link.to} className='flex items-center justify-between px-4 py-2  hover:bg-gray-600 hover:text-white'>
-                              {link.text}
-                              {
-                                link.icon === true
-                                  ? <li className='flex items-center w-5 text-red-400'>
-                                    <RenderBlock />
-                                  </li>
-                                  : ''
-                              }
-                            </Link>
-                          ))
-                        }
+                        <li>
+                          {
+                            links2.map(link => (
+                              <Link to={link.to} key={link.to} className='flex items-center justify-between px-4 py-2  hover:bg-gray-600 hover:text-white'>
+                                {link.text}
+                                {
+                                  link.icon === true
+                                    ? <li className='flex items-center w-5 text-red-400'>
+                                      <RenderBlock />
+                                    </li>
+                                    : ''
+                                }
+                              </Link>
+                            ))
+                          }
+                        </li>
                       </ul>
                     </section>
                   )
