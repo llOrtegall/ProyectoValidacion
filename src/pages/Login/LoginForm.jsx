@@ -1,6 +1,6 @@
 import { GetUserCookie } from '../../utils/funtions.js'
 import { useAuth } from '../../Auth/AuthContext.jsx'
-import { useNavigate } from 'react-router-dom'
+// import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import axios from 'axios'
 
@@ -8,7 +8,7 @@ export const LoginForm = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState(null)
-  const navigate = useNavigate()
+  // const navigate = useNavigate()
   const { login } = useAuth()
 
   const handleSubmit = async (e) => {
@@ -19,7 +19,6 @@ export const LoginForm = () => {
         document.cookie = `bodega=${response.data.token}`
         const user = await GetUserCookie(response.data.token)
         login(user)
-        navigate('/bodega/home')
       }
     } catch (error) {
       console.log(error)
