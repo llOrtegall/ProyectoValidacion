@@ -1,78 +1,27 @@
-import { CheckOkIcon, CloseSessionIcon, HomeIcon, LockIcon, UsvgDownIcon } from './Icons'
+import { CloseSessionIcon, HomeIcon, UsvgDownIcon } from './Icons'
 
 import { useAuth } from '../Auth/AuthContext.jsx'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 const links1 = [
-  { to: '/bodega/stock/bodegas', text: 'Ver Bodegas', icon: false },
-  { to: '/bodega/stock/bodegas/crearBodegas', text: 'Crear Bodega', icon: true },
-  { to: '/bodega/stock/bodegas/crearMovimientos', text: 'Crear Movimiento', icon: true }
+  { to: '/bodega/stock/bodegas', text: 'Ver Bodegas' },
+  { to: '/bodega/stock/bodegas/crearBodegas', text: 'Crear Bodega' },
+  { to: '/bodega/stock/bodegas/crearMovimientos', text: 'Crear Movimiento' }
 ]
 
 const links2 = [
-  { to: '/bodega/stock/items', text: 'Ver Artículos', icon: false },
-  { to: '/bodega/stock/items/crearItems', text: 'Crear Items', icon: true },
-  { to: '/bodega/stock/items/asignarItems', text: 'Asig. Item Bodega', icon: true }
+  { to: '/bodega/stock/items', text: 'Ver Artículos' },
+  { to: '/bodega/stock/items/crearItems', text: 'Crear Items' },
+  { to: '/bodega/stock/items/asignarItems', text: 'Asig. Item Bodega' }
 ]
 
 const links3 = [
-  { to: '/bodega/stock/simcards', text: 'Ver Simcards', icon: false },
-  { to: '/bodega/stock/simcards/crearSimcards', text: 'Crear Simcard', icon: true },
-  { to: '/bodega/stock/simcards/asignarSimcards', text: 'Asig. SIM Bodega', icon: true },
-  { to: '/bodega/stock/simcards/movimientosSimcards', text: 'Crear Movimiento SIM', icon: true }
+  { to: '/bodega/stock/simcards', text: 'Ver Simcards' },
+  { to: '/bodega/stock/simcards/crearSimcards', text: 'Crear Simcard' },
+  { to: '/bodega/stock/simcards/asignarSimcards', text: 'Asig. SIM Bodega' },
+  { to: '/bodega/stock/simcards/movimientosSimcards', text: 'Crear Movimiento SIM' }
 ]
-
-const RenderBlock = () => {
-  const { user } = useAuth()
-  const RolUser = user.rol
-
-  if (RolUser === 'Analista Desarrollo') {
-    return (
-      <li className='flex items-center w-5 text-green-400'>
-        <CheckOkIcon />
-      </li>
-    )
-  }
-
-  if (RolUser === 'Coordinador Soporte') {
-    return (
-      <li className='flex items-center w-5 text-green-400'>
-        <CheckOkIcon />
-      </li>
-    )
-  }
-
-  if (RolUser === 'Jefe Tecnología') {
-    return (
-      <li className='flex items-center w-5 text-green-400'>
-        <CheckOkIcon />
-      </li>
-    )
-  }
-
-  if (RolUser === 'Director Tecnología') {
-    return (
-      <li className='flex items-center w-5 text-green-400'>
-        <CheckOkIcon />
-      </li>
-    )
-  }
-
-  if (RolUser === 'Analista Desarrollo') {
-    return (
-      <li className='flex items-center w-5 text-green-400'>
-        <CheckOkIcon />
-      </li>
-    )
-  }
-
-  return (
-    <li className='flex items-center w-5 text-red-400'>
-      <LockIcon />
-    </li>
-  )
-}
 
 export function NavBar () {
   const [activeArticles, setActiveArticles] = useState(false)
@@ -155,13 +104,6 @@ export function NavBar () {
                             links2.map(link => (
                               <Link to={link.to} key={link.to} className='flex items-center justify-between px-4 py-2  hover:bg-gray-600 hover:text-white'>
                                 {link.text}
-                                {
-                                  link.icon === true
-                                    ? <li className='flex items-center w-5 text-red-400'>
-                                      <RenderBlock />
-                                    </li>
-                                    : ''
-                                }
                               </Link>
                             ))
                           }
@@ -182,13 +124,6 @@ export function NavBar () {
                           links1.map(link => (
                             <Link to={link.to} key={link.to} className='flex items-center justify-between px-4 py-2  hover:bg-gray-600 hover:text-white'>
                               {link.text}
-                              {
-                                link.icon === true
-                                  ? <li className='flex items-center w-5 text-red-400'>
-                                    <RenderBlock />
-                                  </li>
-                                  : ''
-                              }
                             </Link>
                           ))
                         }
@@ -208,13 +143,6 @@ export function NavBar () {
                           links3.map(link => (
                             <Link to={link.to} key={link.to} className='flex items-center justify-between px-4 py-2  hover:bg-gray-600 hover:text-white'>
                               {link.text}
-                              {
-                                link.icon === true
-                                  ? <li className='flex items-center w-5 text-red-400'>
-                                    <RenderBlock />
-                                  </li>
-                                  : ''
-                              }
                             </Link>
                           ))
                         }

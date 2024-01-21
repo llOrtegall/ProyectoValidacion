@@ -26,6 +26,11 @@ import axios from 'axios'
 
 axios.defaults.baseURL = 'http://localhost:3000/'
 
+const RolCreacionItems = ['Analista Desarrollo', 'Coordinador Soporte']
+const RolCreacionBodegas = ['Coordinador Soporte', 'Auxiliar Administrativa', 'Administrador']
+const RolCreacionSimcards = ['Analista Desarrollo', 'Coordinador Soporte']
+const RolCreacionMovimientos = ['Analista Desarrollo', 'Coordinador Soporte']
+
 export function App () {
   const { login, logout, loggedIn, user } = useAuth()
   const navigate = useNavigate()
@@ -49,6 +54,7 @@ export function App () {
 
       <Route path='/bodega/login' element={<LoginForm fun={login} />} />
 
+      {/* // RUTAS PROTEGIDAS QUE SOLO LOGUEANDO PUEDEN VER */}
       <Route element={<ProtectdeRoutes isAllowed={loggedIn} redirectTo='bodega/login' />} >
         <Route path='/bodega/*' element={<Layout />} >
           <Route path='home' element={<Home fun={logout} />} />
@@ -59,8 +65,9 @@ export function App () {
         </Route>
       </Route>
 
+      {/* // RUTAS BODEGA CREAR Y ASGINACIÓN */}
       <Route element={<ProtectdeRoutes
-        isAllowed={!!loggedIn && user.rol === 'Analista Desarrollo'}
+        isAllowed={!!loggedIn && RolCreacionItems.includes(user.rol)}
         redirectTo='/bodega/home' />} >
         <Route path='/bodega/stock/items/*' element={<Layout />} >
           <Route path='crearItems' element={<CreatedItems fun={logout} />} />
@@ -68,8 +75,9 @@ export function App () {
         </Route>
       </Route>
 
+      {/* // RUTAS SIMCARDS CREAR Y ASGINACIÓN */}
       <Route element={<ProtectdeRoutes
-        isAllowed={!!loggedIn && user.rol === 'Analista Desarrollo'}
+        isAllowed={!!loggedIn && RolCreacionSimcards.includes(user.rol)}
         redirectTo='/bodega/home' />} >
         <Route path='/bodega/stock/simcards/*' element={<Layout />} >
           <Route path='crearSimcards' element={<AsignarSimcards fun={logout} />} />
@@ -77,16 +85,18 @@ export function App () {
         </Route>
       </Route>
 
+      {/* // RUTAS BODEGAS CREAR */}
       <Route element={<ProtectdeRoutes
-        isAllowed={!!loggedIn && user.rol === 'Analista Desarrollo'}
+        isAllowed={!!loggedIn && RolCreacionBodegas.includes(user.rol)}
         redirectTo='/bodega/home' />} >
         <Route path='/bodega/stock/bodegas/*' element={<Layout />} >
           <Route path='crearBodegas' element={<CreatedBodega fun={logout} />} />
         </Route>
       </Route>
 
+      {/* // RUTAS MOVIMIENTOS */}
       <Route element={<ProtectdeRoutes
-        isAllowed={!!loggedIn && user.rol === 'Analista Desarrollo' | 'Coordinador Soporte'}
+        isAllowed={!!loggedIn && RolCreacionMovimientos.includes(user.rol)}
         redirectTo='/bodega/home' />} >
         <Route path='/bodega/stock/*' element={<Layout />} >
           <Route path='simcards/movimientosSimcards' element={<Movimientos fun={logout} />} />
