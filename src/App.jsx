@@ -1,11 +1,11 @@
 import { Routes, Route, useNavigate } from 'react-router-dom'
 
 // TODO: Páginas
+import { MovimientoDetalle } from './pages/Movimientos/MovimientoDetalle.jsx'
 import { VerMovimientos } from './pages/Movimientos/VerMovimientos.jsx'
 import { CrearMovimiento } from './pages/Movimientos/CrearMovimiento.jsx'
 import { AsignarItemBodega } from './pages/Items/AsignarItemBodega.jsx'
 import { AsignarSimcards } from './pages/Simcards/AsignarSimcards.jsx'
-import { MovimientoDetalle } from './pages/Movimientos/MovimientoDetalle.jsx'
 import { CreatedBodega } from './pages/Bodegas/CreatedBodega.jsx'
 import { CrearSimcard } from './pages/Simcards/CrearSimcard.jsx'
 import { Movimientos } from './pages/Simcards/Movimientos.jsx'
@@ -82,8 +82,8 @@ export function App () {
         isAllowed={!!loggedIn && RolCreacionSimcards.includes(user.rol)}
         redirectTo='/bodega/home' />} >
         <Route path='/bodega/stock/simcards/*' element={<Layout />} >
-          <Route path='crearSimcards' element={<AsignarSimcards fun={logout} />} />
-          <Route path='asignarSimcards' element={<CrearSimcard fun={logout} />} />
+          <Route path='crearSimcards' element={<CrearSimcard fun={logout} />} />
+          <Route path='asignarSimcards' element={<AsignarSimcards fun={logout} />} />
         </Route>
       </Route>
 

@@ -1,9 +1,10 @@
 import { useFilterMovimientos } from '../../hooks/useFilters.js'
+import { useIdleTimer } from '../../hooks/useIdleTimer.js'
 import { formatFecha } from '../../utils/funtions.js'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+
 import axios from 'axios'
-import { useIdleTimer } from '../../hooks/useIdleTimer.js'
 
 export function VerMovimientos ({ fun }) {
   const [movimientos, setMovimientos] = useState([])
