@@ -1,9 +1,9 @@
 import { BottonExportItems } from '../../components/BotonExcelDefault.jsx'
 import { fechtItemsBodegas } from '../../utils/FetchItemsData.js'
+import { DetalleItem } from '../../components/DetalleItem.jsx'
 import { useFiltersItems } from '../../hooks/useFilters.js'
 import { useIdleTimer } from '../../hooks/useIdleTimer.js'
 import { useEffect, useState } from 'react'
-import { DetalleItem } from '../../components/DetalleItem.jsx'
 
 export function Items ({ fun }) {
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -44,18 +44,20 @@ export function Items ({ fun }) {
         <p className="font-semibold">Placa</p>
         <p className="font-semibold">Estado</p>
         <p className="font-semibold">Ubicación</p>
+        <p className="font-semibold">Acciones</p>
       </article>
       {
         ItemsWthitBodegas?.length > 0
           ? filteredItems?.map(item => (
-            <article key={item._id} onClick={() => handleClick(item)}
-              className='grid grid-cols-6 shadow-md bg-slate-200 uppercase text-sm py-2 my-2 text-center hover:bg-slate-300 cursor-pointer'>
+            <article key={item._id}
+              className='grid grid-cols-7 shadow-md bg-slate-200 uppercase text-sm py-2 my-2 text-center  place-items-center'>
               <p className="font-semibold">{item.nombre}</p>
               <p className="text-gray-500">{item.descripcion}</p>
               <p className="text-gray-500">{item.serial}</p>
               <p className="text-gray-700">{item.placa}</p>
               <p className="text-gray-500">{item.estado}</p>
               <p className='text-gray-500'>{item.bodega.nombre || item.bodega}</p>
+              <button onClick={() => handleClick(item)} className='bg-green-500 w-28 p-1 rounded-md font-semibold hover:bg-green-400 hover:text-white'>Editar Item</button>
             </article>
           ))
           : <p className='text-center text-2xl font-semibold'>No Existen Items</p>
