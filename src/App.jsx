@@ -28,10 +28,10 @@ import axios from 'axios'
 
 axios.defaults.baseURL = 'http://172.20.1.160:3000/'
 
-const RolCreacionItems = ['Analista Desarrollo', 'Coordinador Soporte']
-const RolCreacionBodegas = ['Analista Desarrollo', 'Coordinador Soporte', 'Auxiliar Administrativa', 'Administrador']
-const RolCreacionSimcards = ['Analista Desarrollo', 'Coordinador Soporte']
-const RolCreacionMovimientos = ['Analista Desarrollo', 'Coordinador Soporte']
+const RolCreacionItems = ['Analista Desarrollo', 'Jefe Tecnología', 'Director Tecnología', 'Auxiliar Administrativa', 'Administrador']
+const RolCreacionBodegas = ['Analista Desarrollo', 'Jefe Tecnología', 'Director Tecnología', 'Coordinador Soporte', 'Auxiliar Administrativa', 'Administrador']
+const RolCreacionSimcards = ['Analista Desarrollo', 'Jefe Tecnología', 'Director Tecnología', 'Coordinador Soporte']
+const RolCreacionMovimientos = ['Analista Desarrollo', 'Jefe Tecnología', 'Director Tecnología', 'Coordinador Soporte']
 
 export function App () {
   const { login, logout, loggedIn, user } = useAuth()
