@@ -1,6 +1,7 @@
 import { CloseSessionIcon, HomeIcon, UsvgDownIcon } from './Icons'
 
 import { useAuth } from '../Auth/AuthContext.jsx'
+import { LockIcon, SuccesIcon } from '../components/Icons.jsx'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
@@ -28,7 +29,7 @@ export function NavBar () {
   const [activeMovements, setActiveMovements] = useState(false)
   const [activeSimcards, setActiveSimcards] = useState(false)
 
-  const { logout } = useAuth()
+  const { logout, user } = useAuth()
 
   const handleClosesession = () => {
     logout()
@@ -104,6 +105,10 @@ export function NavBar () {
                             links2.map(link => (
                               <Link to={link.to} key={link.to} className='flex items-center justify-between px-4 py-2  hover:bg-gray-600 hover:text-white'>
                                 {link.text}
+                                {user.rol === 'Analista Desarrollo' || user.rol === 'Jefe Tecnología' || user.rol === 'Director Tecnología' || user.rol === 'Coordinador Soporte' || link.text !== 'Ver Artículos'
+                                  ? <figure className='text-red-500'><LockIcon /></figure>
+                                  : <figure className='text-green-500'><SuccesIcon /></figure>
+                                }
                               </Link>
                             ))
                           }
@@ -124,6 +129,10 @@ export function NavBar () {
                           links1.map(link => (
                             <Link to={link.to} key={link.to} className='flex items-center justify-between px-4 py-2  hover:bg-gray-600 hover:text-white'>
                               {link.text}
+                              {user.rol === 'Analista Desarrollo' || user.rol === 'Jefe Tecnología' || user.rol === 'Director Tecnología' || user.rol === 'Coordinador Soporte' || link.text !== 'Ver Bodegas'
+                                ? <figure className='text-red-500'><LockIcon /></figure>
+                                : <figure className='text-green-500'><SuccesIcon /></figure>
+                              }
                             </Link>
                           ))
                         }
@@ -143,6 +152,11 @@ export function NavBar () {
                           links3.map(link => (
                             <Link to={link.to} key={link.to} className='flex items-center justify-between px-4 py-2  hover:bg-gray-600 hover:text-white'>
                               {link.text}
+                              {
+                                user.rol === 'Analista Desarrollo' || user.rol === 'Jefe Tecnología' || user.rol === 'Director Tecnología' || user.rol === 'Coordinador Soporte' || link.text !== 'Ver Simcards'
+                                  ? <figure className='text-red-500'><LockIcon /></figure>
+                                  : <figure className='text-green-500'><SuccesIcon /></figure>
+                              }
                             </Link>
                           ))
                         }
