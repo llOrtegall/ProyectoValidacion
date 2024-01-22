@@ -11,7 +11,7 @@ const options = [
   { value: 'Proyector', label: 'Proyector' },
   { value: 'PDA V1', label: 'PDA V1' },
   { value: 'PDA V2', label: 'PDA V2' },
-  { value: 'CS10', label: 'PDA V3' },
+  { value: 'CS10', label: 'CS10' },
   { value: 'NVR', label: 'NVR' },
   { value: 'Portátil', label: 'Portátil' },
   { value: 'Lector De Barras', label: 'Lector De Barras' },

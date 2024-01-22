@@ -5,6 +5,7 @@ import { VerMovimientos } from './pages/Movimientos/VerMovimientos.jsx'
 import { CrearMovimiento } from './pages/Movimientos/CrearMovimiento.jsx'
 import { AsignarItemBodega } from './pages/Items/AsignarItemBodega.jsx'
 import { AsignarSimcards } from './pages/Simcards/AsignarSimcards.jsx'
+import { MovimientoDetalle } from './pages/Movimientos/MovimientoDetalle.jsx'
 import { CreatedBodega } from './pages/Bodegas/CreatedBodega.jsx'
 import { CrearSimcard } from './pages/Simcards/CrearSimcard.jsx'
 import { Movimientos } from './pages/Simcards/Movimientos.jsx'
@@ -27,7 +28,7 @@ import axios from 'axios'
 axios.defaults.baseURL = 'http://localhost:3000/'
 
 const RolCreacionItems = ['Analista Desarrollo', 'Coordinador Soporte']
-const RolCreacionBodegas = ['Coordinador Soporte', 'Auxiliar Administrativa', 'Administrador']
+const RolCreacionBodegas = ['Analista Desarrollo', 'Coordinador Soporte', 'Auxiliar Administrativa', 'Administrador']
 const RolCreacionSimcards = ['Analista Desarrollo', 'Coordinador Soporte']
 const RolCreacionMovimientos = ['Analista Desarrollo', 'Coordinador Soporte']
 
@@ -62,6 +63,7 @@ export function App () {
           <Route path="stock/items" element={<Items fun={logout} />} />
           <Route path="stock/bodegas" element={<Bodegas fun={logout} />} />
           <Route path='stock/simcards' element={<VerSimcards fun={logout} />} />
+          <Route path='stock/movimientos/detalle/:id' element={<MovimientoDetalle />} />
         </Route>
       </Route>
 
