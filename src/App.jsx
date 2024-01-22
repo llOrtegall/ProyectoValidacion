@@ -2,10 +2,11 @@ import { Routes, Route, useNavigate } from 'react-router-dom'
 
 // TODO: Páginas
 import { MovimientoDetalle } from './pages/Movimientos/MovimientoDetalle.jsx'
-import { VerMovimientos } from './pages/Movimientos/VerMovimientos.jsx'
 import { CrearMovimiento } from './pages/Movimientos/CrearMovimiento.jsx'
 import { AsignarItemBodega } from './pages/Items/AsignarItemBodega.jsx'
+import { VerMovimientos } from './pages/Movimientos/VerMovimientos.jsx'
 import { AsignarSimcards } from './pages/Simcards/AsignarSimcards.jsx'
+import { DetalleBodega } from './pages/Bodegas/DetallesBodegas.jsx'
 import { CreatedBodega } from './pages/Bodegas/CreatedBodega.jsx'
 import { CrearSimcard } from './pages/Simcards/CrearSimcard.jsx'
 import { Movimientos } from './pages/Simcards/Movimientos.jsx'
@@ -93,6 +94,7 @@ export function App () {
         redirectTo='/bodega/home' />} >
         <Route path='/bodega/stock/bodegas/*' element={<Layout />} >
           <Route path='crearBodegas' element={<CreatedBodega fun={logout} />} />
+          <Route path='detalle/:id' element={<DetalleBodega /> } />
         </Route>
       </Route>
 
