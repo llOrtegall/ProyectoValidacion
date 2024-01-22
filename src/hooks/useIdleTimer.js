@@ -8,7 +8,6 @@ export function useIdleTimer (logout, timeout = 1000 * 60 * 5) {
     timerRef.current = setTimeout(() => {
       logout()
     }, timeout)
-    console.log('Reset timer')
   }, [logout, timeout])
 
   useEffect(() => {

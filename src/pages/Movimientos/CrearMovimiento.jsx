@@ -26,7 +26,7 @@ export function CrearMovimiento ({ fun }) {
   const searchOrigen = (ev) => {
     ev.preventDefault()
 
-    axios.get(`http://localhost:3030/getBodega/${searchBodegaOrigen}`)
+    axios.get(`/getBodega/${searchBodegaOrigen}`)
       .then(response => {
         setBodegaOrigen(response.data)
         setItems(response.data.items)
@@ -39,7 +39,7 @@ export function CrearMovimiento ({ fun }) {
   const searchDestino = (ev) => {
     ev.preventDefault()
 
-    axios.get(`http://localhost:3030/getBodega/${searchBodegaDestino}`)
+    axios.get(`/getBodega/${searchBodegaDestino}`)
       .then(response => {
         setBodegaDestino(response.data)
       })
