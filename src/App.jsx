@@ -61,7 +61,7 @@ export function App () {
         <Route path='/bodega/*' element={<Layout />} >
           <Route path='home' element={<Home fun={logout} />} />
           <Route path='stock/movimientos' element={<VerMovimientos fun={logout} />} />
-          <Route path="stock/items" element={<Items fun={logout} />} />
+          <Route path="stock/items" element={<Items fun={logout} user={user} />} />
           <Route path="stock/bodegas" element={<Bodegas fun={logout} />} />
           <Route path='stock/simcards' element={<VerSimcards fun={logout} />} />
           <Route path='stock/movimientos/detalle/:id' element={<MovimientoDetalle />} />

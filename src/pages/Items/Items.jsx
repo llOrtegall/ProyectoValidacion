@@ -1,15 +1,17 @@
 import { BottonExportItems } from '../../components/BotonExcelDefault.jsx'
+import { LockIcon } from '../../components/Icons.jsx'
 import { fechtItemsBodegas } from '../../utils/FetchItemsData.js'
 import { DetalleItem } from '../../components/DetalleItem.jsx'
 import { useFiltersItems } from '../../hooks/useFilters.js'
 import { useIdleTimer } from '../../hooks/useIdleTimer.js'
 import { useEffect, useState } from 'react'
 
-export function Items ({ fun }) {
+export function Items ({ fun, user }) {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [selectedItem, setSelectedItem] = useState(null)
 
   const logout = fun
+
   useIdleTimer(logout, 600000)
 
   useEffect(() => {
@@ -57,7 +59,14 @@ export function Items ({ fun }) {
               <p className="text-gray-700">{item.placa}</p>
               <p className="text-gray-500">{item.estado}</p>
               <p className='text-gray-500'>{item.bodega.nombre || item.bodega}</p>
-              <button onClick={() => handleClick(item)} className='bg-green-500 w-28 p-1 rounded-md font-semibold hover:bg-green-400 hover:text-white'>Editar Item</button>
+              {
+                user.rol === 'Analista Desarrollo' || user.rol === 'Jefe Tecnología' || user.rol === 'Director Tecnología' || user.rol === 'Coordinador Soporte'
+                  ? <button onClick={() => handleClick(item)} className='bg-green-500 w-28 p-1 rounded-md font-semibold hover:bg-green-400 hover:text-white'>Editar Item</button>
+                  : <div className='flex items-center gap-2'>
+                      <button className="bg-green-300 text-white font-bold py-2 px-4 rounded" disabled>Editar Item</button>
+                      <div className='text-red-500'><LockIcon /></div>
+                    </div>
+              }
             </article>
           ))
           : <p className='text-center text-2xl font-semibold'>No Existen Items</p>
@@ -65,13 +74,15 @@ export function Items ({ fun }) {
       <section className='flex flex-col'>
       </section>
       {
-        isModalOpen === true
-          ? <div className="fixed inset-0 flex items-center justify-center z-50">
-            <div className="absolute inset-0 bg-black opacity-50"></div>
-            <section className="relative bg-white p-5 rounded-md">
-              <DetalleItem item={selectedItem} onClose={() => setIsModalOpen(false)} />
-            </section>
-          </div>
+        user.rol === 'Analista Desarrollo' || user.rol === 'Jefe Tecnología' || user.rol === 'Director Tecnología' || user.rol === 'Coordinador Soporte'
+          ? (isModalOpen === true
+              ? <div className="fixed inset-0 flex items-center justify-center z-50">
+              <div className="absolute inset-0 bg-black opacity-50"></div>
+              <section className="relative bg-white p-5 rounded-md">
+                <DetalleItem item={selectedItem} onClose={() => setIsModalOpen(false)} />
+              </section>
+            </div>
+              : <></>)
           : <></>
       }
 
