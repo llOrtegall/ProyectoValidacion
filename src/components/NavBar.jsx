@@ -71,7 +71,7 @@ export function NavBar () {
 
   return (
 
-    <nav className="border-gray-200 bg-gray-900">
+    <nav className="border-gray-200 w-full bg-gray-900">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         {/* //TODO: logo Gane */}
         <Link to="/bodega/home">

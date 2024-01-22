@@ -25,7 +25,7 @@ import { useAuth } from './Auth/AuthContext.jsx'
 import { useEffect } from 'react'
 import axios from 'axios'
 
-axios.defaults.baseURL = 'http://localhost:3000/'
+axios.defaults.baseURL = 'http://172.20.1.160:3000/'
 
 const RolCreacionItems = ['Analista Desarrollo', 'Coordinador Soporte']
 const RolCreacionBodegas = ['Analista Desarrollo', 'Coordinador Soporte', 'Auxiliar Administrativa', 'Administrador']

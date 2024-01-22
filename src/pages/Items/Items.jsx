@@ -16,7 +16,7 @@ export function Items ({ fun }) {
     fechtItemsBodegas()
       .then(data => setItemBodega(data))
       .catch(err => console.log(err))
-  }, [])
+  }, [isModalOpen])
 
   const handleClick = (item) => {
     setSelectedItem(item)
