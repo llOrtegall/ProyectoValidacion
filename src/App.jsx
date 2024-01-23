@@ -54,7 +54,7 @@ export function App () {
 
       <Route path='/bodega/login' element={<LoginForm />} />
 
-      <Route path='/bodega/*' element={<ProtectdeRoutes isAllowed={!!loggedIn} />} >
+      <Route path='/bodega/*' element={<ProtectdeRoutes rol={user.rol} isAllowed={!!loggedIn} />} >
         <Route path='home' element={<Home />} />
         <Route path='stock/items' element={<Items fun={logout} user={user}/>} />
         <Route path='stock/movimientos' element={<VerMovimientos fun={logout}/>} />
@@ -64,17 +64,17 @@ export function App () {
         <Route path='stock/simcards' element={<VerSimcards fun={logout}/>} />
       </Route>
 
-      <Route path='/bodega/*' element={<ProtectdeRoutes isAllowed={!!loggedIn && CrearAsignarItems.includes(user.rol)} redirectTo='/bodega/home'/>} >
+      <Route path='/bodega/*' element={<ProtectdeRoutes rol={user.rol} isAllowed={!!loggedIn && CrearAsignarItems.includes(user.rol)} redirectTo='/bodega/home'/>} >
         <Route path='stock/items/crearItems' element={<CreatedItems fun={logout} user={user}/>} />
         <Route path='stock/items/asignarItems' element={<AsignarItemBodega fun={logout} user={user}/>} />
       </Route>
 
-      <Route path='/bodega/*' element={<ProtectdeRoutes isAllowed={!!loggedIn && CrearBodegayMovimientos.includes(user.rol)} redirectTo='/bodega/home'/>} >
+      <Route path='/bodega/*' element={<ProtectdeRoutes rol={user.rol} isAllowed={!!loggedIn && CrearBodegayMovimientos.includes(user.rol)} redirectTo='/bodega/home'/>} >
         <Route path='stock/bodegas/crearBodegas' element={<CreatedBodega fun={logout} user={user}/>} />
         <Route path='stock/bodegas/crearMovimientos' element={<CrearMovimiento fun={logout} user={user}/>} />
       </Route>
 
-      <Route path='/bodega/*' element={<ProtectdeRoutes isAllowed={!!loggedIn && CrearMoverAsignSimcards.includes(user.rol)} redirectTo='/bodega/home'/>} >
+      <Route path='/bodega/*' element={<ProtectdeRoutes rol={user.rol} isAllowed={!!loggedIn && CrearMoverAsignSimcards.includes(user.rol)} redirectTo='/bodega/home'/>} >
         <Route path='stock/simcards/crearSimcards' element={<CrearSimcard fun={logout} user={user}/>} />
         <Route path='stock/simcards/asignarSimcards' element={<AsignarSimcards fun={logout} user={user}/>} />
         <Route path='stock/simcards/movimientosSimcards' element={<CreaMovimientosSim fun={logout} user={user}/>} />

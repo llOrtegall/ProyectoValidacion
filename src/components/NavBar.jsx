@@ -1,30 +1,43 @@
-import { CloseSessionIcon, HomeIcon, UsvgDownIcon } from './Icons'
+import { CloseSessionIcon, HomeIcon, SuccesIcon, LockIcon, UsvgDownIcon } from './Icons'
 
 import { useAuth } from '../Auth/AuthContext.jsx'
-// import { LockIcon, SuccesIcon } from '../components/Icons.jsx'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 const links1 = [
-  { to: '/bodega/stock/bodegas', text: 'Ver Bodegas' },
-  { to: '/bodega/stock/bodegas/crearBodegas', text: 'Crear Bodega' },
-  { to: '/bodega/stock/bodegas/crearMovimientos', text: 'Crear Movimiento' }
+  { to: '/bodega/stock/bodegas', text: 'Ver Bodegas', block: false },
+  { to: '/bodega/stock/bodegas/crearBodegas', text: 'Crear Bodega', block: true },
+  { to: '/bodega/stock/bodegas/crearMovimientos', text: 'Crear Movimiento', block: true }
 ]
 
 const links2 = [
-  { to: '/bodega/stock/items', text: 'Ver Artículos' },
-  { to: '/bodega/stock/items/crearItems', text: 'Crear Items' },
-  { to: '/bodega/stock/items/asignarItems', text: 'Asig. Item Bodega' }
+  { to: '/bodega/stock/items', text: 'Ver Artículos', block: false },
+  { to: '/bodega/stock/items/crearItems', text: 'Crear Items', block: true },
+  { to: '/bodega/stock/items/asignarItems', text: 'Asig. Item Bodega', block: true }
 ]
 
 const links3 = [
-  { to: '/bodega/stock/simcards', text: 'Ver Simcards' },
-  { to: '/bodega/stock/simcards/crearSimcards', text: 'Crear Simcard' },
-  { to: '/bodega/stock/simcards/asignarSimcards', text: 'Asig. SIM Bodega' },
-  { to: '/bodega/stock/simcards/movimientosSimcards', text: 'Crear Movimiento SIM' }
+  { to: '/bodega/stock/simcards', text: 'Ver Simcards', block: false },
+  { to: '/bodega/stock/simcards/crearSimcards', text: 'Crear Simcard', block: true },
+  { to: '/bodega/stock/simcards/asignarSimcards', text: 'Asig. SIM Bodega', block: true },
+  { to: '/bodega/stock/simcards/movimientosSimcards', text: 'Crear Movimiento SIM', block: true }
 ]
 
-export function NavBar () {
+const Validar = ['Analista Desarrollo', 'Jefe Tecnología', 'Director Tecnología', 'Auxiliar Administrativa', 'Auxiliar Administrativo', 'Administrador', 'Coordinador Soporte']
+
+const RenderIconBlock = (block, { rol }) => {
+  if (block === false) {
+    return <div className='text-green-500'><SuccesIcon /></div>
+  }
+
+  if (block === true && Validar.includes(rol)) {
+    return <div className='text-green-500'><SuccesIcon /></div>
+  }
+
+  return <div className='text-red-500'><LockIcon /></div>
+}
+
+export function NavBar (rol) {
   const [activeArticles, setActiveArticles] = useState(false)
   const [activeMovements, setActiveMovements] = useState(false)
   const [activeSimcards, setActiveSimcards] = useState(false)
@@ -105,6 +118,7 @@ export function NavBar () {
                             links2.map(link => (
                               <Link to={link.to} key={link.to} className='flex items-center justify-between px-4 py-2  hover:bg-gray-600 hover:text-white'>
                                 {link.text}
+                                {RenderIconBlock(link.block, rol)}
                               </Link>
                             ))
                           }
@@ -125,6 +139,7 @@ export function NavBar () {
                           links1.map(link => (
                             <Link to={link.to} key={link.to} className='flex items-center justify-between px-4 py-2  hover:bg-gray-600 hover:text-white'>
                               {link.text}
+                              {RenderIconBlock(link.block, rol)}
                             </Link>
                           ))
                         }
@@ -144,6 +159,7 @@ export function NavBar () {
                           links3.map(link => (
                             <Link to={link.to} key={link.to} className='flex items-center justify-between px-4 py-2  hover:bg-gray-600 hover:text-white'>
                               {link.text}
+                              {RenderIconBlock(link.block, rol)}
                             </Link>
                           ))
                         }
