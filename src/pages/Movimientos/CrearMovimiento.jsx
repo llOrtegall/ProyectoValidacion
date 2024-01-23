@@ -1,14 +1,16 @@
 import { MessageDisplay } from '../../components/MessageDisplay.jsx'
 import { ItemsAgregados } from '../../components/ItemsAgregados.jsx'
 import { useFiltersItems } from '../../hooks/useFilters.js'
+import { useIdleTimer } from '../../hooks/useIdleTimer.js'
 import { useCarItems } from '../../hooks/useCartItems.js'
 import { AddIcon } from '../../components/Icons.jsx'
 import { useState } from 'react'
 import axios from 'axios'
-import { useIdleTimer } from '../../hooks/useIdleTimer.js'
 
-export function CrearMovimiento ({ fun }) {
+export function CrearMovimiento ({ fun, user }) {
   const logout = fun
+  const nombres = user.nombres + ' ' + user.apellidos
+
   useIdleTimer(logout, 600000)
   const [bodegaDestino, setBodegaDestino] = useState(null)
   const [bodegaOrigen, setBodegaOrigen] = useState(null)
@@ -16,7 +18,6 @@ export function CrearMovimiento ({ fun }) {
   const [searchBodegaDestino, setSearchBodegaDestino] = useState('')
 
   const [descripcion, setDescripcion] = useState('')
-  const [encargado, setEncargado] = useState('')
   const [incidente, setIncidente] = useState('')
   const [items, setItems] = useState([])
 
@@ -66,7 +67,7 @@ export function CrearMovimiento ({ fun }) {
       bodegaOrigen: bodegaOrigen._id,
       bodegaDestino: bodegaDestino._id,
       itemsIds: carItems,
-      encargado,
+      encargado: nombres,
       descripcion,
       incidente
     })
@@ -77,7 +78,6 @@ export function CrearMovimiento ({ fun }) {
         setBodegaDestino(null)
         setItems([])
         setCarItems([])
-        setEncargado('')
         setDescripcion('')
         setIncidente('')
         setTimeout(() => {
@@ -162,9 +162,8 @@ export function CrearMovimiento ({ fun }) {
           <footer className="py-4 bg-slate-600 rounded-md text-white">
             <form className="grid grid-cols-2 gap-3">
               <label className="flex h-10 items-center ml-3"> <span className="font-semibold w-32">Encargado:</span>
-                <input type="text" className="w-full p-2 rounded-md col-span-1 bg-slate-100 no-underline text-black"
-                  value={encargado}
-                  onChange={ev => setEncargado(ev.target.value)}
+                <input type="text" className="w-full p-2 rounded-md col-span-1 bg-green-300 no-underline text-black"
+                  value={nombres} readOnly
                   placeholder="Pepito Perez Muñoz" />
               </label>
 
@@ -176,7 +175,7 @@ export function CrearMovimiento ({ fun }) {
               </label>
 
               <label className="col-span-3 mx-3"> <span className="font-semibold w-40">Observaciones:</span>
-                <input type="text" className="w-full p-2 rounded-md bg-slate-100 no-underline text-black"
+                <input type="text" className="w-full p-2 rounded-md bg-slate-100 no-underline text-black "
                   value={descripcion}
                   onChange={ev => setDescripcion(ev.target.value)}
                   placeholder="texto para registrar observación ..." />
