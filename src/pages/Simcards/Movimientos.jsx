@@ -9,7 +9,7 @@ import { useState } from 'react'
 import axios from 'axios'
 import { useIdleTimer } from '../../hooks/useIdleTimer.js'
 
-export function Movimientos ({ fun }) {
+export function CreaMovimientosSim ({ fun }) {
   const logout = fun
   useIdleTimer(logout, 600000)
   const [bodegaDestino, setBodegaDestino] = useState(null)

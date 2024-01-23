@@ -4,7 +4,7 @@ import { BodegaData } from '../../utils/FetchItemsData.js'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
-export function Bodegas ({ fun }) {
+export function VerBodegas ({ fun }) {
   const [bodegas, setBodegas] = useState([])
   const logout = fun
 

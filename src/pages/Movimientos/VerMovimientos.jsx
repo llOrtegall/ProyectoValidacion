@@ -36,12 +36,12 @@ export function VerMovimientos ({ fun }) {
   })
 
   return (
-    <main className="w-full h-[93vh] overflow-auto xl:text-xs 2xl:text-sm">
-      <section className='p-2 bg-blue-500 mb-2'>
+    <section className="w-full h-[93vh] overflow-auto xl:text-xs 2xl:text-sm">
+      <article className='p-2 bg-blue-500 mb-2'>
         <label className='pr-2 font-semibold'>Filtro: N° Incidente | Encargado : </label>
         <input type="text" value={searchMovimiento} onChange={ev => setSearchMovimiento(ev.target.value)} placeholder="Buscar Movimiento..."
           className="bg-slate-100 w-64 p-2 rounded-md border border-black" />
-      </section>
+      </article>
       <article className='grid grid-cols-8 py-2 gap-4 place-content-center  place-items-center border mx-2  border-black bg-gradient-to-b from-cyan-200 to-blue-300 font-semibold'>
         <span className="overflow-ellipsis overflow-hidden cursor-pointer hover:underline"
           onClick={toggleSortOrder}>N° Mov. Generado <span>{sortOrder === 'asc' ? '▼' : '▲'}</span></span>
@@ -71,6 +71,6 @@ export function VerMovimientos ({ fun }) {
           </Link>
         ))
       }
-    </main>
+    </section>
   )
 }
