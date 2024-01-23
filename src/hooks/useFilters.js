@@ -3,10 +3,10 @@ import { useState, useMemo } from 'react'
 export function useFiltersItems (initialItems) {
   const [search, setSearch] = useState('')
   const filteredItems = useMemo(() => {
-    return initialItems.filter(({ nombre, placa, serial }) =>
-      nombre.toLowerCase().includes(search.toLowerCase()) ||
-      placa.toLowerCase().includes(search.toLowerCase()) ||
-      serial.toLowerCase().includes(search.toLowerCase())
+    return initialItems.filter(({ Nombre, Placa, Serial }) =>
+      Nombre.toLowerCase().includes(search.toLowerCase()) ||
+      Placa.toLowerCase().includes(search.toLowerCase()) ||
+      Serial.toLowerCase().includes(search.toLowerCase())
     )
   }, [search, initialItems])
 

@@ -4,16 +4,16 @@ import { useState } from 'react'
 import axios from 'axios'
 
 export function DetalleItem ({ item, onClose }) {
-  const BodegaNombre = item.bodega.nombre || 'No Asignado'
+  const BodegaNombre = item.bodega !== undefined ? item.bodega.Nombre : 'No Asignado'
   const [message, setMessage] = useState('')
   const [error, setError] = useState(false)
 
   const [formData, setFormData] = useState({
-    id: item._id,
-    serial: item.serial,
-    placa: item.placa,
-    estado: item.estado,
-    descripcion: item.descripcion
+    id: item.Id,
+    serial: item.Serial,
+    placa: item.Placa,
+    estado: item.Estado,
+    descripcion: item.Descripcion
   })
 
   const handleInputChange = (event) => {
@@ -43,7 +43,7 @@ export function DetalleItem ({ item, onClose }) {
 
   return (
     <form onSubmit={handleSubmit} className='bg-blue-200 p-6 relative flex flex-col items-center gap-4'>
-      <h2 className='font-semibold'>Item Seleccionado UUID: <span className='uppercase font-normal'>{item._id}</span></h2>
+      <h2 className='font-semibold'>Item Seleccionado UUID: <span className='uppercase font-normal'>{item.Id}</span></h2>
       <button className='absolute top-0 right-0 hover:bg-red-500 rounded-full hover:text-white' onClick={onClose}><CloseIcon /></button>
       <article className='grid grid-cols-2 gap-4'>
         <div className='flex justify-between items-center w-72'>

@@ -1,23 +1,22 @@
-import { BottonExportItems } from '../../components/BotonExcelDefault.jsx'
-import { fechtItemsBodegas } from '../../utils/FetchItemsData.js'
+import { RenderItems } from '../../components/RenderItems.jsx'
 import { DetalleItem } from '../../components/DetalleItem.jsx'
+import { BottonExportItems } from '../../components/BotonExcelDefault.jsx'
 import { useFiltersItems } from '../../hooks/useFilters.js'
 import { useIdleTimer } from '../../hooks/useIdleTimer.js'
-import { LockIcon } from '../../components/Icons.jsx'
 import { useEffect, useState } from 'react'
+
+import { useItems } from '../../hooks/useItems.js'
 
 export function Items ({ fun, user }) {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [selectedItem, setSelectedItem] = useState(null)
 
+  const { items, getItems } = useItems()
   const logout = fun
-
   useIdleTimer(logout, 600000)
 
   useEffect(() => {
-    fechtItemsBodegas()
-      .then(data => setItemBodega(data))
-      .catch(err => console.log(err))
+    getItems()
   }, [isModalOpen])
 
   const handleClick = (item) => {
@@ -25,12 +24,11 @@ export function Items ({ fun, user }) {
     setIsModalOpen(true)
   }
 
-  const [ItemsWthitBodegas, setItemBodega] = useState([])
-  const { search, setSearch, filteredItems } = useFiltersItems(ItemsWthitBodegas)
+  const { search, setSearch, filteredItems } = useFiltersItems(items)
 
   return (
-    <section className='h-[93vh] overflow-auto'>
 
+    <section className='h-[93vh] overflow-auto'>
       <section className='flex items-center justify-center gap-6 bg-blue-500  shadow-lg py-2'>
         <p><span className="font-semibold pr-2">Filtrar:</span>| Placa | Serial | Nombre |</p>
         <input type="text"
@@ -39,36 +37,8 @@ export function Items ({ fun, user }) {
         <BottonExportItems datos={filteredItems} />
       </section>
 
-      <article className='flex justify-around text-center bg-blue-400 shadow-lg py-2'>
-        <p className="font-semibold">Items</p>
-        <p className="font-semibold">Descripción</p>
-        <p className="font-semibold">Serial</p>
-        <p className="font-semibold">Placa</p>
-        <p className="font-semibold">Estado</p>
-        <p className="font-semibold">Ubicación</p>
-        <p className="font-semibold">Acciones</p>
-      </article>
-      {
-        ItemsWthitBodegas?.length > 0
-          ? filteredItems?.map(item => (
-            <article key={item._id}
-              className='grid grid-cols-7 shadow-md bg-slate-200 uppercase text-sm py-2 my-2 text-center  place-items-center'>
-              <p className="font-semibold">{item.nombre}</p>
-              <p className="text-gray-500">{item.descripcion}</p>
-              <p className="text-gray-500">{item.serial}</p>
-              <p className="text-gray-700">{item.placa}</p>
-              <p className="text-gray-500">{item.estado}</p>
-              <p className='text-gray-500'>{item.bodega.nombre || item.bodega}</p>
-              {
-                user.rol === 'Analista Desarrollo' || user.rol === 'Jefe Tecnología' || user.rol === 'Director Tecnología' || user.rol === 'Coordinador Soporte'
-                  ? <button onClick={() => handleClick(item)} className='bg-green-500 w-28 p-1 rounded-md font-semibold hover:bg-green-400 hover:text-white'>Editar Item</button>
-                  : <figure className='text-red-500'><LockIcon /></figure>
+      <RenderItems items={items} user={user} handleClick={handleClick} filteredItems={filteredItems}/>
 
-              }
-            </article>
-          ))
-          : <p className='text-center text-2xl font-semibold'>No Existen Items</p>
-      }
       <section className='flex flex-col'>
       </section>
       {
@@ -83,7 +53,6 @@ export function Items ({ fun, user }) {
               : <></>)
           : <></>
       }
-
     </section>
   )
 }
