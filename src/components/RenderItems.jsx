@@ -16,7 +16,7 @@ export const RenderItems = ({ items, user, handleClick, filteredItems }) => {
       <article>
         {items?.length > 0
           ? filteredItems?.map(item => (
-            <article key={item._id}
+            <article key={item.Id}
               className='grid grid-cols-7 shadow-md bg-slate-200 uppercase text-sm py-2 my-2 text-center  place-items-center'>
               <p className="font-semibold">{item.Nombre}</p>
               <p className="text-gray-500">{item.Descripcion}</p>
