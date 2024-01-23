@@ -1,9 +1,9 @@
 import { BottonExportItems } from '../../components/BotonExcelDefault.jsx'
-import { LockIcon } from '../../components/Icons.jsx'
 import { fechtItemsBodegas } from '../../utils/FetchItemsData.js'
 import { DetalleItem } from '../../components/DetalleItem.jsx'
 import { useFiltersItems } from '../../hooks/useFilters.js'
 import { useIdleTimer } from '../../hooks/useIdleTimer.js'
+import { LockIcon } from '../../components/Icons.jsx'
 import { useEffect, useState } from 'react'
 
 export function Items ({ fun, user }) {
@@ -29,7 +29,7 @@ export function Items ({ fun, user }) {
   const { search, setSearch, filteredItems } = useFiltersItems(ItemsWthitBodegas)
 
   return (
-    <section className='relative'>
+    <section className='h-[93vh] overflow-auto'>
 
       <section className='flex items-center justify-center gap-6 bg-blue-500  shadow-lg py-2'>
         <p><span className="font-semibold pr-2">Filtrar:</span>| Placa | Serial | Nombre |</p>

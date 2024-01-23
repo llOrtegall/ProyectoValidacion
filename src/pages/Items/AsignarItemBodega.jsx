@@ -1,10 +1,10 @@
+import { useFiltersBodegas, useFiltersItems } from '../../hooks/useFilters.js'
 import { BodegaData, fechtItemsBodegas } from '../../utils/FetchItemsData.js'
 import { MessageDisplay } from '../../components/MessageDisplay.jsx'
 import { ItemsAgregados } from '../../components/ItemsAgregados.jsx'
 import { useCarItems } from '../../hooks/useCartItems.js'
 import { AddIcon } from '../../components/Icons.jsx'
 import { useEffect, useState } from 'react'
-import { useFiltersBodegas, useFiltersItems } from '../../hooks/useFilters.js'
 import axios from 'axios'
 
 export function AsignarItemBodega () {
