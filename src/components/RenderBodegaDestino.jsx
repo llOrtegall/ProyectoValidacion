@@ -4,18 +4,32 @@ import { DeleteIcon2 } from './Icons'
 import { useFilterSimcards2 } from '../hooks/useFilters'
 
 // eslint-disable-next-line react/prop-types
-export function RenderBodegaDestino ({ bodegaDestino, setBodegaDestino, cartSims2, handleAddSimcard2 }) {
+export function RenderBodegaDestino ({ bodegaDestino, setBodegaDestino, cartSims2, handleAddSimcard2, fun }) {
   const [searchBodegaDestino, setSearchBodegaDestino] = useState('')
+
+  const hadlesearchnew = fun
 
   const searchDestino = (ev) => {
     ev.preventDefault()
-    axios.get(`http://localhost:3030/getBodegaSimcards/${searchBodegaDestino}`)
-      .then(response => {
-        setBodegaDestino(response.data)
-      })
-      .catch(error => {
-        console.log(error)
-      })
+    if (bodegaDestino !== null) {
+      hadlesearchnew()
+      setBodegaDestino(null)
+      axios.get(`/getBodegaSimcards/${searchBodegaDestino}`)
+        .then(response => {
+          setBodegaDestino(response.data)
+        })
+        .catch(error => {
+          console.log(error)
+        })
+    } else {
+      axios.get(`/getBodegaSimcards/${searchBodegaDestino}`)
+        .then(response => {
+          setBodegaDestino(response.data)
+        })
+        .catch(error => {
+          console.log(error)
+        })
+    }
   }
   // eslint-disable-next-line react/prop-types
   const simCards2 = bodegaDestino?.simcards || []

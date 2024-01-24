@@ -8,7 +8,7 @@ import axios from 'axios'
 
 export function VerMovimientos ({ fun }) {
   const [movimientos, setMovimientos] = useState([])
-  const [sortOrder, setSortOrder] = useState('asc')
+  const [sortOrder, setSortOrder] = useState('desc')
   const logout = fun
 
   useIdleTimer(logout, 600000)

@@ -4,18 +4,33 @@ import { useState } from 'react'
 import axios from 'axios'
 
 // eslint-disable-next-line react/prop-types
-export function RenderBodegaOrigen ({ bodegaOrigen, setBodegaOrigen, cartSims, handleAddSimcard }) {
+export function RenderBodegaOrigen ({ bodegaOrigen, setBodegaOrigen, cartSims, handleAddSimcard, fun }) {
   const [searchBodegaOrigen, setSearchBodegaOrigen] = useState('')
+
+  const hadlesearchnew = fun
 
   const searchOrigen = (ev) => {
     ev.preventDefault()
-    axios.get(`http://localhost:3030/getBodegaSimcards/${searchBodegaOrigen}`)
-      .then(response => {
-        setBodegaOrigen(response.data)
-      })
-      .catch(error => {
-        console.log(error)
-      })
+
+    if (bodegaOrigen !== null) {
+      hadlesearchnew()
+      setBodegaOrigen(null)
+      axios.get(`/getBodegaSimcards/${searchBodegaOrigen}`)
+        .then(response => {
+          setBodegaOrigen(response.data)
+        })
+        .catch(error => {
+          console.log(error)
+        })
+    } else {
+      axios.get(`/getBodegaSimcards/${searchBodegaOrigen}`)
+        .then(response => {
+          setBodegaOrigen(response.data)
+        })
+        .catch(error => {
+          console.log(error)
+        })
+    }
   }
 
   // eslint-disable-next-line react/prop-types

@@ -9,14 +9,13 @@ import { useState } from 'react'
 import axios from 'axios'
 import { useIdleTimer } from '../../hooks/useIdleTimer.js'
 
-export function CreaMovimientosSim ({ fun }) {
+export function CreaMovimientosSim ({ fun, user }) {
   const logout = fun
   useIdleTimer(logout, 600000)
   const [bodegaDestino, setBodegaDestino] = useState(null)
   const [bodegaOrigen, setBodegaOrigen] = useState(null)
 
   const [descripcion, setDescripcion] = useState('')
-  const [encargado, setEncargado] = useState('')
   const [incidente, setIncidente] = useState('')
 
   const [message, setMessage] = useState('')
@@ -24,6 +23,11 @@ export function CreaMovimientosSim ({ fun }) {
 
   const { cartSims, setCartSims, handleAddSimcard, handleRemoveItem } = useCarSimcards()
   const { cartSims2, setCartSims2, handleAddSimcard2, handleRemoveItem2 } = useCarSimcards2()
+
+  const hadlesearchnew = () => {
+    setCartSims([])
+    setCartSims2([])
+  }
 
   const handleClick = () => {
     if (!bodegaOrigen || !bodegaDestino) {
@@ -36,13 +40,13 @@ export function CreaMovimientosSim ({ fun }) {
     axios.post('/moveSimcard', {
       bodegas: { bodegaOrigen: bodegaOrigen._id, bodegaDestino: bodegaDestino._id },
       simsIds: { entran: cartSims, salen: cartSims2 },
-      encargado,
+      encargado: nombres,
       descripcion,
       incidente
     })
       .then(res => {
         setMessage(res.data.message); setBodegaOrigen(null); setBodegaDestino(null); setCartSims([])
-        setCartSims2([]); setEncargado(''); setDescripcion(''); setIncidente(''); setTimeout(() => { setMessage(''); setError('') }, 4000)
+        setCartSims2([]); setDescripcion(''); setIncidente(''); setTimeout(() => { setMessage(''); setError('') }, 4000)
       })
       .catch(err => {
         setError(err.response.data.error)
@@ -50,14 +54,16 @@ export function CreaMovimientosSim ({ fun }) {
       })
   }
 
+  const nombres = user.nombres + ' ' + user.apellidos
+
   return (
     <main className="w-full min-h-[93vh] ">
 
       <section className="grid grid-cols-4 p-2 gap-2">
         {/* //*: Renderizado Bodega Origen */}
-        <RenderBodegaOrigen bodegaOrigen={bodegaOrigen} setBodegaOrigen={setBodegaOrigen} cartSims={cartSims} handleAddSimcard={handleAddSimcard} />
+        <RenderBodegaOrigen bodegaOrigen={bodegaOrigen} setBodegaOrigen={setBodegaOrigen} cartSims={cartSims} handleAddSimcard={handleAddSimcard} fun={hadlesearchnew}/>
         {/* //*: Renderizado Bodega Destino */}
-        <RenderBodegaDestino bodegaDestino={bodegaDestino} setBodegaDestino={setBodegaDestino} cartSims2={cartSims2} handleAddSimcard2={handleAddSimcard2} />
+        <RenderBodegaDestino bodegaDestino={bodegaDestino} setBodegaDestino={setBodegaDestino} cartSims2={cartSims2} handleAddSimcard2={handleAddSimcard2} fun={hadlesearchnew}/>
       </section>
 
       <article className='mx-2 rounded-md'>
@@ -68,11 +74,11 @@ export function CreaMovimientosSim ({ fun }) {
 
       <section>
         {/* //* Renderizado Footer */}
-        <FooterMovSim encargado={encargado} setEncargado={setEncargado} incidente={incidente} setIncidente={setIncidente}
+        <FooterMovSim encargado={nombres} incidente={incidente} setIncidente={setIncidente}
           descripcion={descripcion} setDescripcion={setDescripcion} handleClick={handleClick} />
       </section>
 
-      <section>
+      <section className='pt-4'>
         {/* //* Renderizado Mensajes Envio o Error */}
         <MessageDisplay message={message} error={error} />
       </section>

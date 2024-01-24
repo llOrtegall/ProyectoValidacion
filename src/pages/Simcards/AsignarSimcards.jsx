@@ -58,6 +58,18 @@ export function AsignarSimcards () {
     }
   }
 
+  const simsMap = () => {
+    return simConBodega.map(item => ({
+      Id: item._id,
+      Numero: item.numero,
+      Descripcion: item.descripcion,
+      Operador: item.operador,
+      Serial: item.serial,
+      Estado: item.estado,
+      Bodega: item.bodega === 'No Asignado' ? 'No Asignado' : item.bodega.nombre
+    }))
+  }
+
   return (
     <main className="w-full h-[93vh] flex justify-around">
 
@@ -97,7 +109,7 @@ export function AsignarSimcards () {
           {
             carItems && (
               carItems?.map(item => (
-                <ItemsAgregados id={item} key={item} items={simConBodega} handleRemoveItem={handleRemoveItem} />
+                <ItemsAgregados id={item} key={item} items={simsMap()} handleRemoveItem={handleRemoveItem} />
               ))
             )
           }
