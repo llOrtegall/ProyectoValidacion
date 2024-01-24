@@ -49,20 +49,21 @@ export function CrearMovimiento ({ fun, user }) {
       })
   }
 
-  const itemsOrigen = bodegaOrigen?.items || []
-
+  const itemsMap = () => {
+    return items.map(item => ({
+      Id: item._id,
+      Nombre: item.nombre,
+      Descripcion: item.descripcion,
+      Placa: item.placa,
+      Serial: item.serial,
+      Estado: item.estado
+    }))
+  }
+  const ItemsMapp = itemsMap()
   const { carItems, handleAddItem, handleRemoveItem, setCarItems } = useCarItems()
-  const { search, setSearch, filteredItems } = useFiltersItems(itemsOrigen)
+  const { search, setSearch, filteredItems } = useFiltersItems(ItemsMapp)
 
   const handleClick = () => {
-    if (!bodegaOrigen || !bodegaDestino) {
-      setTimeout(() => {
-        setMessage('')
-        setError('')
-      }, 4000)
-      return setError('Debe Ingresar Una Bodega De Origen y Una De Destino')
-    }
-
     axios.post('/moveItem', {
       bodegaOrigen: bodegaOrigen._id,
       bodegaDestino: bodegaDestino._id,
@@ -143,13 +144,13 @@ export function CrearMovimiento ({ fun, user }) {
             {
               bodegaOrigen && (
                 filteredItems.map(item => (
-                  <section key={item._id} className="w-full grid grid-cols-4 p-2 bg-blue-500 rounded-md mb-2 place-items-center text-white transition-colors hover:text-black hover:bg-slate-200 cursor-default">
-                    <p>{item.nombre}</p>
-                    <p>{item.placa}</p>
-                    <p>{item.serial}</p>
+                  <section key={item.Id} className="w-full grid grid-cols-4 p-2 bg-blue-500 rounded-md mb-2 place-items-center text-white transition-colors hover:text-black hover:bg-slate-200 cursor-default">
+                    <p>{item.Nombre}</p>
+                    <p>{item.Placa}</p>
+                    <p>{item.Serial}</p>
                     <button
-                      onClick={() => handleAddItem(item._id)}
-                      className={carItems.includes(item._id) ? 'added' : 'rounded-full transition-colors hover:bg-green-300  hover:text-black'}
+                      onClick={() => handleAddItem(item.Id)}
+                      className={carItems.includes(item.Id) ? 'added' : 'rounded-full transition-colors hover:bg-green-300  hover:text-black'}
                     >
                       <AddIcon />
                     </button>
@@ -203,7 +204,7 @@ export function CrearMovimiento ({ fun, user }) {
               {
                 carItems && (
                   carItems?.map(item => (
-                    <ItemsAgregados id={item} key={item} items={items} handleRemoveItem={handleRemoveItem} />
+                    <ItemsAgregados id={item} key={item} items={filteredItems} handleRemoveItem={handleRemoveItem} />
                   ))
                 )
               }

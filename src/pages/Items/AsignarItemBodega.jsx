@@ -1,31 +1,28 @@
 import { useFiltersBodegas, useFiltersItems } from '../../hooks/useFilters.js'
-import { BodegaData, fechtItemsBodegas } from '../../utils/FetchItemsData.js'
+import { BodegaData } from '../../utils/FetchItemsData.js'
 import { MessageDisplay } from '../../components/MessageDisplay.jsx'
 import { ItemsAgregados } from '../../components/ItemsAgregados.jsx'
+import { useItems } from '../../hooks/useItems.js'
 import { useCarItems } from '../../hooks/useCartItems.js'
 import { AddIcon } from '../../components/Icons.jsx'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 
 export function AsignarItemBodega () {
-  const [itemsConBodega, setItemsConBodega] = useState([])
   const [bodegas, setBodegas] = useState([])
-
   const [message, setMessage] = useState('')
   const [error, setError] = useState('')
 
-  const { search, setSearch, filteredItems } = useFiltersItems(itemsConBodega)
+  const { items, getItems } = useItems()
+
+  const { search, setSearch, filteredItems } = useFiltersItems(items)
   const { filteredBodegas, searchBodega, setSearchBodega } = useFiltersBodegas(bodegas)
   const { handleAddItem, handleRemoveItem, carItems, setCarItems } = useCarItems()
 
   const [sendBodega, setSendBodega] = useState('')
 
   useEffect(() => {
-    fechtItemsBodegas()
-      .then(data => {
-        setItemsConBodega(data)
-      })
-      .catch(err => console.log(err))
+    getItems()
 
     BodegaData()
       .then(data => {
@@ -41,7 +38,6 @@ export function AsignarItemBodega () {
         { sucursal: sendBodega, itemIds: carItems }
       )
       setMessage(res.data.message)
-      setItemsConBodega([])
       setBodegas([])
       setSendBodega('')
       setSearch('')
@@ -76,13 +72,13 @@ export function AsignarItemBodega () {
           className="bg-slate-200 rounded-md shadow-lg p-2 min-w-96 flex flex-col gap-2 mb-4" style={{ maxHeight: '250px', overflowY: 'auto' }}>
           {
             filteredItems.map(item => (
-              item.bodega === 'No Asignado' && (
-                <article key={item._id} value={item._id} className='grid grid-cols-6 bg-slate-300 px-2 py-1 rounded-md hover:bg-blue-200'>
-                  <p className='col-span-1'>{item.placa}</p>
-                  <p className='col-span-4 overflow-ellipsis text-center overflow-hidden'>{item.nombre}</p>
+              item.Bodega === undefined && (
+                <article key={item.Id} value={item.Id} className='grid grid-cols-6 bg-slate-300 px-2 py-1 rounded-md hover:bg-blue-200'>
+                  <p className='col-span-1'>{item.Placa}</p>
+                  <p className='col-span-4 overflow-ellipsis text-center overflow-hidden'>{item.Nombre}</p>
                   <button
-                    onClick={() => handleAddItem(item._id)}
-                    className={carItems.includes(item._id) ? 'added col-span-1 w-6' : 'hover:bg-green-300 hover:rounded-full col-span-1 w-6'}
+                    onClick={() => handleAddItem(item.Id)}
+                    className={carItems.includes(item.Id) ? 'added col-span-1 w-6' : 'hover:bg-green-300 hover:rounded-full col-span-1 w-6'}
                   >
                     <AddIcon />
                   </button>
@@ -97,7 +93,7 @@ export function AsignarItemBodega () {
           {
             carItems && (
               carItems?.map(item => (
-                <ItemsAgregados id={item} key={item} items={itemsConBodega} handleRemoveItem={handleRemoveItem} />
+                <ItemsAgregados id={item} key={item} items={items} handleRemoveItem={handleRemoveItem} />
               ))
             )
           }
