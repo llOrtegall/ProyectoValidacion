@@ -4,7 +4,7 @@ import { DeleteIcon2 } from './Icons'
 import { useFilterSimcards2 } from '../hooks/useFilters'
 
 // eslint-disable-next-line react/prop-types
-export function RenderBodegaDestino ({ bodegaDestino, setBodegaDestino, cartSims2, handleAddSimcard2, fun }) {
+export function RenderBodegaDestino ({ bodegaDestino, setBodegaDestino, cartSims2, handleAddSimcard2, fun, company }) {
   const [searchBodegaDestino, setSearchBodegaDestino] = useState('')
 
   const hadlesearchnew = fun
@@ -14,7 +14,7 @@ export function RenderBodegaDestino ({ bodegaDestino, setBodegaDestino, cartSims
     if (bodegaDestino !== null) {
       hadlesearchnew()
       setBodegaDestino(null)
-      axios.get(`/getBodegaSimcards/${searchBodegaDestino}`)
+      axios.get(`/getBodegaSimcards/${company}/${searchBodegaDestino}`)
         .then(response => {
           setBodegaDestino(response.data)
         })
@@ -22,7 +22,7 @@ export function RenderBodegaDestino ({ bodegaDestino, setBodegaDestino, cartSims
           console.log(error)
         })
     } else {
-      axios.get(`/getBodegaSimcards/${searchBodegaDestino}`)
+      axios.get(`/getBodegaSimcards/${company}/${searchBodegaDestino}`)
         .then(response => {
           setBodegaDestino(response.data)
         })

@@ -4,7 +4,7 @@ import { useState } from 'react'
 import axios from 'axios'
 
 // eslint-disable-next-line react/prop-types
-export function RenderBodegaOrigen ({ bodegaOrigen, setBodegaOrigen, cartSims, handleAddSimcard, fun }) {
+export function RenderBodegaOrigen ({ bodegaOrigen, setBodegaOrigen, cartSims, handleAddSimcard, fun, company }) {
   const [searchBodegaOrigen, setSearchBodegaOrigen] = useState('')
 
   const hadlesearchnew = fun
@@ -15,7 +15,7 @@ export function RenderBodegaOrigen ({ bodegaOrigen, setBodegaOrigen, cartSims, h
     if (bodegaOrigen !== null) {
       hadlesearchnew()
       setBodegaOrigen(null)
-      axios.get(`/getBodegaSimcards/${searchBodegaOrigen}`)
+      axios.get(`/getBodegaSimcards/${company}/${searchBodegaOrigen}`)
         .then(response => {
           setBodegaOrigen(response.data)
         })
@@ -23,7 +23,7 @@ export function RenderBodegaOrigen ({ bodegaOrigen, setBodegaOrigen, cartSims, h
           console.log(error)
         })
     } else {
-      axios.get(`/getBodegaSimcards/${searchBodegaOrigen}`)
+      axios.get(`/getBodegaSimcards/${company}/${searchBodegaOrigen}`)
         .then(response => {
           setBodegaOrigen(response.data)
         })

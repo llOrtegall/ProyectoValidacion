@@ -9,7 +9,7 @@ import { useState } from 'react'
 import axios from 'axios'
 import { useIdleTimer } from '../../hooks/useIdleTimer.js'
 
-export function CreaMovimientosSim ({ fun, user }) {
+export function CreaMovimientosSim ({ fun, user, company }) {
   const logout = fun
   useIdleTimer(logout, 600000)
   const [bodegaDestino, setBodegaDestino] = useState(null)
@@ -42,7 +42,8 @@ export function CreaMovimientosSim ({ fun, user }) {
       simsIds: { entran: cartSims, salen: cartSims2 },
       encargado: nombres,
       descripcion,
-      incidente
+      incidente,
+      company
     })
       .then(res => {
         setMessage(res.data.message); setBodegaOrigen(null); setBodegaDestino(null); setCartSims([])
@@ -61,9 +62,9 @@ export function CreaMovimientosSim ({ fun, user }) {
 
       <section className="grid grid-cols-4 p-2 gap-2">
         {/* //*: Renderizado Bodega Origen */}
-        <RenderBodegaOrigen bodegaOrigen={bodegaOrigen} setBodegaOrigen={setBodegaOrigen} cartSims={cartSims} handleAddSimcard={handleAddSimcard} fun={hadlesearchnew}/>
+        <RenderBodegaOrigen bodegaOrigen={bodegaOrigen} setBodegaOrigen={setBodegaOrigen} cartSims={cartSims} handleAddSimcard={handleAddSimcard} fun={hadlesearchnew} company={company}/>
         {/* //*: Renderizado Bodega Destino */}
-        <RenderBodegaDestino bodegaDestino={bodegaDestino} setBodegaDestino={setBodegaDestino} cartSims2={cartSims2} handleAddSimcard2={handleAddSimcard2} fun={hadlesearchnew}/>
+        <RenderBodegaDestino bodegaDestino={bodegaDestino} setBodegaDestino={setBodegaDestino} cartSims2={cartSims2} handleAddSimcard2={handleAddSimcard2} fun={hadlesearchnew} company={company}/>
       </section>
 
       <article className='mx-2 rounded-md'>
