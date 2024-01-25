@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 
-export function DetalleBodega () {
+export function DetalleBodega ({ company }) {
   const { id } = useParams()
   const [bodega, setBodega] = useState({})
   const [isExpanded, setIsExpanded] = useState(false)
@@ -18,7 +18,7 @@ export function DetalleBodega () {
   }
 
   useEffect(() => {
-    axios.get(`/getBodegasItemsSims/${id}`)
+    axios.get(`/getBodegasItemsSims/${company}/${id}`)
       .then(res => {
         setBodega(res.data)
       })
@@ -86,7 +86,7 @@ export function DetalleBodega () {
       {/* // TODO: Renderizado De Simcards Si Existen */}
       <section className='mx-2 mt-2 border border-black rounded-md'>
         <h3 onClick={handleToggleSim} className='text-center hover:underline py-2 items-center cursor-pointer'>
-          <span>{ isExpandedSim ? '▲' : '▼'}</span> Ver Detalles Simcards
+          <span>{isExpandedSim ? '▲' : '▼'}</span> Ver Detalles Simcards
         </h3>
 
         {
