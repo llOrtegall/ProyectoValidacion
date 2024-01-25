@@ -62,7 +62,7 @@ export function App () {
         <Route path='stock/movimientos/detalle/:id' element={<MovimientoDetalle fun={logout} user={user} company={company}/>} />
         <Route path='stock/bodegas' element={<VerBodegas fun={logout} company={company}/>} />
         <Route path='stock/bodegas/detalle/:id' element={<DetalleBodega fun={logout} user={user} />} />
-        <Route path='stock/simcards' element={<VerSimcards fun={logout} />} />
+        <Route path='stock/simcards' element={<VerSimcards fun={logout} company={company}/>} />
       </Route>
 
       <Route path='/bodega/*' element={<ProtectdeRoutes rol={user.rol} isAllowed={!!loggedIn && CrearAsignarItems.includes(user.rol)} redirectTo='/bodega/home' />} >
@@ -76,9 +76,9 @@ export function App () {
         </Route>
 
         <Route path='/bodega/*' element={<ProtectdeRoutes rol={user.rol} isAllowed={!!loggedIn && CrearMoverAsignSimcards.includes(user.rol)} redirectTo='/bodega/home' />} >
-          <Route path='stock/simcards/crearSimcards' element={<CrearSimcard fun={logout} user={user} />} />
-          <Route path='stock/simcards/asignarSimcards' element={<AsignarSimcards fun={logout} user={user} />} />
-          <Route path='stock/simcards/movimientosSimcards' element={<CreaMovimientosSim fun={logout} user={user} />} />
+          <Route path='stock/simcards/crearSimcards' element={<CrearSimcard fun={logout} user={user} company={company}/>} />
+          <Route path='stock/simcards/asignarSimcards' element={<AsignarSimcards fun={logout} user={user} company={company}/>} />
+          <Route path='stock/simcards/movimientosSimcards' element={<CreaMovimientosSim fun={logout} user={user} company={company}/>} />
         </Route>
 
       <Route path='*' element={<NotFound />} />

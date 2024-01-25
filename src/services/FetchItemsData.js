@@ -59,9 +59,9 @@ export async function BodegaDataSims () {
   }
 }
 
-export async function simcardsBodegas () {
+export async function simcardsBodegas (company) {
   try {
-    const simcardsResponse = await axios.get('/simcardWhitBodega')
+    const simcardsResponse = await axios.get(`/simcardWhitBodega/${company}`)
     return simcardsResponse.data
   } catch (error) {
     console.log(error)

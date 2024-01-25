@@ -4,12 +4,12 @@ import { useFilterSimcards } from '../../hooks/useFilters.js'
 import { BottonExportSimcards } from '../../components/BotonExcelDefault.jsx'
 import { useIdleTimer } from '../../hooks/useIdleTimer.js'
 
-export function VerSimcards ({ fun }) {
+export function VerSimcards ({ fun, company }) {
   const [simcardsConBodega, setSimcardsConBodega] = useState([])
   const logout = fun
   useIdleTimer(logout, 600000)
   useEffect(() => {
-    simcardsBodegas()
+    simcardsBodegas(company)
       .then(data => {
         setSimcardsConBodega(data)
       })
