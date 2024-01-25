@@ -8,7 +8,7 @@ import { AddIcon } from '../../components/Icons.jsx'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 
-export function AsignarItemBodega () {
+export function AsignarItemBodega ({ company }) {
   const [bodegas, setBodegas] = useState([])
   const [message, setMessage] = useState('')
   const [error, setError] = useState('')
@@ -22,20 +22,22 @@ export function AsignarItemBodega () {
   const [sendBodega, setSendBodega] = useState('')
 
   useEffect(() => {
-    getItems()
+    getItems(company)
 
-    BodegaData()
-      .then(data => {
-        setBodegas(data)
-      })
-      .catch(err => console.log(err))
-  }, [message])
+    setTimeout(() => {
+      BodegaData(company)
+        .then(data => {
+          setBodegas(data)
+        })
+        .catch(err => console.log(err))
+    }, 1000)
+  }, [])
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
       const res = await axios.post('/addItemsToBodega',
-        { sucursal: sendBodega, itemIds: carItems }
+        { sucursal: sendBodega, itemIds: carItems, company }
       )
       setMessage(res.data.message)
       setBodegas([])
@@ -99,7 +101,6 @@ export function AsignarItemBodega () {
           }
         </section>
       </article>
-
       <article className="w-[550px]">
 
         <section className='flex items-center gap-4 py-6'>

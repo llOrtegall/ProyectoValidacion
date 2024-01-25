@@ -66,8 +66,8 @@ export function App () {
       </Route>
 
       <Route path='/bodega/*' element={<ProtectdeRoutes rol={user.rol} isAllowed={!!loggedIn && CrearAsignarItems.includes(user.rol)} redirectTo='/bodega/home' />} >
-          <Route path='stock/items/crearItems' element={<CreatedItems fun={logout} user={user} />} />
-          <Route path='stock/items/asignarItems' element={<AsignarItemBodega fun={logout} user={user} />} />
+          <Route path='stock/items/crearItems' element={<CreatedItems fun={logout} user={user} company={company}/>} />
+          <Route path='stock/items/asignarItems' element={<AsignarItemBodega fun={logout} user={user} company={company}/>} />
         </Route>
 
         <Route path='/bodega/*' element={<ProtectdeRoutes rol={user.rol} isAllowed={!!loggedIn && CrearBodegayMovimientos.includes(user.rol)} redirectTo='/bodega/home' />} >

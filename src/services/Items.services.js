@@ -1,7 +1,6 @@
 const URL = 'http://localhost:3000/itemsConBodegas/'
 
-export const getItemsFecht = async () => {
-  const company = 'Servired'
+export const getItemsFecht = async (company) => {
   try {
     const response = await fetch(`${URL}${company}`)
     const json = await response.json()

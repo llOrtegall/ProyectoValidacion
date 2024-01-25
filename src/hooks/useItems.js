@@ -6,11 +6,11 @@ export function useItems () {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
 
-  const getItems = async () => {
+  const getItems = async (company) => {
     try {
       setLoading(true)
       setError(null)
-      const newItems = await getItemsFecht()
+      const newItems = await getItemsFecht(company)
       setItems(newItems)
     } catch (error) {
       setError(error.message)
