@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 
 import axios from 'axios'
 
-export function VerMovimientos ({ fun }) {
+export function VerMovimientos ({ fun, company }) {
   const [movimientos, setMovimientos] = useState([])
   const [sortOrder, setSortOrder] = useState('desc')
   const logout = fun
@@ -14,7 +14,7 @@ export function VerMovimientos ({ fun }) {
   useIdleTimer(logout, 600000)
 
   useEffect(() => {
-    axios.get('/getMovimientos')
+    axios.get(`/getMovimientos/${company}`)
       .then(res => {
         setMovimientos(res.data)
       })

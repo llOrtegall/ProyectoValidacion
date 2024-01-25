@@ -1,7 +1,7 @@
 import { Navigate, Outlet } from 'react-router-dom'
 import { NavBar } from './NavBar.jsx'
 
-export const ProtectdeRoutes = ({ isAllowed, children, redirectTo = '/bodega/login', rol }) => {
+export const ProtectdeRoutes = ({ isAllowed, children, redirectTo = '/bodega/login', rol, user }) => {
   if (!isAllowed) return <Navigate to={redirectTo} />
 
   return (

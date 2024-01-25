@@ -33,7 +33,7 @@ const CrearBodegayMovimientos = ['Analista Desarrollo', 'Jefe Tecnología', 'Dir
 const CrearMoverAsignSimcards = ['Analista Desarrollo', 'Jefe Tecnología', 'Director Tecnología', 'Coordinador Soporte']
 
 export function App () {
-  const { login, logout, loggedIn, user } = useAuth()
+  const { login, logout, loggedIn, user, defineCompany, company } = useAuth()
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -55,31 +55,31 @@ export function App () {
 
       <Route path='/bodega/login' element={<LoginForm />} />
 
-      <Route path='/bodega/*' element={<ProtectdeRoutes rol={user.rol} isAllowed={!!loggedIn} />} >
-        <Route path='home' element={<Home />} />
-        <Route path='stock/items' element={<Items fun={logout} user={user}/>} />
-        <Route path='stock/movimientos' element={<VerMovimientos fun={logout}/>} />
-        <Route path='stock/movimientos/detalle/:id' element={<MovimientoDetalle fun={logout} user={user}/>} />
-        <Route path='stock/bodegas' element={<VerBodegas fun={logout}/>} />
-        <Route path='stock/bodegas/detalle/:id' element={<DetalleBodega fun={logout} user={user}/>} />
-        <Route path='stock/simcards' element={<VerSimcards fun={logout}/>} />
+      <Route path='/bodega/*' element={<ProtectdeRoutes rol={user.rol} isAllowed={!!loggedIn} user={user} />} >
+        <Route path='home' element={<Home fun={defineCompany} company={company}/>} />
+        <Route path='stock/items' element={<Items fun={logout} user={user} />} />
+        <Route path='stock/movimientos' element={<VerMovimientos fun={logout} company={company}/>} />
+        <Route path='stock/movimientos/detalle/:id' element={<MovimientoDetalle fun={logout} user={user} />} />
+        <Route path='stock/bodegas' element={<VerBodegas fun={logout} />} />
+        <Route path='stock/bodegas/detalle/:id' element={<DetalleBodega fun={logout} user={user} />} />
+        <Route path='stock/simcards' element={<VerSimcards fun={logout} />} />
       </Route>
 
-      <Route path='/bodega/*' element={<ProtectdeRoutes rol={user.rol} isAllowed={!!loggedIn && CrearAsignarItems.includes(user.rol)} redirectTo='/bodega/home'/>} >
-        <Route path='stock/items/crearItems' element={<CreatedItems fun={logout} user={user}/>} />
-        <Route path='stock/items/asignarItems' element={<AsignarItemBodega fun={logout} user={user}/>} />
-      </Route>
+      <Route path='/bodega/*' element={<ProtectdeRoutes rol={user.rol} isAllowed={!!loggedIn && CrearAsignarItems.includes(user.rol)} redirectTo='/bodega/home' />} >
+          <Route path='stock/items/crearItems' element={<CreatedItems fun={logout} user={user} />} />
+          <Route path='stock/items/asignarItems' element={<AsignarItemBodega fun={logout} user={user} />} />
+        </Route>
 
-      <Route path='/bodega/*' element={<ProtectdeRoutes rol={user.rol} isAllowed={!!loggedIn && CrearBodegayMovimientos.includes(user.rol)} redirectTo='/bodega/home'/>} >
-        <Route path='stock/bodegas/crearBodegas' element={<CreatedBodega fun={logout} user={user}/>} />
-        <Route path='stock/bodegas/crearMovimientos' element={<CrearMovimiento fun={logout} user={user}/>} />
-      </Route>
+        <Route path='/bodega/*' element={<ProtectdeRoutes rol={user.rol} isAllowed={!!loggedIn && CrearBodegayMovimientos.includes(user.rol)} redirectTo='/bodega/home' />} >
+          <Route path='stock/bodegas/crearBodegas' element={<CreatedBodega fun={logout} user={user} />} />
+          <Route path='stock/bodegas/crearMovimientos' element={<CrearMovimiento fun={logout} user={user} />} />
+        </Route>
 
-      <Route path='/bodega/*' element={<ProtectdeRoutes rol={user.rol} isAllowed={!!loggedIn && CrearMoverAsignSimcards.includes(user.rol)} redirectTo='/bodega/home'/>} >
-        <Route path='stock/simcards/crearSimcards' element={<CrearSimcard fun={logout} user={user}/>} />
-        <Route path='stock/simcards/asignarSimcards' element={<AsignarSimcards fun={logout} user={user}/>} />
-        <Route path='stock/simcards/movimientosSimcards' element={<CreaMovimientosSim fun={logout} user={user}/>} />
-      </Route>
+        <Route path='/bodega/*' element={<ProtectdeRoutes rol={user.rol} isAllowed={!!loggedIn && CrearMoverAsignSimcards.includes(user.rol)} redirectTo='/bodega/home' />} >
+          <Route path='stock/simcards/crearSimcards' element={<CrearSimcard fun={logout} user={user} />} />
+          <Route path='stock/simcards/asignarSimcards' element={<AsignarSimcards fun={logout} user={user} />} />
+          <Route path='stock/simcards/movimientosSimcards' element={<CreaMovimientosSim fun={logout} user={user} />} />
+        </Route>
 
       <Route path='*' element={<NotFound />} />
 
