@@ -7,7 +7,7 @@ import { AddIcon } from '../../components/Icons.jsx'
 import { useState } from 'react'
 import axios from 'axios'
 
-export function CrearMovimiento ({ fun, user }) {
+export function CrearMovimiento ({ fun, user, company }) {
   const logout = fun
   const nombres = user.nombres + ' ' + user.apellidos
 
@@ -27,7 +27,7 @@ export function CrearMovimiento ({ fun, user }) {
   const searchOrigen = (ev) => {
     ev.preventDefault()
 
-    axios.get(`/getBodega/${searchBodegaOrigen}`)
+    axios.get(`/getBodega/${company}/${searchBodegaOrigen}`)
       .then(response => {
         setBodegaOrigen(response.data)
         setItems(response.data.items)
@@ -40,7 +40,7 @@ export function CrearMovimiento ({ fun, user }) {
   const searchDestino = (ev) => {
     ev.preventDefault()
 
-    axios.get(`/getBodega/${searchBodegaDestino}`)
+    axios.get(`/getBodega/${company}/${searchBodegaDestino}`)
       .then(response => {
         setBodegaDestino(response.data)
       })
@@ -70,7 +70,8 @@ export function CrearMovimiento ({ fun, user }) {
       itemsIds: carItems,
       encargado: nombres,
       descripcion,
-      incidente
+      incidente,
+      company
     })
       .then(res => {
         setMessage(res.data.message)

@@ -3,12 +3,12 @@ import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 
-export function MovimientoDetalle () {
+export function MovimientoDetalle ({ company }) {
   const { id } = useParams()
   const [movimiento, setMovimiento] = useState(null)
 
   useEffect(() => {
-    axios.get(`/movimiento/${id}`)
+    axios.get(`/movimiento/${company}/${id}`)
       .then(res => {
         setMovimiento(res.data)
       })
@@ -85,7 +85,7 @@ export function MovimientoDetalle () {
         <table className="table-auto w-full ">
           <thead >
             <tr className='bg-yellow-200'>
-            <th className="border py-1">N°</th>
+              <th className="border py-1">N°</th>
               <th className="border py-1">Número</th>
               <th className="border py-1">Operador</th>
               <th className="border py-1">Serial</th>
