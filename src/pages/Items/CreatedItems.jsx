@@ -3,7 +3,7 @@ import { MessageDisplay } from '../../components/MessageDisplay'
 import { useState } from 'react'
 import axios from 'axios'
 
-export function CreatedItems ({ company: empresa }) {
+export function CreatedItems ({ company }) {
   const [message, setMessage] = useState('')
   const [error, setError] = useState('')
 
@@ -13,7 +13,7 @@ export function CreatedItems ({ company: empresa }) {
     placa: '',
     serial: '',
     estado: '',
-    company: empresa
+    company
   })
 
   const handleChange = (e) => {
@@ -34,14 +34,12 @@ export function CreatedItems ({ company: empresa }) {
           placa: '',
           serial: '',
           estado: '',
-          company: empresa
+          company
         })
         setMessage(res.data.message)
         setTimeout(() => {
           setMessage('')
         }, 4000)
-        localStorage.removeItem('items')
-        localStorage.removeItem('itemsConBodega')
       })
       .catch(err => {
         console.log(err)
@@ -89,7 +87,7 @@ export function CreatedItems ({ company: empresa }) {
             </select>
           </div>
 
-          <input type="text" value={empresa} readOnly />
+          <input type="text" value={company} readOnly />
 
           <button className="w-52 h-10 text-md font-semibold text-white bg-blue-600 rounded-md hover:bg-white hover:text-black">
             Crear Item
