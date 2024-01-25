@@ -1,5 +1,15 @@
 import axios from 'axios'
 
+export const getMovimientos = async (company) => {
+  try {
+    const MoviResponse = await axios.get(`/getMovimientos/${company}`)
+    return MoviResponse.data
+  } catch (error) {
+    console.log(error)
+    return error
+  }
+}
+
 export async function ItemsData () {
   try {
     const itemsResponse = await axios.get('/getItems')
@@ -20,9 +30,9 @@ export async function fechtItemsBodegas () {
   }
 }
 
-export async function BodegaData () {
+export async function BodegaData (company) {
   try {
-    const bodegaResponse = await axios.get('/getBodegas')
+    const bodegaResponse = await axios.get(`/getBodegas/${company}`)
     return bodegaResponse.data
   } catch (error) {
     console.log(error)

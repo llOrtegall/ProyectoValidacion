@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { simcardsBodegas } from '../../utils/FetchItemsData.js'
+import { simcardsBodegas } from '../../services/FetchItemsData.js'
 import { useFilterSimcards } from '../../hooks/useFilters.js'
 import { BottonExportSimcards } from '../../components/BotonExcelDefault.jsx'
 import { useIdleTimer } from '../../hooks/useIdleTimer.js'

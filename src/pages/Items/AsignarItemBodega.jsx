@@ -1,5 +1,5 @@
 import { useFiltersBodegas, useFiltersItems } from '../../hooks/useFilters.js'
-import { BodegaData } from '../../utils/FetchItemsData.js'
+import { BodegaData } from '../../services/FetchItemsData.js'
 import { MessageDisplay } from '../../components/MessageDisplay.jsx'
 import { ItemsAgregados } from '../../components/ItemsAgregados.jsx'
 import { useItems } from '../../hooks/useItems.js'

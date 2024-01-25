@@ -1,5 +1,5 @@
 import { useFiltersBodegas, useFilterSimcards } from '../../hooks/useFilters.js'
-import { BodegaDataSims, simcardsBodegas } from '../../utils/FetchItemsData.js'
+import { BodegaDataSims, simcardsBodegas } from '../../services/FetchItemsData.js'
 import { MessageDisplay } from '../../components/MessageDisplay.jsx'
 import { ItemsAgregados } from '../../components/ItemsAgregados.jsx'
 import { useCarItems } from '../../hooks/useCartItems.js'

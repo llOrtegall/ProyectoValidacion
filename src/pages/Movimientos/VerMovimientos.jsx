@@ -1,24 +1,26 @@
 import { useFilterMovimientos } from '../../hooks/useFilters.js'
+import { getMovimientos } from '../../services/FetchItemsData.js'
 import { useIdleTimer } from '../../hooks/useIdleTimer.js'
 import { formatFecha } from '../../utils/funtions.js'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-
-import axios from 'axios'
 
 export function VerMovimientos ({ fun, company }) {
   const [movimientos, setMovimientos] = useState([])
   const [sortOrder, setSortOrder] = useState('desc')
   const logout = fun
 
+  console.log(company)
+
   useIdleTimer(logout, 600000)
 
   useEffect(() => {
-    axios.get(`/getMovimientos/${company}`)
+    getMovimientos(company)
       .then(res => {
-        setMovimientos(res.data)
+        setMovimientos(res)
+      }).catch(err => {
+        console.log(err)
       })
-      .catch(err => console.log(err))
   }, [])
 
   const toggleSortOrder = () => {

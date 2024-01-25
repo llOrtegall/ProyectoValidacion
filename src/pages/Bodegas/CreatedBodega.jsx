@@ -1,8 +1,8 @@
 import { SuccesIcon, WarningIcon } from '../../components/Icons.jsx'
-import { createBodega } from '../../utils/FetchItemsData.js'
+import { createBodega } from '../../services/FetchItemsData.js'
 import { useState } from 'react'
 
-export function CreatedBodega () {
+export function CreatedBodega ({ company: empresa }) {
   const [message, setMessage] = useState('')
   const [error, setError] = useState('')
 
@@ -10,8 +10,11 @@ export function CreatedBodega () {
   const [item, setItem] = useState({
     nombre: '',
     sucursal: '',
-    direccion: ''
+    direccion: '',
+    company: empresa
   })
+
+  console.log(item)
 
   const handleChange = (e) => {
     setItem({
@@ -34,7 +37,8 @@ export function CreatedBodega () {
       setItem({
         nombre: '',
         sucursal: '',
-        direccion: ''
+        direccion: '',
+        company: empresa
       }) // limpiar el formulario
       setTimeout(() => {
         setMessage('')
@@ -48,7 +52,7 @@ export function CreatedBodega () {
     }
   }
   return (
-    <main className="h-[93vh] overflow-auto flex items-center justify-center pb-20">
+    <main className="h-[93vh] overflow-auto flex flex-col items-center justify-center pb-20">
       <form className="flex h-auto flex-col items-center p-8 m-8 gap-3 rounded-lg bg-blue-400 w-1/2 " onSubmit={handleSubmit}>
         <div className="w-full flex flex-col mb-4">
           <label className="mb-2 font-semibold text-gray-700">Nombre Bodega | PDV</label>
@@ -67,6 +71,8 @@ export function CreatedBodega () {
             placeholder="Cra 4 # 4-56 ... | Calle 5 # 5-67 ..."
             className="px-3 py-2 border border-gray-300 rounded-md" />
         </div>
+
+        <input type="text" value={empresa} readOnly/>
 
         <button className="text-md p-2 w-44  font-semibold text-white bg-blue-700 rounded-md hover:bg-white hover:text-black">
           Crear Bodega | PDV
