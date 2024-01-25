@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react'
 
 import { useItems } from '../../hooks/useItems.js'
 
-export function Items ({ fun, user }) {
+export function Items ({ fun, user, company }) {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [selectedItem, setSelectedItem] = useState(null)
 
@@ -16,7 +16,7 @@ export function Items ({ fun, user }) {
   useIdleTimer(logout, 600000)
 
   useEffect(() => {
-    getItems()
+    getItems(company)
   }, [isModalOpen])
 
   const handleClick = (item) => {

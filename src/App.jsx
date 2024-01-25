@@ -57,7 +57,7 @@ export function App () {
 
       <Route path='/bodega/*' element={<ProtectdeRoutes rol={user.rol} isAllowed={!!loggedIn} user={user} />} >
         <Route path='home' element={<Home fun={defineCompany} company={company}/>} />
-        <Route path='stock/items' element={<Items fun={logout} user={user} />} />
+        <Route path='stock/items' element={<Items fun={logout} user={user} company={company}/>} />
         <Route path='stock/movimientos' element={<VerMovimientos fun={logout} company={company}/>} />
         <Route path='stock/movimientos/detalle/:id' element={<MovimientoDetalle fun={logout} user={user} />} />
         <Route path='stock/bodegas' element={<VerBodegas fun={logout} company={company}/>} />
