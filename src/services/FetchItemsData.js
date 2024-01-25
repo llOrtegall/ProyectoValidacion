@@ -49,9 +49,9 @@ export const createBodega = async (itemToSend) => {
   }
 }
 
-export async function BodegaDataSims () {
+export async function BodegaDataSims (company) {
   try {
-    const bodegaResponse = await axios.get('/getBodegasSim')
+    const bodegaResponse = await axios.get(`/getBodegasSim/${company}`)
     return bodegaResponse.data
   } catch (error) {
     console.log(error)

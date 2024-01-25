@@ -7,7 +7,7 @@ import { AddIcon } from '../../components/Icons.jsx'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 
-export function AsignarSimcards () {
+export function AsignarSimcards ({ company }) {
   const [simConBodega, setSimConBodega] = useState([])
   const [bodegas, setBodegas] = useState([])
 
@@ -21,23 +21,26 @@ export function AsignarSimcards () {
   const [sendBodega, setSendBodega] = useState('')
 
   useEffect(() => {
-    simcardsBodegas()
+    simcardsBodegas(company)
       .then(data => {
         setSimConBodega(data)
       })
       .catch(err => console.log(err))
-    BodegaDataSims()
-      .then(data => {
-        setBodegas(data)
-      })
-      .catch(err => console.log(err))
+
+    setTimeout(() => {
+      BodegaDataSims(company)
+        .then(data => {
+          setBodegas(data)
+        })
+        .catch(err => console.log(err))
+    }, 1000)
   }, [message])
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
       const res = await axios.post('/addSimcardToBodega',
-        { sucursal: sendBodega, simcardIds: carItems }
+        { sucursal: sendBodega, simcardIds: carItems, company }
       )
       setMessage(res.data.message)
       setSimConBodega([])
