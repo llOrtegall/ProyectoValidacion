@@ -1,4 +1,4 @@
-const URL = 'http://172.20.1.160:3000/itemsConBodegas/'
+const URL = 'http://172.20.1.70:3000/itemsConBodegas/'
 
 export const getItemsFecht = async (company) => {
   try {

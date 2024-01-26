@@ -25,7 +25,7 @@ import { useAuth } from './Auth/AuthContext.jsx'
 import { useEffect } from 'react'
 import axios from 'axios'
 
-axios.defaults.baseURL = 'http://172.20.1.160:3000/'
+axios.defaults.baseURL = 'http://172.20.1.70:3000/'
 // axios.defaults.baseURL = 'http://localhost:3000/'
 
 const CrearAsignarItems = ['Analista Desarrollo', 'Jefe Tecnología', 'Director Tecnología', 'Auxiliar Administrativa', 'Administrador']
