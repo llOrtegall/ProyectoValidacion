@@ -31,7 +31,7 @@ export function AsignarItemBodega ({ company }) {
         })
         .catch(err => console.log(err))
     }, 1000)
-  }, [])
+  }, [message])
 
   const handleSubmit = async (e) => {
     e.preventDefault()
