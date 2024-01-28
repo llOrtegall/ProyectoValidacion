@@ -3,6 +3,7 @@ import * as XLSX from 'xlsx'
 
 // eslint-disable-next-line react/prop-types
 export const BottonExportItems = ({ datos }) => {
+  console.log(datos)
   const titulo = [{ A: 'Reporte de Items' }, {}]
   const hora = new Date()
   const infoCreacción = { A: `Fecha De Creación ${formatFecha(hora)}` }
@@ -25,13 +26,13 @@ export const BottonExportItems = ({ datos }) => {
     // eslint-disable-next-line react/prop-types
     datos.forEach((sim) => {
       tabla.push({
-        A: sim._id,
-        B: sim.nombre,
-        C: sim.descripcion,
-        D: sim.serial,
-        E: sim.placa,
-        F: sim.estado,
-        G: sim.bodega.nombre || sim.bodega
+        A: sim.Id,
+        B: sim.Nombre,
+        C: sim.Descripcion,
+        D: sim.Serial,
+        E: sim.Placa,
+        F: sim.Estado,
+        G: sim.Bodega
       })
     })
 
