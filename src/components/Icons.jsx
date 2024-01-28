@@ -6,6 +6,24 @@ export const CloseIcon = () => {
   )
 }
 
+export const ClaroIcon = () => {
+  return (
+    <img src="../../public/claroIcon.png" alt="icono de claro sin fondo" width={35} />
+  )
+}
+
+export const MovistarIcon = () => {
+  return (
+    <img src="../../public/logoMovistar.png" alt="icono de movistar sin fondo" width={30} />
+  )
+}
+
+export const TigoIcon = () => {
+  return (
+    <img src="../../public/logoTigo.png" alt="icono de tigo sin fondo" width={30} />
+  )
+}
+
 export const AddIcon = () => {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">

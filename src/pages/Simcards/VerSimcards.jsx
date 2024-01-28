@@ -1,10 +1,11 @@
-import { useEffect, useState } from 'react'
+import { BottonExportSimcards } from '../../components/BotonExcelDefault.jsx'
 import { simcardsBodegas } from '../../services/FetchItemsData.js'
 import { useFilterSimcards } from '../../hooks/useFilters.js'
-import { BottonExportSimcards } from '../../components/BotonExcelDefault.jsx'
+import { RenderIconSims } from '../../components/RenderIconSims.jsx'
 import { useIdleTimer } from '../../hooks/useIdleTimer.js'
+import { useEffect, useState } from 'react'
 
-export function VerSimcards ({ fun, company }) {
+export function VerSimcards({ fun, company }) {
   const [simcardsConBodega, setSimcardsConBodega] = useState([])
   const logout = fun
   useIdleTimer(logout, 600000)
@@ -43,9 +44,11 @@ export function VerSimcards ({ fun, company }) {
       {
         filteredSimcards?.length > 0
           ? filteredSimcards?.map(item => (
-            <article key={item._id} className="grid grid-cols-8 rounded-md bg-slate-200 uppercase text-sm py-2 my-2 text-center shadow-lg">
+            <article key={item._id} className="grid grid-cols-8 place-items-center rounded-md bg-slate-200 uppercase text-sm py-2 my-2 text-center shadow-lg">
               <p className="font-semibold">{item.numero}</p>
-              <p className="text-gray-500">{item.operador}</p>
+              <p className="text-gray-500 flex w-full items-center justify-center gap-2">
+                <span className='w-20'>{item.operador}</span> <RenderIconSims operador={item.operador} />
+              </p>
               <p className="text-gray-500">{item.estado}</p>
               <p className="text-gray-700 overflow-ellipsis text-start overflow-hidden">{item.serial}</p>
               <p className="text-gray-700 overflow-ellipsis text-start overflow-hidden">{item.apn}</p>
