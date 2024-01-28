@@ -3,7 +3,7 @@ import { MessageDisplay } from '../components/MessageDisplay.jsx'
 import { useState } from 'react'
 import axios from 'axios'
 
-export function DetalleItem ({ item, onClose }) {
+export function DetalleItem ({ item, onClose, company }) {
   const BodegaNombre = item.bodega !== undefined ? item.bodega.Nombre : 'No Asignado'
   const [message, setMessage] = useState('')
   const [error, setError] = useState(false)
@@ -13,7 +13,8 @@ export function DetalleItem ({ item, onClose }) {
     serial: item.Serial,
     placa: item.Placa,
     estado: item.Estado,
-    descripcion: item.Descripcion
+    descripcion: item.Descripcion,
+    company: company
   })
 
   const handleInputChange = (event) => {
