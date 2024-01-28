@@ -17,6 +17,7 @@ export function Items ({ fun, user, company }) {
 
   useEffect(() => {
     getItems(company)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isModalOpen])
 
   const handleClick = (item) => {
@@ -29,6 +30,7 @@ export function Items ({ fun, user, company }) {
   return (
 
     <section className='h-[93vh] overflow-auto'>
+
       <section className='flex items-center justify-center gap-6 bg-blue-500  shadow-lg py-2'>
         <p><span className="font-semibold pr-2">Filtrar:</span>| Placa | Serial | Nombre |</p>
         <input type="text"

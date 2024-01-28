@@ -5,7 +5,7 @@ import { RenderIconSims } from '../../components/RenderIconSims.jsx'
 import { useIdleTimer } from '../../hooks/useIdleTimer.js'
 import { useEffect, useState } from 'react'
 
-export function VerSimcards({ fun, company }) {
+export function VerSimcards ({ fun, company }) {
   const [simcardsConBodega, setSimcardsConBodega] = useState([])
   const logout = fun
   useIdleTimer(logout, 600000)
@@ -22,7 +22,7 @@ export function VerSimcards({ fun, company }) {
   return (
     <main className="h-[93vh] overflow-auto">
 
-      <section className='flex items-center gap-4 py-1 bg-blue-500 px-4'>
+      <section className='flex w-full justify-center items-center gap-4 py-1 bg-blue-500 px-4'>
         <p className=""><span className="font-semibold pr-2">Filtrar:</span>| Operador | Serial | Número</p>
         <input type="text" placeholder="Buscar simcards..."
           value={searchSimcard} onChange={ev => setSearchSimcard(ev.target.value)}

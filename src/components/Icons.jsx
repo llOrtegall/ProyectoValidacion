@@ -20,7 +20,7 @@ export const MovistarIcon = () => {
 
 export const TigoIcon = () => {
   return (
-    <img src="../../public/logoTigo.png" alt="icono de tigo sin fondo" width={30} />
+    <img src="../../public/logoTigo.png" alt="icono de tigo sin fondo" width={28} />
   )
 }
 
