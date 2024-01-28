@@ -11,9 +11,9 @@ export function RenderIconSims ({ operador }) {
 
   return IconComponent
     ? (
-    <figure>
-      <IconComponent />
-    </figure>
+        <figure>
+          <IconComponent />
+        </figure>
       )
     : null
 }
