@@ -32,7 +32,7 @@ export function DetalleItem ({ item, onClose, company }) {
         setTimeout(() => {
           setMessage('')
           onClose()
-        }, 4000)
+        }, 2500)
       })
       .catch(err => {
         setError(err.response.data.error)

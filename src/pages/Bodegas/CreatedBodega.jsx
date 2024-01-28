@@ -14,8 +14,6 @@ export function CreatedBodega ({ company: empresa }) {
     company: empresa
   })
 
-  console.log(item)
-
   const handleChange = (e) => {
     setItem({
       ...item,

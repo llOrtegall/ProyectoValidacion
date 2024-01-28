@@ -10,8 +10,6 @@ export function VerMovimientos ({ fun, company }) {
   const [sortOrder, setSortOrder] = useState('desc')
   const logout = fun
 
-  console.log(company)
-
   useIdleTimer(logout, 600000)
 
   useEffect(() => {
