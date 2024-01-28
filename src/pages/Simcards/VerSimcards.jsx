@@ -46,9 +46,7 @@ export function VerSimcards ({ fun, company }) {
           ? filteredSimcards?.map(item => (
             <article key={item._id} className="grid grid-cols-8 place-items-center rounded-md bg-slate-200 uppercase text-sm py-2 my-2 text-center shadow-lg">
               <p className="font-semibold">{item.numero}</p>
-              <p className="text-gray-500 flex w-full items-center justify-center gap-2">
-                <span className='w-20'>{item.operador}</span> <RenderIconSims operador={item.operador} />
-              </p>
+              <RenderIconSims operador={item.operador} />
               <p className="text-gray-500">{item.estado}</p>
               <p className="text-gray-700 overflow-ellipsis text-start overflow-hidden">{item.serial}</p>
               <p className="text-gray-700 overflow-ellipsis text-start overflow-hidden">{item.apn}</p>
