@@ -1,5 +1,6 @@
 export function Home ({ fun, company }) {
   const defineCompany = fun
+
   function CambiarCompany () {
     const handleChange = (e) => {
       defineCompany(e.target.value)

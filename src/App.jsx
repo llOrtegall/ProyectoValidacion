@@ -28,7 +28,7 @@ import axios from 'axios'
 axios.defaults.baseURL = 'http://172.20.1.160:3000/'
 // axios.defaults.baseURL = 'http://localhost:3000/'
 
-const CrearAsignarItems = ['Analista Desarrollo', 'Jefe Tecnología', 'Director Tecnología', 'Auxiliar Administrativa', 'Administrador']
+const CrearAsignarItems = ['Analista Desarrollo', 'Jefe Tecnología', 'Director Tecnología', 'Auxiliar Administrativa', 'Administrador', 'Coordinador Soporte']
 const CrearBodegayMovimientos = ['Analista Desarrollo', 'Jefe Tecnología', 'Director Tecnología', 'Coordinador Soporte', 'Auxiliar Administrativa', 'Administrador']
 const CrearMoverAsignSimcards = ['Analista Desarrollo', 'Jefe Tecnología', 'Director Tecnología', 'Coordinador Soporte']
 
