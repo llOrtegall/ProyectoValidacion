@@ -42,7 +42,7 @@ export function App () {
   return (
     <Routes>
 
-      <Route path='/bodega' element={<LoginForm />} />
+      <Route path='/' element={<LoginForm />} />
 
       <Route path='/bodega/*' element={<ProtectdeRoutes rol={user.rol} isAllowed={!!loggedIn} user={user} />} >
         <Route path='home' element={<Home fun={defineCompany} company={company} />} />

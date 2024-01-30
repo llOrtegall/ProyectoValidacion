@@ -25,7 +25,7 @@ export function AuthProvider ({ children }) {
       setLoggedIn(false)
       setUser({})
       setCompany({})
-      navigate('/bodega')
+      navigate('/')
     }
   }
 
@@ -37,7 +37,7 @@ export function AuthProvider ({ children }) {
         setCompany({})
       }
     })
-    navigate('/bodega')
+    navigate('/')
   }
 
   return (
