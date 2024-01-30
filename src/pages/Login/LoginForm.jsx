@@ -1,6 +1,4 @@
 import { MessageDisplay } from '../../components/MessageDisplay.jsx'
-import { useNavigate } from 'react-router-dom/dist/index.js'
-import { GetUserCookie } from '../../utils/funtions.js'
 import { useAuth } from '../../Auth/AuthContext.jsx'
 
 import { useState } from 'react'
@@ -13,18 +11,13 @@ export const LoginForm = () => {
   const [error, setError] = useState('')
 
   const { login } = useAuth()
-  const navigate = useNavigate()
+
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
       const response = await axios.post('/login', { user: username, password })
-      if (response.status === 200) {
-        document.cookie = `bodega=${response.data.token}`
-        const user = await GetUserCookie(response.data.token)
-        setMessage('login_ok')
-        login(user)
-        navigate('/bodega/home') // TODO SI el usuario es valido redirigir a la pagina de inicio
-      }
+      login(response.data)
+      setMessage('Bienvenido')
     } catch (error) {
       if (error.message === 'Network Error') {
         return setError('Servidor No Disponible y/o Error De Conexión, Consulte Con El Administrador')

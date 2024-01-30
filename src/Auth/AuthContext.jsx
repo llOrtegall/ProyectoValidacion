@@ -1,3 +1,4 @@
+import axios from 'axios'
 import { createContext, useState, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 
@@ -14,19 +15,29 @@ export function AuthProvider ({ children }) {
   }
 
   const login = (usuario) => {
+    console.log(usuario)
     if (usuario.auth === true) {
+      navigate('/bodega/home')
       setLoggedIn(true)
-      setUser(usuario.user)
-      setCompany(usuario.user.empresa)
+      setUser(usuario.UserLogin)
+      setCompany(usuario.UserLogin.empresa)
+    } else {
+      setLoggedIn(false)
+      setUser({})
+      setCompany({})
+      navigate('/bodega')
     }
   }
 
   const logout = () => {
-    setLoggedIn(false)
-    setUser({})
-    document.cookie = 'bodega=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'
-    document.cookie = 'bodega=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/bodega;'
-    navigate('/bodega/login')
+    axios.post('/logout').then(res => {
+      if (res.status === 200) {
+        setLoggedIn(false)
+        setUser({})
+        setCompany({})
+      }
+    })
+    navigate('/bodega')
   }
 
   return (
