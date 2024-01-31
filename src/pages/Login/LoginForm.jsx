@@ -44,7 +44,7 @@ export const LoginForm = () => {
               className='p-2.5 mb-10 rounded-md bg-slate-500 text-white'
               onChange={ev => setUsername(ev.target.value)} />
             <label className='font-semibold mb-2 text-white'>Contraseña:</label>
-            <input type='password' placeholder='**************'
+            <input type='password' placeholder='**************' autoComplete='current-password'
               className='p-2.5 rounded-md bg-slate-500 text-white'
               onChange={ev => setPassword(ev.target.value)} />
           </article>

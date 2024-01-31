@@ -21,7 +21,6 @@ export const BottonExportItems = ({ datos }) => {
       }
     ]
 
-    // eslint-disable-next-line react/prop-types
     datos.forEach((sim) => {
       tabla.push({
         A: sim.Id,

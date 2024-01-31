@@ -15,7 +15,6 @@ export function AuthProvider ({ children }) {
   }
 
   const login = (usuario) => {
-    console.log(usuario)
     if (usuario.auth === true) {
       navigate('/bodega/home')
       setLoggedIn(true)
@@ -25,7 +24,7 @@ export function AuthProvider ({ children }) {
       setLoggedIn(false)
       setUser({})
       setCompany({})
-      navigate('/')
+      navigate('/bodega')
     }
   }
 
@@ -37,7 +36,7 @@ export function AuthProvider ({ children }) {
         setCompany({})
       }
     })
-    navigate('/')
+    navigate('/bodega')
   }
 
   return (
