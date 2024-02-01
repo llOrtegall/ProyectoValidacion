@@ -10,7 +10,7 @@ export function AuthProvider ({ children }) {
   const [user, setUser] = useState({})
   const navigate = useNavigate()
 
-  const defineCompany = (company) => {
+  const defineCompany = ({ company }) => {
     setCompany(company)
   }
 
@@ -24,7 +24,7 @@ export function AuthProvider ({ children }) {
       setLoggedIn(false)
       setUser({})
       setCompany({})
-      navigate('/bodega')
+      navigate('/login')
     }
   }
 
@@ -36,7 +36,7 @@ export function AuthProvider ({ children }) {
         setCompany({})
       }
     })
-    navigate('/bodega')
+    navigate('/login')
   }
 
   return (
