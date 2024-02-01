@@ -37,7 +37,7 @@ export function AsignarItemBodega ({ company }) {
     e.preventDefault()
     try {
       const res = await axios.post('/addItemsToBodega',
-        { sucursal: sendBodega, itemIds: carItems, company: company }
+        { sucursal: sendBodega, itemIds: carItems, company }
       )
       setMessage(res.data.message)
       setBodegas([])
