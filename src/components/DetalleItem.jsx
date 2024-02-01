@@ -14,7 +14,7 @@ export function DetalleItem ({ item, onClose, company }) {
     placa: item.Placa,
     estado: item.Estado,
     descripcion: item.Descripcion,
-    company: company
+    company
   })
 
   const handleInputChange = (event) => {

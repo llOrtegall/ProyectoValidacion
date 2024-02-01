@@ -36,7 +36,10 @@ export function App () {
   const { logout, loggedIn, user, defineCompany, company, login } = useAuth()
 
   useEffect(() => {
-    axios.get('/profile').then(res => login(res.data))
+    axios.get('/profile').then(res => {
+      const usuario = res.data
+      login(usuario)
+    })
   }, [])
 
   return (
