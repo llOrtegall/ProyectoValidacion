@@ -10,7 +10,7 @@ export function AuthProvider ({ children }) {
   const [user, setUser] = useState({})
   const navigate = useNavigate()
 
-  const defineCompany = ({ company }) => {
+  const defineCompany = (company) => {
     setCompany(company)
   }
 

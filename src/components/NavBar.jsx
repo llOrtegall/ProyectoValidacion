@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 import { ButtonDow } from './Icons.jsx'
 
-export function NavBar () {
+export function NavBar({ company }) {
   const [bodega, setBodega] = useState(false)
 
   const handleClickBodega = () => {
@@ -13,14 +13,20 @@ export function NavBar () {
   console.log(bodega)
   return (
     <nav className=" bg-gray-900 flex h-16 items-center justify-around ">
-
+      <div className='text-white'>{company}</div>
       <figure>
         <Link to="#" className="">
           <img src="/gane.png" className="h-8" alt="Flowbite Logo" />
         </Link>
       </figure>
 
-      <ul className='relative w-44 flex justify-center'>
+      <ul>
+        <li>
+          <Link to="/bodega/verMovimientos" className="text-white hover:text-blue-400 font-semibold">verMovimientos</Link>
+        </li>
+      </ul>
+
+      <ul className='relative w-44 flex gap-4 justify-center'>
         <button className="flex font-semibold text-white items-center hover:text-blue-400" onClick={handleClickBodega}>
           Items
           <ButtonDow />
