@@ -58,7 +58,7 @@ export function App () {
         <Route path='/bodega/stock/verSimcards' element={<VerSimcards company={company} />} />
 
         <Route path='/bodega/stock/items/*' element={
-        <ProtectdeRoutes isAllowed={!!loggedIn && rol.includes('Administrador')}>
+        <ProtectdeRoutes isAllowed={!!loggedIn && rol.includes('Analista Desarrollo')}>
           <Routes>
             <Route path='crearItems' element={<CreatedItems company={company} />} />
             <Route path='asignarItems' element={<AsignarItemBodega company={company} />} />
@@ -66,7 +66,7 @@ export function App () {
         </ProtectdeRoutes>} />
 
         <Route path='/bodega/stock/bodega/*' element={
-        <ProtectdeRoutes isAllowed={!!loggedIn && rol.includes('Coordinador Soporte')}>
+        <ProtectdeRoutes isAllowed={!!loggedIn && rol.includes('Analista Desarrollo')}>
           <Routes>
             <Route path='crearBodega' element={<CreatedBodega company={company} />} />
             <Route path='crearMovimiento' element={<CrearMovimiento company={company} user={user}/>} />
@@ -74,7 +74,7 @@ export function App () {
         </ProtectdeRoutes>} />
 
         <Route path='/bodega/stock/simcards/*' element={
-        <ProtectdeRoutes isAllowed={!!loggedIn && rol.includes('Coordinador Soporte')}>
+        <ProtectdeRoutes isAllowed={!!loggedIn && rol.includes('Analista Desarrollo')}>
           <Routes>
             <Route path='crearSimcard' element={<CrearSimcard company={company} />} />
             <Route path='asignarSimcards' element={<AsignarSimcards company={company} />} />
