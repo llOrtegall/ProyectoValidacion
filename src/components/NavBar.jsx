@@ -28,7 +28,7 @@ export function NavBar ({ company, closeSesion }) {
 
   return (
     <nav className=" bg-gray-900 flex h-16 items-center justify-around ">
-      <div className='text-blue-700 font-semibold bottom-2 right-2 absolute'>Base De Datos: <span className='text-red-500'> {company} </span></div>
+      <div className='text-blue-700 font-semibold bottom-2 left-2 absolute'>Base De Datos: <span className='text-red-500'> {company} </span></div>
       <figure>
         <Link onClick={handleLinkClick} to="/bodega/home" className="">
           <img src="/gane.png" className="h-8" alt="Flowbite Logo" />
@@ -78,7 +78,7 @@ export function NavBar ({ company, closeSesion }) {
                 <ul className=' bg-gray-900 py-2 rounded-b-lg'>
                   <li className='flex flex-col items-center w-full gap-2'>
                     <Link onClick={handleLinkClick} to="/bodega/stock/bodega" className="text-white hover:text-blue-400 font-semibold py-2">Ver Bodegas</Link>
-                    <Link onClick={handleLinkClick} to="#" className="text-white hover:text-blue-400 font-semibold py-2">Crear Bodega</Link>
+                    <Link onClick={handleLinkClick} to="/bodega/stock/bodega/crearBodega" className="text-white hover:text-blue-400 font-semibold py-2">Crear Bodega</Link>
                     <Link onClick={handleLinkClick} to="#" className="text-white hover:text-blue-400 font-semibold py-2">Crear Movimiento</Link>
                   </li>
                 </ul>

@@ -11,7 +11,7 @@ export function Home ({ fun, company }) {
   }, [company])
 
   return (
-    <main className="bg-blue-200">
+    <main className="bg-blue-200 min-h-[93vh] flex items-center justify-center flex-col">
       {
         company === 'Multired y Servired' || company === undefined
           ? company !== 'Multired' || company !== 'Servired' || company !== undefined

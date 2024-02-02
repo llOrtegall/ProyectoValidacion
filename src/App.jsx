@@ -12,6 +12,8 @@ import { VerMovimientos } from './pages/Movimientos/VerMovimientos.jsx'
 import { DetalleBodega } from './pages/Bodegas/DetallesBodegas.jsx'
 import { VerBodegas } from './pages/Bodegas/Bodegas.jsx'
 
+import { CreatedBodega } from './pages/Bodegas/CreatedBodega.jsx'
+
 import { Items } from './pages/Items/Items.jsx'
 
 import { AsignarItemBodega } from './pages/Items/AsignarItemBodega.jsx'
@@ -62,6 +64,14 @@ export function App () {
             <Route path='asignarItems' element={<AsignarItemBodega company={company} />} />
           </Routes>
         </ProtectdeRoutes>} />
+
+        <Route path='/bodega/stock/bodega/*' element={
+        <ProtectdeRoutes isAllowed={!!loggedIn && rol.includes('Analista Desarrollo')}>
+          <Routes>
+            <Route path='crearBodega' element={<CreatedBodega company={company} />} />
+          </Routes>
+        </ProtectdeRoutes>} />
+
       </Routes>
     </>
   )

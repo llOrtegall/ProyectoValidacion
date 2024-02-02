@@ -2,7 +2,7 @@ import { SuccesIcon, WarningIcon } from '../../components/Icons.jsx'
 import { createBodega } from '../../services/FetchItemsData.js'
 import { useState } from 'react'
 
-export function CreatedBodega ({ company: empresa }) {
+export function CreatedBodega ({ company }) {
   const [message, setMessage] = useState('')
   const [error, setError] = useState('')
 
@@ -11,7 +11,7 @@ export function CreatedBodega ({ company: empresa }) {
     nombre: '',
     sucursal: '',
     direccion: '',
-    company: empresa
+    company
   })
 
   const handleChange = (e) => {
@@ -36,7 +36,7 @@ export function CreatedBodega ({ company: empresa }) {
         nombre: '',
         sucursal: '',
         direccion: '',
-        company: empresa
+        company
       }) // limpiar el formulario
       setTimeout(() => {
         setMessage('')
@@ -70,7 +70,7 @@ export function CreatedBodega ({ company: empresa }) {
             className="px-3 py-2 border border-gray-300 rounded-md" />
         </div>
 
-        <input type="text" value={empresa} readOnly/>
+        <input type="text" value={company} readOnly/>
 
         <button className="text-md p-2 w-44  font-semibold text-white bg-blue-700 rounded-md hover:bg-white hover:text-black">
           Crear Bodega | PDV
