@@ -20,7 +20,7 @@ axios.defaults.baseURL = 'http://localhost:3000/'
 axios.defaults.withCredentials = true
 
 export function App () {
-  const { loggedIn, login, defineCompany, user, company, logout } = useAuth()
+  const { loggedIn, rol, login, defineCompany, company, logout } = useAuth()
 
   useEffect(() => {
     axios.get('/profile').then(res => {
@@ -44,7 +44,7 @@ export function App () {
         <Route index element={<Home />} />
         <Route path='/bodega/home' element={<Home company={company} fun={defineCompany}/>} />
         <Route path='/bodega/verMovimientos' element={<VerMovimientos company={company} />} />
-        <Route path='/bodega/stock/items' element={<Items company={company} rol={user.rol}/>} />
+        <Route path='/bodega/stock/items' element={<Items company={company} rol={rol}/>} />
         <Route path='/bodega/stock/bodega' element={<VerBodegas company={company} />} />
         <Route path='/bodega/stock/bodega/detalle/:id' element={<DetalleBodega company={company} />} />
         <Route path='/bodega/stock/verSimcards' element={<VerSimcards company={company} />} />

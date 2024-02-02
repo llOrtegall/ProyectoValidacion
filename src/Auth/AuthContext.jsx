@@ -7,6 +7,7 @@ const AuthContext = createContext()
 export function AuthProvider ({ children }) {
   const [loggedIn, setLoggedIn] = useState(false)
   const [company, setCompany] = useState({})
+  const [rol, setRol] = useState('')
   const [user, setUser] = useState({})
   const navigate = useNavigate()
 
@@ -21,6 +22,7 @@ export function AuthProvider ({ children }) {
       setLoggedIn(true)
       setUser(usuario.UserLogin)
       setCompany(usuario.UserLogin.empresa)
+      setRol(usuario.UserLogin.rol)
     } else {
       setLoggedIn(false)
       setUser({})
@@ -41,7 +43,7 @@ export function AuthProvider ({ children }) {
   }
 
   return (
-    <AuthContext.Provider value={{ loggedIn, user, login, logout, defineCompany, company }}>
+    <AuthContext.Provider value={{ loggedIn, user, rol, login, logout, defineCompany, company }}>
       {children}
     </AuthContext.Provider>
   )
