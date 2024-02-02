@@ -1,10 +1,9 @@
-import { ButtonDow, HomeIcon, CloseSessionIcon } from './Icons.jsx'
+import { ButtonDow, HomeIcon, CloseSessionIcon, SuccesIcon, LockIcon } from './Icons.jsx'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
-export function NavBar ({ company, closeSesion }) {
+export function NavBar ({ company, closeSesion, authorize }) {
   const [renderMenu, setRenderMenu] = useState({ id: '', render: false })
-
   const handleClickMenu = (ev) => {
     setRenderMenu({ id: ev.target.id, render: true })
   }
@@ -44,7 +43,9 @@ export function NavBar ({ company, closeSesion }) {
         </li>
 
         <li>
-          <Link onClick={handleLinkClick} to="/bodega/verMovimientos" className=" text-white hover:text-blue-400 font-semibold">Movimientos</Link>
+          <Link onClick={handleLinkClick} to="/bodega/verMovimientos" className=" text-white hover:text-blue-400 font-semibold">
+            Movimientos
+          </Link>
         </li>
 
         <li className='relative flex justify-center menu'>
@@ -54,12 +55,34 @@ export function NavBar ({ company, closeSesion }) {
           </button>
           {
             renderMenu.id === 'Articulos' && renderMenu.render === true && (
-              <article className="absolute -left-12 top-11 w-44">
+              <article className="absolute -left-16 top-11 w-52">
                 <ul className=' bg-gray-900 py-2 rounded-b-lg'>
                   <li className='flex flex-col items-center w-full gap-2'>
-                    <Link onClick={handleLinkClick} to="/bodega/stock/items" className="text-white hover:text-blue-400 font-semibold py-2">Ver Items</Link>
-                    <Link onClick={handleLinkClick} to="/bodega/stock/items/crearItems" className="text-white hover:text-blue-400 font-semibold py-2">Crear Items</Link>
-                    <Link onClick={handleLinkClick} to="/bodega/stock/items/asignarItems" className="text-white hover:text-blue-400 font-semibold py-2">Asginar Items</Link>
+                    <Link onClick={handleLinkClick} to="/bodega/stock/items"
+                      className="text-white hover:text-blue-400 font-semibold py-2 flex justify-between w-full px-6 hover:bg-slate-300">
+                      Ver Items
+                      <figure className=' text-green-600 rounded-full'>
+                        <SuccesIcon />
+                      </figure>
+                    </Link>
+                    <Link onClick={handleLinkClick} to="/bodega/stock/items/crearItems"
+                      className="text-white hover:text-blue-400 font-semibold py-2 flex justify-between w-full px-6 hover:bg-slate-300">
+                      Crear Items
+                      {
+                        authorize !== 'Administrador'
+                          ? <figure className='text-red-500 rounded-full'><LockIcon /></figure>
+                          : <figure className='text-green-500 rounded-full'><SuccesIcon /></figure>
+                      }
+                    </Link>
+                    <Link onClick={handleLinkClick} to="/bodega/stock/items/asignarItems"
+                      className="text-white hover:text-blue-400 font-semibold py-2 flex justify-between w-full px-6 hover:bg-slate-300">
+                      Asginar Items
+                      {
+                        authorize !== 'Administrador'
+                          ? <figure className='text-red-500 rounded-full'><LockIcon /></figure>
+                          : <figure className='text-green-500 rounded-full'><SuccesIcon /></figure>
+                      }
+                    </Link>
                   </li>
                 </ul>
               </article>
@@ -74,12 +97,34 @@ export function NavBar ({ company, closeSesion }) {
           </button>
           {
             renderMenu.id === 'Bodegas' && renderMenu.render === true && (
-              <article className="absolute -left-12 top-11 w-44">
+              <article className="absolute -left-16 top-11 w-52">
                 <ul className=' bg-gray-900 py-2 rounded-b-lg'>
                   <li className='flex flex-col items-center w-full gap-2'>
-                    <Link onClick={handleLinkClick} to="/bodega/stock/bodega" className="text-white hover:text-blue-400 font-semibold py-2">Ver Bodegas</Link>
-                    <Link onClick={handleLinkClick} to="/bodega/stock/bodega/crearBodega" className="text-white hover:text-blue-400 font-semibold py-2">Crear Bodega</Link>
-                    <Link onClick={handleLinkClick} to="/bodega/stock/bodega/crearMovimiento" className="text-white hover:text-blue-400 font-semibold py-2">Crear Movimiento</Link>
+                    <Link onClick={handleLinkClick} to="/bodega/stock/bodega"
+                      className="text-white hover:text-blue-400 font-semibold py-2 flex justify-between w-full px-6 hover:bg-slate-300">
+                      Ver Bodegas
+                      <figure className='text-green-500 rounded-full'>
+                        <SuccesIcon />
+                      </figure>
+                    </Link>
+                    <Link onClick={handleLinkClick} to="/bodega/stock/bodega/crearBodega"
+                      className="text-white hover:text-blue-400 font-semibold py-2 flex justify-between w-full px-6 hover:bg-slate-300">
+                      Crear Bodega
+                      {
+                        authorize !== 'Administrador'
+                          ? <figure className='text-red-500 rounded-full'><LockIcon /></figure>
+                          : <figure className='text-green-500 rounded-full'><SuccesIcon /></figure>
+                      }
+                    </Link>
+                    <Link onClick={handleLinkClick} to="/bodega/stock/bodega/crearMovimiento"
+                      className="text-white hover:text-blue-400 font-semibold py-2 flex justify-between w-full px-6 hover:bg-slate-300">
+                      Crear Movimiento
+                      {
+                        authorize !== 'Coordinador Soporte'
+                          ? <figure className='text-red-500 rounded-full'><LockIcon /></figure>
+                          : <figure className='text-green-500 rounded-full'><SuccesIcon /></figure>
+                      }
+                    </Link>
                   </li>
                 </ul>
               </article>
@@ -94,12 +139,43 @@ export function NavBar ({ company, closeSesion }) {
           </button>
           {
             renderMenu.id === 'Simcards' && renderMenu.render === true && (
-              <article className="absolute -left-12 top-11 w-44">
+              <article className="absolute -left-18 top-11 w-56">
                 <ul className=' bg-gray-900 py-2 rounded-b-lg'>
                   <li className='flex flex-col items-center w-full gap-2'>
-                    <Link onClick={handleLinkClick} to="/bodega/stock/verSimcards" className="text-white hover:text-blue-400 font-semibold py-2">Ver Simcards</Link>
-                    <Link onClick={handleLinkClick} to="#" className="text-white hover:text-blue-400 font-semibold py-2">Crear Simcards</Link>
-                    <Link onClick={handleLinkClick} to="#" className="text-white hover:text-blue-400 font-semibold py-2">Crear Movimiento SIM</Link>
+                    <Link onClick={handleLinkClick} to="/bodega/stock/verSimcards"
+                      className="text-white hover:text-blue-400 font-semibold py-2 flex justify-between w-full px-6 hover:bg-slate-300">
+                      Ver Simcards
+                      <figure className='text-green-500 rounded-full'>
+                        <SuccesIcon />
+                      </figure>
+                    </Link>
+                    <Link onClick={handleLinkClick} to="/bodega/stock/simcards/crearSimcard"
+                      className="text-white hover:text-blue-400 font-semibold py-2 flex justify-between w-full px-6 hover:bg-slate-300">
+                      Crear Simcards
+                      {
+                        authorize !== 'Administrador'
+                          ? <figure className='text-red-500 rounded-full'><LockIcon /></figure>
+                          : <figure className='text-green-500 rounded-full'><SuccesIcon /></figure>
+                      }
+                    </Link>
+                    <Link onClick={handleLinkClick} to="/bodega/stock/simcards/asignarSimcards"
+                      className="text-white hover:text-blue-400 font-semibold py-2 flex justify-between w-full px-6 hover:bg-slate-300">
+                      Asignar Simcards
+                      {
+                        authorize !== 'Administrador'
+                          ? <figure className='text-red-500 rounded-full'><LockIcon /></figure>
+                          : <figure className='text-green-500 rounded-full'><SuccesIcon /></figure>
+                      }
+                    </Link>
+                    <Link onClick={handleLinkClick} to="/bodega/stock/simcards/crearMovimientoSimcard"
+                      className="text-white hover:text-blue-400 font-semibold py-2 flex justify-between w-full px-6 hover:bg-slate-300">
+                      Crear Mov Sims
+                      {
+                        authorize !== 'Administrador'
+                          ? <figure className='text-red-500 rounded-full'><LockIcon /></figure>
+                          : <figure className='text-green-500 rounded-full'><SuccesIcon /></figure>
+                      }
+                    </Link>
                   </li>
                 </ul>
               </article>

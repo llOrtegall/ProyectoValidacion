@@ -2,7 +2,7 @@ import { MessageDisplay } from '../../components/MessageDisplay'
 import { useState } from 'react'
 import axios from 'axios'
 
-export function CrearSimcard ({ company: empresa }) {
+export function CrearSimcard ({ company }) {
   const [error, setError] = useState('')
   const [message, setMessage] = useState('')
   const [simcard, setSimcard] = useState({
@@ -13,7 +13,7 @@ export function CrearSimcard ({ company: empresa }) {
     apn: '',
     user: '',
     pass: '',
-    company: empresa
+    company
   })
 
   const handleSubmit = async (e) => {
@@ -31,7 +31,7 @@ export function CrearSimcard ({ company: empresa }) {
           apn: '',
           user: '',
           pass: '',
-          company: empresa
+          company
         })
         setTimeout(() => {
           setMessage('')

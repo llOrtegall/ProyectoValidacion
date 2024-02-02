@@ -38,7 +38,6 @@ export function AuthProvider ({ children }) {
         setCompany({})
       }
     })
-    navigate('/login')
   }
 
   return (
