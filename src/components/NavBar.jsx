@@ -1,12 +1,11 @@
-import { ButtonDow, HomeIcon } from './Icons.jsx'
+import { ButtonDow, HomeIcon, CloseSessionIcon } from './Icons.jsx'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
-export function NavBar ({ company }) {
+export function NavBar ({ company, closeSesion }) {
   const [renderMenu, setRenderMenu] = useState({ id: '', render: false })
 
   const handleClickMenu = (ev) => {
-    console.log(ev)
     setRenderMenu({ id: ev.target.id, render: true })
   }
 
@@ -14,22 +13,14 @@ export function NavBar ({ company }) {
     setRenderMenu({ id: '', render: false })
   }
 
-  // Detecta clics fuera del menú
   useEffect(() => {
     const handleClickOutside = (event) => {
-      // Si el clic fue dentro de un menú, no hagas nada
       if (event.target.closest('.menu')) {
         return
       }
-
-      // Si el clic fue fuera de un menú, restablece el estado renderMenu
       setRenderMenu({ id: '', render: false })
     }
-
-    // Agrega el detector de eventos de clic al documento
     document.addEventListener('mousedown', handleClickOutside)
-
-    // Limpia el detector de eventos de clic cuando el componente se desmonta
     return () => {
       document.removeEventListener('mousedown', handleClickOutside)
     }
@@ -86,7 +77,7 @@ export function NavBar ({ company }) {
               <article className="absolute -left-12 top-11 w-44">
                 <ul className=' bg-gray-900 py-2 rounded-b-lg'>
                   <li className='flex flex-col items-center w-full gap-2'>
-                    <Link onClick={handleLinkClick} to="#" className="text-white hover:text-blue-400 font-semibold py-2">Ver Bodegas</Link>
+                    <Link onClick={handleLinkClick} to="/bodega/stock/bodega" className="text-white hover:text-blue-400 font-semibold py-2">Ver Bodegas</Link>
                     <Link onClick={handleLinkClick} to="#" className="text-white hover:text-blue-400 font-semibold py-2">Crear Bodega</Link>
                     <Link onClick={handleLinkClick} to="#" className="text-white hover:text-blue-400 font-semibold py-2">Crear Movimiento</Link>
                   </li>
@@ -114,6 +105,12 @@ export function NavBar ({ company }) {
               </article>
             )
           }
+        </li>
+
+        <li>
+          <a className='text-white hover:text-blue-400 font-semibold cursor-pointer' onClick={closeSesion}>
+            <CloseSessionIcon />
+          </a>
         </li>
 
       </ul>

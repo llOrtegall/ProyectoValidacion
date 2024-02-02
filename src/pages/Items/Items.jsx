@@ -21,8 +21,6 @@ export function Items ({ rol, company }) {
     setIsModalOpen(true)
   }
 
-  console.log(rol)
-
   return (
     <section className='h-[93vh] overflow-auto'>
 

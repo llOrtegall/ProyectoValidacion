@@ -1,14 +1,10 @@
 import { useFiltersBodegas } from '../../hooks/useFilters.js'
-import { useIdleTimer } from '../../hooks/useIdleTimer.js'
 import { BodegaData } from '../../services/FetchItemsData.js'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
-export function VerBodegas ({ fun, company }) {
+export function VerBodegas ({ company }) {
   const [bodegas, setBodegas] = useState([])
-  const logout = fun
-
-  useIdleTimer(logout, 600000)
 
   const { setSearchBodega, filteredBodegas, searchBodega } = useFiltersBodegas(bodegas)
 

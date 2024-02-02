@@ -7,15 +7,28 @@ import { Home } from './pages/Home.jsx'
 
 // TODO: Pagina
 import { VerMovimientos } from './pages/Movimientos/VerMovimientos.jsx'
+import { VerBodegas } from './pages/Bodegas/Bodegas.jsx'
+import { DetalleBodega } from './pages/Bodegas/DetallesBodegas.jsx'
 import { Items } from './pages/Items/Items.jsx'
 
 import axios from 'axios'
+import { useEffect } from 'react'
 
 axios.defaults.baseURL = 'http://localhost:3000/'
 axios.defaults.withCredentials = true
 
 export function App () {
-  const { loggedIn, defineCompany, user, company } = useAuth()
+  const { loggedIn, login, defineCompany, user, company, logout } = useAuth()
+
+  useEffect(() => {
+    axios.get('/profile').then(res => {
+      if (res.status === 200) {
+        login(res.data)
+      } else {
+        login({ auth: false })
+      }
+    })
+  }, [])
 
   if (!loggedIn) {
     return <LoginForm />
@@ -23,13 +36,15 @@ export function App () {
 
   return (
     <>
-      <NavBar company={company}/>
+      <NavBar company={company} closeSesion={logout}/>
 
       <Routes>
         <Route index element={<Home />} />
         <Route path='/bodega/home' element={<Home company={company} fun={defineCompany}/>} />
         <Route path='/bodega/verMovimientos' element={<VerMovimientos company={company} />} />
         <Route path='/bodega/stock/items' element={<Items company={company} rol={user.rol}/>} />
+        <Route path='/bodega/stock/bodega' element={<VerBodegas company={company} />} />
+        <Route path='/bodega/stock/bodega/detalle/:id' element={<DetalleBodega company={company} />} />
       </Routes>
     </>
   )
