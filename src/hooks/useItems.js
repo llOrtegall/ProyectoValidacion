@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { getItemsFecht } from '../services/Items.services.js'
 
-export function useItems ({ empresa: company }) {
+export function useItems (company) {
   const [items, setItems] = useState([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)

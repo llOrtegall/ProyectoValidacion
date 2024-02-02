@@ -6,7 +6,7 @@ import { useItems } from '../../hooks/useItems.js'
 import { useEffect, useState } from 'react'
 
 export function Items ({ rol, company }) {
-  const { items, getItems } = useItems({ empresa: company })
+  const { items, getItems } = useItems(company)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [selectedItem, setSelectedItem] = useState(null)
 

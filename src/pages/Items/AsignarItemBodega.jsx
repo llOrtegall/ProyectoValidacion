@@ -13,7 +13,7 @@ export function AsignarItemBodega ({ company }) {
   const [message, setMessage] = useState('')
   const [error, setError] = useState('')
 
-  const { items, getItems } = useItems()
+  const { items, getItems } = useItems(company)
 
   const { search, setSearch, filteredItems } = useFiltersItems(items)
   const { filteredBodegas, searchBodega, setSearchBodega } = useFiltersBodegas(bodegas)
@@ -22,7 +22,7 @@ export function AsignarItemBodega ({ company }) {
   const [sendBodega, setSendBodega] = useState('')
 
   useEffect(() => {
-    getItems(company)
+    getItems()
 
     setTimeout(() => {
       BodegaData(company)

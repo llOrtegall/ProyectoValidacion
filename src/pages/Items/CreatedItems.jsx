@@ -27,7 +27,6 @@ export function CreatedItems ({ company }) {
     e.preventDefault()
     axios.post('/createItem', item)
       .then(res => {
-        console.log(res)
         setItem({
           nombre: '',
           descripcion: '',
