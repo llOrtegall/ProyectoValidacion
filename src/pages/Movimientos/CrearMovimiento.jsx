@@ -1,17 +1,14 @@
 import { MessageDisplay } from '../../components/MessageDisplay.jsx'
 import { ItemsAgregados } from '../../components/ItemsAgregados.jsx'
 import { useFiltersItems } from '../../hooks/useFilters.js'
-import { useIdleTimer } from '../../hooks/useIdleTimer.js'
 import { useCarItems } from '../../hooks/useCartItems.js'
 import { AddIcon } from '../../components/Icons.jsx'
 import { useState } from 'react'
 import axios from 'axios'
 
-export function CrearMovimiento ({ fun, user, company }) {
-  const logout = fun
+export function CrearMovimiento ({ user, company }) {
   const nombres = user.nombres + ' ' + user.apellidos
 
-  useIdleTimer(logout, 600000)
   const [bodegaDestino, setBodegaDestino] = useState(null)
   const [bodegaOrigen, setBodegaOrigen] = useState(null)
   const [searchBodegaOrigen, setSearchBodegaOrigen] = useState('')

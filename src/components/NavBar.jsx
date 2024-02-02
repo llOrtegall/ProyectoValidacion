@@ -79,7 +79,7 @@ export function NavBar ({ company, closeSesion }) {
                   <li className='flex flex-col items-center w-full gap-2'>
                     <Link onClick={handleLinkClick} to="/bodega/stock/bodega" className="text-white hover:text-blue-400 font-semibold py-2">Ver Bodegas</Link>
                     <Link onClick={handleLinkClick} to="/bodega/stock/bodega/crearBodega" className="text-white hover:text-blue-400 font-semibold py-2">Crear Bodega</Link>
-                    <Link onClick={handleLinkClick} to="#" className="text-white hover:text-blue-400 font-semibold py-2">Crear Movimiento</Link>
+                    <Link onClick={handleLinkClick} to="/bodega/stock/bodega/crearMovimiento" className="text-white hover:text-blue-400 font-semibold py-2">Crear Movimiento</Link>
                   </li>
                 </ul>
               </article>
