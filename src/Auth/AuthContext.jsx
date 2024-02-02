@@ -16,7 +16,6 @@ export function AuthProvider ({ children }) {
   }
 
   const login = (usuario) => {
-    console.log(usuario)
     if (usuario.auth === true) {
       navigate('/bodega/home')
       setLoggedIn(true)

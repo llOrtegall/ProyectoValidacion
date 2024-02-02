@@ -10,8 +10,6 @@ export function Home ({ fun, company }) {
     setKey(prevKey => prevKey + 1)
   }, [company])
 
-  console.log(key)
-
   return (
     <main className="bg-blue-200">
       {

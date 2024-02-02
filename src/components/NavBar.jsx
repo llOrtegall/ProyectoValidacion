@@ -58,8 +58,8 @@ export function NavBar ({ company, closeSesion }) {
                 <ul className=' bg-gray-900 py-2 rounded-b-lg'>
                   <li className='flex flex-col items-center w-full gap-2'>
                     <Link onClick={handleLinkClick} to="/bodega/stock/items" className="text-white hover:text-blue-400 font-semibold py-2">Ver Items</Link>
-                    <Link onClick={handleLinkClick} to="#" className="text-white hover:text-blue-400 font-semibold py-2">Crear Items</Link>
-                    <Link onClick={handleLinkClick} to="#" className="text-white hover:text-blue-400 font-semibold py-2">Asginar Items</Link>
+                    <Link onClick={handleLinkClick} to="/bodega/stock/items/crearItems" className="text-white hover:text-blue-400 font-semibold py-2">Crear Items</Link>
+                    <Link onClick={handleLinkClick} to="/bodega/stock/items/asignarItems" className="text-white hover:text-blue-400 font-semibold py-2">Asginar Items</Link>
                   </li>
                 </ul>
               </article>
