@@ -2,13 +2,10 @@ import { BottonExportSimcards } from '../../components/BotonExcelDefault.jsx'
 import { simcardsBodegas } from '../../services/FetchItemsData.js'
 import { useFilterSimcards } from '../../hooks/useFilters.js'
 import { RenderIconSims } from '../../components/RenderIconSims.jsx'
-import { useIdleTimer } from '../../hooks/useIdleTimer.js'
 import { useEffect, useState } from 'react'
 
-export function VerSimcards ({ fun, company }) {
+export function VerSimcards ({ company }) {
   const [simcardsConBodega, setSimcardsConBodega] = useState([])
-  const logout = fun
-  useIdleTimer(logout, 600000)
   useEffect(() => {
     simcardsBodegas(company)
       .then(data => {

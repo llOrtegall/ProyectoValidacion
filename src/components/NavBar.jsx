@@ -97,7 +97,7 @@ export function NavBar ({ company, closeSesion }) {
               <article className="absolute -left-12 top-11 w-44">
                 <ul className=' bg-gray-900 py-2 rounded-b-lg'>
                   <li className='flex flex-col items-center w-full gap-2'>
-                    <Link onClick={handleLinkClick} to="#" className="text-white hover:text-blue-400 font-semibold py-2">Ver Simcards</Link>
+                    <Link onClick={handleLinkClick} to="/bodega/stock/verSimcards" className="text-white hover:text-blue-400 font-semibold py-2">Ver Simcards</Link>
                     <Link onClick={handleLinkClick} to="#" className="text-white hover:text-blue-400 font-semibold py-2">Crear Simcards</Link>
                     <Link onClick={handleLinkClick} to="#" className="text-white hover:text-blue-400 font-semibold py-2">Crear Movimiento SIM</Link>
                   </li>

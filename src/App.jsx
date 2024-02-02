@@ -7,9 +7,11 @@ import { Home } from './pages/Home.jsx'
 
 // TODO: Pagina
 import { VerMovimientos } from './pages/Movimientos/VerMovimientos.jsx'
-import { VerBodegas } from './pages/Bodegas/Bodegas.jsx'
 import { DetalleBodega } from './pages/Bodegas/DetallesBodegas.jsx'
+import { VerBodegas } from './pages/Bodegas/Bodegas.jsx'
 import { Items } from './pages/Items/Items.jsx'
+
+import { VerSimcards } from './pages/Simcards/VerSimcards.jsx'
 
 import axios from 'axios'
 import { useEffect } from 'react'
@@ -45,6 +47,7 @@ export function App () {
         <Route path='/bodega/stock/items' element={<Items company={company} rol={user.rol}/>} />
         <Route path='/bodega/stock/bodega' element={<VerBodegas company={company} />} />
         <Route path='/bodega/stock/bodega/detalle/:id' element={<DetalleBodega company={company} />} />
+        <Route path='/bodega/stock/verSimcards' element={<VerSimcards company={company} />} />
       </Routes>
     </>
   )
