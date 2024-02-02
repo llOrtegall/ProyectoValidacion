@@ -7,6 +7,7 @@ import { Home } from './pages/Home.jsx'
 
 // TODO: Pagina
 import { VerMovimientos } from './pages/Movimientos/VerMovimientos.jsx'
+import { Items } from './pages/Items/Items.jsx'
 
 import axios from 'axios'
 
@@ -14,7 +15,7 @@ axios.defaults.baseURL = 'http://localhost:3000/'
 axios.defaults.withCredentials = true
 
 export function App () {
-  const { loggedIn, user, login, logout, defineCompany, company } = useAuth()
+  const { loggedIn, defineCompany, user, company } = useAuth()
 
   if (!loggedIn) {
     return <LoginForm />
@@ -28,6 +29,7 @@ export function App () {
         <Route index element={<Home />} />
         <Route path='/bodega/home' element={<Home company={company} fun={defineCompany}/>} />
         <Route path='/bodega/verMovimientos' element={<VerMovimientos company={company} />} />
+        <Route path='/bodega/stock/items' element={<Items company={company} rol={user.rol}/>} />
       </Routes>
     </>
   )

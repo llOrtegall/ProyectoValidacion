@@ -5,7 +5,7 @@ import { useFiltersItems } from '../../hooks/useFilters.js'
 import { useItems } from '../../hooks/useItems.js'
 import { useEffect, useState } from 'react'
 
-export function Items ({ user, company, autorizados }) {
+export function Items ({ rol, company }) {
   const { items, getItems } = useItems({ empresa: company })
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [selectedItem, setSelectedItem] = useState(null)
@@ -21,6 +21,8 @@ export function Items ({ user, company, autorizados }) {
     setIsModalOpen(true)
   }
 
+  console.log(rol)
+
   return (
     <section className='h-[93vh] overflow-auto'>
 
@@ -32,12 +34,12 @@ export function Items ({ user, company, autorizados }) {
         <BottonExportItems datos={filteredItems} />
       </section>
 
-      {filteredItems && <RenderItems user={user} handleClick={handleClick} filteredItems={filteredItems} />}
+      {filteredItems && <RenderItems rol={rol} handleClick={handleClick} filteredItems={filteredItems} />}
 
-      {user.rol === 'Analista Desarrollo' ||
-        user.rol === 'Jefe Tecnología' ||
-        user.rol === 'Director Tecnología' ||
-        user.rol === 'Coordinador Soporte'
+      {rol === 'Analista Desarrollo' ||
+        rol === 'Jefe Tecnología' ||
+        rol === 'Director Tecnología' ||
+        rol === 'Coordinador Soporte'
         ? (isModalOpen === true
             ? <div className="fixed inset-0 flex items-center justify-center z-50">
             <div className="absolute inset-0 bg-black opacity-50"></div>
