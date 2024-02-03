@@ -34,10 +34,8 @@ export function Items ({ rol, company }) {
 
       {filteredItems && <RenderItems rol={rol} handleClick={handleClick} filteredItems={filteredItems} />}
 
-      {rol === 'Analista Desarrollo' ||
-        rol === 'Jefe Tecnología' ||
-        rol === 'Director Tecnología' ||
-        rol === 'Coordinador Soporte'
+      {rol === 'Administrador' ||
+        rol === 'Aux administrativa'
         ? (isModalOpen === true
             ? <div className="fixed inset-0 flex items-center justify-center z-50">
             <div className="absolute inset-0 bg-black opacity-50"></div>

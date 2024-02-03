@@ -30,7 +30,7 @@ export function NavBar ({ company, closeSesion, authorize }) {
       <div className='text-blue-700 font-semibold bottom-2 left-2 absolute'>Base De Datos: <span className='text-red-500'> {company} </span></div>
       <figure>
         <Link onClick={handleLinkClick} to="/bodega/home" className="">
-          <img src="/gane.png" className="h-8" alt="Flowbite Logo" />
+          <img src="../public/gane.png" className="h-8" alt="Flowbite Logo" />
         </Link>
       </figure>
 
@@ -69,18 +69,18 @@ export function NavBar ({ company, closeSesion, authorize }) {
                       className="text-white hover:text-blue-400 font-semibold py-2 flex justify-between w-full px-6 hover:bg-slate-700">
                       Crear Items
                       {
-                        authorize !== 'Analista Desarrollo'
-                          ? <figure className='text-red-500 rounded-full'><LockIcon /></figure>
-                          : <figure className='text-green-500 rounded-full'><SuccesIcon /></figure>
+                        authorize === 'Administrador' || authorize === 'Aux administrativo'
+                          ? <figure className='text-green-500 rounded-full'><SuccesIcon /></figure>
+                          : <figure className='text-red-500 rounded-full'><LockIcon /></figure>
                       }
                     </Link>
                     <Link onClick={handleLinkClick} to="/bodega/stock/items/asignarItems"
                       className="text-white hover:text-blue-400 font-semibold py-2 flex justify-between w-full px-6 hover:bg-slate-700">
                       Asginar Items
                       {
-                        authorize !== 'Analista Desarrollo'
-                          ? <figure className='text-red-500 rounded-full'><LockIcon /></figure>
-                          : <figure className='text-green-500 rounded-full'><SuccesIcon /></figure>
+                        authorize === 'Administrador' || authorize === 'Aux administrativo'
+                          ? <figure className='text-green-500 rounded-full'><SuccesIcon /></figure>
+                          : <figure className='text-red-500 rounded-full'><LockIcon /></figure>
                       }
                     </Link>
                   </li>
@@ -111,18 +111,18 @@ export function NavBar ({ company, closeSesion, authorize }) {
                       className="text-white hover:text-blue-400 font-semibold py-2 flex justify-between w-full px-6 hover:bg-slate-700">
                       Crear Bodega
                       {
-                        authorize !== 'Analista Desarrollo'
-                          ? <figure className='text-red-500 rounded-full'><LockIcon /></figure>
-                          : <figure className='text-green-500 rounded-full'><SuccesIcon /></figure>
+                        authorize === 'Coordinador Soporte' || authorize === 'Aux administrativo' || authorize === 'Administrador'
+                          ? <figure className='text-green-500 rounded-full'><SuccesIcon /></figure>
+                          : <figure className='text-red-500 rounded-full'><LockIcon /></figure>
                       }
                     </Link>
                     <Link onClick={handleLinkClick} to="/bodega/stock/bodega/crearMovimiento"
                       className="text-white hover:text-blue-400 font-semibold py-2 flex justify-between w-full px-6 hover:bg-slate-700">
                       Crear Movimiento
                       {
-                        authorize !== 'Analista Desarrollo'
-                          ? <figure className='text-red-500 rounded-full'><LockIcon /></figure>
-                          : <figure className='text-green-500 rounded-full'><SuccesIcon /></figure>
+                        authorize === 'Coordinador Soporte' || authorize === 'Aux administrativo' || authorize === 'Administrador'
+                          ? <figure className='text-green-500 rounded-full'><SuccesIcon /></figure>
+                          : <figure className='text-red-500 rounded-full'><LockIcon /></figure>
                       }
                     </Link>
                   </li>
@@ -153,27 +153,27 @@ export function NavBar ({ company, closeSesion, authorize }) {
                       className="text-white hover:text-blue-400 font-semibold py-2 flex justify-between w-full px-6 hover:bg-slate-700">
                       Crear Simcards
                       {
-                        authorize !== 'Analista Desarrollo'
-                          ? <figure className='text-red-500 rounded-full'><LockIcon /></figure>
-                          : <figure className='text-green-500 rounded-full'><SuccesIcon /></figure>
+                        authorize === 'Coordinador Soporte' || authorize === 'Administrador'
+                          ? <figure className='text-green-500 rounded-full'><SuccesIcon /></figure>
+                          : <figure className='text-red-500 rounded-full'><LockIcon /></figure>
                       }
                     </Link>
                     <Link onClick={handleLinkClick} to="/bodega/stock/simcards/asignarSimcards"
                       className="text-white hover:text-blue-400 font-semibold py-2 flex justify-between w-full px-6 hover:bg-slate-700">
                       Asignar Simcards
                       {
-                        authorize !== 'Analista Desarrollo'
-                          ? <figure className='text-red-500 rounded-full'><LockIcon /></figure>
-                          : <figure className='text-green-500 rounded-full'><SuccesIcon /></figure>
+                        authorize === 'Coordinador Soporte' || authorize === 'Administrador'
+                          ? <figure className='text-green-500 rounded-full'><SuccesIcon /></figure>
+                          : <figure className='text-red-500 rounded-full'><LockIcon /></figure>
                       }
                     </Link>
                     <Link onClick={handleLinkClick} to="/bodega/stock/simcards/crearMovimientoSimcard"
                       className="text-white hover:text-blue-400 font-semibold py-2 flex justify-between w-full px-6 hover:bg-slate-700">
                       Crear Mov Sims
                       {
-                        authorize !== 'Analista Desarrollo'
-                          ? <figure className='text-red-500 rounded-full'><LockIcon /></figure>
-                          : <figure className='text-green-500 rounded-full'><SuccesIcon /></figure>
+                        authorize === 'Coordinador Soporte' || authorize === 'Administrador'
+                          ? <figure className='text-green-500 rounded-full'><SuccesIcon /></figure>
+                          : <figure className='text-red-500 rounded-full'><LockIcon /></figure>
                       }
                     </Link>
                   </li>
