@@ -4,7 +4,7 @@ import { useState } from 'react'
 import axios from 'axios'
 
 export function DetalleItem ({ item, onClose, company }) {
-  const BodegaNombre = item.bodega !== undefined ? item.bodega.Nombre : 'No Asignado'
+  const BodegaNombre = item.Bodega !== undefined ? item.Bodega : 'No Asignado'
   const [message, setMessage] = useState('')
   const [error, setError] = useState(false)
 
