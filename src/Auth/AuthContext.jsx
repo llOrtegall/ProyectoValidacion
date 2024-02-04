@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { createContext, useState, useContext } from 'react'
+import { createContext, useState, useContext, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 const AuthContext = createContext()
@@ -11,37 +11,41 @@ export function AuthProvider ({ children }) {
   const [user, setUser] = useState({})
   const navigate = useNavigate()
 
+  useEffect(() => {
+    const token = localStorage.getItem('Token')
+    axios.get('/profile', { headers: { Authorization: `Bearer ${token}` } }).then(res => {
+      if (res.status === 200) {
+        setUser(res.data)
+        setCompany(res.data.empresa)
+        setRol(res.data.rol)
+        setLoggedIn(true)
+        navigate('/bodega/home')
+      }
+    })
+  }, [loggedIn])
+
   const defineCompany = (company) => {
     setCompany(company)
   }
 
-  const login = (usuario) => {
-    if (usuario.auth === true) {
+  const login = (auth) => {
+    if (auth === true) {
       navigate('/bodega/home')
       setLoggedIn(true)
-      setUser(usuario.UserLogin)
-      setCompany(usuario.UserLogin.empresa)
-      setRol(usuario.UserLogin.rol)
     } else {
       setLoggedIn(false)
-      setUser({})
-      setCompany({})
       navigate('/login')
     }
   }
 
   const logout = () => {
-    axios.post('/logout').then(res => {
-      if (res.status === 200) {
-        setLoggedIn(false)
-        setUser({})
-        setCompany({})
-      }
-    })
+    localStorage.removeItem('Token')
+    setLoggedIn(false)
+    navigate('/login')
   }
 
   return (
-    <AuthContext.Provider value={{ loggedIn, user, rol, login, logout, defineCompany, company }}>
+    <AuthContext.Provider value={{ loggedIn, user, rol, setRol, login, logout, defineCompany, company, setCompany }}>
       {children}
     </AuthContext.Provider>
   )

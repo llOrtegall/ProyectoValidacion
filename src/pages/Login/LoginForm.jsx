@@ -15,20 +15,21 @@ export const LoginForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      const response = await axios.post('/login', { user: username, password })
-      login(response.data)
+      const { data: { auth, token } } = await axios.post('/login', { user: username, password })
+      localStorage.setItem('Token', token) // Guarda el token en localStorage con el nombre 'Token'
+      login(auth)
       setMessage('Bienvenido')
     } catch (error) {
+      console.log(error)
       if (error.message === 'Network Error') {
         return setError('Servidor No Disponible y/o Error De Conexión, Consulte Con El Administrador')
       }
-      setError(error.response.data.message)
+      setError(error.response?.data?.message)
       setTimeout(() => {
         setError(null)
       }, 5000)
     }
   }
-
   return (
     <>
       <section className='w-full h-screen flex flex-col items-center justify-center relative bg-slate-700'>
