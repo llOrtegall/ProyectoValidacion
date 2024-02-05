@@ -27,7 +27,7 @@ export function NavBar ({ company, closeSesion, authorize }) {
 
   return (
     <nav className=" bg-gray-900 flex h-16 items-center justify-around ">
-      <div className='text-blue-700 font-semibold bottom-2 left-2 absolute'>Base De Datos: <span className='text-red-500'> {company} </span></div>
+      <div className='text-black font-semibold bottom-2 left-2 absolute'>Base De Datos: <span className='text-red-500'> {company} </span></div>
       <figure>
         <Link onClick={handleLinkClick} to="/bodega/home" className="">
           <img src="../public/gane.png" className="h-8" alt="Flowbite Logo" />
@@ -184,7 +184,7 @@ export function NavBar ({ company, closeSesion, authorize }) {
         </li>
 
         <li>
-          <a className='text-white hover:text-blue-400 font-semibold cursor-pointer' onClick={closeSesion}>
+          <a className='text-white hover:text-blue-400 font-semibold cursor-pointer' title='Cerrar Sesión' onClick={closeSesion}>
             <CloseSessionIcon />
           </a>
         </li>

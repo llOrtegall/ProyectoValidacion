@@ -4,7 +4,7 @@ export const RenderItems = ({ rol, handleClick, filteredItems }) => {
   return (
 
     <section>
-      <article className='flex justify-around text-center bg-blue-400 shadow-lg py-2'>
+      <article className='flex justify-around text-center bg-blue-500 uppercase text-sm shadow-lg py-2'>
         <p className="font-semibold">Items</p>
         <p className="font-semibold">Descripción</p>
         <p className="font-semibold">Serial</p>

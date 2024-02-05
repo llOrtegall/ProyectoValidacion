@@ -19,7 +19,7 @@ export function VerSimcards ({ company }) {
   return (
     <main className="h-[93vh] overflow-auto">
 
-      <section className='flex w-full justify-center items-center gap-4 py-1 bg-blue-500 px-4'>
+      <section className='flex w-full justify-center items-center gap-4 py-1 bg-blue-600 px-4'>
         <p className=""><span className="font-semibold pr-2">Filtrar:</span>| Operador | Serial | Número</p>
         <input type="text" placeholder="Buscar simcards..."
           value={searchSimcard} onChange={ev => setSearchSimcard(ev.target.value)}
@@ -27,7 +27,7 @@ export function VerSimcards ({ company }) {
         <BottonExportSimcards simcards={filteredSimcards} />
       </section>
 
-      <article className="grid grid-cols-8 text-center bg-blue-400 shadow-lg rounded-md py-2 mb-2">
+      <article className="grid grid-cols-8 text-center bg-blue-500 shadow-lg py-2 mb-2">
         <p className="font-semibold">Operador</p>
         <p className="font-semibold">Número</p>
         <p className="font-semibold">Serial</p>
