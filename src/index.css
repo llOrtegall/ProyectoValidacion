@@ -24,7 +24,7 @@ input:focus {
 }
 
 tr{
-  @apply odd:bg-gray-200 text-black  even:bg-gray-400 text-center
+  @apply odd:bg-gray-100 text-black  even:bg-gray-300 text-center
 }
 
 th, td{

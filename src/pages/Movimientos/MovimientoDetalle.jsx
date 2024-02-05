@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 
-export function MovimientoDetalle ({ company }) {
+export function MovimientoDetalle({ company }) {
   const { id } = useParams()
   const [movimiento, setMovimiento] = useState(null)
 
@@ -24,43 +24,47 @@ export function MovimientoDetalle ({ company }) {
   return (
 
     movimiento &&
-    <main className='flex flex-col gap-4 h-[93vh] px-2'>
-      <article className='bg-slate-200 mt-4'>
-        <section className='t l r black'>
-          <h1 className="text-lg text-center bg-blue-300 p-1 font-semibold">Movimiento:
-            <span className='font-semibold pl-2'>{movimientoId}</span>
-          </h1>
+    <main className='flex flex-col gap-4 h-[93vh]'>
+      <article className='bg-slate-400'>
+        <section className='black'>
+          <h1 className="text-lg text-center text-white bg-blue-600 p-2 font-semibold uppercase">Información Del Movimiento</h1>
         </section>
 
-        <section className='grid grid-cols-2 px-4 py-2 black '>
-          <p className="text-blue-800 font-medium">Fecha: <span className='font-semibold text-black'>{formatFecha(fecha)}</span></p>
-          <p className="text-blue-800 font-medium">Nombre Bodega Origen: <span className='font-semibold text-black'>{bodegaOrigen.nombre}</span></p>
-          <p className="text-blue-800 font-medium">Encargado: <span className='font-semibold text-black'>{encargado}</span></p>
-          <p className="text-blue-800 font-medium">Sucursal Origen: <span className='font-semibold text-black'>{bodegaOrigen.sucursal}</span> </p>
-          <p className="text-blue-800 font-medium">Incidente: <span className='font-semibold text-black'>{incidente}</span></p>
-          <p className="text-blue-800 font-medium">Nombre Bodega Destino: <span className='font-semibold text-black'>{bodegaDestino.nombre}</span> </p>
-          <p className="text-blue-800 font-medium">Cantidad De Items Movidos: <span className='font-semibold text-black'>{items.length}</span> </p>
-          <p className="text-blue-800 font-medium">Sucursal Destino: <span className='font-semibold text-black'>{bodegaDestino.sucursal}</span> </p>
-          <p className="text-blue-800 font-medium">Cantidad De Simcards Movidas: <span className='font-semibold text-black'>{simcards.entran.length + simcards.salen.length}</span> </p>
+        <section className='flex justify-around'>
+          <article className='flex gap-4 items-center'>
+            <div className=''>
+              <p className='text-md font-semibold flex items-center justify-between gap-4'><span>N° Incidente: </span><span className='text-sm text-black font-normal'>{incidente}</span></p>
+              <p className='text-md font-semibold flex items-center justify-between gap-4'><span>Encargado:</span> <span className='text-sm text-black font-normal'>{encargado}</span></p>
+              <p className='text-md font-semibold flex items-center justify-between gap-4'><span>Fecha: </span><span className='text-sm text-black font-normal'>{formatFecha(fecha)}</span></p>
+            </div>
+            <div className=''>
+              <p className='text-md font-semibold flex items-center justify-between gap-4'><span>Cantidad De Simcards Movidas:</span> <span className='text-sm text-black font-normal'>{simcards.entran.length + simcards.salen.length}</span> </p>
+              <p className='text-md font-semibold flex items-center justify-between gap-4'><span>Cantidad De Items Movidos:</span> <span className='text-sm text-black font-normal'>{items.length}</span> </p>
+              <p className='text-md font-semibold flex items-center justify-between gap-4'><span>N° Movimiento:</span> <span className='text-sm text-black font-normal'>{movimientoId}</span></p>
+            </div>
+          </article>
+          <article>
+            <p>Bodega De Origen: <span className='text-sm text-black font-normal'>{bodegaOrigen.nombre}</span></p>
+            <p>Sucursal Origen: <span className='text-sm text-black font-normal'>{bodegaOrigen.sucursal}</span> </p>
+            <p>Bodega De Destino: <span className='text-sm text-black font-normal'>{bodegaDestino.nombre}</span> </p>
+            <p>Sucursal Destino: <span className='text-sm text-black font-normal'>{bodegaDestino.sucursal}</span> </p>
+          </article>
+          <article className='flex flex-col items-center'>
+            <h3 className='font-semibold'>Descripción</h3>
+            <p className='text-black'>{descripcion}</p>
+          </article>
         </section>
       </article>
-
-      <section className='black h-auto '>
-        <header>
-          <h3 className='p-1 bg-yellow-200 black text-center font-medium b'>Motivo / Descripción Movimiento</h3>
-        </header>
-        <p className='py-2 pl-1 bg-slate-200'>{descripcion}</p>
-      </section>
 
       <article className='w-full flex flex-col gap-2 '>
         <table className="table-auto w-full bg-slate-200">
           <thead >
-            <tr className='bg-yellow-200'>
-              <th className="bg-blue-300 py-1">Item</th>
-              <th className="bg-blue-300 py-1">Descripción</th>
-              <th className='bg-blue-300 py-1'>N° Placa</th>
-              <th className="bg-blue-300 py-1">Serial</th>
-              <th className="bg-blue-300 py-1">Cantidad</th>
+            <tr className=''>
+              <th className="bg-blue-600 py-1">Item</th>
+              <th className="bg-blue-600 py-1">Descripción</th>
+              <th className='bg-blue-600 py-1'>N° Placa</th>
+              <th className="bg-blue-600 py-1">Serial</th>
+              <th className="bg-blue-600 py-1">Cantidad</th>
             </tr>
           </thead>
           <tbody>
@@ -85,12 +89,12 @@ export function MovimientoDetalle ({ company }) {
         <table className="table-auto w-full ">
           <thead>
             <tr>
-              <th className="py-1 bg-blue-300">N°</th>
-              <th className="py-1 bg-blue-300">Número</th>
-              <th className="py-1 bg-blue-300">Operador</th>
-              <th className="py-1 bg-blue-300">Serial</th>
-              <th className="py-1 bg-blue-300">Estado</th>
-              <th className="py-1 bg-blue-300">Movimiento</th>
+              <th className="py-1 bg-blue-600">N°</th>
+              <th className="py-1 bg-blue-600">Número</th>
+              <th className="py-1 bg-blue-600">Operador</th>
+              <th className="py-1 bg-blue-600">Serial</th>
+              <th className="py-1 bg-blue-600">Estado</th>
+              <th className="py-1 bg-blue-600">Movimiento</th>
             </tr>
           </thead>
           <tbody>
@@ -103,7 +107,7 @@ export function MovimientoDetalle ({ company }) {
                     <td className="text-center">{sim.operador}</td>
                     <td className='text-center'>{sim.estado}</td>
                     <td className='uppercase text-center'>{sim.serial}</td>
-                    <td className='text-center'>Entran</td>
+                    <td className='text-center'>Entrada</td>
                   </tr>
                 ))
                 : <tr><td colSpan='5' className='text-center'>No Se Realizaron Entrada De Simcards</td></tr>
@@ -118,7 +122,7 @@ export function MovimientoDetalle ({ company }) {
                     <td className="text-center">{sim.operador}</td>
                     <td className='text-center'>{sim.estado}</td>
                     <td className='uppercase text-center'>{sim.serial}</td>
-                    <td className='text-center'>Salen</td>
+                    <td className='text-center'>Salida</td>
                   </tr>))
                 : <tr><td colSpan='5' className='text-center'>No Se Realizó Salida De Simcards</td></tr>
             }
