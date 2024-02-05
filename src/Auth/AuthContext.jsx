@@ -1,5 +1,4 @@
-import axios from 'axios'
-import { createContext, useState, useContext, useEffect } from 'react'
+import { createContext, useState, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 const AuthContext = createContext()
@@ -11,29 +10,21 @@ export function AuthProvider ({ children }) {
   const [user, setUser] = useState({})
   const navigate = useNavigate()
 
-  useEffect(() => {
-    const token = localStorage.getItem('Token')
-    axios.get('/profile', { headers: { Authorization: `Bearer ${token}` } }).then(res => {
-      if (res.status === 200) {
-        setUser(res.data)
-        setCompany(res.data.empresa)
-        setRol(res.data.rol)
-        setLoggedIn(true)
-        navigate('/bodega/home')
-      }
-    })
-  }, [loggedIn])
-
   const defineCompany = (company) => {
     setCompany(company)
   }
 
-  const login = (auth) => {
+  const login = (auth, DataUser) => {
     if (auth === true) {
-      navigate('/bodega/home')
+      setUser(DataUser)
       setLoggedIn(true)
+      setRol(DataUser.rol)
+      setCompany(DataUser.empresa)
+      navigate('/bodega/home')
     } else {
       setLoggedIn(false)
+      setRol('')
+      setCompany({})
       navigate('/login')
     }
   }

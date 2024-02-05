@@ -68,3 +68,13 @@ export async function simcardsBodegas (company) {
     return error
   }
 }
+
+export async function getUserByToken (token) {
+  try {
+    const userResponse = await axios.get('/profile', { headers: { Authorization: `Bearer ${token}` } })
+    return userResponse.data
+  } catch (error) {
+    console.log(error)
+    throw error
+  }
+}

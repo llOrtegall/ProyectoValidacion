@@ -22,12 +22,26 @@ import { Items } from './pages/Items/Items.jsx'
 import { Home } from './pages/Home.jsx'
 
 import axios from 'axios'
+import { useEffect } from 'react'
+import { getUserByToken } from './services/FetchItemsData.js'
 
 axios.defaults.baseURL = 'http://localhost:3000/'
 axios.defaults.withCredentials = true
 
 export function App () {
-  const { loggedIn, rol, defineCompany, company, logout, user } = useAuth()
+  const { loggedIn, rol, defineCompany, company, logout, user, login } = useAuth()
+
+  useEffect(() => {
+    const token = localStorage.getItem('Token')
+    if (token) {
+      getUserByToken(token)
+        .then(res => {
+          login(true, res)
+        })
+    } else {
+      console.log('No hay token')
+    }
+  }, [])
 
   if (loggedIn === false) {
     return <LoginForm />
@@ -73,7 +87,7 @@ export function App () {
               </Routes>
             </ProtectdeRoutes>} />
 
-            <Route path='*' element={<NotFound />} />
+          <Route path='*' element={<NotFound />} />
 
         </Routes>
       </>

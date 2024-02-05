@@ -1,4 +1,5 @@
 import { MessageDisplay } from '../../components/MessageDisplay.jsx'
+import { getUserByToken } from '../../services/FetchItemsData.js'
 import { useAuth } from '../../Auth/AuthContext.jsx'
 
 import { useState } from 'react'
@@ -17,8 +18,9 @@ export const LoginForm = () => {
     try {
       const { data: { auth, token } } = await axios.post('/login', { user: username, password })
       localStorage.setItem('Token', token) // Guarda el token en localStorage con el nombre 'Token'
-      login(auth)
-      setMessage('Bienvenido')
+      const DataUser = await getUserByToken(token)
+      login(auth, DataUser)
+      setMessage('Iniciando Sesión...')
     } catch (error) {
       console.log(error)
       if (error.message === 'Network Error') {
