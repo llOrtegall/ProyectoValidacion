@@ -17,10 +17,10 @@ export function MessageDisplay ({ message, error }) {
         }
         {error &&
           <div className='flex gap-2'>
-            <figure className='bg-red-400 text-white flex items-center justify-center text-center px-2 rounded-md'>
+            <figure className='bg-red-500 text-white flex items-center justify-center text-center px-2 rounded-md'>
               <WarningIcon />
             </figure>
-            <p className="text-center bg-red-400 text-white font-semibold p-2 rounded-md">
+            <p className="text-center bg-red-500 text-white font-semibold p-2 rounded-md">
               {error}
             </p>
           </div>

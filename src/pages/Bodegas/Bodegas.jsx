@@ -27,7 +27,7 @@ export function VerBodegas ({ company }) {
         filteredBodegas.map(bodega => (
           <section key={bodega._id} className="flex h-auto bg-slate-300 m-2 rounded-md p-2 items-center justify-around">
 
-            <article className="w-72">
+            <article className="w-96">
               <h2 className="font-semibold">{bodega.nombre}</h2>
               <p><span className="font-semibold">Sucursal: </span> {bodega.sucursal}</p>
               <p><span className="font-semibold">Dirección: </span>{bodega.direccion}</p>
