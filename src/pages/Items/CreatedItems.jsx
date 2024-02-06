@@ -86,9 +86,7 @@ export function CreatedItems ({ company }) {
             </select>
           </div>
 
-          <input type="text" value={company} readOnly />
-
-          <button className="w-52 h-10 text-md font-semibold text-white bg-blue-600 rounded-md hover:bg-white hover:text-black">
+          <button className="w-52 h-10 text-md font-semibold text-white bg-blue-600 rounded-md hover:bg-green-300 hover:text-black">
             Crear Item
           </button>
         </form>

@@ -22,7 +22,10 @@ const options = [
   { value: 'Batería', label: 'Batería' },
   { value: 'Inversor', label: 'Inversor' },
   { value: 'Televisor', label: 'Televisor' },
-  { value: 'Proyector', label: 'Proyector' }
+  { value: 'Proyector', label: 'Proyector' },
+  { value: 'Telefono Fijo', label: 'Telefono Fijo' },
+  { value: 'Telefono Celular', label: 'Telefono Celular' },
+  { value: 'Silla', label: 'Silla' }
 ]
 
 const customStyles = {

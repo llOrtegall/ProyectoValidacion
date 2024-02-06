@@ -17,19 +17,21 @@ export const BottonExportItems = ({ datos }) => {
         D: 'SERIAL',
         E: 'PLACA',
         F: 'ESTADO',
-        G: 'UBICACIÓN|BODEGA'
+        G: 'UBICACIÓN|BODEGA',
+        H: 'SUCURSAL'
       }
     ]
 
-    datos.forEach((sim) => {
+    datos.forEach((item) => {
       tabla.push({
-        A: sim.Id,
-        B: sim.Nombre,
-        C: sim.Descripcion,
-        D: sim.Serial,
-        E: sim.Placa,
-        F: sim.Estado,
-        G: sim.Bodega
+        A: item.Id,
+        B: item.Nombre,
+        C: item.Descripcion,
+        D: item.Serial,
+        E: item.Placa,
+        F: item.Estado,
+        G: item.Bodega,
+        H: item.Sucursal
       })
     })
 
