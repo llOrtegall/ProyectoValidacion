@@ -14,7 +14,8 @@ export const getItemsFecht = async (company) => {
       Placa: item.placa,
       Serial: item.serial,
       Estado: item.estado,
-      Bodega: item.bodega.nombre
+      Bodega: item.bodega.nombre,
+      Sucursal: item.bodega.sucursal
     }))
   } catch (error) {
     throw new Error('Error al obtener los items')

@@ -2,9 +2,14 @@ import { useState, useMemo } from 'react'
 
 export function useFiltersItems (initialItems) {
   const [search, setSearch] = useState('')
+
   const filteredItems = useMemo(() => {
-    return initialItems.filter(({ Nombre, Placa, Serial }) =>
+    return initialItems.filter(({ Nombre, Bodega, Descripcion, Estado, Placa, Serial, Sucursal }) =>
       Nombre.toLowerCase().includes(search.toLowerCase()) ||
+      (Bodega ? Bodega.toLowerCase().includes(search.toLowerCase()) : false) ||
+      (Sucursal ? Sucursal.toString().toLowerCase().includes(search.toLowerCase()) : false) ||
+      Descripcion.toLowerCase().includes(search.toLowerCase()) ||
+      Estado.toLowerCase().includes(search.toLowerCase()) ||
       Placa.toLowerCase().includes(search.toLowerCase()) ||
       Serial.toLowerCase().includes(search.toLowerCase())
     )

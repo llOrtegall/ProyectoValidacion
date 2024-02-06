@@ -53,7 +53,7 @@ export function CreatedItems ({ company }) {
     <main className="h-[93vh] overflow-auto">
 
       <section>
-        <form className="grid grid-cols-3 p-8 m-8 gap-3 rounded-lg bg-blue-400 place-items-center" onSubmit={handleSubmit}>
+        <form className="grid grid-cols-3 p-8 m-8 gap-3 rounded-lg bg-blue-5  00 place-items-center" onSubmit={handleSubmit}>
           <div className="w-full flex flex-col mb-4">
             <label className="mb-2 font-semibold text-gray-700">Nombre</label>
             <SelectComponent fun={handleChange} />

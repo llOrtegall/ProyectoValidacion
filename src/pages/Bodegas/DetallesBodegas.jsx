@@ -70,8 +70,8 @@ export function DetalleBodega ({ company }) {
                     <article key={item._id} className='grid grid-cols-6 shadow-md rounded-md bg-slate-100 uppercase text-sm py-2 my-2 text-center'>
                       <p>{item.nombre}</p>
                       <p>{item.descripcion}</p>
-                      <p>{item.placa}</p>
                       <p>{item.serial}</p>
+                      <p>{item.placa}</p>
                       <p>{item.estado}</p>
                       <p>{formatFecha(item.createdAt)} </p>
                     </article>
