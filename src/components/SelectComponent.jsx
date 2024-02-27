@@ -16,6 +16,7 @@ const options = [
   { value: 'Portátil', label: 'Portátil' },
   { value: 'Lector De Barras', label: 'Lector De Barras' },
   { value: 'Lector De Biometríco', label: 'Lector De Biometríco' },
+  { value: 'Modem', label: 'Modem' },
   { value: 'UPS', label: 'UPS' },
   { value: 'Switch', label: 'Switch' },
   { value: 'Router', label: 'Router' },
