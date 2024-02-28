@@ -30,7 +30,7 @@ export function NavBar ({ company, closeSesion, authorize }) {
       <div className='text-black font-semibold bottom-2 left-2 absolute'>Base De Datos: <span className='text-red-500'> {company} </span></div>
       <figure>
         <Link onClick={handleLinkClick} to="/bodega/home" className="">
-          <img src="../public/gane.png" className="h-8" alt="Flowbite Logo" />
+          <img src="./public/gane.png" className="h-8" alt="Flowbite Logo" />
         </Link>
       </figure>
 
