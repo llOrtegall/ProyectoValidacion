@@ -1,11 +1,9 @@
-const URL = 'http://172.20.1.216:4002/itemsConBodegas/'
+import axios from 'axios'
 
 export const getItemsFecht = async (company) => {
   try {
-    const response = await fetch(`${URL}${company}`)
-    const json = await response.json()
-
-    const items = json
+    // BodegasMongoDB.get('/itemsConBodegas/:company', setDatabaseConnection, findBodegaWithItems) <= este es el endpoint en el backend
+    const { data: items } = await axios.get(`/itemsConBodegas/${company}`)
 
     return items?.map(item => ({
       Id: item._id,
