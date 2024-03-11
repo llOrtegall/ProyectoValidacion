@@ -1,6 +1,10 @@
+import { getUserByToken } from './services/FetchItemsData.js'
 import { Route, Routes } from 'react-router-dom'
 import { useAuth } from './Auth/AuthContext.jsx'
+import { useEffect } from 'react'
+import axios from 'axios'
 
+// TODO: Componentes
 import { ProtectdeRoutes } from './components/ProtectedRoutes.jsx'
 
 // TODO: Páginas
@@ -10,12 +14,8 @@ import { CreatedBodega, DetalleBodega, VerBodegas } from './pages/Bodegas'
 import { AsignarItemBodega, CreatedItems, Items } from './pages/Items'
 import { Home, LoginForm, NotFound } from './pages'
 
-import axios from 'axios'
-import { useEffect } from 'react'
-import { getUserByToken } from './services/FetchItemsData.js'
-
-// axios.defaults.baseURL = '/api'
-axios.defaults.baseURL = 'http://172.20.1.110:3030/api'
+axios.defaults.baseURL = '/api'
+// axios.defaults.baseURL = 'http://172.20.1.110:3030/api'
 
 export function App () {
   const { rol, company, user, login } = useAuth()
