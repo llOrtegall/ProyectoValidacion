@@ -1,6 +1,6 @@
-import { LockIcon } from './Icons.jsx'
+import { LockIcon } from '../components/Icons'
 
-export const RenderItems = ({ rol, handleClick, filteredItems }) => {
+export const RenderItems = ({ rol, filteredItems }) => {
   return (
 
     <section>
@@ -27,7 +27,7 @@ export const RenderItems = ({ rol, handleClick, filteredItems }) => {
             <p className='text-gray-500'>{item.Bodega !== undefined ? item.Sucursal : 'No Asignado'}</p>
             {
               rol === 'Administrador' || rol === 'Aux Administrativa'
-                ? <button onClick={() => handleClick(item)} className='bg-green-500 w-28 p-1 rounded-md font-semibold hover:bg-green-400 hover:text-white'>Editar Item</button>
+                ? <button className='bg-green-500 w-28 p-1 rounded-md font-semibold hover:bg-green-400 hover:text-white'>Editar Item</button>
                 : <figure className='text-red-500'><LockIcon /></figure>
             }
           </article>

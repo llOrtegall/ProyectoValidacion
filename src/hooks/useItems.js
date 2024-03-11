@@ -1,23 +1,37 @@
-import { useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { getItemsFecht } from '../services/Items.services.js'
 
 export function useItems (company) {
-  const [items, setItems] = useState([])
   const [loading, setLoading] = useState(false)
+  const [items, setItems] = useState([])
   const [error, setError] = useState(null)
+  const [search, setSearch] = useState('')
 
-  const getItems = async () => {
-    try {
-      setLoading(true)
-      setError(null)
-      const newItems = await getItemsFecht(company)
-      setItems(newItems)
-    } catch (error) {
-      setError(error.message)
-    } finally {
-      setLoading(false)
+  const fetchItems = useCallback(() => {
+    setLoading(true)
+    getItemsFecht(company)
+      .then(items => setItems(items))
+      .catch(error => setError(error))
+      .finally(() => setLoading(false))
+  }, [company])
+
+  useEffect(() => {
+    fetchItems()
+  }, [fetchItems])
+
+  const filterItems = (item) => {
+    const lowerSearch = search.toLowerCase()
+    for (const key in item) {
+      if (item[key] && item[key].toString().toLowerCase().includes(lowerSearch)) {
+        return true
+      }
     }
+    return false
   }
 
-  return { items, getItems, loading, error }
+  const ItemsFiltrados = useMemo(() => {
+    return items.filter(filterItems)
+  }, [search, items])
+
+  return { ItemsFiltrados, search, setSearch, loading, error }
 }

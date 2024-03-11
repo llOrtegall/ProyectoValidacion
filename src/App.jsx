@@ -14,8 +14,9 @@ import { CreatedBodega, DetalleBodega, VerBodegas } from './pages/Bodegas'
 import { AsignarItemBodega, CreatedItems, Items } from './pages/Items'
 import { Home, LoginForm, NotFound } from './pages'
 
-axios.defaults.baseURL = '/api'
-// axios.defaults.baseURL = 'http://172.20.1.110:3030/api'
+// axios.defaults.baseURL = '/api'
+axios.defaults.baseURL = 'http://172.20.1.110:3030/api'
+// axios.defaults.baseURL = 'http://172.20.1.216:4002/api'
 
 export function App () {
   const { rol, company, user, login } = useAuth()
