@@ -1,6 +1,6 @@
-import { MessageDisplay } from '../../components/MessageDisplay.jsx'
-import { getUserByToken } from '../../services/FetchItemsData.js'
-import { useAuth } from '../../Auth/AuthContext.jsx'
+import { MessageDisplay } from '../components/MessageDisplay.jsx'
+import { getUserByToken } from '../services/FetchItemsData.js'
+import { useAuth } from '../Auth/AuthContext.jsx'
 
 import { useState } from 'react'
 import axios from 'axios'

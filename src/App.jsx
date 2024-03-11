@@ -1,24 +1,14 @@
 import { Route, Routes } from 'react-router-dom'
 import { useAuth } from './Auth/AuthContext.jsx'
 
-// TODO: Páginas
-import { LoginForm } from './pages/Login/LoginForm.jsx'
-import { MovimientoDetalle } from './pages/Movimientos/MovimientoDetalle.jsx'
-import { CrearMovimiento } from './pages/Movimientos/CrearMovimiento.jsx'
-import { VerMovimientos } from './pages/Movimientos/VerMovimientos.jsx'
-import { AsignarItemBodega } from './pages/Items/AsignarItemBodega.jsx'
-import { AsignarSimcards } from './pages/Simcards/AsignarSimcards.jsx'
-import { CreaMovimientosSim } from './pages/Simcards/Movimientos.jsx'
-import { DetalleBodega } from './pages/Bodegas/DetallesBodegas.jsx'
 import { ProtectdeRoutes } from './components/ProtectedRoutes.jsx'
-import { CreatedBodega } from './pages/Bodegas/CreatedBodega.jsx'
-import { CrearSimcard } from './pages/Simcards/CrearSimcard.jsx'
-import { VerSimcards } from './pages/Simcards/VerSimcards.jsx'
-import { CreatedItems } from './pages/Items/CreatedItems.jsx'
-import { VerBodegas } from './pages/Bodegas/Bodegas.jsx'
-import { NotFound } from './pages/NotFound.jsx'
-import { Items } from './pages/Items/Items.jsx'
-import { Home } from './pages/Home.jsx'
+
+// TODO: Páginas
+import { AsignarSimcards, CreaMovimientosSim, CrearSimcard, VerSimcards } from './pages/Simcards'
+import { CrearMovimiento, MovimientoDetalle, VerMovimientos } from './pages/Movimientos'
+import { CreatedBodega, DetalleBodega, VerBodegas } from './pages/Bodegas'
+import { AsignarItemBodega, CreatedItems, Items } from './pages/Items'
+import { Home, LoginForm, NotFound } from './pages'
 
 import axios from 'axios'
 import { useEffect } from 'react'
