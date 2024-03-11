@@ -16,7 +16,6 @@ import { CrearSimcard } from './pages/Simcards/CrearSimcard.jsx'
 import { VerSimcards } from './pages/Simcards/VerSimcards.jsx'
 import { CreatedItems } from './pages/Items/CreatedItems.jsx'
 import { VerBodegas } from './pages/Bodegas/Bodegas.jsx'
-import { NavBar } from './components/NavBar.jsx'
 import { NotFound } from './pages/NotFound.jsx'
 import { Items } from './pages/Items/Items.jsx'
 import { Home } from './pages/Home.jsx'
@@ -60,10 +59,8 @@ export function App () {
 
         <Route path='/bodega/stock/items/*' element={
           <ProtectdeRoutes isAllowed={!!loggedIn && (rol.includes('Administrador') || rol.includes('Aux administrativa'))}>
-            <Routes>
-              <Route path='crearItems' element={<CreatedItems company={company} />} />
-              <Route path='asignarItems' element={<AsignarItemBodega company={company} />} />
-            </Routes>
+            <Route path='/bodega/stock/items/crearItems' element={<CreatedItems company={company} />} />
+            <Route path='/bodega/stock/items/asignarItems' element={<AsignarItemBodega company={company} />} />
           </ProtectdeRoutes>} />
 
         <Route path='/bodega/stock/bodega/*' element={

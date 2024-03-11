@@ -2,8 +2,10 @@ import { HomeIcon, CloseSessionIcon } from './Icons.jsx'
 import { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { Articulos, Bodegas, Simcards } from './NavLinks'
+import { useAuth } from '../Auth/AuthContext.jsx'
 
-export function NavBar ({ closeSesion, authorize }) {
+export function NavBar ({ authorize }) {
+  const { logout } = useAuth()
   const [renderMenu, setRenderMenu] = useState({ id: '', render: false })
   const handleClickMenu = (ev) => {
     setRenderMenu({ id: ev.target.id, render: true })
@@ -56,7 +58,7 @@ export function NavBar ({ closeSesion, authorize }) {
         <Simcards handleClickMenu={handleClickMenu} renderMenu={renderMenu} handleLinkClick={handleLinkClick} authorize={authorize} />
 
         <li>
-          <a className='text-white hover:text-blue-400 font-semibold cursor-pointer' title='Cerrar Sesión' onClick={closeSesion}>
+          <a className='text-white hover:text-blue-400 font-semibold cursor-pointer' title='Cerrar Sesión' onClick={logout}>
             <CloseSessionIcon />
           </a>
         </li>

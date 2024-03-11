@@ -25,14 +25,14 @@ export function AuthProvider ({ children }) {
       setLoggedIn(false)
       setRol('')
       setCompany({})
-      navigate('/login')
+      navigate('/')
     }
   }
 
   const logout = () => {
     localStorage.removeItem('Token')
     setLoggedIn(false)
-    navigate('/login')
+    navigate('/')
   }
 
   return (
