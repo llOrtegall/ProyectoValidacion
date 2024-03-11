@@ -1,8 +1,10 @@
+import { useNavigate } from 'react-router-dom'
 import { LockIcon } from '../components/Icons'
 
-export const RenderItems = ({ rol, filteredItems }) => {
-  return (
+export const RenderItems = ({ rol, filteredItems: items }) => {
+  const navigate = useNavigate()
 
+  return (
     <section>
       <article className='flex justify-around text-center bg-blue-500 uppercase text-sm shadow-lg py-2'>
         <p className="font-semibold">Items</p>
@@ -15,7 +17,7 @@ export const RenderItems = ({ rol, filteredItems }) => {
         <p className="font-semibold">Acciones</p>
       </article>
       <article>
-        {filteredItems && filteredItems.map(item => (
+        {items.map(item => (
           <article key={item.Id}
             className='grid grid-cols-8 shadow-md bg-slate-200 uppercase text-sm py-2 my-2 text-center  place-items-center'>
             <p className="font-semibold">{item.Nombre}</p>
@@ -27,7 +29,8 @@ export const RenderItems = ({ rol, filteredItems }) => {
             <p className='text-gray-500'>{item.Bodega !== undefined ? item.Sucursal : 'No Asignado'}</p>
             {
               rol === 'Administrador' || rol === 'Aux Administrativa'
-                ? <button className='bg-green-500 w-28 p-1 rounded-md font-semibold hover:bg-green-400 hover:text-white'>Editar Item</button>
+                ? <button onClick={() => navigate(`/bodega/stock/items/${item.Id}`, { state: { id: item.Id, bodega: item.Bodega } })}
+                  className='bg-green-500 w-28 p-1 rounded-md font-semibold hover:bg-green-400 hover:text-white'>Editar Item</button>
                 : <figure className='text-red-500'><LockIcon /></figure>
             }
           </article>

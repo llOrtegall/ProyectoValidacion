@@ -11,7 +11,7 @@ import { ProtectdeRoutes } from './components/ProtectedRoutes.jsx'
 import { AsignarSimcards, CreaMovimientosSim, CrearSimcard, VerSimcards } from './pages/Simcards'
 import { CrearMovimiento, MovimientoDetalle, VerMovimientos } from './pages/Movimientos'
 import { CreatedBodega, DetalleBodega, VerBodegas } from './pages/Bodegas'
-import { AsignarItemBodega, CreatedItems, Items } from './pages/Items'
+import { AsignarItemBodega, CreatedItems, DetalleItem, Items } from './pages/Items'
 import { Home, LoginForm, NotFound } from './pages'
 
 // axios.defaults.baseURL = '/api'
@@ -54,6 +54,7 @@ export function App () {
             redirectTo='/bodega/home' />} >
           <Route path='/bodega/stock/items/crearItems' element={<CreatedItems company={company} />} />
           <Route path='/bodega/stock/items/asignarItems' element={<AsignarItemBodega company={company} />} />
+          <Route path='/bodega/stock/items/:id' element={<DetalleItem company={company} />} />
         </Route>
 
         <Route element={
