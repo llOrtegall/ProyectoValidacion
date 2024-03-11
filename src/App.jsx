@@ -58,27 +58,23 @@ export function App () {
         </Route>
 
         <Route element={
-          <ProtectdeRoutes isAllowed={!!loggedIn && (rol.includes('Administrador') || rol.includes('Aux administrativa'))} redirectTo='/bodega/home'/>} >
+          <ProtectdeRoutes isAllowed={!!loggedIn && (rol.includes('Administrador') || rol.includes('Aux administrativa'))} redirectTo='/bodega/home' />} >
           <Route path='/bodega/stock/items/crearItems' element={<CreatedItems company={company} />} />
           <Route path='/bodega/stock/items/asignarItems' element={<AsignarItemBodega company={company} />} />
         </Route>
 
-        <Route path='/bodega/stock/bodega/*' element={
-          <ProtectdeRoutes isAllowed={!!loggedIn && (rol.includes('Administrador') || rol.includes('Coordinador Soporte') || rol.includes('Aux administrativa'))}>
-            <Routes>
-              <Route path='crearBodega' element={<CreatedBodega company={company} />} />
-              <Route path='crearMovimiento' element={<CrearMovimiento company={company} user={user} />} />
-            </Routes>
-          </ProtectdeRoutes>} />
+        <Route element={
+          <ProtectdeRoutes isAllowed={!!loggedIn && (rol.includes('Administrador') || rol.includes('Coordinador Soporte') || rol.includes('Aux administrativa'))} redirectTo='/bodega/home' />} >
+          <Route path='/bodega/stock/bodega/crearBodega' element={<CreatedBodega company={company} />} />
+          <Route path='/bodega/stock/bodega/crearMovimiento' element={<CrearMovimiento company={company} user={user} />} />
+        </Route>
 
-        <Route path='/bodega/stock/simcards/*' element={
-          <ProtectdeRoutes isAllowed={!!loggedIn && (rol.includes('Administrador') || rol.includes('Coordinador Soporte') || rol.includes('Aux administrativa'))}>
-            <Routes>
-              <Route path='crearSimcard' element={<CrearSimcard company={company} />} />
-              <Route path='asignarSimcards' element={<AsignarSimcards company={company} />} />
-              <Route path='crearMovimientoSimcard' element={<CreaMovimientosSim company={company} user={user} />} />
-            </Routes>
-          </ProtectdeRoutes>} />
+        <Route element={
+          <ProtectdeRoutes isAllowed={!!loggedIn && (rol.includes('Administrador') || rol.includes('Coordinador Soporte') || rol.includes('Aux administrativa'))} redirectTo='/bodega/home' />} >
+          <Route path='/bodega/stock/simcards/crearSimcard' element={<CrearSimcard company={company} />} />
+          <Route path='/bodega/stock/simcards/asignarSimcards' element={<AsignarSimcards company={company} />} />
+          <Route path='/bodega/stock/simcards/crearMovimientoSimcard' element={<CreaMovimientosSim company={company} user={user} />} />
+        </Route>
 
         <Route path='*' element={<NotFound />} />
 
