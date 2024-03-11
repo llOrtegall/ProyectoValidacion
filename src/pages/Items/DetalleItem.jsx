@@ -1,56 +1,128 @@
-import { useAuth } from '../../Auth/AuthContext.jsx'
-import { useLocation } from 'react-router-dom'
-import { useEffect, useState } from 'react'
 import axios from 'axios'
-import { SelectComponent } from '../../components/SelectComponent.jsx'
+import { useEffect, useState } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
+import { useAuth } from '../../Auth/AuthContext'
+
+import { MessageDisplay } from '../../components/MessageDisplay'
+
+const options = [
+  { value: 'Impresora TMU USB/LPT', label: 'Impresora TMU | USB' },
+  { value: 'Impresora Termica', label: 'Impresora Termica USB' },
+  { value: 'Monitor / Pantalla', label: 'Monitor' },
+  { value: 'Torre', label: 'Torre' },
+  { value: 'Teclado', label: 'Teclado' },
+  { value: 'Mouse / Raton', label: 'Mouse' },
+  { value: 'Cámara', label: 'Cámara' },
+  { value: 'Proyector', label: 'Proyector' },
+  { value: 'PDA V1', label: 'PDA V1' },
+  { value: 'PDA V2', label: 'PDA V2' },
+  { value: 'CS10', label: 'CS10' },
+  { value: 'NVR', label: 'NVR' },
+  { value: 'Portátil', label: 'Portátil' },
+  { value: 'Lector De Barras', label: 'Lector De Barras' },
+  { value: 'Lector De Biometríco', label: 'Lector De Biometríco' },
+  { value: 'Modem', label: 'Modem' },
+  { value: 'UPS', label: 'UPS' },
+  { value: 'Switch', label: 'Switch' },
+  { value: 'Router', label: 'Router' },
+  { value: 'Batería', label: 'Batería' },
+  { value: 'Inversor', label: 'Inversor' },
+  { value: 'Televisor', label: 'Televisor' },
+  { value: 'Proyector', label: 'Proyector' },
+  { value: 'Telefono Fijo', label: 'Telefono Fijo' },
+  { value: 'Telefono Celular', label: 'Telefono Celular' },
+  { value: 'Silla', label: 'Silla' }
+]
 
 export function DetalleItem() {
-  const { state } = useLocation()
+  const [message, setMessage] = useState('')
+  const [error, setError] = useState('')
+  const { id } = useLocation().state
+  const navigate = useNavigate()
   const { company } = useAuth()
-  const { id } = state
+  const [item, setItem] = useState({
+    nombre: '',
+    descripcion: '',
+    placa: '',
+    serial: '',
+    estado: ''
+  })
 
   useEffect(() => {
     axios.get(`/getItem/${company}/${id}`)
       .then(res => {
-        setData(res.data)
+        setItem(res.data)
       })
-  }, [state, company, id])
+      .catch(err => {
+        console.log(err)
+      })
+  }, [company, id])
 
-  const [data, setData] = useState({})
+  const handleChange = (event) => {
+    const { name, value } = event.target
+    setItem(prevItem => ({ ...prevItem, [name]: value }))
+  }
+
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    const addCompany = { ...item, company }
+    axios.patch('/updateItem/', addCompany)
+      .then(res => {
+        setMessage(res.data.message)
+        setItem({
+          nombre: '',
+          descripcion: '',
+          placa: '',
+          serial: '',
+          estado: ''
+        })
+        setTimeout(() => {
+          navigate('/bodega/stock/items')
+        }, 2000)
+      })
+      .catch(err => {
+        console.log(err)
+        setError(err.response.data.error)
+      })
+      .finally(
+        setTimeout(() => {
+          setMessage('')
+          setError('')
+        }, 4000)
+      )
+  }
 
   return (
+    <section>
+      <h1>Detalle de Item</h1>
+      <form onSubmit={handleSubmit}>
+        <label>Nombre:</label>
+        <select name="nombre" value={item.nombre} onChange={handleChange}>
+          <option value="">Seleccionar Un Item</option>
+          {options.map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+        </select>
+        <label>Descripcion:</label>
+        <input type="text" name="descripcion" value={item.descripcion} onChange={handleChange} />
+        <label>Placa:</label>
+        <input type="text" name="placa" value={item.placa} onChange={handleChange} />
+        <label>Serial:</label>
+        <input type="text" name="serial" value={item.serial} onChange={handleChange} />
+        <label>Estado:</label>
+        <select name="estado" value={item.estado} onChange={handleChange} className="px-3 py-2 border border-gray-300 rounded-md">
+          <option value="">Selecciona un estado</option>
+          <option value="Nuevo">Nuevo</option>
+          <option value="Bueno">Bueno</option>
+          <option value="Malo">Malo</option>
+          <option value="Baja">Baja</option>
+        </select>
+        <button type="submit">Actualizar</button>
+      </form>
 
-    <form className='bg-blue-200 p-6 flex flex-col items-center gap-4'>
-
-      <h2 className='font-semibold'>Item Seleccionado UUID: <span className='uppercase font-normal'>{id}</span></h2>
-
-      <article className='grid grid-cols-2 gap-4'>
-
-        <label className='w-1/3'>Nombre:</label>
-        <SelectComponent value={data.nombre} />
-
-        <div className='flex justify-between items-center w-72'>
-          <label className='w-1/3'>Serial:</label>
-          <input className='uppercase w-2/3 p-1.5 rounded-md' type="text" name="serial" value={data.serial} />
-        </div>
-        <div className='flex justify-between items-center w-72'>
-          <label className='w-1/3'>Estado:</label>
-          <input className='uppercase w-2/3 p-1.5 rounded-md' type="text" name="estado" value={data.estado} readOnly />
-        </div>
-        <div className='flex justify-between items-center w-72'>
-          <label className='w-1/3'>Placa:</label>
-          <input className='uppercase w-2/3 p-1.5 rounded-md' type="text" name="placa" value={data.placa} />
-        </div>
-        <div className='flex justify-between items-center w-72'>
-          <label className='w-1/3'>Descripción:</label>
-          <input className='uppercase w-2/3 p-1.5 rounded-md' type="text" name="descripcion" value={data.descripcion} />
-        </div>
-      </article>
-
-      <div className='flex gap-3 justify-between'>
-        <button type="submit" className='bg-green-500 text-white p-2 rounded-md font-semibold'>Actualizar</button>
-      </div>
-    </form>
-
+      <MessageDisplay message={message} error={error} />
+    </section>
   )
 }
