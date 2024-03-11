@@ -1,7 +1,35 @@
-import { SelectComponent } from '../../components/SelectComponent'
 import { MessageDisplay } from '../../components/MessageDisplay'
 import { useState } from 'react'
 import axios from 'axios'
+
+const options = [
+  { value: 'Impresora TMU USB/LPT', label: 'Impresora TMU | USB' },
+  { value: 'Impresora Termica', label: 'Impresora Termica USB' },
+  { value: 'Monitor / Pantalla', label: 'Monitor' },
+  { value: 'Torre', label: 'Torre' },
+  { value: 'Teclado', label: 'Teclado' },
+  { value: 'Mouse / Raton', label: 'Mouse' },
+  { value: 'Cámara', label: 'Cámara' },
+  { value: 'Proyector', label: 'Proyector' },
+  { value: 'PDA V1', label: 'PDA V1' },
+  { value: 'PDA V2', label: 'PDA V2' },
+  { value: 'CS10', label: 'CS10' },
+  { value: 'NVR', label: 'NVR' },
+  { value: 'Portátil', label: 'Portátil' },
+  { value: 'Lector De Barras', label: 'Lector De Barras' },
+  { value: 'Lector De Biometríco', label: 'Lector De Biometríco' },
+  { value: 'Modem', label: 'Modem' },
+  { value: 'UPS', label: 'UPS' },
+  { value: 'Switch', label: 'Switch' },
+  { value: 'Router', label: 'Router' },
+  { value: 'Batería', label: 'Batería' },
+  { value: 'Inversor', label: 'Inversor' },
+  { value: 'Televisor', label: 'Televisor' },
+  { value: 'Proyector', label: 'Proyector' },
+  { value: 'Telefono Fijo', label: 'Telefono Fijo' },
+  { value: 'Telefono Celular', label: 'Telefono Celular' },
+  { value: 'Silla', label: 'Silla' }
+]
 
 export function CreatedItems ({ company }) {
   const [message, setMessage] = useState('')
@@ -55,8 +83,13 @@ export function CreatedItems ({ company }) {
       <section>
         <form className="grid grid-cols-3 p-8 m-8 gap-3 rounded-lg bg-blue-5  00 place-items-center" onSubmit={handleSubmit}>
           <div className="w-full flex flex-col mb-4">
-            <label className="mb-2 font-semibold text-gray-700">Nombre</label>
-            <SelectComponent fun={handleChange} />
+            <label className="mb-2 font-semibold text-gray-700">Nombre: </label>
+            <select name="nombre" id="item" onChange={handleChange} value={item.nombre} className='border rounded-md p-2 border-gray-300'>
+              <option value="">Selecciona un item</option>
+              {options.map((option, index) => (
+                <option key={index} value={option.value}>{option.label}</option>
+              ))}
+            </select>
           </div>
           <div className="w-full flex flex-col mb-4">
             <label className="mb-2 font-semibold text-gray-700">Descripción | Marca</label>

@@ -29,7 +29,7 @@ export const RenderItems = ({ rol, filteredItems: items }) => {
             <p className='text-gray-500'>{item.Bodega !== undefined ? item.Sucursal : 'No Asignado'}</p>
             {
               rol === 'Administrador' || rol === 'Aux Administrativa'
-                ? <button onClick={() => navigate(`/bodega/stock/items/${item.Id}`, { state: { id: item.Id, bodega: item.Bodega } })}
+                ? <button onClick={() => navigate(`/bodega/stock/items/${item.Id}`, { state: { id: item.Id } })}
                   className='bg-green-500 w-28 p-1 rounded-md font-semibold hover:bg-green-400 hover:text-white'>Editar Item</button>
                 : <figure className='text-red-500'><LockIcon /></figure>
             }

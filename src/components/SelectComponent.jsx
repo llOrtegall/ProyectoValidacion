@@ -1,5 +1,3 @@
-import Select from 'react-select'
-
 const options = [
   { value: 'Impresora TMU USB/LPT', label: 'Impresora TMU | USB' },
   { value: 'Impresora Termica', label: 'Impresora Termica USB' },
@@ -29,29 +27,15 @@ const options = [
   { value: 'Silla', label: 'Silla' }
 ]
 
-const customStyles = {
-  menuList: (provided) => ({
-    ...provided,
-    display: 'grid',
-    gridTemplateColumns: 'repeat(2, 1fr)',
-    gridColumnGap: '10px',
-    cursor: 'pointer'
-  })
-}
-
 // eslint-disable-next-line react/prop-types
-export function SelectComponent ({ fun }) {
-  const handleChange = fun
-  const handleSelectChange = (selectedOption) => {
-    const e = {
-      target: {
-        name: 'nombre',
-        value: selectedOption.value
-      }
-    }
-    handleChange(e)
-  }
+export function SelectComponent () {
+  
+
   return (
-    <Select options={options} styles={customStyles} onChange={handleSelectChange} />
+    <select >
+      {options.map(option => (
+        <option key={option.value} value={option.value}>{option.label}</option>
+      ))}
+    </select>
   )
 }
