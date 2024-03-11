@@ -5,7 +5,7 @@ import { Articulos, Bodegas, Simcards } from './NavLinks'
 import { useAuth } from '../Auth/AuthContext.jsx'
 
 export function NavBar ({ authorize }) {
-  const { logout } = useAuth()
+  const { logout, rol } = useAuth()
   const [renderMenu, setRenderMenu] = useState({ id: '', render: false })
   const handleClickMenu = (ev) => {
     setRenderMenu({ id: ev.target.id, render: true })
@@ -51,11 +51,11 @@ export function NavBar ({ authorize }) {
           </NavLink>
         </li>
 
-        <Articulos handleClickMenu={handleClickMenu} renderMenu={renderMenu} handleLinkClick={handleLinkClick} authorize={authorize} />
+        <Articulos handleClickMenu={handleClickMenu} renderMenu={renderMenu} handleLinkClick={handleLinkClick} authorize={rol} />
 
-        <Bodegas handleClickMenu={handleClickMenu} renderMenu={renderMenu} handleLinkClick={handleLinkClick} authorize={authorize} />
+        <Bodegas handleClickMenu={handleClickMenu} renderMenu={renderMenu} handleLinkClick={handleLinkClick} authorize={rol} />
 
-        <Simcards handleClickMenu={handleClickMenu} renderMenu={renderMenu} handleLinkClick={handleLinkClick} authorize={authorize} />
+        <Simcards handleClickMenu={handleClickMenu} renderMenu={renderMenu} handleLinkClick={handleLinkClick} authorize={rol} />
 
         <li>
           <a className='text-white hover:text-blue-400 font-semibold cursor-pointer' title='Cerrar Sesión' onClick={logout}>

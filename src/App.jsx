@@ -47,7 +47,7 @@ export function App () {
       <Routes>
         <Route path='/' element={<LoginForm />} />
 
-        <Route path='/bodega/*' element={<ProtectdeRoutes isAllowed={!!user} redirectTo='/' autorize={rol} />}>
+        <Route path='/bodega/*' element={<ProtectdeRoutes isAllowed={!!user} redirectTo='/' />}>
           <Route index path='home' element={<Home company={company} fun={defineCompany} />} />
           <Route path='verMovimientos' element={<VerMovimientos company={company} />} />
           <Route path='verMovimientos/detalle/:id' element={<MovimientoDetalle company={company} />} />
@@ -57,11 +57,11 @@ export function App () {
           <Route path='stock/verSimcards' element={<VerSimcards company={company} />} />
         </Route>
 
-        <Route path='/bodega/stock/items/*' element={
-          <ProtectdeRoutes isAllowed={!!loggedIn && (rol.includes('Administrador') || rol.includes('Aux administrativa'))}>
-            <Route path='/bodega/stock/items/crearItems' element={<CreatedItems company={company} />} />
-            <Route path='/bodega/stock/items/asignarItems' element={<AsignarItemBodega company={company} />} />
-          </ProtectdeRoutes>} />
+        <Route element={
+          <ProtectdeRoutes isAllowed={!!loggedIn && (rol.includes('Administrador') || rol.includes('Aux administrativa'))} redirectTo='/bodega/home'/>} >
+          <Route path='/bodega/stock/items/crearItems' element={<CreatedItems company={company} />} />
+          <Route path='/bodega/stock/items/asignarItems' element={<AsignarItemBodega company={company} />} />
+        </Route>
 
         <Route path='/bodega/stock/bodega/*' element={
           <ProtectdeRoutes isAllowed={!!loggedIn && (rol.includes('Administrador') || rol.includes('Coordinador Soporte') || rol.includes('Aux administrativa'))}>
