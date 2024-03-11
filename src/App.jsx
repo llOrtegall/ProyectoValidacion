@@ -28,10 +28,10 @@ import { getUserByToken } from './services/FetchItemsData.js'
 axios.defaults.baseURL = 'http://172.20.1.110:3030/api'
 
 export function App () {
-  const { loggedIn, rol, defineCompany, company, user, login } = useAuth()
+  const { rol, company, user, login } = useAuth()
 
   useEffect(() => {
-    const token = localStorage.getItem('Token')
+    const token = localStorage.getItem('tokenBodega')
     if (token) {
       getUserByToken(token)
         .then(res => {
@@ -48,7 +48,7 @@ export function App () {
         <Route path='/' element={<LoginForm />} />
 
         <Route path='/bodega/*' element={<ProtectdeRoutes isAllowed={!!user} redirectTo='/' />}>
-          <Route index path='home' element={<Home company={company} fun={defineCompany} />} />
+          <Route index path='home' element={<Home company={company} />} />
           <Route path='verMovimientos' element={<VerMovimientos company={company} />} />
           <Route path='verMovimientos/detalle/:id' element={<MovimientoDetalle company={company} />} />
           <Route path='stock/items' element={<Items company={company} rol={rol} />} />
@@ -58,19 +58,25 @@ export function App () {
         </Route>
 
         <Route element={
-          <ProtectdeRoutes isAllowed={!!loggedIn && (rol.includes('Administrador') || rol.includes('Aux administrativa'))} redirectTo='/bodega/home' />} >
+          <ProtectdeRoutes
+            isAllowed={!!user && (rol.includes('Administrador') || rol.includes('Aux administrativa'))}
+            redirectTo='/bodega/home' />} >
           <Route path='/bodega/stock/items/crearItems' element={<CreatedItems company={company} />} />
           <Route path='/bodega/stock/items/asignarItems' element={<AsignarItemBodega company={company} />} />
         </Route>
 
         <Route element={
-          <ProtectdeRoutes isAllowed={!!loggedIn && (rol.includes('Administrador') || rol.includes('Coordinador Soporte') || rol.includes('Aux administrativa'))} redirectTo='/bodega/home' />} >
+          <ProtectdeRoutes
+            isAllowed={!!user && (rol.includes('Administrador') || rol.includes('Coordinador Soporte') || rol.includes('Aux administrativa'))}
+            redirectTo='/bodega/home' />} >
           <Route path='/bodega/stock/bodega/crearBodega' element={<CreatedBodega company={company} />} />
           <Route path='/bodega/stock/bodega/crearMovimiento' element={<CrearMovimiento company={company} user={user} />} />
         </Route>
 
         <Route element={
-          <ProtectdeRoutes isAllowed={!!loggedIn && (rol.includes('Administrador') || rol.includes('Coordinador Soporte') || rol.includes('Aux administrativa'))} redirectTo='/bodega/home' />} >
+          <ProtectdeRoutes
+            isAllowed={!!user && (rol.includes('Administrador') || rol.includes('Coordinador Soporte') || rol.includes('Aux administrativa'))}
+            redirectTo='/bodega/home' />} >
           <Route path='/bodega/stock/simcards/crearSimcard' element={<CrearSimcard company={company} />} />
           <Route path='/bodega/stock/simcards/asignarSimcards' element={<AsignarSimcards company={company} />} />
           <Route path='/bodega/stock/simcards/crearMovimientoSimcard' element={<CreaMovimientosSim company={company} user={user} />} />

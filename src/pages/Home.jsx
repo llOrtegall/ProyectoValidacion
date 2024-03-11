@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react'
 import { CambiarCompany } from '../components/CambiarCompany'
+import { useAuth } from '../Auth/AuthContext'
 
-export function Home ({ fun, company }) {
-  const defineCompany = fun
+export function Home ({ company }) {
+  const { defineCompany } = useAuth()
   const [key, setKey] = useState(0) // Agrega un estado para la clave
 
   useEffect(() => {

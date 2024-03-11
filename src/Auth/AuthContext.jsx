@@ -4,10 +4,9 @@ import { useNavigate } from 'react-router-dom'
 const AuthContext = createContext()
 
 export function AuthProvider ({ children }) {
-  const [loggedIn, setLoggedIn] = useState(false)
   const [company, setCompany] = useState({})
   const [rol, setRol] = useState('')
-  const [user, setUser] = useState({})
+  const [user, setUser] = useState(null)
   const navigate = useNavigate()
 
   const defineCompany = (company) => {
@@ -17,12 +16,11 @@ export function AuthProvider ({ children }) {
   const login = (auth, DataUser) => {
     if (auth === true) {
       setUser(DataUser)
-      setLoggedIn(true)
       setRol(DataUser.rol)
       setCompany(DataUser.empresa)
       navigate('/bodega/home')
     } else {
-      setLoggedIn(false)
+      setUser(null)
       setRol('')
       setCompany({})
       navigate('/')
@@ -30,13 +28,13 @@ export function AuthProvider ({ children }) {
   }
 
   const logout = () => {
-    localStorage.removeItem('Token')
-    setLoggedIn(false)
+    localStorage.removeItem('tokenBodega')
+    setUser(null)
     navigate('/')
   }
 
   return (
-    <AuthContext.Provider value={{ loggedIn, user, rol, setRol, login, logout, defineCompany, company, setCompany }}>
+    <AuthContext.Provider value={{ user, rol, setRol, login, logout, defineCompany, company, setCompany }}>
       {children}
     </AuthContext.Provider>
   )

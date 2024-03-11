@@ -18,7 +18,7 @@ export const LoginForm = () => {
     setMessage('Iniciando Sesión...')
     try {
       const { data: { auth, token } } = await axios.post('/login', { user: username, password })
-      localStorage.setItem('Token', token) // Guarda el token en localStorage con el nombre 'Token'
+      localStorage.setItem('tokenBodega', token) // Guarda el token en localStorage con el nombre 'Token'
       const DataUser = await getUserByToken(token)
       login(auth, DataUser)
     } catch (error) {
@@ -46,8 +46,8 @@ export const LoginForm = () => {
           </figure>
           <article className='flex flex-col mb-20'>
             <label className='font-semibold mb-2 text-black'>Usuario:</label>
-            <input type='text' placeholder='CP1118333444'
-              className='p-2.5 mb-10 rounded-md  text-black'
+            <input type='text' placeholder='CP1118333444' name='username'
+              className='p-2.5 mb-10 rounded-md  text-black' autoComplete='username'
               onChange={ev => setUsername(ev.target.value)} />
             <label className='font-semibold mb-2 text-black'>Contraseña:</label>
             <input type='password' placeholder='**************' autoComplete='current-password'
