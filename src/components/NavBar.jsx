@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { Articulos, Bodegas, Simcards } from './NavLinks'
 
-export function NavBar ({ company, closeSesion, authorize }) {
+export function NavBar ({ closeSesion, authorize }) {
   const [renderMenu, setRenderMenu] = useState({ id: '', render: false })
   const handleClickMenu = (ev) => {
     setRenderMenu({ id: ev.target.id, render: true })
@@ -28,10 +28,10 @@ export function NavBar ({ company, closeSesion, authorize }) {
 
   return (
     <nav className=" bg-gray-900 flex h-16 items-center justify-around ">
-      <div className='text-black font-semibold bottom-2 left-2 absolute'>Base De Datos: <span className='text-red-500'> {company} </span></div>
+
       <figure>
         <NavLink onClick={handleLinkClick} to="/bodega/home" className="">
-          <img src="/gane.png" className="h-8" alt="Flowbite Logo" />
+          <img src="/gane.png" className="h-8" alt="Logo empresa gane" />
         </NavLink>
       </figure>
 

@@ -82,7 +82,7 @@ export function CreatedItems ({ company }) {
               <option value="Nuevo">Nuevo</option>
               <option value="Bueno">Bueno</option>
               <option value="Malo">Malo</option>
-              <option value="Regular">Regular</option>
+              <option value="Baja">Baja</option>
             </select>
           </div>
 

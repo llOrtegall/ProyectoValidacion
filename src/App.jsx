@@ -29,7 +29,7 @@ import { getUserByToken } from './services/FetchItemsData.js'
 axios.defaults.baseURL = 'http://172.20.1.110:3030/api'
 
 export function App () {
-  const { loggedIn, rol, defineCompany, company, logout, user, login } = useAuth()
+  const { loggedIn, rol, defineCompany, company, user, login } = useAuth()
 
   useEffect(() => {
     const token = localStorage.getItem('Token')
@@ -43,54 +43,50 @@ export function App () {
     }
   }, [])
 
-  if (loggedIn === false) {
-    return <LoginForm />
-  }
-
   return (
-    user && (
-      <>
-        <NavBar company={company} closeSesion={logout} authorize={rol} />
+    <>
+      <Routes>
+        <Route path='/' element={<LoginForm />} />
 
-        <Routes>
-          <Route index element={<Home />} />
-          <Route path='/bodega/home' element={<Home company={company} fun={defineCompany} />} />
-          <Route path='/bodega/verMovimientos' element={<VerMovimientos company={company} />} />
-          <Route path='/bodega/verMovimientos/detalle/:id' element={<MovimientoDetalle company={company} />} />
-          <Route path='/bodega/stock/items' element={<Items company={company} rol={rol} />} />
-          <Route path='/bodega/stock/bodega' element={<VerBodegas company={company} />} />
-          <Route path='/bodega/stock/bodega/detalle/:id' element={<DetalleBodega company={company} />} />
-          <Route path='/bodega/stock/verSimcards' element={<VerSimcards company={company} />} />
+        <Route path='/bodega/*' element={<ProtectdeRoutes isAllowed={!!user} redirectTo='/' autorize={rol} />}>
+          <Route index path='home' element={<Home company={company} fun={defineCompany} />} />
+          <Route path='verMovimientos' element={<VerMovimientos company={company} />} />
+          <Route path='verMovimientos/detalle/:id' element={<MovimientoDetalle company={company} />} />
+          <Route path='stock/items' element={<Items company={company} rol={rol} />} />
+          <Route path='stock/bodega' element={<VerBodegas company={company} />} />
+          <Route path='stock/bodega/detalle/:id' element={<DetalleBodega company={company} />} />
+          <Route path='stock/verSimcards' element={<VerSimcards company={company} />} />
+        </Route>
 
-          <Route path='/bodega/stock/items/*' element={
-            <ProtectdeRoutes isAllowed={!!loggedIn && (rol.includes('Administrador') || rol.includes('Aux administrativa'))}>
-              <Routes>
-                <Route path='crearItems' element={<CreatedItems company={company} />} />
-                <Route path='asignarItems' element={<AsignarItemBodega company={company} />} />
-              </Routes>
-            </ProtectdeRoutes>} />
+        <Route path='/bodega/stock/items/*' element={
+          <ProtectdeRoutes isAllowed={!!loggedIn && (rol.includes('Administrador') || rol.includes('Aux administrativa'))}>
+            <Routes>
+              <Route path='crearItems' element={<CreatedItems company={company} />} />
+              <Route path='asignarItems' element={<AsignarItemBodega company={company} />} />
+            </Routes>
+          </ProtectdeRoutes>} />
 
-          <Route path='/bodega/stock/bodega/*' element={
-            <ProtectdeRoutes isAllowed={!!loggedIn && (rol.includes('Administrador') || rol.includes('Coordinador Soporte') || rol.includes('Aux administrativa'))}>
-              <Routes>
-                <Route path='crearBodega' element={<CreatedBodega company={company} />} />
-                <Route path='crearMovimiento' element={<CrearMovimiento company={company} user={user} />} />
-              </Routes>
-            </ProtectdeRoutes>} />
+        <Route path='/bodega/stock/bodega/*' element={
+          <ProtectdeRoutes isAllowed={!!loggedIn && (rol.includes('Administrador') || rol.includes('Coordinador Soporte') || rol.includes('Aux administrativa'))}>
+            <Routes>
+              <Route path='crearBodega' element={<CreatedBodega company={company} />} />
+              <Route path='crearMovimiento' element={<CrearMovimiento company={company} user={user} />} />
+            </Routes>
+          </ProtectdeRoutes>} />
 
-          <Route path='/bodega/stock/simcards/*' element={
-            <ProtectdeRoutes isAllowed={!!loggedIn && (rol.includes('Administrador') || rol.includes('Coordinador Soporte') || rol.includes('Aux administrativa'))}>
-              <Routes>
-                <Route path='crearSimcard' element={<CrearSimcard company={company} />} />
-                <Route path='asignarSimcards' element={<AsignarSimcards company={company} />} />
-                <Route path='crearMovimientoSimcard' element={<CreaMovimientosSim company={company} user={user} />} />
-              </Routes>
-            </ProtectdeRoutes>} />
+        <Route path='/bodega/stock/simcards/*' element={
+          <ProtectdeRoutes isAllowed={!!loggedIn && (rol.includes('Administrador') || rol.includes('Coordinador Soporte') || rol.includes('Aux administrativa'))}>
+            <Routes>
+              <Route path='crearSimcard' element={<CrearSimcard company={company} />} />
+              <Route path='asignarSimcards' element={<AsignarSimcards company={company} />} />
+              <Route path='crearMovimientoSimcard' element={<CreaMovimientosSim company={company} user={user} />} />
+            </Routes>
+          </ProtectdeRoutes>} />
 
-          <Route path='*' element={<NotFound />} />
+        <Route path='*' element={<NotFound />} />
 
-        </Routes>
-      </>
-    )
+      </Routes>
+    </>
+
   )
 }
