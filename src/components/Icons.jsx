@@ -16,19 +16,19 @@ export const ButtonDow = () => {
 
 export const ClaroIcon = () => {
   return (
-    <img src="./public/claroIcon.png" alt="icono de claro sin fondo" width={35} />
+    <img src="/claroIcon.png" alt="icono de claro sin fondo" width={35} />
   )
 }
 
 export const MovistarIcon = () => {
   return (
-    <img src="./public/logoMovistar.png" alt="icono de movistar sin fondo" width={30} />
+    <img src="/logoMovistar.png" alt="icono de movistar sin fondo" width={30} />
   )
 }
 
 export const TigoIcon = () => {
   return (
-    <img src="./public/logoTigo.png" alt="icono de tigo sin fondo" width={28} />
+    <img src="/logoTigo.png" alt="icono de tigo sin fondo" width={28} />
   )
 }
 

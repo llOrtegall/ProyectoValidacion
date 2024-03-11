@@ -25,9 +25,8 @@ import axios from 'axios'
 import { useEffect } from 'react'
 import { getUserByToken } from './services/FetchItemsData.js'
 
-axios.defaults.baseURL = '/api'
-// axios.defaults.baseURL = 'http://172.20.1.216:4002'
-axios.defaults.withCredentials = true
+// axios.defaults.baseURL = '/api'
+axios.defaults.baseURL = 'http://172.20.1.110:3030/api'
 
 export function App () {
   const { loggedIn, rol, defineCompany, company, logout, user, login } = useAuth()
