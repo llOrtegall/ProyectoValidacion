@@ -34,7 +34,7 @@ const options = [
   { value: 'Silla', label: 'Silla' }
 ]
 
-export function DetalleItem() {
+export function DetalleItem () {
   const [message, setMessage] = useState('')
   const [error, setError] = useState('')
   const { id } = useLocation().state
@@ -93,33 +93,46 @@ export function DetalleItem() {
   }
 
   return (
-    <section>
-      <h1>Detalle de Item</h1>
-      <form onSubmit={handleSubmit}>
-        <label>Nombre:</label>
-        <select name="nombre" value={item.nombre} onChange={handleChange}>
-          <option value="">Seleccionar Un Item</option>
-          {options.map((option) => (
-            <option key={option.value} value={option.value}>
-              {option.label}
-            </option>
-          ))}
-        </select>
-        <label>Descripcion:</label>
-        <input type="text" name="descripcion" value={item.descripcion} onChange={handleChange} />
-        <label>Placa:</label>
-        <input type="text" name="placa" value={item.placa} onChange={handleChange} />
-        <label>Serial:</label>
-        <input type="text" name="serial" value={item.serial} onChange={handleChange} />
-        <label>Estado:</label>
-        <select name="estado" value={item.estado} onChange={handleChange} className="px-3 py-2 border border-gray-300 rounded-md">
-          <option value="">Selecciona un estado</option>
-          <option value="Nuevo">Nuevo</option>
-          <option value="Bueno">Bueno</option>
-          <option value="Malo">Malo</option>
-          <option value="Baja">Baja</option>
-        </select>
-        <button type="submit">Actualizar</button>
+    <section className='w-full h-full bg-blue-200 p-4'>
+      <h1 className='text-center text-2xl font-semibold pb-8'>Detalle de Item </h1>
+      <form onSubmit={handleSubmit} className='grid grid-cols-3 gap-3'>
+        <div>
+          <label>Nombre:</label>
+          <select name="nombre" value={item.nombre} onChange={handleChange} className="px-3 py-2 border border-gray-300 rounded-md">
+            <option value="">Seleccionar Un Item</option>
+            {options.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div>
+          <label>Descripcion:</label>
+          <input className='p-2 rounded-md border border-gray-300'
+            type="text" name="descripcion" value={item.descripcion} onChange={handleChange} />
+        </div>
+        <div>
+          <label>Placa:</label>
+          <input className='p-2 rounded-md border border-gray-300'
+            type="text" name="placa" value={item.placa} onChange={handleChange} />
+        </div>
+        <div>
+          <label>Serial:</label>
+          <input className='p-2 rounded-md border border-gray-300'
+            type="text" name="serial" value={item.serial} onChange={handleChange} />
+        </div>
+        <div>
+          <label>Estado:</label>
+          <select name="estado" value={item.estado} onChange={handleChange} className="px-3 py-2 border border-gray-300 rounded-md">
+            <option value="">Selecciona un estado</option>
+            <option value="Nuevo">Nuevo</option>
+            <option value="Bueno">Bueno</option>
+            <option value="Malo">Malo</option>
+            <option value="Baja">Baja</option>
+          </select>
+        </div>
+        <button type="submit" className='p-2 rounded-md bg-yellow-400 w-32'>Actualizar</button>
       </form>
 
       <MessageDisplay message={message} error={error} />
